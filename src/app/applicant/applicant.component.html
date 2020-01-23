@@ -1,0 +1,68 @@
+<div class="main-container">
+    <applicant-header [isChecked]="sideBarActive" (signout)="logout()" (toggleBox)="toggleSidebar($event)"></applicant-header>
+    <mat-progress-bar *ngIf="routing" class="progress" color="warn" mode="indeterminate"></mat-progress-bar>
+    
+    <div class="content-container">
+ 
+        <div class="success" [class.active]="slideActive" >
+            <div class="success__body">
+                <i style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
+                <span class="text">Please, finish your profile</span>
+            </div>
+        </div>
+        
+        <div class="sidebar" [class.sideBarActive]="sideBarActive">
+            <h3 class="sidebar__header">Main</h3>
+            <div class="sidebar__list">
+                <a routerLink="home" routerLinkActive="active" title="Dashboard"
+                    (click)="toggleSidebar(false)"
+                [routerLinkActiveOptions]="{exact:false}" class="sidebar__list-item">
+                    <i class="icons fas fa-home"></i> <span class="names">Dashboard</span>
+                </a>
+                <a routerLink="jobs" routerLinkActive="active" title="Jobs"
+                    (click)="toggleSidebar(false)"
+                [routerLinkActiveOptions]="{exact:false}" class="sidebar__list-item">
+                    <i class="icons fas fa-clipboard-list"></i> <span class="names">Jobs</span>
+                </a>
+                <a routerLink="applications" routerLinkActive="active" title="Applications"
+                    (click)="toggleSidebar(false)"
+                [routerLinkActiveOptions]="{exact:false}" class="sidebar__list-item">
+                    <i class="icons fas fa-list"></i> <span class="names">Applications</span>
+                </a>
+                <a routerLink="bookmarks" routerLinkActive="active" title="Saved Jobs"
+                    (click)="toggleSidebar(false)"
+                [routerLinkActiveOptions]="{exact:false}" class="sidebar__list-item">
+                    <i class="icons far fa-bookmark"></i> <span class="names">Bookmarks</span>
+                </a>
+            </div>
+
+            <h3 class="sidebar__header">Account</h3>
+            
+            <div class="sidebar__list">
+                <a routerLink="profile" routerLinkActive="active" title="Account Profile"
+                    (click)="toggleSidebar(false)"
+                [routerLinkActiveOptions]="{exact:false}" class="sidebar__list-item">
+                    <i class="icons far fa-address-card"></i> <span class="names">Account Profile</span>
+                </a>
+                <a routerLink="issues" routerLinkActive="active" title="Report Issue"
+                    (click)="toggleSidebar(false)"
+                [routerLinkActiveOptions]="{exact:false}" class="sidebar__list-item">
+                    <i class="icons fas fa-bug"></i> <span class="names">Report Issue</span>
+                </a>
+                <a routerLink="password" routerLinkActive="active" title="Change Password"
+                    (click)="toggleSidebar(false)"
+                [routerLinkActiveOptions]="{exact:false}" class="sidebar__list-item">
+                    <i class="icons fas fa-key"></i> <span class="names">Change password</span>
+                </a>
+                <a (click)="logout()" class="sidebar__list-item" title="Logout">
+                    <i class="icons fas fa-sign-out-alt"></i> <span class="names">Logout</span>
+                </a>
+            </div>
+            
+        </div>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <shared-footer></shared-footer>
+</div>

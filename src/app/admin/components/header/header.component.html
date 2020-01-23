@@ -1,0 +1,31 @@
+<header class="header-section">
+    <div class="menu">
+        <input type="checkbox" id="menu-toggle" [checked]="isChecked"
+            class="menu__checkbox" (change)="hasChanged()">
+        <label for="menu-toggle" class="menu-button">
+            <span class="menu-icon">&nbsp;</span>
+        </label>
+        
+    </div>
+
+    <a routerLink= "/"><img src="assets/img/th_logo.png" class="header-section__logo" /></a>
+    <div class="menu__right">
+        
+        <div class="menu__notification">
+            <a class="menu__notification-item"><fa-icon [icon]="faBell"></fa-icon><span class="menu__notification-badge">7</span></a>
+        </div>
+        <div class="dropdown">
+            <div (click)="toggleDropdown($event)" class="dropbtn">
+                <!-- <span class="dropbtn__name">{{ authenticationService.currentUserValue.firstName | titlecase}}</span> -->
+                <img [src]="companyProfile ? companyProfile.companyLogo : 'assets/img/anonymous-avatar.png'" class="dropbtn__img" alt="" srcset="">
+            </div>
+            <div id="myDropdown" [class.show]="drop" class="dropdown-content">
+                <a class="menu__item" routerLink="home"><fa-icon class="menu__icon" [icon]="faHome"></fa-icon> Home</a>
+                <a class="menu__item" routerLink="profile"><fa-icon class="menu__icon" [icon]="faAddressCard"></fa-icon>Profile</a>
+                <a class="menu__item" routerLink="password"><fa-icon class="menu__icon" [icon]="faLock"></fa-icon>Change Password</a>
+                <a class="menu__item" (click)="logout()"><fa-icon class="menu__icon" [icon]="faSignOutAlt"></fa-icon>Logout</a>
+            </div>
+        </div>
+    </div>
+    
+</header>

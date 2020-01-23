@@ -1,0 +1,42 @@
+@import 'assets/scss/base/reset';
+@import 'assets/scss/abstracts/variables';
+@import 'assets/scss/base/typography';
+@import 'assets/scss/components/buttons';
+@import 'assets/scss/components/inputs';
+@import 'assets/scss/layouts/grid';
+@import 'assets/scss/layouts/container';
+@import 'assets/scss/layouts/header';
+@import 'assets/scss/layouts/footer';
+// @import 'assets/scss/pages';
+// @import 'assets/scss/utils';
+
+// .th-section{
+//     width: 100%;
+// }
+
+.sub-module-container{
+    padding: 1rem;
+    &__heading{
+        font-size: 2rem;
+        text-transform: uppercase;
+        color: #888;
+    }
+
+    &__container{
+        padding: 2rem;
+    }
+}
+            
+// Added by Material 
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-menu-content {
+    padding: 0 !important;
+}
+
+.menu-icon {
+    margin-right: 1rem;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

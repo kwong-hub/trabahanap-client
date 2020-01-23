@@ -1,0 +1,138 @@
+.applicant-detail{
+
+    &__infos{
+        display: flex;
+        flex-direction: column;
+        padding: 0rem 1rem;
+    }
+
+    &__top{
+        width: 100%;
+        padding: 2rem;
+        box-shadow: 0px 0px 4px #ccc;
+        display: flex;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    &__bottom{
+        width: 100%;
+        padding: 2rem;
+        box-shadow: 0px 0px 4px #ccc;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+
+    &__middle{
+        width: 100%;
+        padding: 2rem;
+        box-shadow: 0px 0px 4px #ccc;
+        margin-bottom: 2rem;
+    }
+
+    &__description{
+        display: flex;
+        flex-direction: column;
+
+        &-header{
+            font-size: 2rem;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        &-content{
+            font-size: 1.6rem;
+            color: #888;
+        }
+    }
+
+    &__download{
+        font-size: 1.6rem;
+        color: #333;
+        display: flex;
+        align-items: center;
+    }
+
+    &__download-cv{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // padding: 1rem;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 4rem;
+        font-size: 1.8rem;
+        color: rgb(55, 164, 55);
+        background-color: rgb(189, 233, 189);
+        border: none;
+        cursor: pointer;
+        margin-left: 1rem;
+    }
+
+    &__image{
+        height: 8rem;
+    }
+
+    &__name{
+        font-size: 2rem;
+        color: #888;
+        text-transform: uppercase;
+    }
+
+    &__email &__gender{
+        font-size: 1.6rem;
+        color: #555;
+    }
+
+    &__info-contain{
+
+        &-1{
+            margin-bottom: .5rem;
+        }
+
+        &-2{
+            font-size: 1.2rem;
+            color: #333;
+
+            div{
+                margin: .4rem 0rem;
+            }
+        }
+    }
+
+    &__bookmark{
+        position: absolute;
+        top: -6px;
+        right: 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #777;
+        background-color: transparent;
+        border: none;
+        outline: none;
+
+        &--saved{
+            color: tomato;
+        }
+        
+    }
+
+    &__bookmark-icon{
+        margin-top: -2px;
+        font-size: 2.7rem;
+        background-color: #fff;
+        // color: #777;
+        margin-left: 5px;
+    }
+
+    &__hired{
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
+

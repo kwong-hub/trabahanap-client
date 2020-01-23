@@ -1,0 +1,48 @@
+.container {
+    margin-top: 8rem;
+    padding: 2.5rem 0;
+    background-color: #ddd;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 95%;
+    margin: 0 auto;
+
+    &__header{
+        color: #555;
+        font-size: 2rem;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+
+    &__content{
+        width: 80%;
+        display: flex;
+        justify-content: flex-end;
+        max-height: 30rem;
+        transition: .3s all;
+        overflow:hidden;
+        height: auto;
+    }
+
+    &__icon{
+        margin-right: 1.5rem;
+    }
+
+    &__hide{
+        max-height: 0rem;
+    }
+}
+
+.form{
+    display: flex;
+    position: relative;
+    padding: .5rem 0rem;
+}
+
+.sub-container {
+    display: flex;
+}

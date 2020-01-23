@@ -1,0 +1,91 @@
+<div class="container">
+    <!-- <div class="success" (click)="closeSlide()" [class.active]="registerSuccess" >
+        <div class="success__body">
+            <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+            <span class="text">You have successfully registered</span>
+        </div>
+    </div> -->
+
+    <div class="form-container">
+        <div class="form-container__header">
+            <img src="../../../../assets/img/th_logo.png" alt="" class="header-logo">
+            <h3 *ngIf="empRegister" class="header-text">Create an Employer account</h3>
+            <h3 *ngIf="!empRegister" class="header-text">Create an Account</h3>
+            
+        </div>
+        <div class="form-container__body">
+            <form action="#" [formGroup]="registerForm" class="form" (ngSubmit)="onSubmit()">
+                <div *ngIf="error" class="form__error">{{ error | uppercase }}</div>
+
+                <div class="form__group form__group--double">
+                    <app-anonymous-custom-input-field [styleObject]="styleObject" defaultValue='' placeholder='First Name' style="flex: 1"
+                        label='First Name' [input]="registerForm.controls['firstName']"
+                        [submitted]="submitted" type='text' name='firstName' [formGroup]="registerForm">
+                    </app-anonymous-custom-input-field>
+
+                    <app-anonymous-custom-input-field [styleObject]="styleObject" defaultValue='' placeholder='Last Name' style="flex: 1"
+                        label='Last Name' [input]="registerForm.controls['lastName']"
+                        [submitted]="submitted" type='text' name='lastName' [formGroup]="registerForm">
+                    </app-anonymous-custom-input-field>
+                </div>
+
+                <div class="form__group">
+                    <app-anonymous-custom-input-field [styleObject]="styleObject" defaultValue='' placeholder='Email Address'
+                        label='Email Address' [input]="registerForm.controls['email']"
+                        [submitted]="submitted" type='email' name='email' [formGroup]="registerForm">
+                    </app-anonymous-custom-input-field>
+                </div>
+
+                <div class="form__group">
+                    <app-anonymous-custom-input-field [styleObject]="styleObject" defaultValue='' placeholder='Phone Number'
+                        label='Phone Number' [input]="registerForm.controls['phoneNumber']"
+                        [submitted]="submitted" type='tel' name='phoneNumber' [formGroup]="registerForm">
+                    </app-anonymous-custom-input-field>                
+                </div>
+
+                <div class="form__group form__group--double">
+                    <app-anonymous-custom-input-field [styleObject]="styleObject" defaultValue='' placeholder='Password' style="flex: 1"
+                        label='Password' [input]="registerForm.controls['password']"
+                        [submitted]="submitted" [type]="passwordType" name='password' [formGroup]="registerForm">
+                    </app-anonymous-custom-input-field>
+
+                    <app-anonymous-custom-input-field [styleObject]="styleObject" defaultValue='' placeholder='Confirm Password' style="flex: 1"
+                        label='Confirm Password' [input]="registerForm.controls['passwordConfirm']"
+                        [submitted]="submitted" [type]="passwordType" name='passwordConfirm' [formGroup]="registerForm">
+                    </app-anonymous-custom-input-field>
+
+                    <fa-icon (click)="togglePasswordType()" class="eye" [icon]="eyeIcon"></fa-icon>
+                </div>
+
+            <!-- ReCaptcha Integration -->
+                <div class="form__group form__group--recaptcha">
+                    <re-captcha required formControlName="recaptcha" (resolved)="resolved($event)" siteKey="6LcbF78UAAAAAA-J3-I-Xa-U0UMok39UaIUju_zl"></re-captcha>
+                    <div *ngIf="submitted && f.recaptcha.errors?.required" class="invalid-feedback">
+                        <div class="invalid-feedback__message">reCAPTCHA validation is required</div>
+                    </div>
+                    <!-- <div *ngIf="error && error.required" class="invalid-feedback">
+                        <div class="invalid-feedback__message">reCAPTCHA validation is required</div>
+                    </div> -->
+                </div>
+
+            <!-- Form submit button -->
+                <div class="form__group">
+                    <input [class.disabled]="loading" type="submit" value="Register" class="form__submit th-btn th-btn--primary">
+                </div>
+
+            </form>
+        </div>
+        <div class="form-container__footer">
+            <!-- social signup -->
+            <!-- <div class="line"></div><span>OR</span><div class="line"></div>
+
+            <div class="socials">
+                <a class="socials__bg socials__bg--facebook"><i class="fab fa-facebook-f"></i></a>
+                <a class="socials__bg socials__bg--google">
+                        <img src="https://media.newjobs.com/global/img/icons/btn_google_dark_normal_ios.svg" alt="G">
+                </a>
+                <a class="socials__bg socials__bg--twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div> -->
+    </div>
+</div>

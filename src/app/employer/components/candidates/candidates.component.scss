@@ -1,0 +1,30 @@
+.sub-container {
+  display: flex !important;
+  width: 90%;
+  // max-width: 60rem;
+  justify-content: flex-end;
+  margin: 0 auto;
+}
+
+.sub-module-container__heading {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+
+  &__button {
+    // flex-direction: column;
+    // justify-content: flex-end;
+    // position: relative;
+    // left: 95rem;
+    // top: 1.2rem;
+    
+    .app-btn {
+      width: 15rem;
+    }
+
+    &__detail{
+        padding: 0 3rem;
+        width: 16rem;
+    }
+  }
+}

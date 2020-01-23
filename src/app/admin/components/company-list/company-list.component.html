@@ -1,0 +1,143 @@
+<div class="sub-module-container">
+    
+    <div class="overlay" [class.active]="!filterHidden">
+    </div>
+    <div class="sub-module-container__container job">
+
+        <div class="filter">
+                <h3 class="filter__heading">Employers</h3>
+                <div (click)="toggleFilter($event)" class="filter__header">
+                    <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
+                </div>
+                <div class="filter__content" [class.filter__hide]="filterHidden">
+                    <form action="#" (ngSubmit)="filterEmployers()" class="form" [formGroup]="searchForm" autocomplete="off">
+                        <div class="sub-container">
+                            <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="companyName"
+                                defaultValue="" label='Company Name' placeholder='Search by Name'
+                                [input]="searchForm.controls['companyName']" type='text' [submitted]="false"
+                                [disabled]="false">
+                            </shared-custom-input-field>
+                        </div>
+                        <div class="sub-container">
+                            <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="industry"
+                                defaultValue="" label='Industry Type' placeholder='Search by Industry'
+                                [input]="searchForm.controls['industry']" type='text' [submitted]="false"
+                                [disabled]="false">
+                            </shared-custom-input-field>
+                        </div>
+    
+                        <div class="form__group--btn">
+                            <input type="submit" value="Search" class="form__submit th-btn th-btn--primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        <table *ngIf="companies.length > 0" mat-table [dataSource]="companies" class="mat-elevation-z3">
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="companyLogo">
+                <th mat-header-cell *matHeaderCellDef> Company Logo </th>
+                <td mat-cell *matCellDef="let company">
+                    <img style="margin: 0.5rem 0; height: 5rem;" [src]="company.companyLogo" alt="" class="logo">
+                </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="companyName">
+                <th mat-header-cell *matHeaderCellDef> Company Name </th>
+                <td mat-cell *matCellDef="let company"> {{ company.companyName }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalJobs">
+                    <th mat-header-cell *matHeaderCellDef> Active Jobs </th>
+                    <td mat-cell *matCellDef="let company"> {{ company.totalJobs }} </td>
+            </ng-container>
+
+            <!-- Phone Number Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let company">
+                    <div *ngIf="company.verified" class="tag tag--verified">
+                        <fa-icon [icon]="faCheckCircle"></fa-icon>
+                    </div>
+                    <div *ngIf="!company.verified" class="tag tag--unverified">
+                        <fa-icon [icon]="faTimesCircle"></fa-icon>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td style="min-width: 16rem;" class="company-list__actions-container" mat-cell *matCellDef="let company">
+                    <button (click)="toggleActions($event, company.id)" class="company-list__action">
+                        <fa-icon [icon]="faEllipsisV"></fa-icon>
+                    </button>
+                    <div class="company-list__actions" *ngIf="openActions[company.id]">
+                        <button [routerLink]="['details/', company.id]"
+                            class="company-list__action company-list__action--hover">
+                            <span class="company-list__icon"></span>Details</button>
+                        <button (click)="verifyCompany(company.id)"
+                            class="company-list__action company-list__action--hover"><span class="company-list__icon">
+                                <fa-icon [icon]="company?.verified ? faTimes : ''"></fa-icon>
+                            </span>{{ company.verified ? "Reject" : "Verify"}}</button>
+                        <button [routerLink]="['locations/', company.id]" *ngIf="company.verified"
+                            class="company-list__action company-list__action--hover"><span class="company-list__icon">
+
+                            </span>Locations</button>
+                        <button [routerLink]="['jobs/', company.id]" *ngIf="company.verified && company.hasLocations"
+                            class="company-list__action company-list__action--hover"><span class="company-list__icon">
+
+                            </span>Jobs</button>
+                        <button [routerLink]="['staffs/', company.id]" *ngIf="company.verified && company.hasLocations"
+                            class="company-list__action company-list__action--hover"><span class="company-list__icon">
+
+                            </span>Staff</button>
+                        <button style="min-width: 10rem" (click)="toggleFeatured($event, company.id)" *ngIf="company.verified"
+                        class="company-list__action company-list__action--hover"> {{ company.featured ? 'Remove Featured' : 'Add Featured' }}</button>
+                            <!-- <button [routerLink]="['applicant/', company.id]" *ngIf="company.verified && company.hasLocations"
+                            class="company-list__action company-list__action--hover"><span class="company-list__icon">
+
+                            </span>Applicants</button> -->
+                    </div>
+                    <!-- <div (click)="verifyCompany(company.id)" class="btn-outline verify">Verify</div> -->
+                    <!-- <a [routerLink]="['/applicant/applications/details', job.id]" class="btn-outline">View</a> -->
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <h3 *ngIf="companies && companies.length == 0">
+                <div class="not_Found">
+                    <span> Sorry, we didn't find any Company matching your criteria
+            
+                    </span>
+                    
+                </div>
+        </h3>
+
+        <div class="paginator">
+            <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize"
+                [pageSizeOptions]="[5, 8, 10, 25, 100]" (page)="getServerData($event)">
+            </mat-paginator>
+        </div>
+
+    </div>
+</div>
+
+<div class="add_employer_floating">
+    <button routerLink="add" class="add_employer_floating__button">
+        <span class="add_employer_floating__element">&#x2b;</span>
+    </button>
+</div>
+
+<div class="notification notification--error" [class.active]="reachedMaxFeatured" >
+    <div class="notification__body">
+        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+        
+        <span class="text">Maximum Featured Company Reached. Remove a company first.</span>
+    </div>
+</div>

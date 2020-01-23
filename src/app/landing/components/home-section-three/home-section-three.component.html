@@ -1,0 +1,25 @@
+<div class="container">
+    <section *ngIf="featured && featured.length > 0" class="featured">
+        <h3 class="featured__header">Partner Companies</h3>
+        <div class="featured__body">
+            <div class="featured__body__row" *ngFor="let company of featured">
+                <img (click)="searchJobs(company.id)" [src]="company.companyLogo" alt=""
+                    class="featured__img">
+            </div>
+        </div>
+
+
+        <!-- <div class="featured__row">
+            <img src="../../../../assets/img/partners/metro.png" alt="" class="featured__img">
+            <img src="../../../../assets/img/partners/asia-brewery-min.png" alt="" class="featured__img">
+            <img src="../../../../assets/img/partners/copylandia-min.png" alt="" class="featured__img">
+            <img src="../../../../assets/img/partners/eperformax-min.png" alt="" class="featured__img">
+        </div>
+        <div class="featured__row">
+            <img src="../../../../assets/img/partners/greenpasture-min.png" alt="" class="featured__img">
+            <img src="../../../../assets/img/partners/pagibig-min.png" alt="" class="featured__img">
+            <img src="../../../../assets/img/partners/pepsi-cola-min.png" alt="" class="featured__img">
+            <img src="../../../../assets/img/partners/travellers-min.png" alt="" class="featured__img">
+        </div> -->
+    </section>
+</div>

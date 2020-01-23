@@ -1,0 +1,91 @@
+<div class="main-container">
+    <employer-header [isChecked]="sideBarActive" (signout)="logout()" (toggleBox)="toggleSidebar($event)">
+    </employer-header>
+    <mat-progress-bar *ngIf="routing" color="warn" class="progress" mode="indeterminate"></mat-progress-bar>
+
+    <div class="content-container">
+
+        <div class="success" [class.active]="slideActive">
+            <div class="success__body">
+                <i style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline"
+                    class="far fa-times-circle"></i>
+                <span class="text">Please, finish your company profile</span>
+            </div>
+        </div>
+
+        <div class="success" [class.active]="noLocations">
+            <div class="success__body">
+                <i style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline"
+                    class="far fa-times-circle"></i>
+                <span class="text">Please, add your company's location</span>
+            </div>
+        </div>
+
+        <div class="sidebar" [class.sideBarActive]="sideBarActive">
+            <h3 class="sidebar__header">Main</h3>
+            <div class="sidebar__list">
+                <a routerLink="home" routerLinkActive="active" title="Dashboard" (click)="toggleSidebar(false)"
+                    [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+                    <i class="icons fas fa-home"></i> <span class="names">Dashboard</span>
+                </a>
+                <a routerLink="jobs" routerLinkActive="active" title="Jobs" (click)="toggleSidebar(false)"
+                    [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+                    <i class="icons fas fa-clipboard-list"></i> <span class="names">Jobs</span>
+                </a>
+                <a routerLink="candidates" routerLinkActive="active" title="Candidates" (click)="toggleSidebar(false)"
+                    [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+                    <i class="icons fas fa-users"></i> <span class="names">Candidates</span>
+                </a>
+                <a routerLink="filtered_candidates" routerLinkActive="active" title="Filtered"
+                    (click)="toggleSidebar(false)" [routerLinkActiveOptions]="{exact: false}"
+                    class="sidebar__list-item">
+                    <i class="icons fas fa-filter"></i> <span class="names">Filtered Candidates</span>
+                </a>
+
+                <a routerLink="applications" routerLinkActive="active" title="Filtered"
+                    (click)="toggleSidebar(false)" [routerLinkActiveOptions]="{exact: false}"
+                    class="sidebar__list-item">
+                    <i class="icons fas fa-list"></i> <span class="names">Applications</span>
+                </a>
+
+                <a routerLink="branches" routerLinkActive="active" title="Company Branches"
+                    (click)="toggleSidebar(false)" [routerLinkActiveOptions]="{exact: false}"
+                    class="sidebar__list-item">
+                    <i class="icons far fa-building"></i> <span class="names">Company Branches</span>
+                </a>
+            </div>
+
+            <h3 class="sidebar__header">Account</h3>
+
+            <div class="sidebar__list">
+                <a routerLink="profile" routerLinkActive="active" title="Account Profile" (click)="toggleSidebar(false)"
+                    [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+                    <i class="icons far fa-address-card"></i> <span class="names">Account Profile</span>
+                </a>
+
+                <a *ngIf="authenticationService.currentUserValue && authenticationService.currentUserValue.role == 'EMPLOYER'"
+                    routerLink="staff" routerLinkActive="active" title="Staff" (click)="toggleSidebar(false)"
+                    [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+                    <i class="icons fas fa-stamp"></i> <span class="names">Staff</span>
+                </a>
+                
+                <a routerLink="issues" routerLinkActive="active" title="Report Issue" (click)="toggleSidebar(false)"
+                    [routerLinkActiveOptions]="{exact:false}" class="sidebar__list-item">
+                    <i class="icons fas fa-bug"></i> <span class="names">Report Issue</span>
+                </a>
+                <a routerLink="plan" routerLinkActive="active" title="Subscription Plan" (click)="toggleSidebar(false)"
+                    [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+                    <i class="icons fas fa-money-check-alt"></i> <span class="names">Subscription Plan</span>
+                </a>
+                <a (click)="logout()" class="sidebar__list-item" title="Logout">
+                    <i class="icons fas fa-sign-out-alt"></i> <span class="names">Logout</span>
+                </a>
+            </div>
+
+        </div>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <shared-footer></shared-footer>
+</div>

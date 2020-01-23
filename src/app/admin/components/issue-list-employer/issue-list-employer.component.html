@@ -1,0 +1,51 @@
+<div class="sub-module-container">
+
+    <h3 class="sub-module-container__heading">Employer Reported Issues</h3>
+    <div class="sub-module-container__container">
+
+        <div *ngIf="issues.length === 0" class="noIssue">
+            <h2 class="noIssue__text">No Issues Submitted</h2>
+            <!-- <h4 class="noLocation__text--secondary"></h4> -->
+        </div>
+
+        <table *ngIf="issues.length > 0" style="min-width: 95rem;" mat-table [dataSource]="issues" class="mat-elevation-z4">
+            <!-- Symbol Column -->
+            <ng-container  matColumnDef="logo">
+                <th mat-header-cell *matHeaderCellDef>Company Logo</th>
+                <td mat-cell style="max-width: 35rem;" *matCellDef="let element">
+                    <img [src]="element.company_profile.companyLogo" alt="" class="logo">
+                </td>
+            </ng-container>
+        
+            <!-- Symbol Column -->
+            <ng-container  matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Company Name</th>
+                <td mat-cell style="max-width: 35rem;" *matCellDef="let element">
+                    {{element.company_profile.companyName }} 
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="issueReason">
+                <th mat-header-cell *matHeaderCellDef>Issue Reason</th>
+                <td mat-cell *matCellDef="let element"> {{ element.issueReason }} </td>
+            </ng-container>
+        
+            <!-- Weight Column -->
+            <ng-container matColumnDef="issueType">
+                <th mat-header-cell *matHeaderCellDef>Issue Type</th>
+                <td mat-cell *matCellDef="let element"> {{ element.issueType }} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell style="min-width: 8rem;" *matCellDef="let element"> 
+                    <button class="btn" [class.btn__reply]="!element.issueResponseId" [routerLink]="['details', element.id]">{{element.issueResponseId ? 'Replied' : 'Reply'}}</button>
+                </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+
+</div>

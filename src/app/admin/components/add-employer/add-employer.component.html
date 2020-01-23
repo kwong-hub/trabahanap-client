@@ -1,0 +1,288 @@
+<div class="sub-module-container">
+    <h3 class="sub-module-container__heading">Add Employer</h3>
+    <div class="sub-module-container__container">
+        <form style="border: 1px solid #aaa; padding: 1rem 0rem; border-radius: 1rem;"  action="#" class="form" [formGroup]="addEmployer" (ngSubmit)="onSubmit()">
+            <div class="form__title-container">
+                <h4 class="form__title">Add A New Employer</h4>
+            </div>
+            <div class="add-company-profile">
+                <div *ngIf="(submitted && addEmployer.invalid) || serverErrors" class="form__error">
+                    <p *ngFor="let err of formErrors"><fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{err}}</p>
+                </div>
+                <div class="sub-container">
+                    <shared-custom-input-field 
+                        class="input-element-type-1"
+                        [formGroup]="addEmployer" 
+                        name="firstName" 
+                        defaultValue=""
+                        placeholder='First Name' 
+                        label='First Name' 
+                        [input]="addEmployer.controls['firstName']"  
+                        type='text'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                    <shared-custom-input-field
+                        class="input-element-type-1"
+                        [formGroup]="addEmployer" 
+                        name="lastName" 
+                        defaultValue=""
+                        placeholder='Last Name' 
+                        label='Last Name' 
+                        [input]="addEmployer.controls['lastName']"  
+                        type='text'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                </div>
+        
+                <div class="sub-container">
+                    <shared-custom-input-field 
+                        class="input-element-type-1"
+                        [formGroup]="addEmployer" 
+                        name="email" 
+                        defaultValue=""
+                        placeholder='Email' 
+                        label='Email' 
+                        [input]="addEmployer.controls['email']"  
+                        type='text'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                    <shared-custom-input-field
+                        class="input-element-type-1"
+                        [formGroup]="addEmployer" 
+                        name="phoneNumber" 
+                        defaultValue=""
+                        placeholder='Phone Number' 
+                        label='Phone Number' 
+                        [input]="addEmployer.controls['phoneNumber']"  
+                        type='text'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                </div>
+                <div class="sub-container">
+                    <shared-custom-input-field
+                        class="input-element-type-2"
+                        [formGroup]="addEmployer" 
+                        name="companyName" 
+                        defaultValue=""
+                        placeholder='Enter company name' 
+                        label='Company name'
+                        [input]="addEmployer.controls['companyName']"  
+                        type='text'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                </div>
+                <div class="sub-container">
+                    <shared-custom-input-field 
+                        class="input-element-type-1"
+                        [formGroup]="addEmployer" 
+                        name="contactPerson" 
+                        defaultValue=""
+                        placeholder='Contact person' 
+                        label='Company Person' 
+                        [input]="addEmployer.controls['contactPerson']"  
+                        type='text'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                    <shared-custom-input-field
+                        class="input-element-type-1"
+                        [formGroup]="addEmployer" 
+                        name="contactNumber" 
+                        defaultValue=""
+                        placeholder='Contact number' 
+                        label='Contact number' 
+                        [input]="addEmployer.controls['contactNumber']"  
+                        type='number'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                </div>
+        
+                <div class="sub-container">
+                    <shared-custom-input-field 
+                        class="input-element-type-1"
+                        [formGroup]="addEmployer" 
+                        name="websiteURL" 
+                        defaultValue=""
+                        placeholder='Website URL' 
+                        label='Website URL' 
+                        [input]="addEmployer.controls['websiteURL']"  
+                        type='text'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                    <shared-custom-input-field
+                        class="input-element-type-1"
+                        [formGroup]="addEmployer" 
+                        name="companyAddress" 
+                        defaultValue=""
+                        placeholder='Company address' 
+                        label='Company address' 
+                        [input]="addEmployer.controls['companyAddress']"  
+                        type='text'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                </div>
+                <div style="justify-content: space-between;" class="sub-container">
+                    <shared-custom-file-input
+                        class="input-element-type-1"
+                        [formGroup]="addEmployer" 
+                        name="companyLogo" 
+                        defaultValue=""
+                        placeholder='Company Logo' 
+                        label='Company Logo' 
+                        [input]="addEmployer.controls['companyLogo']"  
+                        type="file"
+                        [submitted]="submitted"
+                        [disabled]="false"
+                        [accept]="logoFileTypes"
+                        (onValueChange)="fileChanged($event, 'companyLogo')"
+                    ></shared-custom-file-input>
+                    <shared-custom-file-input
+                        class="input-element-type-1"
+                        [formGroup]="addEmployer" 
+                        name="businessLicense" 
+                        defaultValue=""
+                        placeholder='Business License' 
+                        label='Business License' 
+                        [input]="addEmployer.controls['businessLicense']"  
+                        type="file"
+                        [submitted]="submitted"
+                        [disabled]="false"
+                        [accept]="licenseFileTypes"
+                        (onValueChange)="fileChanged($event, 'businessLicense')"
+                    ></shared-custom-file-input>
+                </div>
+    
+                <div class="sub-container">
+                    <shared-custom-input-field
+                        class="input-element-type-4"
+                        [formGroup]="addEmployer" 
+                        name="zipcode" 
+                        defaultValue=""
+                        placeholder='Zip Code' 
+                        label='Zip Code' 
+                        [input]="addEmployer.controls['zipcode']"  
+                        type='number'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                    <shared-custom-select 
+                        style="padding-top: .8rem;"
+                        [valid]="addEmployer.controls['industryType']?.status"
+                        class="input-element-type-4"
+                        (onValueChange)="selectChanged($event, 'industryType')" 
+                        [formGroup]="addEmployer" 
+                        name="industryType" 
+                        defaultValue=""
+                        placeholder='Select Industry' 
+                        [styleObject]="styleObject"
+                        label='Industry Type' 
+                        type='text'
+                        [options]="industries"
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-select>
+                    <shared-custom-input-field
+                        class="input-element-type-4"
+                        [formGroup]="addEmployer" 
+                        name="businessLicenseNumber" 
+                        defaultValue=""
+                        placeholder='Business License Number' 
+                        label='Business License Number' 
+                        [input]="addEmployer.controls['businessLicenseNumber']"
+                        type='number'
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-input-field>
+                </div>
+                <div class="sub-container">
+                    <shared-custom-select 
+                        [valid]="addEmployer.controls['RegionId']?.status"  
+                        (onValueChange)="selectChanged($event, 'countryId')" 
+                        name="countryId" 
+                        defaultValue=""
+                        [styleObject]="styleObject" 
+                        class="input-element-type-3" 
+                        placeholder="Select Country" 
+                        [options]="countries"
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-select>
+        
+                    <shared-custom-select 
+                        [valid]="addEmployer.controls['RegionId']?.status" 
+                        (onValueChange)="selectChanged($event, 'regionId')"  
+                        name="regionId" 
+                        label="Region"
+                        defaultValue=""
+                        [styleObject]="styleObject" 
+                        class="input-element-type-3" 
+                        placeholder="Select Region" 
+                        [options]="regions"
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-select>
+        
+                    <shared-custom-select 
+                        [valid]="addEmployer.controls['cityId']?.status" 
+                        (onValueChange)="selectChanged($event, 'cityId')" 
+                        name="cityId" 
+                        label="City"
+                        [defaultValue]="addEmployer.controls['cityId'].value"
+                        [styleObject]="styleObject" 
+                        class="input-element-type-3" 
+                        placeholder="Select City" 
+                        [options]="cities"
+                        [submitted]="submitted"
+                        [disabled]="false"
+                    ></shared-custom-select>
+                </div>
+                <div class="sub-container">
+                    <shared-textarea-field
+                        [disabled]="false"
+                        class="input-element-type-2"
+                        [formGroup]="addEmployer" 
+                        name="companyDescription" 
+                        defaultValue=""
+                        placeholder='Company description' 
+                        label='Company description' 
+                        [input]="addEmployer.controls['companyDescription']"  
+                        type='textarea'
+                        [submitted]="submitted"
+                    ></shared-textarea-field>
+                </div>
+                <div class="submit-container">
+                        <div (click)="cancle($event)" class="form__edit">Cancel <fa-icon class="form__edit-icon" [icon]="faTimes"></fa-icon></div>
+                    <input type="submit" class="form__submit th-btn th-btn--primary" [class.form__submit--inactive]="submitted || !addEmployer.valid" [disabled]="submitted" value="Add Employer" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="notification notification--added" [class.active]="employerAdded" >
+    <div class="notification__body">
+        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+        
+        <span class="text">You have successfully added employer</span>
+    </div>
+</div>
+
+<div class="notification notification--error" [class.active]="employerAddFailed" >
+    <div class="notification__body">
+        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+        
+        <span class="text">Failed to add employer. Try again.</span>
+    </div>
+</div>
+
+<shared-loader *ngIf="showLoader"></shared-loader>

@@ -1,0 +1,13 @@
+<div [@scrollAnimation]="state" class="dashboard-item" (click)="navigate()">
+    <div class="dashboard-item__header"></div>
+    <div class="dashboard-item__container">
+        <div class="dashboard-item__icon-container" 
+        [style.color]="iconName == 'faUsers' ? '#4083D7' : iconName == 'faUpload' ? '#37a437' : iconName == 'faUserFriends' ? '#a44da4' : '#FF5722'"
+        [style.backgroundColor]="iconName == 'faUsers' ? '#c5d9f3' : iconName == 'faUpload' ? '#bde9bd' : iconName == 'faUserFriends' ? '#e5c8e5' : '#ffccbc'"><fa-icon [classes]="['dashboard-item__icon']" [icon]="getIcon()"></fa-icon></div>
+        <div class="dashboard-item__main-text">{{dashboard?.value}}</div>
+        <div class="dashboard-item__sub-text">{{dashboard?.description}}</div>
+    </div>
+    <div class="dashboard-item__footer-container">
+        <!-- <div [class.dashboard-item__decrease]="!dashboard?.percentIncrease" [class.dashboard-item__increase]="dashboard?.percentIncrease">{{dashboard?.percent}}</div> -->
+    </div>
+</div>

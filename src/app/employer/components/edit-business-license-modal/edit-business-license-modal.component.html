@@ -1,0 +1,40 @@
+<div class="modal__container" [class.modal__show]="isModalOpen">
+    <div class="modal">
+        <div class="modal__header">
+            Add A New Business License
+        </div>
+        <form class="modal__form" action="#" (ngSubmit)="onSubmit()">
+            <div class="modal__content">
+                <shared-custom-file-input
+                    style="width:100%" 
+                    name="businessLicense"
+                    [formGroup]="updateBusinessLicenseForm"
+                    defaultValue="" 
+                    placeholder='New Business License' 
+                    label='New Business License'  
+                    [input]="updateBusinessLicenseForm.controls['businessLicense']" 
+                    type="file"
+                    [submitted]="submited"
+                    [disabled]="false"
+                    [accept]="businessLicenseFileTypes"
+                    (onValueChange)="fileChanged($event, 'businessLicense')"
+                ></shared-custom-file-input>
+            </div>
+            <div class="modal__footer">
+                <button (click)="closeModal()" class="modal__btn modal__btn--cancle">
+                    Cancel
+                </button>
+                <button type="submit" class="modal__btn modal__btn--submit">
+                    Submit
+                </button>
+            </div>
+        </form>
+        <div class="modal__close-btn-container">
+            <button (click)="closeModal()" class="modal__btn modal__btn--close">
+                <fa-icon [icon]="faTimes"></fa-icon>
+            </button>
+        </div>
+    </div>
+    <shared-loader *ngIf="showEditLoader"></shared-loader>
+</div>
+

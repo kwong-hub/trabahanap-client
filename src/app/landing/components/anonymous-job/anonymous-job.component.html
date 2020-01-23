@@ -1,0 +1,45 @@
+<div class="job">
+    <div class="job__left">
+        <div class="job__left--top">
+            <img class="job__company-image" [src]="imageUrl" />
+            <div class="job__left--top__container">
+                <h3 class="job__title">{{ Job.jobTitle }}</h3>
+                <div style="margin-top: 1rem;">
+                    <span class="job__company-name">{{ Job.companyName }}</span>
+                    <span class="job__company-verified"><i class="fas fa-check-circle job__company-verified-icon"></i> Verified</span>
+                </div>
+                <!-- <div>
+                    <span class="job__location"><i class="fas fa-map-marker-alt job__location-icon"></i> Location Name</span>
+                </div> -->
+            </div>
+            
+        </div>
+
+        <div class="job__left--middle">
+            <p class="job__description">{{ Job.jobDescription }}</p>
+            <!-- <span class="job__salary-range">Salary Range: {{ Job.salaryRange }}</span> -->
+        </div>
+        
+        <div class="job__left--bottom">
+            <div>
+                <span class="job__tag"><i class="job__tag-icon fa fa-tag"></i> Tags</span>
+            </div>
+            <div class="job__tag-elements">
+                <div class="job__tag-element">{{ Job.employmentType }}</div>
+                <div class="job__tag-element">{{ Job.industry }}</div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="job__right">
+        <button [routerLink]="['details', Job.jobId]" class="btn-outline job__detail-button">Details</button>
+        <div class="job__general-info">
+            <div class="job__info job__info-applicants">2 Applicants have applied</div>
+            <div class="job__info job__info-vacancies">{{ Job.vacancies }} Vacancies</div>
+            <div *ngIf="Job.pwd" class="job__info job__info-pwd"><i style="margin-right: .5rem" class="fab fa-accessible-icon"></i>PwD-Friendly</div>
+        </div>
+    </div>
+    <div>
+        <button *ngIf="!(userRole === 'EMPLOYER' || userRole === 'ADMIN')" (click)="bookmarkJob()" [class.job__bookmark--saved]="bookmarked" class="job__bookmark">{{bookmarked ? 'SAVED' : 'SAVE JOB'}} <i class="job__bookmark-icon far fa-bookmark"></i></button>
+    </div>
+</div>

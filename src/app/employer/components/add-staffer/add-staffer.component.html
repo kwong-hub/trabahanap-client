@@ -1,0 +1,96 @@
+<div class="staffs">
+<form action="#" class="form" [formGroup]="addStaffer" (ngSubmit)="onSubmit()">
+    <div class="sub-container">
+        <h3 class="form__header">Add A New Staff</h3>
+    </div>
+    <div class="sub-container">
+        <shared-custom-input-field
+            class="input-element-type-2"
+            [formGroup]="addStaffer" 
+            name="email" 
+            defaultValue=""
+            placeholder='Enter Email' 
+            label='Email' 
+            [input]="addStaffer?.controls['email']"  
+            type='text'
+            [submitted]="submitted"
+            [disabled]="false"
+        ></shared-custom-input-field>
+    </div>
+    <div class="sub-container">
+        <shared-custom-input-field
+            class="input-element-type-1"
+            [formGroup]="addStaffer" 
+            name="firstName" 
+            defaultValue=""
+            placeholder='First Name' 
+            label='First Name' 
+            [input]="addStaffer?.controls['firstName']"  
+            type='text'
+            [submitted]="submitted"
+            [disabled]="false"
+        ></shared-custom-input-field>
+        <shared-custom-input-field
+            class="input-element-type-1"
+            [formGroup]="addStaffer" 
+            name="lastName" 
+            defaultValue=""
+            placeholder='Last Name' 
+            label='Last Name' 
+            [input]="addStaffer?.controls['lastName']"  
+            type='text'
+            [submitted]="submitted"
+            [disabled]="false"
+        ></shared-custom-input-field>
+    </div>
+    <div class="sub-container">
+        <shared-custom-input-field
+            class="input-element-type-2"
+            [formGroup]="addStaffer" 
+            name="phoneNumber" 
+            defaultValue=""
+            placeholder='Phone Number' 
+            label='Phone Number' 
+            [input]="addStaffer?.controls['phoneNumber']"  
+            type='tel'
+            [submitted]="submitted"
+            [disabled]="false"
+        ></shared-custom-input-field>
+    </div>
+    <div class="sub-container">
+        <button type="submit" class="th-btn th-btn--primary form__submit-btn">Add Staff</button>
+    </div>
+</form>
+
+<div class="previous-staffs__container">
+    <div class="previous-staffs__header">Your Staff</div>
+    <div class="previous-staffs__staffs">
+        <div *ngIf="previousStaffs?.length > 0">
+            <div *ngFor="let staff of previousStaffs" class="previous-staffs__staff">
+                <div class="previous-staffs__staff__name">Name: {{staff.firstName + " " + staff.lastName}}</div>
+                <div class="previous-staffs__staff__email">Email: {{staff.email}}</div>
+                <div class="previous-staffs__staff__phone">Phone: {{staff.phoneNumber}}</div>
+            </div>
+        </div>
+        <h3 *ngIf="previousStaffs?.length == 0">No Staff Yet</h3>
+    </div>
+</div>
+
+</div>
+
+<div class="notification notification--added" [class.active]="stafferAdded" >
+    <div class="notification__body">
+        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+        
+        <span class="text">You have successfully added a staff.</span>
+    </div>
+</div>
+<div class="notification notification--error" [class.active]="stafferError" >
+    <div class="notification__body">
+        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+        
+        <span class="text">Failed to add staff.</span>
+    </div>
+</div>

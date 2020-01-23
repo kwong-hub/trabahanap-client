@@ -1,0 +1,12 @@
+<div class="mini__add-job">
+     <div class="mini__add-job-left">
+         <h3 class="mini__job-title">
+            {{job.jobTitle}}
+         </h3>
+         <span class="mini__job-position">Position: {{job.position}}</span>
+         <span class="mini__job-post-date">Date Posted: {{job.applicationStartDate}}</span>
+     </div>
+     <div class="mini__add-job-right">
+         <button (click)="onDetail()" class="mini__job-detail th-btn th-btn--primary">Detail</button>
+     </div>
+</div>

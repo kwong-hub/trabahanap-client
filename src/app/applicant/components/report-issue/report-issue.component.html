@@ -1,0 +1,129 @@
+<div class="notification notification--success" [class.active]="issueSuccess" >
+    <div class="notification__body">
+        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+        
+        <span class="text">Issue Submitted Successfully</span>
+    </div>
+</div>
+
+<div class="notification notification--delete" [class.active]="deleteSuccess" >
+    <div class="notification__body">
+        <i style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+        
+        <span class="text">Issue Deleted Successfully</span>
+    </div>
+</div>
+
+<div class="container">
+    
+    <div (click)="toggleFormModal()" class="fab">
+        <button class="fab__button">
+            <fa-icon class="fab__icon" [icon]="faPaperPlane"></fa-icon>
+        </button>
+    </div>
+
+    <h3 class="container__header">Report an Issue</h3>
+    
+    <div class="container__body">
+
+        <!-- to be displayed in desktop mode -->
+        <div class="desktop-form">
+            <app-issue-form (issueAdded)="addIssueToArray($event)"></app-issue-form>
+        </div>
+
+        <div class="issues">
+            <div class="issues__header">
+                Reported Issues
+            </div>
+            
+            <div class="issues__list">
+                <div *ngFor="let issue of issues" class="issue"> 
+                    <p class="type">{{ issue.issueType }} related</p>
+                
+                    <div class="issue__body">
+                        <div class="issue__left">
+                            <p class="reason">{{ issue.issueReason }}</p>
+                        </div>
+    
+                        <div class="issue__right">
+                            <p class="date">{{ issue.createdAt | date:'longDate' }}</p>
+                            <div class="btn-group">
+                                <!-- <button title="Detail" (click)="openDetailModal(issue)" class="btn">
+                                    <fa-icon class="icon" [class.icon--reply]="issue.issueResponseId" [icon]="faEnvelope"></fa-icon>
+                                </button> -->
+                                <button title="Details" [routerLink]="['details', issue.id]" class="btn">
+                                    <fa-icon class="icon" [class.icon--reply]="issue.issueResponseId" [icon]="faEnvelope"></fa-icon>
+                                </button>
+                                <button (click)="deleteIssue(issue.id)" class="btn">
+                                    <fa-icon class="icon icon--delete" [icon]="faTimes"></fa-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="overlay" [class.active]="isModalVisible">
+        <div (click)="toggleFormModal()" class="overlay__close">
+            <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
+        </div>
+    </div>
+        
+    <div class="modal" [class.active]="isModalVisible">
+        
+        <div class="modal__header">
+            <h2 class="text">Report the issue you encountered</h2>
+        </div>
+        <div class="modal__body">
+            <app-issue-form (issueAdded)="addIssueToArray($event)"></app-issue-form>
+        </div>
+    </div>
+
+    <!-- <div *ngIf="selectedIssue" class="overlay" [class.active]="detailModal">
+        <div (click)="closeDetailModal()" class="overlay__close">
+            <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
+        </div>
+    </div> -->
+
+    <!-- <div *ngIf="selectedIssue" class="modal" [class.active]="detailModal">
+        
+        <div class="modal__header">
+            <h2 class="text">Issue Details</h2>
+        </div>
+        <div class="modal__body">
+            <div class="details">
+                <div class="detail">
+                    <div class="detail__label">Issue Type</div>
+                    <div class="detail__value">
+                        <p class="text">{{ selectedIssue.issueType }} related</p>
+                    </div>
+                </div>
+                <div class="detail">
+                    <div class="detail__label">Reason</div>
+                    <div class="detail__value">
+                        <p class="text">{{ selectedIssue.issueReason}}</p>
+                    </div>
+                </div>
+                <div class="detail">
+                    <div class="detail__label">Issue Description</div>
+                    <div class="detail__value">
+                        <p class="text">{{ selectedIssue.issueDescription }}</p>
+                    </div>
+                </div>
+                <div class="detail">
+                    <div class="detail__label">Response from Admin</div>
+                    <div class="detail__value">
+                        <p *ngIf="selectedIssue.issueResponseId" class="text">{{ selectedIssue.issue_response.issueResponse }}</p>
+                        <p *ngIf="!selectedIssue.issueResponseId" class="text text--noReply">No response yet. We will reply to you as soon as possible.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div> -->
+</div>

@@ -1,0 +1,261 @@
+.job{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 95%;
+    margin: 2rem auto;
+    position: relative;
+    padding: 2rem 1rem;
+    border: 2px solid #ccc;
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+
+    &::after{
+        content: "";
+        display: block;
+        width: 3%;
+        border-radius:6px;
+        box-shadow: 0 10px 45px rgba(255,255,255, .1);
+        background: #fff;
+        position: absolute;
+        left: -20%;
+        top: 0;
+        bottom: 0;
+        z-index: 100;
+        animation-name: overlayAnimation;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+    }
+
+    &__left{
+        width: 100%;
+
+        &--top{
+            display: flex;
+        }
+
+        &--middle{
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 0rem;
+        }
+
+        &--bottom{
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__right{
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100%;
+        margin: 1.5rem 0rem;
+    }
+
+    &__apply-button{
+        align-self: center;
+        background-image: none;
+        background-color: #ddd !important;
+        width: 100%;
+    }
+
+    &__left--top__container{
+        margin: 1rem 2rem;
+        flex: 1;
+    }
+
+    &__title{
+        color: #42597B ;
+        font-size: 2rem ;
+        font-weight: 700;
+        margin-bottom: 0px ;
+        text-transform: uppercase;
+        width: 100%;
+        height: 3rem;
+        border-radius: 1rem;
+        display: block;
+        background-color: #ddd;
+    }
+
+    &__company-image{
+        height: 13rem;
+        width: 10rem;
+        background-color: #ddd;
+        border-radius: 1rem;
+    }
+
+    &__description{
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        color: #555;
+        width: 100%;
+        height: 10rem;
+        background-color: #ddd;
+        border-radius: 1rem;
+    }
+
+    &__salary-range{
+        font-size: 1.1rem;
+        font-weight: 700;
+        width: 10rem;
+        height: 2rem;
+        background-color: #ddd;
+        border-radius: 1rem;
+    }
+
+    &__tag{
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #42597B;
+        text-transform: capitalize;
+        
+        // margin-right: 1rem;
+    }
+
+    &__tag-elements{
+        display: flex;
+        width: 20rem;
+        height: 2rem;
+        border-radius: 1rem;
+        background-color: #ddd;
+        justify-content: space-between;
+    }
+
+    &__tag-element{
+        display: flex;
+        align-items: cetner;
+        color: white;
+        background-color: #fff;
+        padding: 0.2rem 1.2rem;
+        border-radius: 1.5rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin: 3px 0.3rem;
+        font-size: 1rem;
+        width: 40%;
+    }
+
+    &__company-verified{
+        font-size: 1.5rem;
+        color: #888;
+        text-transform: uppercase;
+        width: 10rem;
+        height: 2rem;
+        background-color: #ddd;
+        border-radius: 1rem;
+    }
+
+    &__company-verified-icon{
+        // font-size:1.rem;
+        color:#3f7f98;
+        margin-right: .5rem;
+    }
+
+    &__company-name{
+        color: black;
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        width: 15rem;
+        height: 1rem;
+        background-color: #ddd;
+        display: block;
+        border-radius: 1rem;
+        margin: 1rem 0;
+    }
+
+    &__location{
+        font-size: 1.5rem;
+        color: #0072bc;
+        font-weight: 300;
+        width: 20rem;
+        height: 2rem;
+        background-color: #fff;
+        border-radius: 1rem;
+        display: block;
+        background-color: #ddd;
+    }
+
+    &__location-icon{
+        color: #71171c;
+        margin-right: .5rem;
+    }
+
+    &__bookmark{
+        position: absolute;
+        top: -6px;
+        right: 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #777;
+        background-color: transparent;
+        border: none;
+        outline: none;
+
+        &--saved{
+            color: tomato;
+        }
+        
+    }
+
+    &__bookmark-icon{
+        margin-top: -2px;
+        font-size: 2.7rem;
+        background-color: #fff;
+        // color: #777;
+        margin-left: 5px;
+    }
+
+    &__general-info{
+        display: flex;
+        flex-direction: column;
+        padding: .5rem;
+        margin-top: 1rem;
+    }
+
+    &__info{
+        font-size: 1.1rem;
+        color: #42597B;
+        font-weight: 700;
+        width: 15rem;
+        height: 2rem;
+        background-color: #ddd;
+        border-radius: 1rem;
+
+        &:not(:last-child){
+            margin-bottom: .5rem;
+        }
+    }
+}
+
+@media only screen and (min-width:480px) { 
+    .job{
+        flex-direction: row;
+
+        &__left{
+            width: 70%;
+        }
+
+        &__right{
+            flex-direction: column;
+            width: auto;
+        }
+
+        &__apply-button{
+            align-self: none;
+        }
+    }
+}
+
+@media only screen and (min-width:700px) { 
+    // .job{
+    //     width: 80%;
+    // }
+}
+
+@keyframes overlayAnimation {
+    from {left: 0;}
+    to {left: 120%;}
+}

@@ -1,0 +1,147 @@
+<div class="sub-module-container">
+    <div class="notification notification--success" [class.active]="applicantAdded" >
+        <div class="notification__body">
+            <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+            <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+            
+            <span class="text">Successfully added a New Applicant</span>
+        </div>
+    </div>
+    <h3 class="sub-module-container__heading">Applicants</h3>
+    <div class="sub-module-container__container job">
+        <div class="form-container">
+            <h2 class="form__header">Add New Applicant</h2>
+            <form action="#" class="form" [formGroup]="addApplicantForm" 
+                enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+                <div class="form__group">
+                    <shared-custom-input-field defaultValue='' placeholder='First Name'
+                        label='First Name' [input]="addApplicantForm.controls['firstName']"
+                        [submitted]="submitted" type='text' name='firstName' [formGroup]="addApplicantForm">
+                    </shared-custom-input-field>
+
+                    <shared-custom-input-field defaultValue='' placeholder='Last Name'
+                        label='Last Name' [input]="addApplicantForm.controls['lastName']"
+                        [submitted]="submitted" type='text' name='lastName' [formGroup]="addApplicantForm">
+                    </shared-custom-input-field>
+                </div>
+
+                <div class="form__group">
+                    <shared-custom-input-field defaultValue='' placeholder='Email'
+                        label='Email' [input]="addApplicantForm.controls['email']"
+                        [submitted]="submitted" type='email' name='email' [formGroup]="addApplicantForm">
+                    </shared-custom-input-field>
+                </div>
+
+                <div class="form__group form__group--selects">
+                    <shared-custom-select 
+                        [valid]="addApplicantForm.controls['gender']"  
+                        (onValueChange)="selectChanged($event, 'gender')" 
+                        name="gender" label="Gender" 
+                        [defaultValue]="" [styleObject]="styleObject" 
+                        class="input-element-type-1" placeholder="Select Gender" 
+                        [options]="genderOptions" [submitted]="submitted" 
+                    ></shared-custom-select>
+
+                    <shared-custom-datepicker
+                        class="input-element-type-1"
+                        [formGroup]="addApplicantForm" 
+                        name="dateOfBirth" [defaultValue]=""
+                        placeholder='Date Of Birth' label='Date Of Birth' 
+                        (onValueChange)="dateChanged($event, 'dateOfBirth')"
+                        type='text' [submitted]="submitted" 
+                    ></shared-custom-datepicker>
+                </div>
+
+                <div class="form__group">
+                    <shared-custom-input-field defaultValue='' placeholder='Current Employer'
+                        label='Current Employer' [input]="addApplicantForm.controls['currentEmployer']"
+                        [submitted]="submitted" type='text' name='currentEmployer' [formGroup]="addApplicantForm">
+                    </shared-custom-input-field>
+
+                    <shared-custom-input-field defaultValue='' placeholder='Current Occupation'
+                        label='Current Occupation' [input]="addApplicantForm.controls['currentOccopation']"
+                        [submitted]="submitted" type='text' name='currentOccopation' [formGroup]="addApplicantForm">
+                    </shared-custom-input-field>
+                </div>
+
+                <div class="form__group">
+                    <shared-custom-input-field defaultValue='' placeholder='Address'
+                        label='Address' [input]="addApplicantForm.controls['address']"
+                        [submitted]="submitted" type='address' name='address' [formGroup]="addApplicantForm">
+                    </shared-custom-input-field>
+
+                    <shared-custom-input-field defaultValue='' placeholder='Phone Number'
+                        label='Phone Number' [input]="addApplicantForm.controls['phoneNumber']"
+                        [submitted]="submitted" type='tel' name='phoneNumber' [formGroup]="addApplicantForm">
+                    </shared-custom-input-field>
+                </div>
+                
+                <div class="form__group form__group--selects">
+                    <shared-custom-select 
+                        [valid]="addApplicantForm.controls['RegionId']?.status"  
+                        (onValueChange)="selectChanged($event, 'CountryId')" 
+                        name="CountryId" [defaultValue]="1"
+                        label="Country" [styleObject]="styleObject" 
+                        class="input-element-type-3" placeholder="Select Country" 
+                        [options]="countries" [submitted]="submitted" 
+                    ></shared-custom-select>
+
+                    <shared-custom-select 
+                        [valid]="addApplicantForm.controls['RegionId']?.status" 
+                        (onValueChange)="selectChanged($event, 'RegionId')"  
+                        name="RegionId" defaultValue=""
+                        label="Region" [styleObject]="styleObject" 
+                        class="input-element-type-3" placeholder="Select Region" 
+                        [options]="regions" [submitted]="submitted" 
+                    ></shared-custom-select>
+
+                    <shared-custom-select 
+                        [valid]="addApplicantForm.controls['CityId']?.status" 
+                        (onValueChange)="selectChanged($event, 'CityId')" 
+                        name="CityId" defaultValue=""
+                        label="City" [styleObject]="styleObject" class="input-element-type-3" 
+                        placeholder="Select City" [options]="cities"
+                        [submitted]="submitted" 
+                    ></shared-custom-select>
+                </div>
+
+                <div class="form__group form__group--selects">
+                    <shared-custom-file-input placeholder='Profile Picture'
+                        defaultValue='' label='Profile Picture'
+                        [input]="addApplicantForm.controls['applicantPicture']"
+                        [submitted]="submitted" type='file'
+                        accept=".png,.jpg,.jpeg"
+                        name='applicantPicture' [formGroup]="addApplicantForm" 
+                        (onValueChange)="fileChanged($event, 'applicantPicture')" >
+                    </shared-custom-file-input>
+
+                    <shared-custom-file-input
+                        class="input-element-type-2"
+                        [formGroup]="addApplicantForm" 
+                        name="cv" placeholder='Upload CV' 
+                        label="Upload CV" 
+                        [input]="addApplicantForm.controls['cv']"  
+                        type="file" [submitted]="submitted"
+                        [accept]="cvFileTypes"
+                        (onValueChange)="fileChanged($event, 'cv')"
+                    ></shared-custom-file-input>
+                </div>
+
+                <div class="form__group">
+                    <shared-textarea-field
+                        class="input-element-type-2" [formGroup]="addApplicantForm" 
+                        name="selfDescription" defaultValue=""
+                        placeholder="Self description" label="Self description"
+                        [input]="addApplicantForm.controls['selfDescription']"  
+                        type='textarea' [submitted]="submitted"
+                    ></shared-textarea-field>
+                </div>
+
+                <div class="form__group">
+                    <input [class.disabled]="addApplicantForm.invalid || loading" type="submit" value="Submit" 
+                        class="form__submit th-btn th-btn--primary">
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>

@@ -1,0 +1,134 @@
+<div class="sub-module-container">
+
+    <div class="overlay" [class.active]="!filterHidden">
+    </div>
+
+    <h3 *ngIf="jobs && jobs.length == 0">
+        <div class="not_Found">
+            Sorry! No jobs found related to you match
+        </div>
+    </h3>
+    <div class="filter">
+        <h3 class="filter__heading">Jobs</h3>
+        <div (click)="toggleFilter($event)" class="filter__header">
+            <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
+        </div>
+        <div class="filter__content" [class.filter__hide]="filterHidden">
+            <form action="#" (ngSubmit)="filterJobs()" class="form" [formGroup]="searchForm" autocomplete="off">
+                <div class="sub-container">
+                    <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="query"
+                        defaultValue="" label='Search' placeholder='Enter Search Text'
+                        [input]="searchForm.controls['query']" type='text' [submitted]="false" [disabled]="false">
+                    </shared-custom-input-field>
+                </div>
+                <div class="form__group">
+                    <input [formGroup]="searchForm" [(ngModel)]="industryName" [ngModelOptions]="{standalone: true}"
+                        #industryInput (keyup)="fetchIndustries(industryInput.value)" type="text"
+                        class="form__input form__input--autocomplete" name="industryName" placeholder="Industry">
+
+                    <ul *ngIf="showOptionsIndustry && industries.length > 0" class="options">
+                        <li (click)="selectIndustry(industry.industryName); industryInput.value = industry.industryName"
+                            class="options__list" *ngFor="let industry of industries">
+                            {{ industry.industryName }}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sub-container">
+                    <shared-custom-select style="padding-top: 1.2rem;"
+                        [valid]="searchForm.controls['employmentType']?.status" class="input-element-type-2"
+                        [formGroup]="searchForm" name="employmentType" defaultValue=""
+                        (onValueChange)="customValueChanged($event, 'employmentType')"
+                        placeholder='Select Employment Type' [styleObject]="styleObject" label='EmploymentType'
+                        type='text' [options]="employmentType" [submitted]="false" [disabled]="false">
+                    </shared-custom-select>
+
+
+                </div>
+                <div class="sub-container">
+                    <shared-custom-select style="padding-top: .8rem;"
+                        [valid]="searchForm.controls['SalaryRange']?.status" class="input-element-type-2"
+                        [formGroup]="searchForm" name="SalaryRange" defaultValue=""
+                        (onValueChange)="customValueChanged($event, 'SalaryRange')"
+                        placeholder='Select SalaryRange Type' [styleObject]="styleObject" label='SalaryRange'
+                        type='text' [options]="SalaryRange" [submitted]="false" [disabled]="false">
+                    </shared-custom-select>
+
+                </div>
+
+                <div class="form__group--btn">
+                    <input type="submit" value="Search" class="form__submit th-btn th-btn--primary">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div *ngIf="jobs && jobs.length > 0">
+        <div class="sub-module-container__container job">
+            <table mat-table [dataSource]="jobs" class="mat-elevation-z3">
+
+                <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="jobTitle">
+                    <th mat-header-cell *matHeaderCellDef> Job Title</th>
+                    <td mat-cell *matCellDef="let element"> {{element.jobTitle}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="industry">
+                    <th mat-header-cell *matHeaderCellDef> Industry</th>
+                    <td mat-cell *matCellDef="let element"> {{element.industry}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="education">
+                    <th mat-header-cell *matHeaderCellDef> Education Attaniment</th>
+                    <td mat-cell *matCellDef="let element"> {{element.educationAttainment}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="salaryRange">
+                    <th mat-header-cell *matHeaderCellDef> Salary Range</th>
+                    <td mat-cell *matCellDef="let element"> {{element.salaryRange}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-button [matMenuTriggerFor]="menu">
+                            <fa-icon style="color: tomato" [icon]="faEllipsisV"></fa-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button (click)="editJob(element.companyProfileId, element.jobId)" mat-menu-item>
+                                <fa-icon class="menu-icon" [icon]="faEdit"></fa-icon> Edit
+                            </button>
+                            <button (click)="toggleJob(element.jobId)" mat-menu-item>
+                                <fa-icon class="menu-icon" [icon]="faTrashAlt"></fa-icon> Delete
+                            </button>
+                        </mat-menu>
+                        
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator class="paginator" [length]="pager?.totalItems" [pageSize]="pager?.pageSize"
+                [pageSizeOptions]="[5, 8, 10, 25, 100]" (page)="getServerData($event)">
+            </mat-paginator>
+        </div>
+
+    </div>
+</div>
+
+<app-shared-delete-modal
+[isModalOpen]="isLogoEditModalOpen"
+[jobId]="deletedId"
+(closeModalEvent)="toggleJob($event)"
+(deletedJob) = "deleteJob($event)"
+></app-shared-delete-modal>

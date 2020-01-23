@@ -1,0 +1,36 @@
+<div class="custom-datepicker">
+    <input [placeholder]="placeholder" [name]="name" [disabled]="disabled" readonly (click)="inputClicked($event)" type='text' class="custom-datepicker__input" [value]="inputDate" />
+    <label class="custom-datepicker__label" [for]="name">{{label}}</label>
+    <span (click)="inputClicked($event)" class="custom-datepicker__icon"><i class="fas fa-calendar-alt"></i></span>
+    <div class="custom-datepicker__dates" [class.custom-datepicker__hide]="!active ">
+        <div class="custom-datepicker__year-month-container">
+            <div (click)="stopClickPropacation($event)" class="custom-datepicker__year-container">
+                <div (click)="decadePrev($event)" class="custom-datepicker__arrow custom-datepicker__arrow--forward"><i class="fas fa-backward"></i></div>
+                <div (click)="yearPrev($event)" class="custom-datepicker__arrow custom-datepicker__arrow--left"><i class="fas fa-angle-left"></i></div>
+                <div class="custom-datepicker__year">{{year}}</div>
+                <div (click)="yearNext($event)" class="custom-datepicker__arrow custom-datepicker__arrow--left"><i class="fas fa-angle-right"></i></div>
+                <div (click)="decadeNext($event)" class="custom-datepicker__arrow custom-datepicker__arrow--forward"><i class="fas fa-forward"></i></div>
+            </div>
+            <div (click)="stopClickPropacation($event)" class="custom-datepicker__month-container">
+                <div (click)="monthPrev($event)" class="custom-datepicker__arrow custom-datepicker__arrow--left"><i class="fas fa-angle-left"></i></div>
+                <div class="custom-datepicker__month">{{monthsOfTheYear[month]}}</div>
+                <div (click)="monthNext($event)" class="custom-datepicker__arrow custom-datepicker__arrow--left"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+        <div class="custom-datepicker__all-week-days">
+            <div class="custom-datepicker__week-day">Mo</div>
+            <div class="custom-datepicker__week-day">Tu</div>
+            <div class="custom-datepicker__week-day">We</div>
+            <div class="custom-datepicker__week-day">Th</div>
+            <div class="custom-datepicker__week-day">Fr</div>
+            <div class="custom-datepicker__week-day">Sa</div>
+            <div class="custom-datepicker__week-day">Su</div>
+        </div>
+        <div class="custom-datepicker__days-container">
+            <div class="custom-datepicker__week">
+                <div (click)="stopClickPropacation($event)" class="custom-datepicker__day custom-datepicker__day--disabled" *ngFor="let prevDays of daysBeforeStartOfMonth">{{prevDays}}</div>
+                <div [class.custom-datepicker__day--active]="month == currentMonth && year == currentYear && day == localday" *ngFor="let localday of currentMonthDays" (click)="dateSelected(localday)" class="custom-datepicker__day">{{localday}}</div>
+            </div>
+        </div>
+    </div>
+</div>

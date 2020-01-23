@@ -1,0 +1,277 @@
+@import '../../../../assets/scss/abstracts/variables';
+
+.container {
+    margin-top: 5.5rem;
+}
+
+.search {
+    height: 50rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../../assets/img/test4.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    // background-position: center;
+    // background-position: 70%;
+    
+    &__header {
+        color: white;
+        font-size: 3.8rem;
+        font-weight: 700;
+        font-style: italic;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 70%;
+        padding: 0 1.7rem;
+        margin: 3rem auto 0;
+
+        &__group {
+            display: inline-flex;
+            flex: 1 1 auto;
+            position: relative;
+            border: 1px solid #888;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            background-color: #fff;
+            // overflow: hidden;
+
+            &--btn {
+                border-radius: 3px;
+                width: 100%;
+            }
+        }
+
+        &__divider {
+            display: none;
+        }
+
+        &__icon {
+            padding: 0.5rem 1.2rem;
+            font-size: 1.8rem;
+            align-self: center;
+        }
+
+        &__input {
+            border: 0;
+            padding: 1.3rem 0;
+            flex: 1;
+            border-radius: 5px;
+            font-size: 2.3rem;
+
+        }
+
+        .options {
+            position: absolute;
+            z-index: 5;
+            // margin-top: -.8rem;
+            top: 4.5rem;
+            left: 0;
+            border: 1px solid rgba(85, 85, 85, 0.5);
+            border-radius: 3px;
+            background-color: #fff;
+            width: 100%;
+            max-height: 25rem;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                width: 8px;
+              }
+              
+            &::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                border-radius: 1rem;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                border-radius: 1rem;
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+            }
+
+            &__list {
+                list-style: none;
+                font-size: 1.8rem;
+                padding: .8rem 1rem;
+                cursor: pointer;
+                transition: all .2s;
+
+                &:hover, &:active {
+                    background-color: #ddd;
+                }
+            }
+        }
+
+        &__submit {
+            width: 100%;
+            height: 5rem;
+            border: none;
+            padding: 0 2rem;
+            font-size: 1.8rem;
+        }
+    }
+
+    .btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-top: 3rem;
+        height: 6rem;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 .2rem 6px 0px #bbb;
+        background-color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all .2s;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: $color-primary;
+            transform-origin: bottom center;
+            transition: transform 0.25s ease-out;
+        }
+        &:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom center;
+        }
+        
+        &__text {
+            color: $color-primary;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-right: 1.5rem;
+            transition: all .3s;
+        }
+
+        &__icon {
+            color: darken($color: $color-primary, $amount: 5%);
+            font-size: 3rem;
+            animation-name: jump;
+            animation-duration: 1.2s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        &__shadow {
+            position: absolute;
+            bottom: 1rem;
+            right: 2.6rem;
+            width: 1rem;
+            animation-name: shadower;
+            animation-duration: 1.2s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            box-shadow: 0 1px 2px 2px black;
+        }
+
+        &:hover, &:active {
+            box-shadow: 0 .2rem 6px 2px #bbb;
+        }
+    }
+}
+@keyframes shadower {
+    0% {
+        box-shadow: 0 1px 5px 2px rgba(black, .6);
+    }
+    50% {
+        box-shadow: 0 1px 5px 1px rgba(black, .5);
+    }
+    100% {
+        box-shadow: 0 1px 5px 2px rgba(black, .6);
+    }
+}
+@keyframes jump {
+    0% {
+        transform: translateY(-1px);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+
+    100% {
+        transform: translateY(-1px);
+    }
+}
+
+
+@keyframes show {
+    0% {
+        transform: scaleX(1) scale(1);
+        opacity: 1;
+    }
+
+    20% {
+        transform: scaleX(1.4) scale(1.4);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scaleX(1.4) scale(1.4);
+        opacity: 0;
+    }
+}
+@media only screen and (min-width: 370px) {
+    .search {
+        background-size: cover;
+    }
+}
+
+@media only screen and (min-width: 650px) {
+    .search{
+        background-image: url('../../../../assets/img/home-one-img.jpg');
+        background-position: center;
+
+        .form {
+            flex-direction: row;
+            justify-content: center;
+            width: 50%;
+
+            &__divider {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+                display: inline-block;
+                height: 3.8rem;
+                border-left: 2px solid rgba(255, 99, 71, 0.8);
+            }
+            
+            &__group {
+                margin: 0;
+                border-radius: 0;
+                overflow: unset;
+
+                &:first-child {
+                    border-right: none;
+                    border-top-left-radius: 8px;
+                    border-bottom-left-radius: 8px;
+                }
+                
+                &:not(:first-child) {
+                    margin-right: 2rem;
+                    border-left: none;
+                    border-top-right-radius: 8px;
+                    border-bottom-right-radius: 8px;
+
+                    .form__input {
+                        border-top-right-radius: 8px;
+                        border-bottom-right-radius: 8px;
+                    }
+                }
+            }
+        }
+    }
+}

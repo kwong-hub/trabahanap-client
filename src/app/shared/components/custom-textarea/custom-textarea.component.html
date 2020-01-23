@@ -1,0 +1,9 @@
+<div [formGroup]="formGroup" class="form__group">
+    <textarea rows="3" [value]="defaultValue" [name]="name" [id]="name" class="form__input" [placeholder]="placeholder"
+    [class.form__input--error]="submitted && input.status == 'INVALID'"
+    [formControlName]="name" [ngClass]="{ 'is-invalid': submitted && input.status == 'INVALID' }"></textarea>
+    <label class="form__label" [for]="name">{{ label }}</label>
+    <div *ngIf="submitted && input.status == 'INVALID'" class="invalid-feedback">
+        <div class="invalid-feedback__message">{{label}} is not valid</div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+.noIssue {
+    &__text {
+        color: rgba(136, 136, 136, 0.8);
+        font-size: 3rem;
+        font-weight: 600;
+    }
+}
+
+table {
+    width: 100%;
+}
+
+.btn {
+    padding: .5rem 1rem;
+    border-radius: 3px;
+    border: 1px solid tomato;
+    background-color: white;
+    color: tomato;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:active {
+        transform: translateY(1px);
+        box-shadow: 0 1px .5rem rgba(black, .2);
+    }
+}

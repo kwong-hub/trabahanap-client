@@ -1,0 +1,32 @@
+<div class="container">
+    <section class="search">
+        <h3 class="search__header">Maghanap ng trabaho</h3>
+        <form method="get" class="form" (ngSubmit)="searchJobs()" autocomplete="off">
+            <div class="form__group">
+                <fa-icon style="color: #425A7B;" class="form__icon" [icon]="faSearch"></fa-icon>
+                <input [(ngModel)]="key" name="key" type="text" class="form__input" placeholder="Keyword">
+                <div class="form__divider"></div>
+            </div>
+            <div class="form__group">
+                <fa-icon style="color: #71171C;" class="form__icon" [icon]="faMarker"></fa-icon>
+                <input [(ngModel)]="cityName" #cityInput (keyup)="fetchCities(cityInput.value)" type="text" class="form__input form__input--autocomplete" 
+                    name="cityName" placeholder="City">
+                <ul *ngIf="showOptions && cities.length > 0" class="options">
+                    <li (click)="selectCity(city.cityName); cityInput.value = city.cityName" class="options__list" *ngFor="let city of cities">
+                        {{ city.cityName }}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form__group--btn">
+                <input type="submit" value="Search" class="form__submit th-btn th-btn--primary">
+            </div>
+        </form>
+        <a routerLink="/jobs/near" class="btn">
+            <span class="btn__text">Jobs Near Me</span>
+            <fa-icon [icon]="faMarker" class="btn__icon"></fa-icon>
+            <div class="btn__shadow"></div>
+        </a>
+    </section>
+
+</div>

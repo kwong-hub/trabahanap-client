@@ -1,0 +1,131 @@
+<div id="overlay" class="overlay" [class.active]="!filterHidden">
+</div>
+
+<div *ngIf="jobs" class="job-list-container">
+  
+
+    <div class="filter" [class.active]="!filterHidden">
+        <div (click)="toggleFilter($event)" class="filter__header">
+            <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
+        </div>
+        <div class="filter__content" [class.filter__hide]="filterHidden">
+            <form method="GET" action="#" (ngSubmit)="AdvancedSearch()" class="form" [formGroup]="searchForm"
+                autocomplete="off">
+                <div class="sub-container">
+                    <app-anonymous-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="query"
+                        defaultValue="" label='Search' placeholder='Enter Search Text'
+                        [input]="searchForm.controls['query']" type='text' [submitted]="false" [disabled]="false">
+                    </app-anonymous-custom-input-field>
+                </div>
+
+                <div class="sub-container">
+                    <div class="form__group">
+                        <input [formGroup]="searchForm" [(ngModel)]="cityName" [ngModelOptions]="{standalone: true}"
+                            #cityInput (keyup)="fetchCities(cityInput.value)" type="text"
+                            class="form__input form__input--autocomplete" name="cityName" placeholder="City">
+
+                        <ul *ngIf="showOptions && cities.length > 0" class="options">
+                            <li (click)="selectCity(city.cityName); cityInput.value = city.cityName"
+                                class="options__list" *ngFor="let city of cities">
+                                {{ city.cityName }}
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="form__group">
+                        <input [formGroup]="searchForm" [(ngModel)]="industryName" [ngModelOptions]="{standalone: true}"
+                            #industryInput (keyup)="fetchIndustries(industryInput.value)" type="text"
+                            class="form__input form__input--autocomplete" name="industryName" placeholder="Industry">
+
+                        <ul *ngIf="showOptionsIndustry && industries.length > 0" class="options">
+                            <li (click)="selectIndustry(industry.industryName); industryInput.value = industry.industryName"
+                                class="options__list" *ngFor="let industry of industries">
+                                {{ industry.industryName }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sub-container" style="margin-top: 1.2rem;">
+                    <app-anonymous-custom-select [valid]="searchForm.controls['employmentType']?.status"
+                        class="input-element-type-2" [formGroup]="searchForm" name="employmentType" defaultValue=""
+                        (onValueChange)="customValueChanged($event, 'employmentType')"
+                        placeholder='Select Employment Type' [styleObject]="styleObject" label='EmploymentType'
+                        type='text' [options]="employmentType" [submitted]="false" [disabled]="false">
+                    </app-anonymous-custom-select>
+
+                    <app-anonymous-custom-select [valid]="searchForm.controls['SalaryRange']?.status"
+                        class="input-element-type-2" [formGroup]="searchForm" name="SalaryRange" defaultValue=""
+                        (onValueChange)="customValueChanged($event, 'SalaryRange')"
+                        placeholder='Select SalaryRange Type' [styleObject]="styleObject" label='SalaryRange'
+                        type='text' [options]="SalaryRange" [submitted]="false" [disabled]="false">
+                    </app-anonymous-custom-select>
+                </div>
+
+                <div class="form__group--btn">
+                    <div class="checkbox">
+                        <input type="checkbox" formControlName="pwd" name="pwd" id="pwd-checkbox"
+                            class="checkbox__input">
+                        <label for="pwd-checkbox" class="checkbox__label">
+                            <div class="checkbox__button"></div>
+                            <span class="checkbox__text">PWD-Friendly <i style="margin: .5rem .5rem 0; color: #42597B"
+                                    class="fab fa-accessible-icon"></i></span>
+                        </label>
+                    </div>
+                </div>
+
+
+                <!-- <fa-icon class="form__icon" [icon]="faMarker"></fa-icon> -->
+
+
+
+                <!-- <app-anonymous-custom-input-field class="input-element-type-3" [formGroup]="searchForm" name="city"
+                        defaultValue="" label='City' placeholder='Enter City' [input]="searchForm.controls['city']"
+                        type='text' [submitted]="false" [disabled]="false">
+
+                    </app-anonymous-custom-input-field> -->
+
+                <!-- <app-anonymous-custom-input-field class="input-element-type-4" [formGroup]="searchForm" name="industry"
+                        defaultValue="" label='Industry' placeholder='Enter industries'
+                        [input]="searchForm.controls['industry']" type='text' [submitted]="false" [disabled]="false">
+                    </app-anonymous-custom-input-field> -->
+
+
+                <div class="form__group--btn">
+                    <input type="submit" value="Search" class="form__submit th-btn th-btn--primary">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- <shared-custom-datepicker (onValueChange)="datePickerChanged($event)"></shared-custom-datepicker> -->
+    
+    <div #jobsListAnchor *ngFor="let job of jobs">
+        <app-anonymous-job [isBookMarked]="checkJobBookmarked(job.jobId)" [Job]="job"></app-anonymous-job>
+    </div>
+    <!-- <div #anchor class="loader-container" [class.hide-loader]="reachedPageEnd"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div> -->
+    <div #anchor *ngIf="!reachedPageEnd && belowScroll && !(jobs && jobs.length == 0)">
+        <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
+        <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
+    </div>
+
+    <!-- <div #anchor></div> -->
+    <!-- <div class="job-list__pagination">
+        <a [routerLink]="['/jobs']" [queryParams]="{ page: pager?.currentPage-1}" [class.job-list__hide]="pager?.currentPage == 1" class="job-list__pagination-element"><i style="margin-right: .5rem;" class="fas fa-arrow-left"></i> Previous</a>
+        <a [routerLink]="['/jobs']" [queryParams]="{ page: page+1}" [class.job-list__pagination-element--active]="pager?.currentPage == page+1" *ngFor="let page of pager?.pages" class="job-list__pagination-element">{{page+1}}</a>
+        <a [routerLink]="['/jobs']" [queryParams]="{ page: pager?.currentPage+1}" [class.job-list__hide]="pager?.currentPage == pager?.totalPages" class="job-list__pagination-element">Next <i style="margin-left: .5rem;" class="fas fa-arrow-right"></i></a>
+    </div> -->
+</div>
+<!-- <div *ngIf="!jobs && shouldLoad || reachedPageEnd" class="job-list-container">
+        <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
+         <app-anonymous-job-skeleton></app-anonymous-job-skeleton> 
+</div> -->
+
+<h3 *ngIf="jobs && jobs.length == 0">
+    <div class="not_Found">
+        <span> Sorry, we didn't find any jobs matching your criteria
+
+        </span>
+
+    </div>
+</h3>

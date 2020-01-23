@@ -1,0 +1,206 @@
+<div class="container">
+    <div class="form-container form-container__section_one" [class.form-container__hide]="!showEmailForm">
+        <!-- <div (click)="" class="form-container__back">
+            &#9668;Back
+        </div> -->
+        <div class="form-container__header">
+            <img src="../../../../assets/img/th_logo.png" alt="" class="header-logo">
+            <h3 class="header-text">Sign into your account</h3>
+        </div>
+        
+        <div class="form-container__body">
+            <form action="#" class="form" [formGroup]="emailForm" (ngSubmit)="onEmailSubmit()">
+                <div *ngIf="error" class="form__error">{{ error | uppercase }}</div>
+                <!-- <div *ngIf="socialError" class="form__error">{{ socialError | uppercase }}</div> -->
+                <div class="form__group" >
+                    <input type="email" name="email" id="email" class="form__input form__input--password" placeholder="Email Address"
+                    [class.form__input--error]="submitted && f.email.errors"
+                    formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <label class="form__label" for="email">Email Address</label>
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div class="invalid-feedback__message" *ngIf="f.email.errors.required">Email is required</div>
+                        <div class="invalid-feedback__message" *ngIf="f.email.errors.email">Your input is not an email address</div>
+                    </div>
+                </div>
+                
+                <div class="form__group">
+                    <input [class.disabled]="loading" type="submit" value="NEXT" class="form__submit th-btn th-btn--primary">
+                </div>
+                <div style="width: 100%; text-align: center; font-size: 1.6rem; margin: 2rem 0rem; font-weight: 700;" class="form_group">-- OR --</div>
+                <div style="text-align: center; display: flex; justify-content: center; flex-direction: column;" class="form__group">
+                    <div class="social_login__container social_login__container--facebook" (click)="signInWithFB()"><i class="fab fa-facebook-square social_login__icon social_login__icon--facebook"></i><span class="social_login__text">Login With Facebook</span></div>
+                    <div class="social_login__container social_login__container--google" (click)="signInWithGoogle()"><i class="fab fa-google social_login__icon social_login__icon--google"></i><span class="social_login__text">Login With Google</span></div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="form-container__footer">
+            <span *ngIf="registerType==='applicant' else empBlock">Searching for a Job? <a [routerLink]="['/auth/register']" [queryParams]="{as: 'app'}">Register here</a></span>
+            <ng-template #empBlock>Want to post Jobs? <a [routerLink]="['/auth/register']" [queryParams]="{as: 'emp'}">Become an Employer</a></ng-template>
+        </div>
+    </div>
+    <div class="form-container form-container__section_two" [class.form-container__hide]="!showPasswordForm">
+        <div (click)="backToSignIn()" class="form-container__back">
+            &#9668;Back
+        </div>
+        <div class="form-container__header">
+            <img src="../../../../assets/img/th_logo.png" alt="" class="header-logo">
+            <h3 class="header-text">Welcome</h3>
+            <h5 class="header-text__sub">{{lgUser?.email}}</h5>
+        </div>
+        
+        <div class="form-container__body">
+            <form action="#" class="form" [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+                <div *ngIf="error" class="form__error">{{ error | uppercase }}</div>
+                <div class="form__group" [class.form__group__animate] = "showPasswordForm">
+                    <input [type]="passwordType" name="password" id="password" class="form__input" 
+                    placeholder="Password" minlength="6" [class.form__input--error]="submitted && fPassword.password.errors"
+                    formControlName="password" [ngClass]="{ 'is-invalid': submitted && fPassword.password.errors }" />
+                    <label class="form__label" for="password">Password</label>
+                    <fa-icon (click)="togglePasswordType()" class="eye" [icon]="eyeIcon"></fa-icon>
+                    <div *ngIf="submitted && fPassword.password.errors" class="invalid-feedback">
+                        <div class="invalid-feedback__message" *ngIf="fPassword.password.errors.required">Password is required</div>
+                    </div>
+                </div>
+                
+                <div class="form__group form__group--last" [class.form__group__animate] = "showPasswordForm">
+                    <div class="form__checkbox">
+                        <input type="checkbox" name="remember" id="remember" class="form__checkbox--input">
+                        <label for="remember" class="form__checkbox--label">Remember me</label>
+                    </div>
+                    <a routerLink="/auth/forgot-password" class="form__forgotPassword">Forgot Password?</a>
+                </div>
+                <div class="form__group" [class.form__group__animate] = "showPasswordForm">
+                    <input [class.disabled]="loading" type="submit" value="LOGIN" class="form__submit th-btn th-btn--primary">
+                </div>
+                <!-- <div style="width: 100%; text-align: center; font-size: 1.6rem; margin: 2rem 0rem; font-weight: 700;" class="form_group">-- OR --</div>
+                <div style="text-align: center; display: flex; justify-content: center; flex-direction: column;" class="form__group">
+                    <div class="social_login__container social_login__container--facebook" (click)="signInWithFB()"><i class="fab fa-facebook-square social_login__icon social_login__icon--facebook"></i><span class="social_login__text">Login With Facebook</span></div>
+                    <div class="social_login__container social_login__container--google" (click)="signInWithGoogle()"><i class="fab fa-google social_login__icon social_login__icon--google"></i><span class="social_login__text">Login With Google</span></div>
+                </div> -->
+            </form>
+        </div>
+    </div>
+    <div class="form-container form-container__section_three" [class.form-container__hide]="!showQuestionaryForm">
+        <div (click)="backToOptions()" class="form-container__back">
+            &#9668;Back
+        </div>
+        <div class="form-container__header">
+            <img src="../../../../assets/img/th_logo.png" alt="" class="header-logo">
+            <h3 class="header-text">Questionary</h3>
+            <h5 class="header-text__sub">For security reasons you need to fill these questionaries.</h5>
+        </div>
+        
+        <div class="form-container__body">
+            <form action="#" class="form" [formGroup]="questionaryForm" (ngSubmit)="onQuestionarySubmit()">
+                <div *ngIf="error" class="form__error">{{ error | uppercase }}</div>
+                <div class="form__group" [class.form__group__animate] = "showQuestionaryForm">
+                    <input type="text" name="firstName" id="firstName" class="form__input form__input--password" placeholder="First Name"
+                    [class.form__input--error]="submitted && fQuestionary.firstName.errors"
+                    formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && fQuestionary.firstName.errors }" />
+                    <label class="form__label" for="firstName">First Name</label>
+                    <div *ngIf="submitted && fQuestionary.firstName.errors" class="invalid-feedback">
+                        <div class="invalid-feedback__message" *ngIf="fQuestionary.firstName.errors.required">First Name is required</div>
+                    </div>
+                </div>
+
+                <div class="form__group" [class.form__group__animate] = "showQuestionaryForm">
+                    <input type="text" name="lastName" id="lastName" class="form__input form__input--password" placeholder="Last Name"
+                    [class.form__input--error]="submitted && fQuestionary.lastName.errors"
+                    formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && fQuestionary.lastName.errors }" />
+                    <label class="form__label" for="lastName">Last Name</label>
+                    <div *ngIf="submitted && fQuestionary.lastName.errors" class="invalid-feedback">
+                        <div class="invalid-feedback__message" *ngIf="fQuestionary.lastName.errors.required">Last Name is required</div>
+                    </div>
+                </div>
+                <div class="form__group" [class.form__group__animate] = "showQuestionaryForm">
+                    <input type="number" name="phoneNumber" id="phoneNumber" class="form__input form__input--password" placeholder="Phone Number"
+                    [class.form__input--error]="submitted && fQuestionary.phoneNumber.errors"
+                    formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && fQuestionary.phoneNumber.errors }" />
+                    <label class="form__label" for="phoneNumber">Phone Number</label>
+                    <div *ngIf="submitted && fQuestionary.phoneNumber.errors" class="invalid-feedback">
+                        <div class="invalid-feedback__message" *ngIf="fQuestionary.phoneNumber.errors.required">Phone Number required</div>
+                    </div>
+                </div>
+                
+                <div class="form__group" [class.form__group__animate] = "showQuestionaryForm">
+                    <input [class.disabled]="loading" type="submit" value="NEXT" class="form__submit th-btn th-btn--primary">
+                </div>
+                <!-- <div style="width: 100%; text-align: center; font-size: 1.6rem; margin: 2rem 0rem; font-weight: 700;" class="form_group">-- OR --</div>
+                <div style="text-align: center; display: flex; justify-content: center; flex-direction: column;" class="form__group">
+                    <div class="social_login__container social_login__container--facebook" (click)="signInWithFB()"><i class="fab fa-facebook-square social_login__icon social_login__icon--facebook"></i><span class="social_login__text">Login With Facebook</span></div>
+                    <div class="social_login__container social_login__container--google" (click)="signInWithGoogle()"><i class="fab fa-google social_login__icon social_login__icon--google"></i><span class="social_login__text">Login With Google</span></div>
+                </div> -->
+            </form>
+        </div>
+    </div>
+
+    <div class="form-container form-container__section_three" [class.form-container__hide]="!showSmsConfirmationForm">
+        <div (click)="backToOptions()" class="form-container__back">
+            &#9668;Back
+        </div>
+        <div class="form-container__header">
+            <img src="../../../../assets/img/th_logo.png" alt="" class="header-logo">
+            <h3 class="header-text">Confirm Phone Number</h3>
+        </div>
+        
+        <div class="form-container__body">
+            <form action="#" class="form" [formGroup]="smsConfirmationForm" (ngSubmit)="onSmsConfirmationSubmit()">
+                <div *ngIf="error" class="form__error">{{ error | uppercase }}</div>
+                <div class="form__group" [class.form__group__animate] = "showSmsConfirmationForm">
+                    <input type="number" name="passcode" id="passcode" class="form__input form__input--password" placeholder="Enter 6-digit code"
+                    [class.form__input--error]="submitted && fSMS.passcode.errors"
+                    formControlName="passcode" [ngClass]="{ 'is-invalid': submitted && fSMS.passcode.errors }" />
+                    <label class="form__label" for="passcode">Pass Code</label>
+                    <div *ngIf="submitted && fSMS.passcode.errors" class="invalid-feedback">
+                        <div class="invalid-feedback__message" *ngIf="fSMS.passcode.errors.required">Pass Code is required.</div>
+                    </div>
+                </div>
+                
+                <div class="form__group" [class.form__group__animate] = "showSmsConfirmationForm">
+                    <input [class.disabled]="loading" type="submit" value="SUBMIT" class="form__submit th-btn th-btn--primary">
+                </div>
+                <!-- <div style="width: 100%; text-align: center; font-size: 1.6rem; margin: 2rem 0rem; font-weight: 700;" class="form_group">-- OR --</div>
+                <div style="text-align: center; display: flex; justify-content: center; flex-direction: column;" class="form__group">
+                    <div class="social_login__container social_login__container--facebook" (click)="signInWithFB()"><i class="fab fa-facebook-square social_login__icon social_login__icon--facebook"></i><span class="social_login__text">Login With Facebook</span></div>
+                    <div class="social_login__container social_login__container--google" (click)="signInWithGoogle()"><i class="fab fa-google social_login__icon social_login__icon--google"></i><span class="social_login__text">Login With Google</span></div>
+                </div> -->
+            </form>
+        </div>
+    </div>
+
+    <div class="form-container form-container__section_four" [class.form-container__hide]="!showOptions">
+        <div (click)="backToSignIn()" class="form-container__back">
+            &#9668;Back
+        </div>
+        <div class="form-container__header">
+            <img src="../../../../assets/img/th_logo.png" alt="" class="header-logo">
+            <h3 class="header-text">Select Contact Method</h3>
+            <h5 class="header-text__sub">For security reasons you need to confirm you identity.</h5>
+        </div>
+        
+        <div class="contact_method__container form__group" [class.form__group__animate] = "showOptions">
+            <div (click)="sendEmail()" class="contact_method__option" [class.disable]="disable?.email"><span class="contact_method__arrow">&#8594;</span> Send Email to {{lgUser?.email}}</div>
+            <div (click)="sendMessage()" *ngIf="lgUser?.hasPhoneNumber" class="contact_method__option" [class.disable]="disable?.message"><span class="contact_method__arrow">&#8594;</span> Send Text to  &bull;&bull;&bull;&bull;&bull;{{lgUser?.phoneNumber}}</div>
+            <div (click)="toQuestionary()" class="contact_method__option" [class.disable]="disable?.question"><span class="contact_method__arrow">&#8594;</span> Fill a Questionary</div>
+        </div>
+    </div>
+</div>
+
+<div class="notification notification--added" [class.active]="emailSent" >
+    <div class="notification__body">
+        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+        
+        <span class="text">Email Sent! Check your email to change your password.</span>
+    </div>
+</div>
+
+<div class="notification notification--added" [class.active]="messageSent" >
+    <div class="notification__body">
+        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+        
+        <span class="text">Message Sent. Check you phone.</span>
+    </div>
+</div>

@@ -1,0 +1,199 @@
+.sub-container{
+    display: flex;
+    // flex-wrap: wrap;
+    width: 90%;
+    max-width: 60rem;
+    justify-content: space-between;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+.submit-container{
+    display: flex;
+    width: 90%;
+    max-width: 60rem;
+    justify-content: flex-end;
+    margin: 0 auto;
+}
+
+.input-element-type{
+    &-1{
+        width: 100%;
+    }
+
+    &-2{
+        width: 100%;
+    }
+
+    &-3{
+        width: 100%;
+        margin: 1rem 0rem;
+    }
+
+    &-4{
+        width: 100%;
+    }
+}
+
+.form{
+    width: 70%;
+
+    &__submit-btn{
+        width: 100%;
+    }
+
+    &__header{
+        font-size: 1.8rem;
+        color: #555;
+        margin: 1rem 0rem;
+        text-align: center;
+        width: 100%;
+    }
+}
+
+.notification {
+    position: fixed;
+    font-size: 1.8rem;
+    top: 8rem;
+    right: 0;
+    padding: 2.5rem 2rem;
+    background-color: rgba(white, .9);
+    border: 1px solid rgba(black, .2);
+    border-right: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    box-shadow: 1px 1px .5rem rgba(0,0,0, .5);
+    z-index: 9999999999;
+    cursor: pointer;
+    transform: translateX(105%);
+    
+    &--added {
+        border-left: 3px solid #E1A223;
+    }
+
+    &--editted {
+        border-left: 3px solid #E1A223;
+    }
+
+    &--error {
+        border-left: 3px solid rgb(248, 35, 35);
+    }
+}
+
+.notification.active {
+    animation-name: slideAndStay;
+    animation-duration: 1.5s;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+}
+
+@keyframes slideAndStay {
+    0%   {transform: translateX(105%);}
+    20%  {transform: translateX(0%);}
+    100%  {transform: translateX(0%);}
+}
+
+.staffs{
+    display: flex;
+}
+
+.previous-staffs{
+
+    &__container{
+        width: 30%;
+        max-height: 70vh;
+        // overflow-y: ;
+        // border: 1px solid #333;
+    }
+
+    &__header{
+        
+        font-size: 1.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #555;
+        width: 100%;
+        text-align: center;
+    }
+
+    &__staff{
+
+        border-top: 1px solid #888;
+        border-bottom: 1px solid #888;
+        padding: 1rem;
+        border-radius: 1rem;
+        margin: .5rem 0rem;
+        
+        &__name{
+            font-size: 1.6rem;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        &__email{
+            font-size: 1.4rem;
+            color: #555;
+        }
+
+        &__phone{
+            font-size: 1.2rem;
+            color: #888;
+        }
+    }
+}
+
+@media only screen and (min-width: 500px){
+    .input-element-type{
+        &-1{
+            width: 50%;
+        }
+    
+        &-3{
+            margin: 0rem;
+            width: 33.3%;
+        }
+    
+        &-4{
+            width: 33.3%;
+        }
+    }
+
+    .sub-container{
+        flex-direction: row;
+    }
+
+    .add-company-profile{
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 700px){
+    .job{
+        &__add-job{
+            width: 80%;
+        }
+    }
+    .employer-steps{
+        &__icon{
+            font-size: 5rem;
+            width: 10rem;
+            height: 10rem;
+            border-radius: 10rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 800px){
+    .previous-jobs{
+        &__container{
+            display: flex;
+        }
+    }
+    .job{
+        &__add-job{
+            width: 70%;
+            margin: 0;
+        }
+    }
+}
+

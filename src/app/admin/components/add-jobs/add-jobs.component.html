@@ -1,0 +1,205 @@
+<div class="notification notification--added" [class.active]="jobAdded" >
+    <div class="notification__body">
+        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+        
+        <span class="text">You have successfully posted a Job</span>
+    </div>
+</div>
+
+<div class="notification notification--editted" [class.active]="jobEditted" >
+    <div class="notification__body">
+        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
+        <!-- <fa-icon style="color: red; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faTimesCircle"></fa-icon> -->
+        
+        <span class="text">You have successfully editted a Job Post</span>
+    </div>
+    </div>
+<div class="sub-module-container">
+        <h3 class="sub-module-container__heading">{{job ? 'Edit Job' : 'Add Job'}}</h3>
+        <div class="sub-module-container__container job">
+            <div class="job__add-job">
+                    <form action="#" class="form" [formGroup]="addJob" (ngSubmit)="onSubmit()">
+                            <div class="form__title-container">
+                                <h4 class="form__title">{{job ? 'Edit Job' : 'Add A New Job'}}</h4>
+                            </div>
+                            <div class="add-company-profile">
+                                <div *ngIf="(submitted && addJob.invalid)" class="form__error">
+                                    <p *ngFor="let err of invalidFields"><fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{err}} is not valid.</p>
+                                </div>
+                                <div class="sub-container">
+                                    <shared-custom-input-field
+                                        class="input-element-type-2"
+                                        [formGroup]="addJob" 
+                                        name="jobTitle" 
+                                        [defaultValue]="job?.jobTitle"
+                                        placeholder='Enter Job Title' 
+                                        label='Job Title' 
+                                        [input]="addJob.controls['jobTitle']"  
+                                        type='text'
+                                        [submitted]="submitted"
+                                        [disabled]="(!isEditMode && job)"
+                                    ></shared-custom-input-field>
+                                </div>
+                                <div class="sub-container">
+                                    <shared-textarea-field
+                                        [disabled]="isEditMode"
+                                        class="input-element-type-2"
+                                        [formGroup]="addJob" 
+                                        name="jobDescription" 
+                                        [defaultValue]="job?.jobDescription"
+                                        placeholder='Job description' 
+                                        label='Job Description' 
+                                        [input]="addJob.controls['jobDescription']"  
+                                        type='textarea'
+                                        [submitted]="submitted"
+                                    ></shared-textarea-field>
+                                </div>
+                                <div class="sub-container">
+                                    <shared-custom-select 
+                                        style="padding-top: .8rem;"
+                                        [valid]="addJob.controls['industry']?.status"
+                                        class="input-element-type-1"
+                                        (onValueChange)="customValueChanged($event, 'industry')" 
+                                        [formGroup]="addJob" 
+                                        name="industry" 
+                                        [defaultValue]="job?.industry"
+                                        placeholder='Select Industry' 
+                                        [styleObject]="styleObject"
+                                        label='Industry' 
+                                        type='text'
+                                        [options]="industries"
+                                        [submitted]="submitted"
+                                        [disabled]="(!isEditMode && job)"
+                                    ></shared-custom-select>
+                                    <shared-custom-input-field
+                                        class="input-element-type-1"
+                                        [formGroup]="addJob" 
+                                        name="vacancies" 
+                                        [defaultValue]="job?.vacancies"
+                                        placeholder='Vacancies' 
+                                        label='Vacancies' 
+                                        [input]="addJob.controls['vacancies']"    
+                                        type='number'
+                                        [submitted]="submitted"
+                                        [disabled]="(!isEditMode && job)"
+                                    ></shared-custom-input-field>
+                                </div>
+                                <div style="margin-bottom: 2rem;" class="sub-container">
+                                    <shared-custom-select 
+                                        [valid]="addJob.controls['educationAttainment']?.status" 
+                                        (onValueChange)="customValueChanged($event, 'educationAttainment')" 
+                                        name="educationAttainment" 
+                                        [defaultValue]="job?.educationAttainment"
+                                        [styleObject]="styleObject" 
+                                        class="input-element-type-1 job__custom-select" 
+                                        placeholder="Educational Attainment" 
+                                        [options]="educationAttainment"
+                                        [submitted]="submitted"
+                                        [disabled]="(!isEditMode && job)"
+                                    ></shared-custom-select>
+                                    <shared-custom-select 
+                                        [valid]="addJob.controls['locationId']?.status" 
+                                        (onValueChange)="customValueChanged($event, 'locationId')" 
+                                        name="locationId"
+                                        [defaultValue]="job?.locationId"
+                                        [styleObject]="styleObject" 
+                                        class="input-element-type-1 job__custom-select" 
+                                        placeholder="Select Location" 
+                                        [options]="locations"
+                                        [submitted]="submitted"
+                                        [disabled]="(!isEditMode && job)"
+                                    ></shared-custom-select>
+                                </div>
+                                <div class="sub-container">
+                                    <shared-custom-datepicker
+                                        class="input-element-type-1 job__custom-select"
+                                        [formGroup]="addJob"
+                                        name="applicationStartDate"
+                                        [defaultValue]="job ? job.applicationStartDate : ''"
+                                        placeholder='Application Start Date'
+                                        label='Applicant Start Date'
+                                        (onValueChange)="customValueChanged($event, 'applicationStartDate')"
+                                        type='text'
+                                        [submitted]="submitted"
+                                        [disabled]="(!isEditMode && job)"
+                                    ></shared-custom-datepicker>
+                                    <shared-custom-datepicker
+                                        class="input-element-type-1 job__custom-select"
+                                        [formGroup]="addJob" 
+                                        name="applicationEndDate" 
+                                        [defaultValue]="job ? job.applicationEndDate : ''"
+                                        placeholder='Application End Date' 
+                                        label='Application End Date' 
+                                        (onValueChange)="customValueChanged($event, 'applicationEndDate')"  
+                                        type='text'
+                                        [submitted]="submitted"
+                                        [disabled]="(!isEditMode && job)"
+                                    ></shared-custom-datepicker>
+                                </div>
+                                <div class="sub-container">
+                                    <shared-custom-input-field
+                                        class="input-element-type-2"
+                                        [formGroup]="addJob" 
+                                        name="position" 
+                                        [defaultValue]="job?.position"
+                                        placeholder='Position' 
+                                        label='Position' 
+                                        [input]="addJob.controls['position']"  
+                                        type='text'
+                                        [submitted]="submitted"
+                                        [disabled]="(!isEditMode && job)"
+                                    ></shared-custom-input-field>
+                                </div>
+                                <div style="margin-bottom: 2rem;" class="sub-container">
+                                    <shared-custom-select 
+                                        [valid]="addJob.controls['employmentType']?.status" 
+                                        (onValueChange)="customValueChanged($event, 'employmentType')" 
+                                        name="employmentType" 
+                                        [defaultValue]="job ? job.employmentType : ''"
+                                        [styleObject]="styleObject" 
+                                        class="input-element-type-1 job__custom-select" 
+                                        placeholder="Emplopyment Type" 
+                                        [options]="employmentType"
+                                        [submitted]="submitted"
+                                        [disabled]="(!isEditMode && job)"
+                                    ></shared-custom-select>
+                                    <shared-custom-select 
+                                        [valid]="addJob.controls['salaryRange']?.status" 
+                                        (onValueChange)="customValueChanged($event, 'salaryRange')" 
+                                        name="salaryRange" 
+                                        [defaultValue]="job?.salaryRange"
+                                        [styleObject]="styleObject" 
+                                        class="input-element-type-1 job__custom-select" 
+                                        placeholder="Salary Range" 
+                                        [options]="salaryRange"
+                                        [submitted]="submitted"
+                                        [disabled]="(!isEditMode && job)"
+                                    ></shared-custom-select>
+                                </div>
+                                <div class="sub-container">
+                                    <shared-textarea-field
+                                        [disabled]="isEditMode"
+                                        class="input-element-type-2"
+                                        [formGroup]="addJob" 
+                                        name="additionalQualifications" 
+                                        [defaultValue]="job?.additionalQualifications"
+                                        placeholder='Additional Qualifications' 
+                                        label='Additional Qualifications' 
+                                        [input]="addJob.controls['additionalQualifications']"  
+                                        type='textarea'
+                                        [submitted]="submitted"
+                                    ></shared-textarea-field>
+                                </div>
+                                <div class="submit-container">
+                                        <div (click)="enableEdit()" *ngIf="!isEditMode && job" class="form__edit">Edit <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon></div>
+                                        <div (click)="disableEdit()" *ngIf="isEditMode && job" class="form__edit">Cancle <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon></div>
+                                    <input type="submit" class="form__submit th-btn th-btn--primary" [class.form__submit--inactive]="!this.descriptionOnly && job" [value]="job ? 'Save Job' : 'Add Job'" />
+                                </div>
+                            </div>
+                        </form>
+            </div>
+            
+            <!-- <shared-loader></shared-loader> -->
+        </div>
+</div>

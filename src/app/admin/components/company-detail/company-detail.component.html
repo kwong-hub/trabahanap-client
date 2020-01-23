@@ -1,0 +1,97 @@
+<div *ngIf="company" class="container">
+    <div class="company">
+        <div class="company__header">
+            <img [src]="company.companyLogo" alt="" class="img">
+            <h2 class="name">{{ company.companyName }}</h2>
+
+            <div class="preview">
+                <i class="preview__icon far fa-file-pdf"></i>
+                <span class="preview__text">Business License</span>
+            </div>
+
+            <div [title]="company.verified ? 'Unverify' : 'Verify'" (click)="toggleVerify(company.id)" class="verify">
+                <fa-icon *ngIf="company.verified" class="verify__icon" [icon]="faCheckCircle"></fa-icon>
+                <span class="verify__text">{{ company.verified ? 'Verified' : 'Verify Company' }}</span>
+                <div *ngIf="loading" class="verify__loading"></div>
+            </div>
+        </div>
+        <div class="company__body">
+            <div class="details-group">
+                <div class="detail">
+                    <div class="detail__label">Website</div>
+                    <div class="detail__value">
+                        <a target="_blank" [href]="company.websiteURL" class="text">{{ company.websiteURL }}</a>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <div class="detail__label">Address</div>
+                    <div class="detail__value">
+                        <p class="text">{{ company.companyAddress }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-group">
+                <div class="detail">
+                    <div class="detail__label">Description</div>
+                    <div class="detail__value">
+                        <p class="text">{{ company.companyDescription }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-group">
+                <div class="detail">
+                    <div class="detail__label">Contact Person</div>
+                    <div class="detail__value">
+                        <p class="text">{{ company.contactPerson }}</p>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <div class="detail__label">Contact Phone Number</div>
+                    <div class="detail__value">
+                        <p class="text">{{ company.contactNumber }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-group">
+                <div class="detail">
+                    <div class="detail__label">Business License Number</div>
+                    <div class="detail__value">
+                        <p class="text">{{ company.businessLicenseNumber }}</p>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <div class="detail__label">Industry Type</div>
+                    <div class="detail__value">
+                        <p class="text">{{ company.industryType }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-group">
+                <div class="detail">
+                    <div class="detail__label">Locations</div>
+                    <div class="detail__value">
+                        <p *ngIf="!company.hasLocations" class="text text--noLocation">No Locations under this company</p>
+                        <a [routerLink]="['../../locations/', company.id]" *ngIf="company.hasLocations" class="text">View Locations</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-group">
+                <div class="detail">
+                    <div class="detail__label">Staff</div>
+                    <div class="detail__value">
+                        <p *ngIf="!company.hasLocations" class="text text--noLocation">No Staff under this company</p>
+                        <a [routerLink]="['../../staffs/', company.id]"  class="text">View staff</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
