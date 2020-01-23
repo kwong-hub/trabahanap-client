@@ -1,14 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "app-auth-password-reset",
-  templateUrl: "./auth-password-reset.component.html",
-  styleUrls: ["./auth-password-reset.component.scss"]
+  selector: 'app-auth-password-reset',
+  templateUrl: './auth-password-reset.component.html',
+  styleUrls: ['./auth-password-reset.component.scss']
 })
 export class AuthPasswordResetComponent implements OnInit {
+
   faLock = faLock;
   faEnvelope = faEnvelope;
   resetForm: FormGroup;
@@ -17,20 +18,15 @@ export class AuthPasswordResetComponent implements OnInit {
   error: any;
   success: any;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthenticationService
-  ) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.resetForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
-  get f() {
-    return this.resetForm.controls;
-  }
+  get f() { return this.resetForm.controls; }
 
   onSubmit() {
     this.submitted = true;
@@ -44,9 +40,10 @@ export class AuthPasswordResetComponent implements OnInit {
       data => {
         // console.log(data)
         this.loading = false;
-        if (data.success) {
+        if(data.success) {
           this.success = data.response;
-        } else {
+        }
+        else {
           this.error = data.response;
           this.loading = false;
         }
@@ -54,6 +51,7 @@ export class AuthPasswordResetComponent implements OnInit {
       error => {
         this.loading = false;
       }
-    );
+    )
   }
+
 }

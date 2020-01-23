@@ -1,15 +1,16 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditApplicantPictureModalComponent } from "./edit-applicant-picture-modal.component";
+import { EditApplicantPictureModalComponent } from './edit-applicant-picture-modal.component';
 
-describe("EditApplicantPictureModalComponent", () => {
+describe('EditApplicantPictureModalComponent', () => {
   let component: EditApplicantPictureModalComponent;
   let fixture: ComponentFixture<EditApplicantPictureModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EditApplicantPictureModalComponent]
-    }).compileComponents();
+      declarations: [ EditApplicantPictureModalComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe("EditApplicantPictureModalComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

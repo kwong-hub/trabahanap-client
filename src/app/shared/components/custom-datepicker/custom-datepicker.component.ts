@@ -1,32 +1,13 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  Input,
-  SimpleChanges
-} from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: "shared-custom-datepicker",
-  templateUrl: "./custom-datepicker.component.html",
-  styleUrls: ["./custom-datepicker.component.scss"]
+  selector: 'shared-custom-datepicker',
+  templateUrl: './custom-datepicker.component.html',
+  styleUrls: ['./custom-datepicker.component.scss']
 })
 export class CustomDatepickerComponent implements OnInit {
-  monthsOfTheYear = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
+
+  monthsOfTheYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   active: boolean = false;
   months = [];
   currentMonthDays = [];
@@ -36,7 +17,7 @@ export class CustomDatepickerComponent implements OnInit {
   currentDay: any;
   currentMonth: any;
   currentYear: any;
-  inputDate: string = "";
+  inputDate: string = '';
   daysBeforeStartOfMonth: any;
   monthdays: any[];
   @Input() default: any;
@@ -49,7 +30,7 @@ export class CustomDatepickerComponent implements OnInit {
   @Input() label: string;
   @Output() onValueChange = new EventEmitter();
 
-  constructor() {
+  constructor() { 
     let d = new Date();
     this.year = d.getFullYear();
     this.month = d.getMonth();
@@ -57,144 +38,145 @@ export class CustomDatepickerComponent implements OnInit {
     this.months = this.getMonths(this.year);
     this.currentMonthDays = this.months[this.month];
     this.getDaysBeforeStartOfMonth();
+    
   }
 
   ngOnInit() {
-    document.addEventListener("click", () => {
-      this.active = false;
-    });
-    if (this.defaultValue) {
+    document.addEventListener("click", ()=>{this.active = false});
+    if(this.defaultValue){
       this.inputDate = this.defaultValue;
-      const [year, month, day] = this.inputDate.split("-");
+      const [year, month, day] = this.inputDate.split('-');
       this.updateInput(year, month, day);
-    } else {
+    }else{
       const d = new Date();
       const year = d.getFullYear();
       const month = d.getMonth() + 1;
       const day = d.getDay();
       this.updateInput(year, month, day);
     }
+    
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
     for (let propName in changes) {
       let change = changes[propName];
-      if (propName == "defaultValue") {
+      if(propName == "defaultValue"){
         let defaultValue = change.currentValue;
-        if (defaultValue) {
-          const [year, month, day] = defaultValue.split("-");
+        if(defaultValue) {
+          const [year, month, day] = defaultValue.split('-');
           this.updateInput(year, month, day);
+
         }
         // console.log(year, month, day);
       }
     }
   }
 
-  updateInput(year, month, day) {
+  updateInput(year, month, day){
     //@ts-ignore
-    if (year && month && day && !isNaN(year) && !isNaN(month) && !isNaN(day)) {
+    if(year && month && day && !isNaN(year) && !isNaN(month) && !isNaN(day)){
       this.currentYear = this.year = parseInt(year);
-      this.currentMonth = this.month = parseInt(month) - 1;
+      this.currentMonth = this.month = parseInt(month)-1;
       this.currentDay = this.day = parseInt(day);
       this.renderDate();
     }
   }
 
-  inputClicked($event) {
+  inputClicked($event){
     $event.stopPropagation();
-    if (this.disabled) {
+    if(this.disabled){
       return;
     }
     this.active = !this.active;
   }
 
-  yearPrev($event) {
+  yearPrev($event){
     $event.stopPropagation();
     this.year = this.year - 1;
     this.updateMonths();
   }
 
-  yearNext($event) {
+  yearNext($event){
     $event.stopPropagation();
     this.year = this.year + 1;
     this.updateMonths();
   }
 
-  decadePrev($event) {
+  decadePrev($event){
     $event.stopPropagation();
     this.year = this.year - 10;
     this.updateMonths();
   }
 
-  decadeNext($event) {
+  decadeNext($event){
     $event.stopPropagation();
     this.year = this.year + 10;
     this.updateMonths();
   }
 
-  monthPrev($event) {
+  monthPrev($event){
     $event.stopPropagation();
-    if (this.month == 0) {
+    if(this.month == 0){
       this.year = this.year - 1;
       this.month = 11;
-    } else {
+    }else{
       this.month = this.month - 1;
     }
     this.updateMonthDays();
     this.updateMonths();
+    
   }
 
-  monthNext($event) {
+  monthNext($event){
     $event.stopPropagation();
-    if (this.month == 11) {
+    if(this.month == 11){
       this.year = this.year + 1;
       this.month = 0;
-    } else {
+    }else{
       this.month = this.month + 1;
     }
     this.updateMonthDays();
     this.updateMonths();
   }
 
-  dateSelected(day) {
+  dateSelected(day){
     this.day = day;
     this.renderDate();
     this.active = !this.active;
   }
 
-  renderDate() {
-    this.inputDate = `${this.year}-${this.returnTwoDigit(
-      this.month + 1
-    )}-${this.returnTwoDigit(this.day)}`;
+  renderDate(){
+    this.inputDate = `${this.year}-${this.returnTwoDigit(this.month+1)}-${this.returnTwoDigit(this.day)}`;
     this.onValueChange.emit(this.inputDate);
     this.currentDay = this.day;
     this.currentMonth = this.month;
     this.currentYear = this.year;
   }
 
-  returnTwoDigit(digit) {
-    var newDigit = digit.toString().length == 1 ? "0" + digit : digit;
+  returnTwoDigit(digit){
+    var newDigit = digit.toString().length == 1 ? '0' + digit: digit;
     return newDigit;
   }
 
-  updateMonthDays() {
+  updateMonthDays(){
     this.currentMonthDays = this.months[this.month];
   }
 
-  updateMonths() {
+  updateMonths(){
     this.months = this.getMonths(this.year);
     this.updateMonthDays();
     this.getDaysBeforeStartOfMonth();
   }
 
-  getMonths(year) {
-    let feb = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ? 29 : 28;
+  getMonths(year){
+    let feb = ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0) ? 29 : 28;
     let months = [];
-    let monthdays = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    let monthdays = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     this.monthdays = monthdays;
-    for (let j = 0; j < 12; j++) {
+    for(let j = 0; j < 12; j++){
       let month = [];
-      for (let i = 1; i <= monthdays[j]; i++) {
+      for(let i = 1; i <= monthdays[j]; i++){
         month.push(i);
       }
       months.push(month);
@@ -202,29 +184,30 @@ export class CustomDatepickerComponent implements OnInit {
     return months;
   }
 
-  getDaysBeforeStartOfMonth() {
+  getDaysBeforeStartOfMonth(){
     var month = this.month + 1;
-    var day = new Date(this.year + "-" + month + "-01").getDay();
+    var day = new Date(this.year + "-" + month + "-01").getDay()
     day = day == 0 ? 7 : day;
     // var days = [];
     // for(var i=1;i<day;i++){
     //   days.push(i);
     // }
     // return days;
-    var days = this.getDaysFromPrevMonth(day - 1);
+    var days = this.getDaysFromPrevMonth(day-1);
     this.daysBeforeStartOfMonth = days;
   }
 
-  getDaysFromPrevMonth(noDays) {
-    var daysOfMonth = this.monthdays[this.month - 1 < 0 ? 11 : this.month - 1];
+  getDaysFromPrevMonth(noDays){
+    var daysOfMonth = this.monthdays[this.month-1 < 0 ? 11 : this.month-1];
     var days = [];
-    for (var i = 1; i <= noDays; i++) {
-      days.push(daysOfMonth - (noDays - i));
+    for(var i=1;i<=noDays;i++){
+      days.push(daysOfMonth-(noDays-i))
     }
     return days;
   }
 
-  stopClickPropacation(event) {
+  stopClickPropacation(event){
     event.stopPropagation();
   }
+
 }

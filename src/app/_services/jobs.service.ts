@@ -1,90 +1,68 @@
 // import { Job } from './../_models/Job.ts';
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable, pipe } from "rxjs";
-import { catchError } from "rxjs/operators";
-import { environment } from "@environments/environment";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, pipe } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { environment } from '@environments/environment';
 
 @Injectable()
 export class JobService {
-  constructor(private http: HttpClient) {}
 
-  getAllJobs(page): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/search?page=${page}`);
-  }
+    constructor(private http: HttpClient){}
 
-  searchAllJobs(key, city, page): Observable<any> {
-    return this.http.get<any>(
-      `${environment.apiUrl}/search?key=${key}&city=${city}&page=${page}`
-    );
-  }
+    getAllJobs(page): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/search?page=${page}`);
+    }
 
-  getCompanyJobs(page, pageSize): Observable<any> {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/jobs?page=${page}&pageSize=${pageSize}`
-    );
-  }
+    searchAllJobs(key,city,page): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/search?key=${key}&city=${city}&page=${page}`);
+    }
 
-  getJobById(id): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/jobs/${id}`);
-  }
+    getCompanyJobs(page, pageSize): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/employer/jobs?page=${page}&pageSize=${pageSize}`);
+    }
 
-  getJobDetailForApplicant(id): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/applicant/jobs/${id}`);
-  }
+    getJobById(id): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/jobs/${id}`);
+    }
 
-  getJobCandidates(jobId): Observable<any> {
-    return this.http.post<any>(
-      `${environment.apiUrl}/employer/jobs/applications`,
-      { JobId: jobId }
-    );
-  }
+    getJobDetailForApplicant(id): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/applicant/jobs/${id}`);
+    }
 
-  getJobWithApplications(page, pageSize): Observable<any> {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/jobs/applications?page=${page}&pageSize=${pageSize}`
-    );
-  }
+    getJobCandidates(jobId): Observable<any>{
+        return this.http.post<any>(`${environment.apiUrl}/employer/jobs/applications`, {JobId: jobId});
+    }
 
-  getFilteredJobWithApplications(page, pageSize): Observable<any> {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/jobs/filtered/applications?page=${page}&pageSize=${pageSize}`
-    );
-  }
+    getJobWithApplications(page,pageSize): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/employer/jobs/applications?page=${page}&pageSize=${pageSize}`);
+    }
 
-  getJobApplications(id): Observable<any> {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/jobs/applicants/${id}`
-    );
-  }
+    getFilteredJobWithApplications(page,pageSize): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/employer/jobs/filtered/applications?page=${page}&pageSize=${pageSize}`);
+    }
 
-  getFilteredJobApplications(id): Observable<any> {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/jobs/filtered/applicants/${id}`
-    );
-  }
+    getJobApplications(id): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/employer/jobs/applicants/${id}`);
+    }
 
-  toggleSaveJob(JobId): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/applicant/jobs/save`, {
-      JobId
-    });
-  }
+    getFilteredJobApplications(id): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/employer/jobs/filtered/applicants/${id}`);
+    }
 
-  getApplicantSavedJobs(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/applicant/jobs/saved/all`);
-  }
+    toggleSaveJob(JobId): Observable<any>{
+        return this.http.post<any>(`${environment.apiUrl}/applicant/jobs/save`, {JobId});
+    }
 
-  filterJobApplication(body): Observable<any> {
-    return this.http.post<any>(
-      `${environment.apiUrl}/employer/jobs/applications/filter`,
-      body
-    );
-  }
+    getApplicantSavedJobs(): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/applicant/jobs/saved/all`);
+    }
 
-  hireJobApplication(body): Observable<any> {
-    return this.http.post<any>(
-      `${environment.apiUrl}/employer/jobs/applications/hire`,
-      body
-    );
-  }
+    filterJobApplication(body): Observable<any>{
+        return this.http.post<any>(`${environment.apiUrl}/employer/jobs/applications/filter`, body);
+    }
+
+    hireJobApplication(body): Observable<any>{
+        return this.http.post<any>(`${environment.apiUrl}/employer/jobs/applications/hire`, body);
+    }
 }

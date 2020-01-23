@@ -1,15 +1,16 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SharedLoginTempComponent } from "./shared-login-temp.component";
+import { SharedLoginTempComponent } from './shared-login-temp.component';
 
-describe("SharedLoginTempComponent", () => {
+describe('SharedLoginTempComponent', () => {
   let component: SharedLoginTempComponent;
   let fixture: ComponentFixture<SharedLoginTempComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SharedLoginTempComponent]
-    }).compileComponents();
+      declarations: [ SharedLoginTempComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe("SharedLoginTempComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

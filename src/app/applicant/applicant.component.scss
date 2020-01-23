@@ -1,170 +1,166 @@
-@import "../../assets/scss/abstracts/variables";
+@import '../../assets/scss/abstracts/variables';
 
 .content-container {
-  margin-top: 6.5rem; // the height of the fixed header
+    margin-top: 6.5rem; // the height of the fixed header
 }
 
 .success {
-  position: fixed;
-  font-size: 1.8rem;
-  top: 8rem;
-  right: 0;
-  padding: 2.5rem 2rem;
-  background-color: rgba(white, 0.9);
-  border: 1px solid rgba(black, 0.2);
-  border-right: none;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  border-left: 3px solid #e1a223;
-  box-shadow: 1px 1px 0.5rem rgba(0, 0, 0, 0.5);
-  z-index: 99;
-  cursor: pointer;
-  transform: translateX(105%);
+    position: fixed;
+    font-size: 1.8rem;
+    top: 8rem;
+    right: 0;
+    padding: 2.5rem 2rem;
+    background-color: rgba(white, .9);
+    border: 1px solid rgba(black, .2);
+    border-right: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-left: 3px solid #E1A223;
+    box-shadow: 1px 1px .5rem rgba(0,0,0, .5);
+    z-index: 99;
+    cursor: pointer;
+    transform: translateX(105%);
 }
 
 .success.active {
-  animation-name: slideAndStay;
-  animation-duration: 1.5s;
-  animation-iteration-count: 2;
-  animation-direction: alternate;
+    animation-name: slideAndStay;
+    animation-duration: 1.5s;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
 }
 
 @keyframes slideAndStay {
-  0% {
-    transform: translateX(105%);
-  }
-  20% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
+    0%   {transform: translateX(105%);}
+    20%  {transform: translateX(0%);}
+    100%  {transform: translateX(0%);}
 }
 
 .progress {
-  position: fixed;
-  top: 6.5rem;
-  z-index: 5000;
-  height: 3px;
+    position: fixed;
+    top: 6.5rem;
+    z-index: 5000;
+    height: 3px;
 }
 
 div.sideBarActive {
-  box-shadow: 2px 0 10px rgba(black, 0.2);
-  z-index: 1100;
+    box-shadow: 2px 0 10px rgba(black, .2);
+    z-index: 1100;
 
-  .sidebar {
-    &__header {
-      font-size: 2rem;
-    }
-    &__list {
-      padding-top: 1rem;
+    .sidebar {
+        &__header {
+            font-size: 2rem;
 
-      &:not(:last-child) {
-        border-bottom: 1px solid rgba(#333, 0.2);
-      }
-    }
-    &__list-item {
-      padding: 1rem 2rem;
+        }
+        &__list {
+            padding-top: 1rem;
 
-      .icons {
-        padding-right: 1rem;
-        margin-right: 10px;
-      }
-      .names {
-        font-size: inherit;
-      }
+            &:not(:last-child) {
+                border-bottom: 1px solid rgba(#333, .2);
+            }
+        }
+        &__list-item {
+            padding: 1rem 2rem;
+
+            .icons {
+                padding-right: 1rem;
+                margin-right: 10px;
+            }
+            .names {
+                font-size: inherit;
+            }
+        }
     }
-  }
 }
 
 .sideBarActive + .content {
-  // margin-left: 21rem;
+    // margin-left: 21rem;
 }
 .sidebar {
-  position: fixed;
-  padding-top: 1rem; //to prevent Icon overlap
-  border-right: 1px solid rgba(#333, 0.2);
-  height: 100%;
-  transition: all 0.3s;
-  background-color: white;
+    position: fixed;
+    padding-top: 1rem; //to prevent Icon overlap
+    border-right: 1px solid rgba(#333, .2);
+    height: 100%;
+    transition: all .3s;
+    background-color: white;
 
-  &__header {
-    font-weight: 700;
-    font-size: 0;
-    padding: 1rem 2rem;
-    transition: all 0.2s;
-    line-height: 2rem;
-  }
+    &__header {
+        font-weight: 700;
+        font-size: 0;
+        padding: 1rem 2rem; 
+        transition: all .2s;
+        line-height: 2rem;
+    }
+    
+    &__list {
+        list-style-type: none;
+        border-top: 1px solid rgba(#333, .2);
+        &:not(:last-child) {
+            border-bottom: 1px solid rgba(#333, .2);
+        }
+    }
+    &__list-item {
+        display: block;
+        position: relative;
+        color: black;
+        text-decoration: none;
+        font-size: 1.5rem;
+        padding: 1rem 1rem;
+        border-left: 2px solid transparent;
+        border-right: 2px solid transparent;
+        transition: all .2s;
 
-  &__list {
-    list-style-type: none;
-    border-top: 1px solid rgba(#333, 0.2);
-    &:not(:last-child) {
-      border-bottom: 1px solid rgba(#333, 0.2);
-    }
-  }
-  &__list-item {
-    display: block;
-    position: relative;
-    color: black;
-    text-decoration: none;
-    font-size: 1.5rem;
-    padding: 1rem 1rem;
-    border-left: 2px solid transparent;
-    border-right: 2px solid transparent;
-    transition: all 0.2s;
+        .icons {
+            width: 2.5rem;
+            // padding-right: 1rem;
+            // margin-right: 10px;
+            text-align: center;
+            color: $color-primary;
 
-    .icons {
-      width: 2.5rem;
-      // padding-right: 1rem;
-      // margin-right: 10px;
-      text-align: center;
-      color: $color-primary;
-    }
+        }
+        
+        .names {
+            color: inherit;
+            transition: all .2s;
+            font-size: 0;
+        }
 
-    .names {
-      color: inherit;
-      transition: all 0.2s;
-      font-size: 0;
+        &:hover {
+            border-left: 2px solid $color-secondary;
+            border-right: 2px solid $color-secondary;
+            border-radius: 3px;
+            background-color: #ddd;
+            cursor: pointer;
+        }
     }
-
-    &:hover {
-      border-left: 2px solid $color-secondary;
-      border-right: 2px solid $color-secondary;
-      border-radius: 3px;
-      background-color: #ddd;
-      cursor: pointer;
+    .active {
+        border-left: 2px solid $color-primary;
+        border-right: 2px solid $color-primary;
+        border-radius: 3px;
+        background-color: #ddd;
+        color: black;
+        .icons {
+            color: $color-primary;
+        }
     }
-  }
-  .active {
-    border-left: 2px solid $color-primary;
-    border-right: 2px solid $color-primary;
-    border-radius: 3px;
-    background-color: #ddd;
-    color: black;
-    .icons {
-      color: $color-primary;
-    }
-  }
 }
 
 .content {
-  padding: 2rem;
-  margin-left: 4rem;
-  transition: all 0.3s;
+    padding: 2rem;
+    margin-left: 4rem; 
+    transition: all .3s;
 }
 
 @media only screen and (min-width: 700px) {
-  .sidebar {
-    transform: translateX(0%);
+    .sidebar {
+        transform: translateX(0%);
 
-    &__list {
-      padding-top: 1rem;
+        &__list {
+            padding-top: 1rem;
+        }
     }
-  }
 
-  .content {
-    margin-left: 4rem;
-    min-height: 300px;
-  }
+    .content {
+        margin-left: 4rem;
+        min-height: 300px;
+    }
 }

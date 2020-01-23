@@ -1,15 +1,16 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddStafferComponent } from "./add-staffer.component";
+import { AddStafferComponent } from './add-staffer.component';
 
-describe("AddStafferComponent", () => {
+describe('AddStafferComponent', () => {
   let component: AddStafferComponent;
   let fixture: ComponentFixture<AddStafferComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AddStafferComponent]
-    }).compileComponents();
+      declarations: [ AddStafferComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe("AddStafferComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

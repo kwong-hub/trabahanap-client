@@ -1,135 +1,132 @@
 ::ng-deep .mat-progress-bar-fill::after {
-  background-color: #425a7b;
+    background-color: #425A7B;
 }
 
 ::ng-deep .mat-progress-bar-buffer {
-  background: #cccbcb;
+    background: #cccbcb;
 }
 
 ::ng-deep .mat-progress-bar {
-  border-radius: 2px;
+    border-radius: 2px;
 }
 
 .progress {
-  position: fixed;
-  top: 5.5rem;
-  // z-index: 5000;
-  height: 3px;
+    position: fixed;
+    top: 5.5rem;
+    // z-index: 5000;
+    height: 3px;
 }
 
 .side-bar {
-  position: fixed;
-  top: 0rem;
-  display: flex;
-  flex-direction: column;
-
-  width: 30rem;
-  text-align: left;
-  height: 100vh;
-  z-index: 5000;
-  transform: translateX(-105%);
-  transition: all 0.3s;
-
-  .link-container {
+    position: fixed;
+    top: 0rem;
     display: flex;
-    flex: 1;
     flex-direction: column;
-    justify-content: center;
-    box-shadow: 2px 0 1rem rgba(0, 0, 0, 0.2);
-    background-color: white;
-    border-top-right-radius: 5px;
-  }
+    
+    width: 30rem;
+    text-align: left;
+    height: 100vh;
+    z-index: 5000;
+    transform: translateX(-105%);
+    transition: all .3s;
 
-  a.link {
-    text-decoration: none;
-    transform: translateY(-150%);
-    font-size: 2.8rem;
-    color: #333;
-    margin: 0 auto;
-    width: 65%;
-    border-bottom: 1px solid rgba(black, 0.2);
-    transition: all 0.2s;
-
-    &:not(:first-child) {
-      margin-top: 3rem;
+    .link-container {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 2px 0 1rem rgba(0, 0, 0, 0.2);
+        background-color: white;
+        border-top-right-radius: 5px;
     }
 
-    &:hover,
-    &:active {
-      background-color: rgba(238, 238, 239, 0.8);
-      color: #ce2127;
+    a.link {
+        text-decoration: none;
+        transform: translateY(-150%);
+        font-size: 2.8rem;
+        color: #333;
+        margin: 0 auto;
+        width: 65%;
+        border-bottom: 1px solid rgba(black, .2);
+        transition: all .2s;
+
+        &:not(:first-child) {
+            margin-top: 3rem;
+        }
+        
+        &:hover, &:active {
+            background-color: rgba(238,238,239,0.8);
+            color: #ce2127;
+        }
     }
-  }
 }
 
 .side-bar.active {
-  transform: translateX(0%);
+    transform: translateX(0%);
 }
 
 .menu-container {
-  position: relative;
-  width: 35%;
-  height: 5.5rem;
-  background-color: white;
-  border-top-right-radius: 5px;
+    position: relative;
+    width: 35%;
+    height: 5.5rem;
+    background-color: white;
+    border-top-right-radius: 5px;
 
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: -2.5rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-bottom-left-radius: 5px;
-    box-shadow: -8px 6px 0 5px white;
-  }
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: -2.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-bottom-left-radius: 5px;
+        box-shadow: -8px 6px 0 5px white;
+    }
 }
 
 .menu-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-60%, -30%);
-  height: 3rem;
-  z-index: 9000;
-  cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-60%, -30%);
+    height: 3rem;
+    z-index: 9000;
+    cursor: pointer;
 }
 
 .menu-icon {
-  position: relative;
-  // margin-top: 3rem;
-  top: 7px;
-  left: 50%;
-  transform: translateX(-50%);
+    position: relative;
+    // margin-top: 3rem;
+    top: 7px;
+    left: 50%;
+    transform: translateX(-50%);
 
-  &,
-  &::before,
-  &::after {
-    width: 2.5rem;
-    height: 2px;
-    background-color: #ce2127;
-    display: inline-block;
-    z-index: 9;
-  }
+    &, &::before, &::after {
+        width: 2.5rem;
+        height: 2px;
+        background-color: #ce2127;
+        display: inline-block;
+        z-index: 9;
+    }
 
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    transition: all 0.2s;
-  }
+    &::before, &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        transition: all .2s;
+    }
 
-  & {
-    background-color: transparent;
-  }
+    & {
+        background-color: transparent;
+    }
 
-  &::before {
-    top: 0;
-    transform: rotate(135deg);
-  }
-  &::after {
-    top: 0;
-    transform: rotate(-135deg);
-  }
+    &::before { 
+        top: 0;
+        transform: rotate(135deg); 
+    }
+    &::after { 
+        top: 0;
+        transform: rotate(-135deg);
+    }
+
 }

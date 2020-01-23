@@ -1,25 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import {
-  faHome,
-  faAddressCard,
-  faSignOutAlt,
-  faBell,
-  faLock
-} from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { faHome, faAddressCard, faSignOutAlt, faBell, faLock} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "employer-header",
-  templateUrl: "./employer-header.component.html",
-  styleUrls: ["./employer-header.component.scss"]
+  selector: 'employer-header',
+  templateUrl: './employer-header.component.html',
+  styleUrls: ['./employer-header.component.scss']
 })
 export class EmployerHeaderComponent implements OnInit {
+
   faHome = faHome;
   faAddressCard = faAddressCard;
   faSignOutAlt = faSignOutAlt;
   faBell = faBell;
   faLock = faLock;
-
+  
   @Output() signout = new EventEmitter();
   @Output() toggleBox = new EventEmitter();
 
@@ -27,21 +22,22 @@ export class EmployerHeaderComponent implements OnInit {
   drop: boolean = false;
   companyProfile: any;
 
-  constructor(public authenticationService: AuthenticationService) {}
+  constructor(public authenticationService: AuthenticationService) { }
 
-  ngOnInit() {
+  ngOnInit() {  
     // this.companyProfile = this.authenticationService.currentUserValue.company_profile;
-    this.authenticationService.currentUser.subscribe(
-      user => {
-        if (user && user.company_profile) {
-          this.companyProfile = user.company_profile;
-        }
-      },
-      err => console.log(err)
-    );
+    this.authenticationService.currentUser
+      .subscribe(
+        user => {
+          if(user && user.company_profile){
+            this.companyProfile = user.company_profile;
+          }
+        },
+        err => console.log(err)
+      );
     window.onclick = () => {
       this.drop = false;
-    };
+    }
   }
 
   logout() {

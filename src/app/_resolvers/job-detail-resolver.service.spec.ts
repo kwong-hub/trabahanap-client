@@ -1,14 +1,12 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import { JobDetailResolverService } from "./job-detail-resolver.service";
+import { JobDetailResolverService } from './job-detail-resolver.service';
 
-describe("JobDetailResolverService", () => {
+describe('JobDetailResolverService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it("should be created", () => {
-    const service: JobDetailResolverService = TestBed.get(
-      JobDetailResolverService
-    );
+  it('should be created', () => {
+    const service: JobDetailResolverService = TestBed.get(JobDetailResolverService);
     expect(service).toBeTruthy();
   });
 });

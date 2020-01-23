@@ -1,45 +1,36 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { EmployerService } from "@app/_services/employer.service";
-import {
-  faPlus,
-  faEllipsisV,
-  faEdit,
-  faTimes
-} from "@fortawesome/free-solid-svg-icons";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { EmployerService } from '@app/_services/employer.service';
+import { faPlus, faEllipsisV, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "app-locations",
-  templateUrl: "./locations.component.html",
-  styleUrls: ["./locations.component.scss"]
+  selector: 'app-locations',
+  templateUrl: './locations.component.html',
+  styleUrls: ['./locations.component.scss']
 })
+
 export class LocationsComponent implements OnInit {
+
   faPlus = faPlus;
   faEllipsisV = faEllipsisV;
   faEdit = faEdit;
   faTimes = faTimes;
   locations: Array<object>;
   noLocation: boolean = true;
-  displayedColumns: string[] = [
-    "picture",
-    "name",
-    "address",
-    "phoneNumber",
-    "action"
-  ];
+  displayedColumns: string[] = ['picture', 'name', 'address', 'phoneNumber', 'action'];
   confirm: boolean;
 
-  constructor(private Route: ActivatedRoute) {
-    this.Route.data.subscribe(res => {
-      let locations = res.data;
-      if (locations.success) {
-        if (locations.locations.length !== 0) {
-          this.noLocation = false;
+  constructor(private Route: ActivatedRoute) { 
+      this.Route.data.subscribe(res => {
+        let locations = res.data;
+        if(locations.success) {
+          if(locations.locations.length !== 0) {
+            this.noLocation = false;
+          }
+          this.locations = locations.locations;
         }
-        this.locations = locations.locations;
-      }
-    });
+      })
   }
 
   ngOnInit() {
@@ -60,6 +51,7 @@ export class LocationsComponent implements OnInit {
   }
 
   deleteLocation(id) {
-    console.log(id);
+    console.log(id)
   }
+
 }

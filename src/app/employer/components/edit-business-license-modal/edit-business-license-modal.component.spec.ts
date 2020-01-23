@@ -1,15 +1,16 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditBusinessLicenseModalComponent } from "./edit-business-license-modal.component";
+import { EditBusinessLicenseModalComponent } from './edit-business-license-modal.component';
 
-describe("EditBusinessLicenseModalComponent", () => {
+describe('EditBusinessLicenseModalComponent', () => {
   let component: EditBusinessLicenseModalComponent;
   let fixture: ComponentFixture<EditBusinessLicenseModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EditBusinessLicenseModalComponent]
-    }).compileComponents();
+      declarations: [ EditBusinessLicenseModalComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe("EditBusinessLicenseModalComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

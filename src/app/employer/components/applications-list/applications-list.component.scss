@@ -1,19 +1,19 @@
 table {
   width: 100%;
 }
-.detail {
-  border: 1px solid #42597b;
+.detail{
+  border: 1px solid #42597B;
   border-radius: 2rem;
-  padding: 0.5rem 3.5rem;
+  padding: .5rem 3.5rem;
   background-color: #fff;
   text-transform: uppercase;
-  color: #42597b;
+  color: #42597B;
   font-size: 1.3rem;
   cursor: pointer;
   outline: none;
 
-  &:active {
-    transform: scale(0.98);
+  &:active{
+      transform: scale(.98);
   }
 }
 
@@ -68,8 +68,9 @@ table {
 }
 
 .job {
+
   table {
-    margin-top: 2rem;
+    margin-top:2rem;
   }
 }
 
@@ -85,7 +86,7 @@ table {
   // margin-left: 1.2rem;
   background-color: white;
   padding: 1.8rem 2rem;
-
+ 
   //padding-right: 2rem;
   margin-left: -9rem;
   justify-content: space-between;
@@ -101,6 +102,7 @@ table {
     margin: 0 5%;
     font-size: 2rem;
     text-transform: uppercase;
+    
   }
 
   &__content {

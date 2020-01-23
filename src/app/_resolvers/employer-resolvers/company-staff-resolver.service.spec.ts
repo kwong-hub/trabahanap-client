@@ -1,14 +1,12 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import { CompanyStaffResolverService } from "./company-staff-resolver.service";
+import { CompanyStaffResolverService } from './company-staff-resolver.service';
 
-describe("CompanyStaffResolverService", () => {
+describe('CompanyStaffResolverService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it("should be created", () => {
-    const service: CompanyStaffResolverService = TestBed.get(
-      CompanyStaffResolverService
-    );
+  it('should be created', () => {
+    const service: CompanyStaffResolverService = TestBed.get(CompanyStaffResolverService);
     expect(service).toBeTruthy();
   });
 });

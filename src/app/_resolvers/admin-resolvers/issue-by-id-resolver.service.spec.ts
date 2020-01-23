@@ -1,14 +1,12 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import { IssueByIdResolverService } from "./issue-by-id-resolver.service";
+import { IssueByIdResolverService } from './issue-by-id-resolver.service';
 
-describe("IssueByIdResolverService", () => {
+describe('IssueByIdResolverService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it("should be created", () => {
-    const service: IssueByIdResolverService = TestBed.get(
-      IssueByIdResolverService
-    );
+  it('should be created', () => {
+    const service: IssueByIdResolverService = TestBed.get(IssueByIdResolverService);
     expect(service).toBeTruthy();
   });
 });

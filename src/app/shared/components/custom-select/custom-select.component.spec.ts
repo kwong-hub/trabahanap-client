@@ -1,15 +1,16 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomSelectComponent } from "./custom-select.component";
+import { CustomSelectComponent } from './custom-select.component';
 
-describe("CustomSelectComponent", () => {
+describe('CustomSelectComponent', () => {
   let component: CustomSelectComponent;
   let fixture: ComponentFixture<CustomSelectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CustomSelectComponent]
-    }).compileComponents();
+      declarations: [ CustomSelectComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe("CustomSelectComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

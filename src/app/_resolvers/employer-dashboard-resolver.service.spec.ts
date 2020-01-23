@@ -1,14 +1,12 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import { EmployerDashboardResolverService } from "./employer-dashboard-resolver.service";
+import { EmployerDashboardResolverService } from './employer-dashboard-resolver.service';
 
-describe("EmployerDashboardResolverService", () => {
+describe('EmployerDashboardResolverService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it("should be created", () => {
-    const service: EmployerDashboardResolverService = TestBed.get(
-      EmployerDashboardResolverService
-    );
+  it('should be created', () => {
+    const service: EmployerDashboardResolverService = TestBed.get(EmployerDashboardResolverService);
     expect(service).toBeTruthy();
   });
 });

@@ -10,17 +10,17 @@ $color-grey-1: #333;
 $color-grey-2: #555;
 
 $color-red: #bd0909;
-$color-yellow: #e1a223;
+$color-yellow: #E1A223;
 
-$color-footer-primary: #2a2a2a;
+$color-footer-primary:#2a2a2a;
 
 $footer-height: 35rem;
 $gutter-horizontal: 6rem;
 
 @mixin clearfix {
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 }

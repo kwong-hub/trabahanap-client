@@ -1,46 +1,40 @@
-import { ApplicantComponent } from "./applicant.component";
-import { NgModule } from "@angular/core";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { JwtInterceptor } from "../_helpers/jwt.intercepter";
+import { ApplicantComponent } from './applicant.component';
+import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '../_helpers/jwt.intercepter';
 
-import { ApplicantRoutingModule } from "./applicant-routing.module";
-import { HomeComponent } from "./components/home/home.component";
-import { SharedModule } from "../shared/shared.module";
-import { ApplicantHeaderComponent } from "./components/applicant-header/applicant-header.component";
-import { JobsComponent } from "./components/jobs/jobs.component";
-import { ApplicationsComponent } from "./components/applications/applications.component";
-import { CompaniesComponent } from "./components/companies/companies.component";
-import { ProfileComponent } from "./components/profile/profile.component";
-import { AddApplicantProfileComponent } from "./components/add-applicant-profile/add-applicant-profile.component";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { EditApplicantCvModalComponent } from "./components/edit-applicant-cv-modal/edit-applicant-cv-modal.component";
-import { LeafletModule } from "@asymmetrik/ngx-leaflet";
-import { EditApplicantPictureModalComponent } from "./components/edit-applicant-picture-modal/edit-applicant-picture-modal.component";
-import {
-  MatTableModule,
-  MatButtonModule,
-  MatPaginatorModule,
-  MatMenuModule,
-  MatProgressBarModule
-} from "@angular/material";
-import { MatExpansionModule } from "@angular/material/expansion";
-import { ApplicationDetailComponent } from "./components/application-detail/application-detail.component";
-import { BookmarkDetailComponent } from "./components/bookmark-detail/bookmark-detail.component";
-import { ReportIssueComponent } from "./components/report-issue/report-issue.component";
-import { IssueFormComponent } from "./components/issue-form/issue-form.component";
-import { ReportJobComponent } from "./components/report-job/report-job.component";
-import { LocationService } from "@app/_services/location.service";
-import { ApplicantApplicationsResolverService } from "@app/_services/applicant-applications-resolver.service";
-import { JobDetailResolverService } from "@app/_resolvers/job-detail-resolver.service";
-import { ApplicantSavedApplicationsResolverService } from "@app/_services/applicant-saved-applications-resolver.service";
-import { IssueDetailResolverService } from "@app/_resolvers/applicant-resolvers/issue-detail-resolver.service";
-import { JobService } from "@app/_services/jobs.service";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { EmployerService } from "@app/_services/employer.service";
-import { ApplicantService } from "@app/_services/applicant.service";
-import { ImageCropperModule } from "ngx-image-cropper";
-import { ApplicantProfileResolverService } from "@app/_resolvers/applicant-resolvers/applicant-profile-resolver.service";
-import { ErrorInterceptor } from "@app/_helpers/error.intercepter";
+import { ApplicantRoutingModule } from './applicant-routing.module';
+import { HomeComponent } from './components/home/home.component';
+import { SharedModule } from '../shared/shared.module';
+import { ApplicantHeaderComponent } from './components/applicant-header/applicant-header.component';
+import { JobsComponent } from './components/jobs/jobs.component';
+import { ApplicationsComponent } from './components/applications/applications.component';
+import { CompaniesComponent } from './components/companies/companies.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AddApplicantProfileComponent } from './components/add-applicant-profile/add-applicant-profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditApplicantCvModalComponent } from './components/edit-applicant-cv-modal/edit-applicant-cv-modal.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { EditApplicantPictureModalComponent } from './components/edit-applicant-picture-modal/edit-applicant-picture-modal.component';
+import { MatTableModule, MatButtonModule, MatPaginatorModule, MatMenuModule, MatProgressBarModule } from '@angular/material';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
+import { BookmarkDetailComponent } from './components/bookmark-detail/bookmark-detail.component';
+import { ReportIssueComponent } from './components/report-issue/report-issue.component';
+import { IssueFormComponent } from './components/issue-form/issue-form.component';
+import { ReportJobComponent } from './components/report-job/report-job.component';
+import { LocationService } from '@app/_services/location.service';
+import { ApplicantApplicationsResolverService } from '@app/_services/applicant-applications-resolver.service';
+import { JobDetailResolverService } from '@app/_resolvers/job-detail-resolver.service';
+import { ApplicantSavedApplicationsResolverService } from '@app/_services/applicant-saved-applications-resolver.service';
+import { IssueDetailResolverService } from '@app/_resolvers/applicant-resolvers/issue-detail-resolver.service';
+import { JobService } from '@app/_services/jobs.service';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { EmployerService } from '@app/_services/employer.service';
+import { ApplicantService } from '@app/_services/applicant.service';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ApplicantProfileResolverService } from '@app/_resolvers/applicant-resolvers/applicant-profile-resolver.service';
+import { ErrorInterceptor } from '@app/_helpers/error.intercepter';
 
 @NgModule({
   declarations: [
@@ -58,7 +52,7 @@ import { ErrorInterceptor } from "@app/_helpers/error.intercepter";
     BookmarkDetailComponent,
     ReportIssueComponent,
     IssueFormComponent,
-    ReportJobComponent
+    ReportJobComponent,
   ],
   imports: [
     SharedModule,
@@ -84,4 +78,5 @@ import { ErrorInterceptor } from "@app/_helpers/error.intercepter";
     ApplicantProfileResolverService
   ]
 })
-export class ApplicantModule {}
+
+export class ApplicantModule { }

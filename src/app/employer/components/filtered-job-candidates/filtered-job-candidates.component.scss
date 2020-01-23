@@ -2,91 +2,96 @@
 
 // }
 
-.job-detail {
-  &__container {
-    width: 100%;
-    height: 25rem;
-    padding: 2rem;
-    background-color: #fff;
-    box-shadow: 0px 2px 5px 2px #eee;
-    // display: flex;
-  }
+.job-detail{
 
-  &__position {
-    font-size: 1.8rem;
-    color: tomato;
-  }
-
-  &__left {
-    display: flex;
-    flex-wrap: warp;
-  }
-}
-
-.candidates {
-  &__container {
-    width: 95%;
-    margin: 2rem auto;
-  }
-
-  &__header {
-    text-transform: uppercase;
-    font-size: 2rem;
-    font-weight: 700;
-    color: tomato;
-    width: 50%;
-    margin: 2rem auto;
-    border-bottom: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    text-align: center;
-    border-radius: 2rem;
-    padding: 1rem;
-  }
-
-  &__headers {
-    font-size: 1.3rem;
-    color: #888;
-    text-transform: uppercase;
-  }
-}
-
-.candidate {
-  width: 100%;
-  // height: 2rem;
-  border: 1px solid #ccc;
-  padding: 1rem;
-  margin: 1rem 0rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  &__name {
-    color: #42597b;
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 0px;
-    text-transform: capitalize;
-    width: 25%;
-  }
-
-  &__detail {
-    border: 1px solid #42597b;
-    border-radius: 2rem;
-    padding: 0.5rem 3.5rem;
-    background-color: #fff;
-    text-transform: uppercase;
-    color: #42597b;
-    font-size: 1.3rem;
-    cursor: pointer;
-    outline: none;
-
-    &:active {
-      transform: scale(0.98);
+    &__container{
+        width: 100%;
+        height: 25rem;
+        padding: 2rem;
+        background-color: #fff;
+        box-shadow: 0px 2px 5px 2px #eee;
+        // display: flex;
     }
-  }
 
-  &__email {
-    font-size: 1.5rem;
-    color: #555;
-  }
+
+    &__position{
+        font-size: 1.8rem;
+        color: tomato;
+    }
+
+    &__left{
+        display: flex;
+        flex-wrap: warp;
+    }
+}
+
+.candidates{
+
+    &__container{
+        width: 95%;
+        margin: 2rem auto;
+    }
+
+    &__header{
+        text-transform: uppercase;
+        font-size: 2rem;
+        font-weight: 700;
+        color: tomato;
+        width: 50%;
+        margin: 2rem auto;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        text-align: center;
+        border-radius: 2rem;
+        padding: 1rem;
+    }
+
+    &__headers{
+        font-size: 1.3rem;
+        color: #888;
+        text-transform: uppercase;
+    }
+
+}
+
+.candidate{
+    width: 100%;
+    // height: 2rem;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin: 1rem 0rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__name{
+        color: #42597B ;
+        font-size: 1.6rem ;
+        font-weight: 700;
+        margin-bottom: 0px ;
+        text-transform: capitalize;
+        width: 25%;
+    }
+
+    &__detail{
+        border: 1px solid #42597B;
+        border-radius: 2rem;
+        padding: .5rem 3.5rem;
+        background-color: #fff;
+        text-transform: uppercase;
+        color: #42597B;
+        font-size: 1.3rem;
+        cursor: pointer;
+        outline: none;
+
+        &:active{
+            transform: scale(.98);
+        }
+    }
+
+    &__email{
+        font-size: 1.5rem;
+        color: #555;
+    }
+
 }

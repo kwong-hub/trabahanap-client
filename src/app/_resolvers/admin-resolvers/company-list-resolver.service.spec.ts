@@ -1,14 +1,12 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import { CompanyListResolverService } from "./company-list-resolver.service";
+import { CompanyListResolverService } from './company-list-resolver.service';
 
-describe("CompanyListResolverService", () => {
+describe('CompanyListResolverService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it("should be created", () => {
-    const service: CompanyListResolverService = TestBed.get(
-      CompanyListResolverService
-    );
+  it('should be created', () => {
+    const service: CompanyListResolverService = TestBed.get(CompanyListResolverService);
     expect(service).toBeTruthy();
   });
 });

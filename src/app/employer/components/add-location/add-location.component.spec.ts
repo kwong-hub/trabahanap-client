@@ -1,15 +1,16 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddLocationComponent } from "./add-location.component";
+import { AddLocationComponent } from './add-location.component';
 
-describe("AddLocationComponent", () => {
+describe('AddLocationComponent', () => {
   let component: AddLocationComponent;
   let fixture: ComponentFixture<AddLocationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AddLocationComponent]
-    }).compileComponents();
+      declarations: [ AddLocationComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe("AddLocationComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

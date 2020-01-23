@@ -1,15 +1,16 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthRegisterComponent } from "./auth-register.component";
+import { AuthRegisterComponent } from './auth-register.component';
 
-describe("AuthRegisterComponent", () => {
+describe('AuthRegisterComponent', () => {
   let component: AuthRegisterComponent;
   let fixture: ComponentFixture<AuthRegisterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AuthRegisterComponent]
-    }).compileComponents();
+      declarations: [ AuthRegisterComponent ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe("AuthRegisterComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
