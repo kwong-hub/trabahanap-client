@@ -43,5 +43,8 @@ export class AnonymousService {
     return this.http.get<any>(`${environment.apiUrl}/company/${id}`);
 
   }
+  getAdvertisement(){
+    return this.http.get<any>(`${environment.apiUrl}/ads`);
+  }
   
 }

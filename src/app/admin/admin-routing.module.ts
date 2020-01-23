@@ -44,6 +44,9 @@ import { ReportJobListComponent } from './components/report-job-list/report-job-
 import { FeaturedCompanyListResolverService } from '@app/_resolvers/admin-resolvers/featured-company-list-resolver.service';
 import { ReportJobDetailComponent } from './components/report-job-detail/report-job-detail.component'
 import { ReportByIdResolverService } from '@app/_resolvers/admin-resolvers/report-by-id-resolver.service';
+import { AdvertisementListComponent } from './components/advertisement-list/advertisement-list.component';
+import { AddAdvertisementComponent } from './components/add-advertisement/add-advertisement.component';
+import { AdsListResolverService } from '@app/_resolvers/admin-resolvers/ads-list-resolver.service';
 
 const routes: Routes = [
   { path: '', component: AdminComponent,
@@ -80,6 +83,8 @@ const routes: Routes = [
     { path: 'applicants/details/:id', canActivate: [AdminGuard], component: ApplicantDetailComponent},
     { path: 'applications', canActivate: [AdminGuard], component: ApplicationsListComponent, resolve: {data: ApplicationListResolverService}},
     { path: 'applicants/add', canActivate: [AdminGuard], component: AddApplicantComponent},
+    { path: 'ads', canActivate: [AdminGuard],component: AdvertisementListComponent,resolve:{data:AdsListResolverService }},
+    { path: 'ads/add', canActivate: [AdminGuard],component: AddAdvertisementComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full'},
   ]}
 ];

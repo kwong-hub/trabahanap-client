@@ -53,6 +53,9 @@ import { FeaturedCompanyListResolverService } from '@app/_resolvers/admin-resolv
 import { ApplicantListResolverService } from '@app/_resolvers/admin-resolvers/applicant-list-resolver.service';
 import { ApplicationListResolverService } from '@app/_resolvers/admin-resolvers/application-list-resolver.service';
 import { ErrorInterceptor } from '@app/_helpers/error.intercepter';
+import { AdsListResolverService } from '@app/_resolvers/admin-resolvers/ads-list-resolver.service';
+import { AddAdvertisementComponent } from './components/add-advertisement/add-advertisement.component';
+import { AdvertisementListComponent } from './components/advertisement-list/advertisement-list.component';
 
 
 @NgModule({
@@ -85,7 +88,9 @@ import { ErrorInterceptor } from '@app/_helpers/error.intercepter';
     AddAdminStaffComponent,
     ReportJobListComponent,
     FeaturedCompaniesComponent,
-    ReportJobDetailComponent
+    ReportJobDetailComponent,
+    AddAdvertisementComponent,
+    AdvertisementListComponent
   ],
   imports: [
     AdminRoutingModule,
@@ -118,6 +123,8 @@ import { ErrorInterceptor } from '@app/_helpers/error.intercepter';
     FeaturedCompanyListResolverService,
     ApplicantListResolverService,
     ApplicationListResolverService,
+    AdsListResolverService
+
     
   ]
 })

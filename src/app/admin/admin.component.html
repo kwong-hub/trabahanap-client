@@ -1,7 +1,7 @@
 <div class="main-container">
     <admin-header [isChecked]="sideBarActive" (signout)="logout()" (toggleBox)="toggleSidebar($event)"></admin-header>
     <mat-progress-bar *ngIf="routing" class="progress" color="warn" mode="indeterminate"></mat-progress-bar>
-    
+
     <div class="content-container">
         <div class="sidebar" [class.sideBarActive]="sideBarActive">
             <h3 class="sidebar__header">Main</h3>
@@ -18,17 +18,23 @@
                     [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
                     <i class="icons fas fa-building"></i> <span class="names">Employers</span>
                 </a>
-                <a routerLink="companies/featured" routerLinkActive="active" title="Featured Companies" (click)="toggleSidebar(false)"
-                    [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+                <a routerLink="companies/featured" routerLinkActive="active" title="Featured Companies"
+                    (click)="toggleSidebar(false)" [routerLinkActiveOptions]="{exact: false}"
+                    class="sidebar__list-item">
                     <i class="icons far fa-star"></i> <span class="names">Featured Companies</span>
                 </a>
                 <a routerLink="applicants" routerLinkActive="active" title="Applicants" (click)="toggleSidebar(false)"
                     [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
                     <i class="icons fas fa-users"></i> <span class="names">Applicants</span>
                 </a>
-                <a routerLink="applications" routerLinkActive="active" title="Applicantions" (click)="toggleSidebar(false)"
-                    [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+                <a routerLink="applications" routerLinkActive="active" title="Applicantions"
+                    (click)="toggleSidebar(false)" [routerLinkActiveOptions]="{exact: false}"
+                    class="sidebar__list-item">
                     <i class="icons fas fa-list"></i> <span class="names">Applicantions</span>
+                </a>
+                <a routerLink="ads" routerLinkActive="active" title="Advertisement" (click)="toggleSidebar(false)"
+                    [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+                    <i class="icons fas fa-ad"></i> <span class="names">Advertisement</span>
                 </a>
             </div>
 
@@ -51,8 +57,9 @@
                     [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
                         <i class="icons far fa-address-card"></i> <span class="names">Account Profile</span>
                     </a> -->
-                <a routerLink="password" routerLinkActive="active" title="Change Password" (click)="toggleSidebar(false)"
-                    [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+                <a routerLink="password" routerLinkActive="active" title="Change Password"
+                    (click)="toggleSidebar(false)" [routerLinkActiveOptions]="{exact: false}"
+                    class="sidebar__list-item">
                     <i class="icons fas fa-key"></i> <span class="names">Change password</span>
                 </a>
                 <a (click)="logout()" class="sidebar__list-item" title="Logout">

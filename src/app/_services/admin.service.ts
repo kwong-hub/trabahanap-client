@@ -14,6 +14,15 @@ export class AdminService {
   fetchDashboardCounter(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/counters`)
   }
+  getAllAds(page,pageSize):Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}/admin/advertisement?page=${page}&pageSize=${pageSize}`);
+  }
+  deactivateAds(id): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}/admin/advertisement/${id}`, {});
+  }
+  addAdvertisement(formData): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/admin/advertisement`, formData)
+  }
 
   getAllEmployers(page,pageSize) : Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/employers?page=${page}&pageSize=${pageSize}`);

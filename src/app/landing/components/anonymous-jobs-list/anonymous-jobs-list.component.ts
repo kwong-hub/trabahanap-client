@@ -75,6 +75,7 @@ export class AnonymousJobsListComponent implements OnInit {
   @ViewChild('jobsListAnchor', { static: false }) jobsListAnchor: ElementRef<HTMLElement>;
   openActions: {};
   compId: any;
+  adsModal: boolean;
 
   constructor(private formBuilder: FormBuilder, private JobsService: JobService, private anonyService: AnonymousService, private route: ActivatedRoute, private host: ElementRef, private authService: AuthenticationService) {
   }
@@ -315,6 +316,10 @@ export class AnonymousJobsListComponent implements OnInit {
       );
 
     //this.searchForm.reset();
+  }
+
+  toggleAds($event){
+    this.adsModal = !this.adsModal;
   }
 
 }
