@@ -1,26 +1,32 @@
 <div class="modal__container" [class.modal__show]="isModalOpen">
-    <div class="modal">
-        <div class="modal__header">
-            Delete A Job
-        </div>
-
-        <div class="modal__content">
-            <span class="modal__content__text"> Are you sure you want to delete this job?</span>
-        </div>
-        <div class="modal__footer">
-            <button (click)="closeModal()" class="modal__btn modal__btn--cancle">
-                Cancel
-            </button>
-            <button (click)="deleteJob()" type="submit" class="modal__btn modal__btn--submit">
-                Delete
-            </button>
-        </div>
-
-        <div class="modal__close-btn-container">
-            <button (click)="closeModal()" class="modal__btn modal__btn--close">
-                <fa-icon [icon]="faTimes"></fa-icon>
-            </button>
-        </div>
+  <div class="modal">
+    <div class="modal__header">
+      Delete A Job
     </div>
-    <!-- <shared-loader *ngIf="showEditLoader"></shared-loader> -->
+
+    <div class="modal__content">
+      <span class="modal__content__text">
+        Are you sure you want to delete this job?</span
+      >
+    </div>
+    <div class="modal__footer">
+      <button (click)="closeModal()" class="modal__btn modal__btn--cancle">
+        Cancel
+      </button>
+      <button
+        (click)="deleteJob()"
+        type="submit"
+        class="modal__btn modal__btn--submit"
+      >
+        Delete
+      </button>
+    </div>
+
+    <div class="modal__close-btn-container">
+      <button (click)="closeModal()" class="modal__btn modal__btn--close">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <!-- <shared-loader *ngIf="showEditLoader"></shared-loader> -->
 </div>

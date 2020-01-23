@@ -1,38 +1,47 @@
 <div class="job">
-        <div class="job__left">
-            <div class="job__left--top">
-                <div class="job__left--top__container">
-                    <h3 class="job__title">{{Job?.jobTitle}}</h3>
-                    <div>
-                        <span class="job__company-name">Industry: {{Job?.industry}}</span>
-                    </div>
-                    <div>
-                        <span class="job__location"><i class="fas fa-map-marker-alt job__location-icon"></i>{{Job?.location.locationName}}</span>
-                    </div>
-                </div>
-                
-            </div>
-            <div class="job__left--middle">
-                <!-- <p class="job__description">{{Job?.jobDescription}}</p> -->
-                <span class="job__salary-range">Salary Range: {{Job?.salaryRange}}</span>
-            </div>
-            <div class="job__left--bottom">
-                <div>
-                    <span class="job__tag"><i class="job__tag-icon fa fa-tag"></i> Tags</span>
-                </div>
-                <div class="job__tag-elements">
-                    <div class="job__tag-element">{{Job?.employmentType}}</div>
-                    <div class="job__tag-element">HUMAN RESOURCE</div>
-                </div>
-            </div>
-            
+  <div class="job__left">
+    <div class="job__left--top">
+      <div class="job__left--top__container">
+        <h3 class="job__title">{{ Job?.jobTitle }}</h3>
+        <div>
+          <span class="job__company-name">Industry: {{ Job?.industry }}</span>
         </div>
-        <div class="job__right">
-            <!-- <button [routerLink]="['details', Job.id]" class="btn-outline job__apply-button">Details</button> -->
-            <div class="job__general-info">
-                <div class="job__info job__info-vacancies">{{Job?.vacancies}} Vacancies</div>
-                <div class="job__info job__info-pwd"><i style="margin-right: .5rem" class="fab fa-accessible-icon"></i>PWD-Friendly</div>
-            </div>
+        <div>
+          <span class="job__location"
+            ><i class="fas fa-map-marker-alt job__location-icon"></i
+            >{{ Job?.location.locationName }}</span
+          >
         </div>
+      </div>
     </div>
-    
+    <div class="job__left--middle">
+      <!-- <p class="job__description">{{Job?.jobDescription}}</p> -->
+      <span class="job__salary-range"
+        >Salary Range: {{ Job?.salaryRange }}</span
+      >
+    </div>
+    <div class="job__left--bottom">
+      <div>
+        <span class="job__tag"
+          ><i class="job__tag-icon fa fa-tag"></i> Tags</span
+        >
+      </div>
+      <div class="job__tag-elements">
+        <div class="job__tag-element">{{ Job?.employmentType }}</div>
+        <div class="job__tag-element">HUMAN RESOURCE</div>
+      </div>
+    </div>
+  </div>
+  <div class="job__right">
+    <!-- <button [routerLink]="['details', Job.id]" class="btn-outline job__apply-button">Details</button> -->
+    <div class="job__general-info">
+      <div class="job__info job__info-vacancies">
+        {{ Job?.vacancies }} Vacancies
+      </div>
+      <div class="job__info job__info-pwd">
+        <i style="margin-right: .5rem" class="fab fa-accessible-icon"></i
+        >PWD-Friendly
+      </div>
+    </div>
+  </div>
+</div>

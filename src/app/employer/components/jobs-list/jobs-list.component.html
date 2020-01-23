@@ -1,114 +1,173 @@
-<div class="overlay" [class.active]="!filterHidden">
-</div>
+<div class="overlay" [class.active]="!filterHidden"></div>
 
 <div class="filter">
-    <h3 class="filter__heading">Your Job Posting</h3>
-    <div (click)="toggleFilter($event)" class="filter__header">
-        <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
-    </div>
-    <div class="filter__content" [class.filter__hide]="filterHidden">
-        <form action="#" (ngSubmit)="filterJobsApplications()" class="form" [formGroup]="searchForm" autocomplete="off">
-            <div class="sub-container">
-                <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="jobTitle"
-                    defaultValue="" label='Jobs' placeholder='Enter Search Jobs'
-                    [input]="searchForm.controls['jobTitle']" type='text' [submitted]="false" [disabled]="false">
-                </shared-custom-input-field>
-            </div>
-            <div class="sub-container">
-                <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="industry"
-                    defaultValue="" label='Industry Type' placeholder='Search by Industry'
-                    [input]="searchForm.controls['industry']" type='text' [submitted]="false" [disabled]="false">
-                </shared-custom-input-field>
-            </div>
-            <div class="sub-container">
-                <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="position"
-                    defaultValue="" label='Position' placeholder='Searc by Position'
-                    [input]="searchForm.controls['position']" type='text' [submitted]="false" [disabled]="false">
-                </shared-custom-input-field>
-            </div>
+  <h3 class="filter__heading">Your Job Posting</h3>
+  <div (click)="toggleFilter($event)" class="filter__header">
+    <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
+  </div>
+  <div class="filter__content" [class.filter__hide]="filterHidden">
+    <form
+      action="#"
+      (ngSubmit)="filterJobsApplications()"
+      class="form"
+      [formGroup]="searchForm"
+      autocomplete="off"
+    >
+      <div class="sub-container">
+        <shared-custom-input-field
+          class="input-element-type-2"
+          [formGroup]="searchForm"
+          name="jobTitle"
+          defaultValue=""
+          label="Jobs"
+          placeholder="Enter Search Jobs"
+          [input]="searchForm.controls['jobTitle']"
+          type="text"
+          [submitted]="false"
+          [disabled]="false"
+        >
+        </shared-custom-input-field>
+      </div>
+      <div class="sub-container">
+        <shared-custom-input-field
+          class="input-element-type-2"
+          [formGroup]="searchForm"
+          name="industry"
+          defaultValue=""
+          label="Industry Type"
+          placeholder="Search by Industry"
+          [input]="searchForm.controls['industry']"
+          type="text"
+          [submitted]="false"
+          [disabled]="false"
+        >
+        </shared-custom-input-field>
+      </div>
+      <div class="sub-container">
+        <shared-custom-input-field
+          class="input-element-type-2"
+          [formGroup]="searchForm"
+          name="position"
+          defaultValue=""
+          label="Position"
+          placeholder="Searc by Position"
+          [input]="searchForm.controls['position']"
+          type="text"
+          [submitted]="false"
+          [disabled]="false"
+        >
+        </shared-custom-input-field>
+      </div>
 
-            <div class="form__group--btn">
-                <input type="submit" value="Search" class="form__submit th-btn th-btn--primary">
-            </div>
-        </form>
-    </div>
+      <div class="form__group--btn">
+        <input
+          type="submit"
+          value="Search"
+          class="form__submit th-btn th-btn--primary"
+        />
+      </div>
+    </form>
+  </div>
 </div>
 
 <div class="container">
-
-    <h3 class="not_Found" *ngIf="jobs && jobs.length == 0">
-        You don't have any jobs yet.
-    </h3>
-    <div *ngIf="jobs && jobs.length > 0">
-        <table mat-table [dataSource]="jobs" class="mat-elevation-z10">
-
-            <!--- Note that these columns can be defined in any order.
+  <h3 class="not_Found" *ngIf="jobs && jobs.length == 0">
+    You don't have any jobs yet.
+  </h3>
+  <div *ngIf="jobs && jobs.length > 0">
+    <table mat-table [dataSource]="jobs" class="mat-elevation-z10">
+      <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
-    
-        <!-- Position Column -->
-        <ng-container matColumnDef="jobTitle">
-        <th mat-header-cell *matHeaderCellDef> Job Title</th>
-        <td mat-cell *matCellDef="let element"> {{element.jobTitle}} </td>
-        </ng-container>
-    
-        <!-- Name Column -->
-        <ng-container matColumnDef="industry">
-        <th mat-header-cell *matHeaderCellDef> Industry</th>
-        <td mat-cell *matCellDef="let element"> {{element.industry}} </td>
-        </ng-container>
-    
-        <!-- Weight Column -->
-        <ng-container matColumnDef="education">
-        <th mat-header-cell *matHeaderCellDef> Educational Attainment</th>
-        <td mat-cell *matCellDef="let element"> {{element.educationAttainment}} </td>
-        </ng-container>
-    
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="salaryRange">
-            <th mat-header-cell *matHeaderCellDef> Salary Range</th>
-            <td mat-cell *matCellDef="let element"> {{element.salaryRange}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="edit">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td class="job-list__actions-container" mat-cell *matCellDef="let element">
-                    <button (click)="toggleActions($event, element.id)" class="job-list__action">
-                        <fa-icon [icon]="faEllipsisV"></fa-icon>
-                    </button>
-                    <div class="job-list__actions" *ngIf="openActions[element.id]">
-                        <button (click)="candidatesJob(element.id)" class="job-list__action job-list__action--hover"><span
-                                class="job-list__icon">
-                                <fa-icon [icon]="faInbox"></fa-icon>
-                            </span>Candidates</button>
-                        <button (click)="editJob(element)" class="job-list__action job-list__action--hover"><span
-                                class="job-list__icon">
-                                <fa-icon [icon]="faPenFancy"></fa-icon>
-                            </span>Edit</button>
-                        <!-- <button (click)="deleteJob(element.id)" class="job-list__action job-list__action--hover"><span
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="jobTitle">
+        <th mat-header-cell *matHeaderCellDef>Job Title</th>
+        <td mat-cell *matCellDef="let element">{{ element.jobTitle }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="industry">
+        <th mat-header-cell *matHeaderCellDef>Industry</th>
+        <td mat-cell *matCellDef="let element">{{ element.industry }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="education">
+        <th mat-header-cell *matHeaderCellDef>Educational Attainment</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.educationAttainment }}
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="salaryRange">
+        <th mat-header-cell *matHeaderCellDef>Salary Range</th>
+        <td mat-cell *matCellDef="let element">{{ element.salaryRange }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td
+          class="job-list__actions-container"
+          mat-cell
+          *matCellDef="let element"
+        >
+          <button
+            (click)="toggleActions($event, element.id)"
+            class="job-list__action"
+          >
+            <fa-icon [icon]="faEllipsisV"></fa-icon>
+          </button>
+          <div class="job-list__actions" *ngIf="openActions[element.id]">
+            <button
+              (click)="candidatesJob(element.id)"
+              class="job-list__action job-list__action--hover"
+            >
+              <span class="job-list__icon">
+                <fa-icon [icon]="faInbox"></fa-icon> </span
+              >Candidates
+            </button>
+            <button
+              (click)="editJob(element)"
+              class="job-list__action job-list__action--hover"
+            >
+              <span class="job-list__icon">
+                <fa-icon [icon]="faPenFancy"></fa-icon> </span
+              >Edit
+            </button>
+            <!-- <button (click)="deleteJob(element.id)" class="job-list__action job-list__action--hover"><span
                                 class="job-list__icon">
                                 <fa-icon [icon]="faBan"></fa-icon>
                             </span>Cancel</button> -->
-                        <button (click)="toggleJob(element.id)" class="job-list__action job-list__action--hover"><span
-                                class="job-list__icon">
-                                <fa-icon [icon]="faTrashAlt"></fa-icon>
-                            </span>Delete</button>
-                    </div>
-                </td>
-            </ng-container>
+            <button
+              (click)="toggleJob(element.id)"
+              class="job-list__action job-list__action--hover"
+            >
+              <span class="job-list__icon">
+                <fa-icon [icon]="faTrashAlt"></fa-icon> </span
+              >Delete
+            </button>
+          </div>
+        </td>
+      </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize" [pageSizeOptions]="[5, 8, 10, 25, 100]"
-            (page)="getServerData($event)">
-        </mat-paginator>
-    </div>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
 
+    <mat-paginator
+      [length]="pager?.totalItems"
+      [pageSize]="pager?.pageSize"
+      [pageSizeOptions]="[5, 8, 10, 25, 100]"
+      (page)="getServerData($event)"
+    >
+    </mat-paginator>
+  </div>
 </div>
 
 <app-shared-delete-modal
-[isModalOpen]="isLogoEditModalOpen"
-[jobId]="deletedId"
-(closeModalEvent)="toggleJob($event)"
-(deletedJob) = "deleteJob($event)"
+  [isModalOpen]="isLogoEditModalOpen"
+  [jobId]="deletedId"
+  (closeModalEvent)="toggleJob($event)"
+  (deletedJob)="deleteJob($event)"
 ></app-shared-delete-modal>

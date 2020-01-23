@@ -1,8 +1,31 @@
-<div [ngStyle]="styleObject?.inputContainer" [class.custom-select__active]="isOpen" class="custom-select custom-select__container">
-    <input [disabled]="disabled" type="text" [name]="name" [ngStyle]="styleObject?.inputHeader" (click)="selectClicked($event)" class="custom-select__header" value="{{ default ? default: currentValue ? currentValue : placeholder}}" readonly />
-    <label class="custom-select__label" [for]="name">{{label}}</label>
-    <div [ngStyle]="styleObject?.optionContainer" class="custom-select__options-container">
-        <div [ngStyle]="styleObject?.option" (click)="optionItemClicked($event, option)" *ngFor="let option of options" [class.custom-select__selected]="option.name == currentValue" class="custom-select__options">{{ option.name }}</div>
+<div
+  [ngStyle]="styleObject?.inputContainer"
+  [class.custom-select__active]="isOpen"
+  class="custom-select custom-select__container"
+>
+  <input
+    [disabled]="disabled"
+    type="text"
+    [name]="name"
+    [ngStyle]="styleObject?.inputHeader"
+    (click)="selectClicked($event)"
+    class="custom-select__header"
+    value="{{ default ? default : currentValue ? currentValue : placeholder }}"
+    readonly
+  />
+  <label class="custom-select__label" [for]="name">{{ label }}</label>
+  <div
+    [ngStyle]="styleObject?.optionContainer"
+    class="custom-select__options-container"
+  >
+    <div
+      [ngStyle]="styleObject?.option"
+      (click)="optionItemClicked($event, option)"
+      *ngFor="let option of options"
+      [class.custom-select__selected]="option.name == currentValue"
+      class="custom-select__options"
+    >
+      {{ option.name }}
     </div>
+  </div>
 </div>
-    

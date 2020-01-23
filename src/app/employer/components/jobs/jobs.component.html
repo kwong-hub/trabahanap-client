@@ -1,13 +1,20 @@
 <div class="sub-module-container">
-    <!-- <h3 class="sub-module-container__heading">Your Job Postings</h3> -->
-    <div class="sub-module-container__container">
-        <h2 *ngIf="!companyProfile.verified" class="heading-text">
-            Please, wait until we verify the legitimacy of your company before you can post a job.
-        </h2>
-        <app-jobs-list [jobs]="jobs" [pager]="pager" *ngIf="companyProfile.verified"></app-jobs-list>
-    </div>
+  <!-- <h3 class="sub-module-container__heading">Your Job Postings</h3> -->
+  <div class="sub-module-container__container">
+    <h2 *ngIf="!companyProfile.verified" class="heading-text">
+      Please, wait until we verify the legitimacy of your company before you can
+      post a job.
+    </h2>
+    <app-jobs-list
+      [jobs]="jobs"
+      [pager]="pager"
+      *ngIf="companyProfile.verified"
+    ></app-jobs-list>
+  </div>
 
-    <div *ngIf="companyProfile.verified" class="add_job_floating">
-        <button routerLink="../jobs/add" class="add_job_floating__button"><span class="add_job_floating__element">&#x2b;</span></button>
-    </div>
+  <div *ngIf="companyProfile.verified" class="add_job_floating">
+    <button routerLink="../jobs/add" class="add_job_floating__button">
+      <span class="add_job_floating__element">&#x2b;</span>
+    </button>
+  </div>
 </div>

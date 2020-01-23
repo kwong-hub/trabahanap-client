@@ -1,57 +1,71 @@
 <div class="sub-module-container">
-    <h3 class="sub-module-container__heading">Featured Companies</h3>
-    <div class="sub-module-container__container">
-            <table *ngIf="companies.length > 0" mat-table [dataSource]="companies" class="mat-elevation-z3">
+  <h3 class="sub-module-container__heading">Featured Companies</h3>
+  <div class="sub-module-container__container">
+    <table
+      *ngIf="companies.length > 0"
+      mat-table
+      [dataSource]="companies"
+      class="mat-elevation-z3"
+    >
+      <!-- Name Column -->
+      <ng-container matColumnDef="companyLogo">
+        <th mat-header-cell *matHeaderCellDef>Company Logo</th>
+        <td mat-cell *matCellDef="let company">
+          <img
+            style="margin: 0.5rem 0; height: 5rem;"
+            [src]="company.companyLogo"
+            alt=""
+            class="logo"
+          />
+        </td>
+      </ng-container>
 
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="companyLogo">
-                        <th mat-header-cell *matHeaderCellDef> Company Logo </th>
-                        <td mat-cell *matCellDef="let company">
-                            <img style="margin: 0.5rem 0; height: 5rem;" [src]="company.companyLogo" alt="" class="logo">
-                        </td>
-                    </ng-container>
-        
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="companyName">
-                        <th mat-header-cell *matHeaderCellDef> Company Name </th>
-                        <td mat-cell *matCellDef="let company"> {{ company.companyName }} </td>
-                    </ng-container>
-        
-                    <!-- Phone Number Column -->
-        
-                    <!-- Actions Column -->
-                    <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef> </th>
-                        <td class="company-list__actions-container" mat-cell *matCellDef="let company">
-                            <button (click)="openModal(company.id)" class="company-list__action">
-                                Remove
-                            </button>
-                        </td>
-                    </ng-container>
-        
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                <h3 *ngIf="companies && companies.length == 0">
-                    <div class="not_Found">
-                        <span>No featured companies yet.</span>
-                    </div>
-                </h3>
-    </div>
+      <!-- Name Column -->
+      <ng-container matColumnDef="companyName">
+        <th mat-header-cell *matHeaderCellDef>Company Name</th>
+        <td mat-cell *matCellDef="let company">{{ company.companyName }}</td>
+      </ng-container>
+
+      <!-- Phone Number Column -->
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td
+          class="company-list__actions-container"
+          mat-cell
+          *matCellDef="let company"
+        >
+          <button (click)="openModal(company.id)" class="company-list__action">
+            Remove
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <h3 *ngIf="companies && companies.length == 0">
+      <div class="not_Found">
+        <span>No featured companies yet.</span>
+      </div>
+    </h3>
+  </div>
 </div>
 
 <div class="add_employer_floating">
-    <button routerLink="/admin/employers" class="add_employer_floating__button">
-        <span class="add_employer_floating__element">&#x2b;</span>
-    </button>
+  <button routerLink="/admin/employers" class="add_employer_floating__button">
+    <span class="add_employer_floating__element">&#x2b;</span>
+  </button>
 </div>
 
 <app-shared-confirm-model
-headerText="Delete Company From Featured"
-bodyText="Are you sure you want to delete this company?"
-[isModalOpen]="openConfirmModal"
-[data]="data"
-(confirmed)="remove($event)"
-(cancled)="closeModal()"
+  headerText="Delete Company From Featured"
+  bodyText="Are you sure you want to delete this company?"
+  [isModalOpen]="openConfirmModal"
+  [data]="data"
+  (confirmed)="remove($event)"
+  (cancled)="closeModal()"
 >
 </app-shared-confirm-model>

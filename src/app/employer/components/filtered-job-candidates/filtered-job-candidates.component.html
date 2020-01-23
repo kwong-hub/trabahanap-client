@@ -1,32 +1,41 @@
 <div class="sub-module-container">
-    <h3 class="sub-module-container__heading">Filtered Job Candidates</h3>
-    <div class="sub-module-container__container job">
-        <div class="main-contianer">
-            <!-- <div class="candidates__header">
+  <h3 class="sub-module-container__heading">Filtered Job Candidates</h3>
+  <div class="sub-module-container__container job">
+    <div class="main-contianer">
+      <!-- <div class="candidates__header">
                 Job Detail
             </div> -->
-            <div>
-                <app-job-employer [Job]="job"></app-job-employer>
-            </div>
+      <div>
+        <app-job-employer [Job]="job"></app-job-employer>
+      </div>
 
-            <div class="candidates__header">
-                APPLICANTS
-            </div>
-            <div class="candidates__container">
-                <div style="display: flex; justify-content: space-between;padding: 0rem 1rem;">
-                    <h2 class="candidates__headers">Applicant Name</h2>
-                    <h2 class="candidates__headers">Email</h2>
-                    <h2 class="candidates__headers">Detail</h2>
-                </div>
-            </div>
-            
-            <div class="candidates__container">
-                <div *ngFor="let applicant of applicants" class="candidate">
-                    <h3 class="candidate__name">{{applicant?.firstName + " " + applicant?.lastName}}</h3>
-                    <h2 class="candidate__email">{{applicant?.email}}</h2>
-                    <button (click)="showApplicantDetail(applicant, job)" class="candidate__detail">Detail</button>
-                </div>
-            </div>
+      <div class="candidates__header">
+        APPLICANTS
+      </div>
+      <div class="candidates__container">
+        <div
+          style="display: flex; justify-content: space-between;padding: 0rem 1rem;"
+        >
+          <h2 class="candidates__headers">Applicant Name</h2>
+          <h2 class="candidates__headers">Email</h2>
+          <h2 class="candidates__headers">Detail</h2>
         </div>
+      </div>
+
+      <div class="candidates__container">
+        <div *ngFor="let applicant of applicants" class="candidate">
+          <h3 class="candidate__name">
+            {{ applicant?.firstName + " " + applicant?.lastName }}
+          </h3>
+          <h2 class="candidate__email">{{ applicant?.email }}</h2>
+          <button
+            (click)="showApplicantDetail(applicant, job)"
+            class="candidate__detail"
+          >
+            Detail
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

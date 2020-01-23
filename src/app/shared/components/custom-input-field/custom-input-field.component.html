@@ -1,9 +1,36 @@
-<div [formGroup]="formGroup" class="form__group" [ngStyle]="styleObject?.inputContainer">
-    <input [accept]="accept" [type]="type" [value]="defaultValue" [name]="name" [id]="name" class="form__input" [placeholder]="placeholder"
-    [class.form__input--error]="submitted && errorMessage" [ngStyle]="styleObject?.input" [min]="range?.min" [max]="range?.max"
-    [formControlName]="name" [ngClass]="{ 'is-invalid': submitted && input.status == 'INVALID'}" />
-    <label class="form__label" [for]="name" [ngStyle]="styleObject?.label">{{ label }}</label>
-    <div *ngIf="submitted && input.status == 'INVALID'" class="invalid-feedback" [ngStyle]="styleObject?.feedbackContainer">
-        <div class="invalid-feedback__message" [ngStyle]="styleObject?.feedbackMessage">{{label}} is not valid</div>
+<div
+  [formGroup]="formGroup"
+  class="form__group"
+  [ngStyle]="styleObject?.inputContainer"
+>
+  <input
+    [accept]="accept"
+    [type]="type"
+    [value]="defaultValue"
+    [name]="name"
+    [id]="name"
+    class="form__input"
+    [placeholder]="placeholder"
+    [class.form__input--error]="submitted && errorMessage"
+    [ngStyle]="styleObject?.input"
+    [min]="range?.min"
+    [max]="range?.max"
+    [formControlName]="name"
+    [ngClass]="{ 'is-invalid': submitted && input.status == 'INVALID' }"
+  />
+  <label class="form__label" [for]="name" [ngStyle]="styleObject?.label">{{
+    label
+  }}</label>
+  <div
+    *ngIf="submitted && input.status == 'INVALID'"
+    class="invalid-feedback"
+    [ngStyle]="styleObject?.feedbackContainer"
+  >
+    <div
+      class="invalid-feedback__message"
+      [ngStyle]="styleObject?.feedbackMessage"
+    >
+      {{ label }} is not valid
     </div>
+  </div>
 </div>
