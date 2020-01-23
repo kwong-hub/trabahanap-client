@@ -1,48 +1,68 @@
 <div class="sub-module-container">
-    <h3 class="sub-module-container__heading">Issue Details</h3>
-    <div class="sub-module-container__container container">
-        <div class="details">
-            <div class="detail">
-                <div class="detail__label">Issue Type</div>
-                <div class="detail__value">
-                    <p class="text">{{ issue.issueType }} related</p>
-                </div>
-            </div>
-            <div class="detail">
-                <div class="detail__label">Reason</div>
-                <div class="detail__value">
-                    <p class="text">{{ issue.issueReason}}</p>
-                </div>
-            </div>
-            <div class="detail">
-                <div class="detail__label">Issue Description</div>
-                <div class="detail__value">
-                    <p class="text">{{ issue.issueDescription }}</p>
-                </div>
-            </div>
-            <div class="detail">
-                <div class="detail__label">Response from Admin</div>
-                <div class="detail__value">
-                    <p *ngIf="issue.issueResponseId" class="text">{{ issue.issue_response.issueResponse }}</p>
-                    <p *ngIf="!issue.issueResponseId" class="text text--noReply">No response yet. We will reply to you as soon as possible.</p>
-                </div>
-            </div>
+  <h3 class="sub-module-container__heading">Issue Details</h3>
+  <div class="sub-module-container__container container">
+    <div class="details">
+      <div class="detail">
+        <div class="detail__label">Issue Type</div>
+        <div class="detail__value">
+          <p class="text">{{ issue.issueType }} related</p>
         </div>
-
-        <div class="attachment">
-            <div class="detail">
-                <div class="detail__label">Attachment</div>
-                <div (click)="toggleImageModal()" class="detail__value detail__value--image">
-                    <img *ngIf="issue.picture && !imageModal" [src]="issue.picture" alt="" class="img">
-                    <p *ngIf="!issue.picture" class="text text--noReply">No Screenshot Uploaded.</p>
-                </div>
-            </div>
+      </div>
+      <div class="detail">
+        <div class="detail__label">Reason</div>
+        <div class="detail__value">
+          <p class="text">{{ issue.issueReason }}</p>
         </div>
+      </div>
+      <div class="detail">
+        <div class="detail__label">Issue Description</div>
+        <div class="detail__value">
+          <p class="text">{{ issue.issueDescription }}</p>
+        </div>
+      </div>
+      <div class="detail">
+        <div class="detail__label">Response from Admin</div>
+        <div class="detail__value">
+          <p *ngIf="issue.issueResponseId" class="text">
+            {{ issue.issue_response.issueResponse }}
+          </p>
+          <p *ngIf="!issue.issueResponseId" class="text text--noReply">
+            No response yet. We will reply to you as soon as possible.
+          </p>
+        </div>
+      </div>
     </div>
+
+    <div class="attachment">
+      <div class="detail">
+        <div class="detail__label">Attachment</div>
+        <div
+          (click)="toggleImageModal()"
+          class="detail__value detail__value--image"
+        >
+          <img
+            *ngIf="issue.picture && !imageModal"
+            [src]="issue.picture"
+            alt=""
+            class="img"
+          />
+          <p *ngIf="!issue.picture" class="text text--noReply">
+            No Screenshot Uploaded.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div (click)="toggleImageModal()" class="overlay" [class.active]="imageModal">
-    <!-- <div (click)="toggleImageModal()" class="overlay__close">
+  <!-- <div (click)="toggleImageModal()" class="overlay__close">
         <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
     </div> -->
 </div>
-<img (click)="toggleImageModal()" [src]="issue.picture" alt="" class="modalImage" [class.active]="imageModal">
+<img
+  (click)="toggleImageModal()"
+  [src]="issue.picture"
+  alt=""
+  class="modalImage"
+  [class.active]="imageModal"
+/>

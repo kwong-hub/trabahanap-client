@@ -1,43 +1,42 @@
 <div class="modal__container" [class.modal__show]="isModalOpen">
-    <div class="modal">
-        <div class="modal__header">
-            Add A New Company Logo
-        </div>
-        <form action="#" (ngSubmit)="onSubmit()">
-            <div class="modal__content">
-                <div class="modal__image-container">
-                    <img [src]="imageUrl" alt="Logo" class="modal__image">
-                </div>
-                <shared-custom-file-input
-                    style="width:100%" 
-                    name="companyLogo"
-                    [formGroup]="updateLogoForm"
-                    defaultValue="" 
-                    placeholder='New Company Logo' 
-                    label='New Company Logo'  
-                    [input]="updateLogoForm.controls['companyLogo']" 
-                    type="file"
-                    [submitted]="submited"
-                    [disabled]="false"
-                    [accept]="logoFileTypes"
-                    (onValueChange)="fileChanged($event, 'companyLogo')"
-                ></shared-custom-file-input>
-            </div>
-            <div class="modal__footer">
-                <button (click)="closeModal()" class="modal__btn modal__btn--cancle">
-                    Cancel
-                </button>
-                <button type="submit" class="modal__btn modal__btn--submit">
-                    Submit
-                </button>
-            </div>
-        </form>
-        <div class="modal__close-btn-container">
-            <button (click)="closeModal()" class="modal__btn modal__btn--close">
-                <fa-icon [icon]="faTimes"></fa-icon>
-            </button>
-        </div>
+  <div class="modal">
+    <div class="modal__header">
+      Add A New Company Logo
     </div>
-    <shared-loader *ngIf="showEditLoader"></shared-loader>
+    <form action="#" (ngSubmit)="onSubmit()">
+      <div class="modal__content">
+        <div class="modal__image-container">
+          <img [src]="imageUrl" alt="Logo" class="modal__image" />
+        </div>
+        <shared-custom-file-input
+          style="width:100%"
+          name="companyLogo"
+          [formGroup]="updateLogoForm"
+          defaultValue=""
+          placeholder="New Company Logo"
+          label="New Company Logo"
+          [input]="updateLogoForm.controls['companyLogo']"
+          type="file"
+          [submitted]="submited"
+          [disabled]="false"
+          [accept]="logoFileTypes"
+          (onValueChange)="fileChanged($event, 'companyLogo')"
+        ></shared-custom-file-input>
+      </div>
+      <div class="modal__footer">
+        <button (click)="closeModal()" class="modal__btn modal__btn--cancle">
+          Cancel
+        </button>
+        <button type="submit" class="modal__btn modal__btn--submit">
+          Submit
+        </button>
+      </div>
+    </form>
+    <div class="modal__close-btn-container">
+      <button (click)="closeModal()" class="modal__btn modal__btn--close">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <shared-loader *ngIf="showEditLoader"></shared-loader>
 </div>
-

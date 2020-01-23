@@ -29,7 +29,8 @@ export class ApplicationsListComponent implements OnInit {
     private employerService: EmployerService, 
     private Route: ActivatedRoute, 
     private formBuilder:FormBuilder,
-    private router: Router
+    private router: Router,
+    private route:ActivatedRoute
     ) { 
       this.Route.data.subscribe(res => {
         let data = res.data;
@@ -46,20 +47,6 @@ export class ApplicationsListComponent implements OnInit {
       applicantName: ['', Validators.nullValidator],
       jobtitle: ['', Validators.nullValidator]
     });
-
-    // this.employerService.getApplications(1).subscribe(
-    //   data => {
-      
-    //     if(data.success){
-    //       this.applications = data.applications.rows;
-    //       this.pager = data.applications.pager;
-    //       //console.log(this.applications);
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error)
-    //   }
-    // )
   }
 
   getServerData(page){
@@ -95,7 +82,7 @@ export class ApplicationsListComponent implements OnInit {
   }
 
   showApplicantDetail(applications){
-    this.router.navigate([`/employer/candidates/job/${applications.jobId}/applicant/${applications.applicantId}`]);
+    this.router.navigate([`../candidates/job/${applications.jobId}/applicant/${applications.applicantId}`],{relativeTo: this.route});
   }
 
   filterApplications() {

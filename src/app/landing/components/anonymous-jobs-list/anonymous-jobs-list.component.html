@@ -2,8 +2,6 @@
 </div>
 
 <div *ngIf="jobs" class="job-list-container">
-
-
     <div class="filter" [class.active]="!filterHidden">
         <div (click)="toggleFilter($event)" class="filter__header">
             <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter

@@ -1,78 +1,113 @@
-
 <div class="sub-module-container">
-    <!-- <h3 class="sub-module-container__heading"></h3> -->
-    <div class="sub-module-container__container">
-        <div class="noApplication" *ngIf="jobs && jobs.length == 0 && bookmarks">
-            <h3 class="noApplication__text">You have not saved any jobs yet</h3>
-            <!-- <h4 class="noLocation__text--secondary"></h4> -->
-        </div>
-        <div class="overlay" [class.active]="!filterHidden">
-        </div>
+  <!-- <h3 class="sub-module-container__heading"></h3> -->
+  <div class="sub-module-container__container">
+    <div class="noApplication" *ngIf="jobs && jobs.length == 0 && bookmarks">
+      <h3 class="noApplication__text">You have not saved any jobs yet</h3>
+      <!-- <h4 class="noLocation__text--secondary"></h4> -->
+    </div>
+    <div class="overlay" [class.active]="!filterHidden"></div>
 
+    <div class="filter">
+      <h3 class="filter__heading">Saved Jobs</h3>
+      <div (click)="toggleFilter($event)" class="filter__header">
+        <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
+      </div>
+      <div class="filter__content" [class.filter__hide]="filterHidden">
+        <form
+          action="#"
+          (ngSubmit)="filterJobs()"
+          class="form"
+          [formGroup]="searchForm"
+          autocomplete="off"
+        >
+          <div class="sub-container">
+            <shared-custom-input-field
+              class="input-element-type-2"
+              [formGroup]="searchForm"
+              name="jobtitle"
+              defaultValue=""
+              label="Job"
+              placeholder="Search by Job Title"
+              [input]="searchForm.controls['jobtitle']"
+              type="text"
+              [submitted]="false"
+              [disabled]="false"
+            >
+            </shared-custom-input-field>
+          </div>
+          <div class="sub-container">
+            <shared-custom-input-field
+              class="input-element-type-2"
+              [formGroup]="searchForm"
+              name="industry"
+              defaultValue=""
+              label="Industry"
+              placeholder="Search By industry"
+              [input]="searchForm.controls['industry']"
+              type="text"
+              [submitted]="false"
+              [disabled]="false"
+            >
+            </shared-custom-input-field>
+          </div>
+          <div class="sub-container">
+            <shared-custom-input-field
+              class="input-element-type-2"
+              [formGroup]="searchForm"
+              name="companyName"
+              defaultValue=""
+              label="Company"
+              placeholder="Search by Company"
+              [input]="searchForm.controls['companyName']"
+              type="text"
+              [submitted]="false"
+              [disabled]="false"
+            >
+            </shared-custom-input-field>
+          </div>
+          <div class="form__group--btn">
+            <input
+              type="submit"
+              value="Search"
+              class="form__submit th-btn th-btn--primary"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
 
-        <div class="filter">
-            <h3 class="filter__heading">Saved Jobs</h3>
-            <div (click)="toggleFilter($event)" class="filter__header">
-                <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
-            </div>
-            <div class="filter__content" [class.filter__hide]="filterHidden">
-                <form action="#" (ngSubmit)="filterJobs()" class="form" [formGroup]="searchForm" autocomplete="off">
-                    <div class="sub-container">
-                        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="jobtitle"
-                            defaultValue="" label='Job' placeholder='Search by Job Title'
-                            [input]="searchForm.controls['jobtitle']" type='text' [submitted]="false"
-                            [disabled]="false">
-                        </shared-custom-input-field>
-                    </div>
-                    <div class="sub-container">
-                        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="industry"
-                            defaultValue="" label='Industry' placeholder='Search By industry'
-                            [input]="searchForm.controls['industry']" type='text' [submitted]="false"
-                            [disabled]="false">
-                        </shared-custom-input-field>
-                    </div>
-                    <div class="sub-container">
-                        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm"
-                            name="companyName" defaultValue="" label='Company' placeholder='Search by Company'
-                            [input]="searchForm.controls['companyName']" type='text' [submitted]="false"
-                            [disabled]="false">
-                        </shared-custom-input-field>
-                    </div>
-                    <div class="form__group--btn">
-                        <input type="submit" value="Search" class="form__submit th-btn th-btn--primary">
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div *ngIf="jobs && jobs.length > 0 && bookmarks">
+      <table mat-table [dataSource]="jobs" class="mat-elevation-z3">
+        <!-- Name Column -->
+        <ng-container matColumnDef="companyLogo">
+          <th mat-header-cell *matHeaderCellDef>Company logo</th>
+          <td mat-cell *matCellDef="let job">
+            <img
+              style="margin: 0.5rem 0; height: 5rem;"
+              [src]="job.companyLogo"
+              alt=""
+              class="logo"
+            />
+          </td>
+        </ng-container>
 
-        <div *ngIf="jobs && jobs.length > 0 && bookmarks">
-            <table mat-table [dataSource]="jobs" class="mat-elevation-z3">
+        <!-- Name Column -->
+        <ng-container matColumnDef="jobName">
+          <th mat-header-cell *matHeaderCellDef>Job title</th>
+          <td mat-cell *matCellDef="let job">{{ job.jobTitle }}</td>
+        </ng-container>
 
-                <!-- Name Column -->
-                <ng-container matColumnDef="companyLogo">
-                    <th mat-header-cell *matHeaderCellDef> Company logo </th>
-                    <td mat-cell *matCellDef="let job">
-                        <img style="margin: 0.5rem 0; height: 5rem;" [src]="job.companyLogo" alt="" class="logo">
-                    </td>
-                </ng-container>
+        <!-- Phone Number Column -->
+        <ng-container matColumnDef="companyName">
+          <th mat-header-cell *matHeaderCellDef>Company Name</th>
+          <td mat-cell *matCellDef="let job">{{ job.companyName }}</td>
+        </ng-container>
 
-                <!-- Name Column -->
-                <ng-container matColumnDef="jobName">
-                    <th mat-header-cell *matHeaderCellDef> Job title </th>
-                    <td mat-cell *matCellDef="let job"> {{ job.jobTitle }} </td>
-                </ng-container>
-
-                <!-- Phone Number Column -->
-                <ng-container matColumnDef="companyName">
-                    <th mat-header-cell *matHeaderCellDef> Company Name </th>
-                    <td mat-cell *matCellDef="let job"> {{ job.companyName }} </td>
-                </ng-container>
-
-                <!-- Actions Column -->
-                <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef> Actions </th>
-                    <td mat-cell *matCellDef="let job">
-                        <!-- <button mat-button [matMenuTriggerFor]="menu">
+        <!-- Actions Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let job">
+            <!-- <button mat-button [matMenuTriggerFor]="menu">
                                         <fa-icon [icon]="faEllipsisV"></fa-icon>
                                     </button>
                                     <mat-menu #menu="matMenu">
@@ -84,18 +119,26 @@
                                         </button>
                                     </mat-menu> -->
 
-                        <a [routerLink]="['/applicant/bookmarks/details', job.id]" class="btn-outline">View</a>
-                    </td>
-                </ng-container>
+            <a
+              [routerLink]="['/applicant/bookmarks/details', job.id]"
+              class="btn-outline"
+              >View</a
+            >
+          </td>
+        </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
 
-            </table>
-            <mat-paginator class="paginator" [length]="pager?.totalItems" [pageSize]="pager?.pageSize"
-                [pageSizeOptions]="[5, 8, 10, 25, 100]" (page)="getServerData($event)">
-            </mat-paginator>
-        </div>
-
+      <mat-paginator
+        class="paginator"
+        [length]="pager?.totalItems"
+        [pageSize]="pager?.pageSize"
+        [pageSizeOptions]="[5, 8, 10, 25, 100]"
+        (page)="getServerData($event)"
+      >
+      </mat-paginator>
     </div>
+  </div>
 </div>

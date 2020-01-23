@@ -1,6 +1,6 @@
 <div class="container">
     <div class="advertisement">
-        <app-advertisement  [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
+        <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
     </div>
     <section class="register">
         <div class="guide guide--applicant">
@@ -48,8 +48,10 @@
                     </div>
                 </div>
             </div>
-            <button class="th-btn th-btn--primary guide__btn" [routerLink]="['/register']"
-                [queryParams]="{as: 'app'}">MAG-REGISTER BILANG APLIKANTE</button>
+            <button class="th-btn th-btn--primary guide__btn" [routerLink]="['/auth/register']"
+                [queryParams]="{ as: 'app' }">
+                MAG-REGISTER BILANG APLIKANTE
+            </button>
         </div>
         <div class="guide guide--company">
             <div>
@@ -96,8 +98,10 @@
                     </div>
                 </div>
             </div>
-            <button class="th-btn th-btn--primary guide__btn guide__btn--emp" [routerLink]="['/register']"
-                [queryParams]="{as: 'emp'}">Register as an Employer</button>
+            <button class="th-btn th-btn--primary guide__btn guide__btn--emp" [routerLink]="['/auth/register']"
+                [queryParams]="{ as: 'emp' }">
+                Register as an Employer
+            </button>
         </div>
     </section>
 </div>

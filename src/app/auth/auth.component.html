@@ -1,28 +1,52 @@
 <div class="main-container" (click)="closeNav()">
-    <landing-header [menuActive]="menuActive" (toggleNavigation)="toggleNav($event)" ></landing-header>
-    <mat-progress-bar *ngIf="routing" class="progress" mode="indeterminate"></mat-progress-bar>
-    
-    <div class="side-bar" (click)="stopProp($event)" [class.active]="menuActive">
-        <div class="menu-container">
-            <div class="menu-box" (click)="toggleNav($event)" [class.menu-active]="menuActive">
-                <!-- <div class="menu-icon__back"></div> -->
-                <span class="menu-icon">&nbsp;</span>
-            </div>
-        </div>
-        <div class="link-container">
-            <a [routerLink]="['/search/jobs']" [queryParams]="{key: '', city: ''}" (click)="redirect($event)" class="link">Jobs</a>
-            <a href="#" (click)="redirect($event)" class="link">Employers</a>
-            <a href="#" (click)="redirect($event)" class="link">About</a>
-            <a href="#" (click)="redirect($event)" class="link">Contact us</a>
-            
-            <!--Display only for mobile view-->
-            <a *ngIf="!currentUser" (click)="redirect($event)" class="link text-effect" routerLink="/login"><i class="fas fa-sign-in-alt"></i> Sign In</a>
-            <a *ngIf="currentUser" class="link text-effect" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
-        </div>
-        
+  <landing-header
+    [menuActive]="menuActive"
+    (toggleNavigation)="toggleNav($event)"
+  ></landing-header>
+  <mat-progress-bar
+    *ngIf="routing"
+    class="progress"
+    mode="indeterminate"
+  ></mat-progress-bar>
+
+  <div class="side-bar" (click)="stopProp($event)" [class.active]="menuActive">
+    <div class="menu-container">
+      <div
+        class="menu-box"
+        (click)="toggleNav($event)"
+        [class.menu-active]="menuActive"
+      >
+        <!-- <div class="menu-icon__back"></div> -->
+        <span class="menu-icon">&nbsp;</span>
+      </div>
     </div>
-    <div class="content-container">
-        <router-outlet></router-outlet>
+    <div class="link-container">
+      <a
+        [routerLink]="['/search/jobs']"
+        [queryParams]="{ key: '', city: '' }"
+        (click)="redirect($event)"
+        class="link"
+        >Jobs</a
+      >
+      <a href="#" (click)="redirect($event)" class="link">Employers</a>
+      <a href="#" (click)="redirect($event)" class="link">About</a>
+      <a href="#" (click)="redirect($event)" class="link">Contact us</a>
+
+      <!--Display only for mobile view-->
+      <a
+        *ngIf="!currentUser"
+        (click)="redirect($event)"
+        class="link text-effect"
+        routerLink="/login"
+        ><i class="fas fa-sign-in-alt"></i> Sign In</a
+      >
+      <a *ngIf="currentUser" class="link text-effect" (click)="logout()"
+        ><i class="fas fa-sign-out-alt"></i> Logout</a
+      >
     </div>
-    <app-landing-footer></app-landing-footer>
-</div>    
+  </div>
+  <div class="content-container">
+    <router-outlet></router-outlet>
+  </div>
+  <app-landing-footer></app-landing-footer>
+</div>
