@@ -142,34 +142,34 @@
         ></shared-custom-input-field>
       </div>
 
-      <div class="sub-container">
-        <shared-custom-select
-          [valid]="addApplicantProfileForm.controls['gender']?.status"
-          (onValueChange)="selectChanged($event, 'gender')"
-          name="gender"
-          label="Gender"
-          [defaultValue]="applicantProfile?.gender"
-          [styleObject]="styleObject"
-          class="input-element-type-1"
-          placeholder="Select Gender"
-          [options]="genderOptions"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-select>
-        <div class="date-picker">
-          <shared-custom-select
-            [valid]="addApplicantProfileForm.controls['month']?.status"
-            (onValueChange)="selectChanged($event, 'month')"
-            name="month"
-            label="Month"
-            [defaultValue]="applicantProfile?.month"
-            [styleObject]="monthStyle"
-            class="input-element-type-1"
-            placeholder="Month"
-            [options]="monthOptions"
-            [submitted]="submitted"
-            [disabled]="hasProfile"
-          ></shared-custom-select>
+        <div class="sub-container">
+            <shared-custom-select 
+                [valid]="addApplicantProfileForm.controls['gender']?.status"  
+                (onValueChange)="selectChanged($event, 'gender')" 
+                name="gender"
+                label="Gender" 
+                [defaultValue]="applicantProfile?.gender"
+                [styleObject]="styleObject" 
+                class="input-element-type-1" 
+                placeholder="Select Gender" 
+                [options]="genderOptions"
+                [submitted]="submitted"
+                [disabled]="hasProfile"
+            ></shared-custom-select>
+            <div class="date-picker">   
+                <shared-custom-select 
+                    [valid]="addApplicantProfileForm.controls['month']?.status"  
+                    (onValueChange)="selectChanged($event, 'month')" 
+                    name="month"
+                    label="Birth Date" 
+                    [defaultValue]="applicantProfile?.month"
+                    [styleObject]="monthStyle" 
+                    class="input-element-type-1" 
+                    placeholder="Month" 
+                    [options]="monthOptions"
+                    [submitted]="submitted"
+                    [disabled]="hasProfile"
+                ></shared-custom-select>
 
           <shared-custom-input-field
             class="input-element-type-1"
