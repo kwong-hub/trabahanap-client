@@ -1,4 +1,4 @@
-import { ApplicantService } from '../../../_services/applicant.service';
+import { ApplicantService } from './../../../_services/applicant.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocationService } from '@app/_services/location.service';
@@ -15,19 +15,14 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 })
 export class AddApplicantProfileComponent implements OnInit {
 
-  faCheck = faCheck;
-  faUserPlus = faUserPlus;
-  faIdCard = faIdCard;
-  faCloudUploadAlt = faCloudUploadAlt;
-  faUserCheck = faUserCheck;
-  faEyeDropper= faEyeDropper;
-  faEdit = faEdit;
-  faCamera = faCamera;
-  faTimes = faTimes;
+  @Input() applicantProfile: any;
+  faCheck = faCheck; faUserPlus = faUserPlus;
+  faIdCard = faIdCard; faCloudUploadAlt = faCloudUploadAlt;
+  faUserCheck = faUserCheck; faEyeDropper= faEyeDropper;
+  faEdit = faEdit; faCamera = faCamera; faTimes = faTimes;
 
   selectedImage;
   addApplicantProfileForm: FormGroup;
-  @Input() applicantProfile: any;
   formData = new FormData();
   regions: any;
   countries: any;
@@ -106,8 +101,6 @@ export class AddApplicantProfileComponent implements OnInit {
   selectChanged(value, name){
     if(name == "RegionId"){
       this.getCitiesByRegionId(value);
-      this.addApplicantProfileForm.controls[name].setValue(value);
-      this.applicantProfile = {...this.applicantProfile, CityId: ''}
     }
     this.addApplicantProfileForm.controls[name].setValue(value);
   }
@@ -142,13 +135,13 @@ export class AddApplicantProfileComponent implements OnInit {
   saveImage() {
     this.tempImg = this.croppedImage.base64;
     this.closeImageModal();
-    const byteCharacters = atob(this.tempImg.split(',')[1]);
-    const byteNumbers = new Array(byteCharacters.length);
+    let byteCharacters = atob(this.tempImg.split(',')[1]);
+    let byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
-    const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], {type: 'image/png'});
+    let byteArray = new Uint8Array(byteNumbers);
+    let blob = new Blob([byteArray], {type: 'image/png'});
 
     console.log(blob)
     this.formData.append('applicantPicture', blob);
@@ -231,7 +224,14 @@ export class AddApplicantProfileComponent implements OnInit {
         data => {
           console.log(data)
           if(data.success){
+            this.applicantProfile = data.applicantProfile;
+            let temp_date = new Date(this.applicantProfile.dateOfBirth);
+
+            this.applicantProfile = {...this.applicantProfile, year: temp_date.getFullYear(),
+              month: temp_date.getMonth() + 1, date: temp_date.getDate() }
             this.showLoader = false;
+            this.tempImg = '';
+            this.imageChangedEvent = null;
             let currentUser = this.authService.currentUserValue;
             this.authService.updateCurrentUser({...currentUser, applicantProfile: data.applicantProfile});
             this.disableEdit();

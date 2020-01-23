@@ -230,13 +230,13 @@
         width:100%;
         padding: 1rem;
         padding-bottom: 2.5rem;
-        transition: .2s all;
+        transition: all .3s;
         text-transform: uppercase;
         background-color: rgba(27, 27, 27, 0.493);
         text-align: center;
         cursor: pointer;
 
-        &:active{
+        &:active .picture-icon{
             transform: scale(1.05);
         }
     }
