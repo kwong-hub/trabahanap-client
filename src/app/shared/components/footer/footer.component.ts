@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { Component, OnInit } from "@angular/core";
+import { AuthenticationService } from "@app/_services/authentication-service.service";
 
 @Component({
-  selector: 'shared-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  selector: "shared-footer",
+  templateUrl: "./footer.component.html",
+  styleUrls: ["./footer.component.scss"]
 })
 export class FooterComponent implements OnInit {
+  constructor(public authenticationService: AuthenticationService) {}
 
-  constructor(public authenticationService: AuthenticationService) { }
-  
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

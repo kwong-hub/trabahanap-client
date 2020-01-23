@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { BookmarkDetailComponent } from './bookmark-detail.component';
+import { BookmarkDetailComponent } from "./bookmark-detail.component";
 
-describe('BookmarkDetailComponent', () => {
+describe("BookmarkDetailComponent", () => {
   let component: BookmarkDetailComponent;
   let fixture: ComponentFixture<BookmarkDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookmarkDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [BookmarkDetailComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('BookmarkDetailComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

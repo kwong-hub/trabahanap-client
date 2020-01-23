@@ -1,34 +1,31 @@
-.mini{
+.mini {
+  &__add-job {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 0rem;
+    border-bottom: 1px solid #888;
+    border-top: 1px solid #888;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
 
+  &__add-job-left {
+    display: flex;
+    flex-direction: column;
+  }
 
-    &__add-job{
-        display: flex;
-        justify-content: space-between;
-        margin: 1.5rem 0rem;
-        border-bottom: 1px solid #888;
-        border-top: 1px solid #888;
-        padding: 1rem;
-        border-radius: 1rem;
-    }
+  &__job-detail {
+    background-image: none;
+    background-color: #fff;
+    border: 1px solid tomato;
+    font-size: 1.2rem;
+    color: tomato;
+    padding: 0.5rem;
+    height: auto;
+  }
 
-    &__add-job-left{
-        display: flex;
-        flex-direction: column;
-    }
-
-    &__job-detail{
-        background-image: none;
-        background-color: #fff;
-        border: 1px solid tomato;
-        font-size: 1.2rem;
-        color: tomato;
-        padding: .5rem;
-        height: auto;
-    }
-
-    &__job-title{
-        color: #333;
-        font-size: 1.4rem;
-
-    }
+  &__job-title {
+    color: #333;
+    font-size: 1.4rem;
+  }
 }
