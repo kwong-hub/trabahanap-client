@@ -1,72 +1,107 @@
 <div class="sub-module-container">
-    <div class="notification notification--success" [class.active]="successReply" >
-        <div class="notification__body">
-            <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
-            <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-            
-            <span class="text">You have Successfully Replied</span>
+  <div class="notification notification--success" [class.active]="successReply">
+    <div class="notification__body">
+      <i
+        style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
+        class="far fa-check-circle"
+      ></i>
+      <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+
+      <span class="text">You have Successfully Replied</span>
+    </div>
+  </div>
+
+  <h3 class="sub-module-container__heading">Issue Details</h3>
+  <div class="sub-module-container__container container">
+    <div class="details">
+      <div class="detail">
+        <div class="detail__label">Issue Type</div>
+        <div class="detail__value">
+          <p class="text">{{ issue.issueType }} related</p>
         </div>
+      </div>
+      <div class="detail">
+        <div class="detail__label">Reason</div>
+        <div class="detail__value">
+          <p class="text">{{ issue.issueReason }}</p>
+        </div>
+      </div>
+      <div class="detail">
+        <div class="detail__label">Issue Description</div>
+        <div class="detail__value">
+          <p class="text">{{ issue.issueDescription }}</p>
+        </div>
+      </div>
+      <div class="detail">
+        <div class="detail__label">Reply</div>
+        <div class="detail__value detail__value--form">
+          <form [formGroup]="replyIssue" action="#" (ngSubmit)="onSubmit()">
+            <shared-textarea-field
+              style="width:100%"
+              name="issueResponse"
+              [formGroup]="replyIssue"
+              [defaultValue]="
+                issue.issueResponseId ? issue.issue_response.issueResponse : ''
+              "
+              placeholder="Issue Response"
+              label="Issue Response"
+              [input]="(replyIssue?.controls)['issueResponse']"
+              type="text"
+              [submitted]="submited"
+              [disabled]="false"
+            ></shared-textarea-field>
+
+            <div class="btn-group">
+              <button
+                type="button"
+                (click)="goBack()"
+                class="cancel"
+                mat-button
+              >
+                Back
+              </button>
+              <input
+                *ngIf="!issue.issueResponseId"
+                type="submit"
+                value="Submit"
+                class="form__submit th-btn th-btn--primary"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
-    <h3 class="sub-module-container__heading">Issue Details</h3>
-    <div class="sub-module-container__container container">
-        <div class="details">
-            <div class="detail">
-                <div class="detail__label">Issue Type</div>
-                <div class="detail__value">
-                    <p class="text">{{ issue.issueType }} related</p>
-                </div>
-            </div>
-            <div class="detail">
-                <div class="detail__label">Reason</div>
-                <div class="detail__value">
-                    <p class="text">{{ issue.issueReason}}</p>
-                </div>
-            </div>
-            <div class="detail">
-                <div class="detail__label">Issue Description</div>
-                <div class="detail__value">
-                    <p class="text">{{ issue.issueDescription }}</p>
-                </div>
-            </div>
-            <div class="detail">
-                <div class="detail__label">Reply</div>
-                <div class="detail__value detail__value--form">
-                    <form [formGroup]="replyIssue" action="#" (ngSubmit)="onSubmit()">
-                        <shared-textarea-field
-                            style="width:100%" name="issueResponse"
-                            [formGroup]="replyIssue" [defaultValue]="issue.issueResponseId ? issue.issue_response.issueResponse : ''" 
-                            placeholder='Issue Response' label='Issue Response'  
-                            [input]="replyIssue?.controls['issueResponse']" 
-                            type="text" [submitted]="submited"
-                            [disabled]="false"
-                        ></shared-textarea-field>
-
-                        <div class="btn-group">
-                            <button type="button" (click)="goBack()" class="cancel" mat-button>Back</button>
-                            <input *ngIf="!issue.issueResponseId" type="submit" value="Submit" 
-                                class="form__submit th-btn th-btn--primary">
-                        </div>
-                    </form>
-                </div>
-                
-            </div>
+    <div class="attachment">
+      <div class="detail">
+        <div class="detail__label">Attachment</div>
+        <div
+          (click)="toggleImageModal()"
+          class="detail__value detail__value--image"
+        >
+          <img
+            *ngIf="issue.picture && !imageModal"
+            [src]="issue.picture"
+            alt=""
+            class="img"
+          />
+          <p *ngIf="!issue.picture" class="text text--noReply">
+            No Screenshot Uploaded.
+          </p>
         </div>
-
-        <div class="attachment">
-            <div class="detail">
-                <div class="detail__label">Attachment</div>
-                <div (click)="toggleImageModal()" class="detail__value detail__value--image">
-                    <img *ngIf="issue.picture && !imageModal" [src]="issue.picture" alt="" class="img">
-                    <p *ngIf="!issue.picture" class="text text--noReply">No Screenshot Uploaded.</p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
 <div (click)="toggleImageModal()" class="overlay" [class.active]="imageModal">
-    <!-- <div (click)="toggleImageModal()" class="overlay__close">
+  <!-- <div (click)="toggleImageModal()" class="overlay__close">
         <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
     </div> -->
 </div>
-<img (click)="toggleImageModal()" [src]="issue.picture" alt="" class="modalImage" [class.active]="imageModal">
+<img
+  (click)="toggleImageModal()"
+  [src]="issue.picture"
+  alt=""
+  class="modalImage"
+  [class.active]="imageModal"
+/>

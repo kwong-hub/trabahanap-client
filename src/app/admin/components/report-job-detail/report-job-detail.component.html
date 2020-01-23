@@ -1,67 +1,82 @@
 <div *ngIf="report" class="container">
-    <div class="report">
-        <div class="report__header">
-            <img [src]="report.job.company_profile.companyLogo" alt="" class="img">
-            <h2 class="name">{{ report.job.company_profile.companyName }}</h2>
+  <div class="report">
+    <div class="report__header">
+      <img [src]="report.job.company_profile.companyLogo" alt="" class="img" />
+      <h2 class="name">{{ report.job.company_profile.companyName }}</h2>
 
-            <div [title]="report.checked ? 'Checked' : 'Check'" (click)="toggleChecked(report.id)" class="verify">
-                <fa-icon *ngIf="report.verified" class="verify__icon" [icon]="faCheckCircle"></fa-icon>
-                <span class="verify__text">{{ report.checked ? 'Checked' : 'Check' }}</span> 
-                <div *ngIf="loading" class="verify__loading"></div>
-            </div>
-        </div>
-
-
-        <div class="report__body">
-
-            <div class="details-group">
-                <div class="detail">
-                    <div class="detail__label">Job Title</div>
-                    <div class="detail__value">
-                         <h2  class=" text name">{{ report.job.jobTitle }}</h2> 
-                    </div>
-                </div>
-            </div>
-            <div class="details-group">
-                <div class="detail">
-                    <div class="detail__label">Report</div>
-                    <div class="detail__value">
-                        <p class="text">{{ report.reportType }}</p>
-                    </div>
-                </div>
-                <div class="detail">
-                    <div class="detail__label">Comment</div>
-                    <div class="detail__value">
-                        <p class="text">{{ report.comment}}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="details-group">
-                <div class="detail">
-                    <div class="detail__label">Job Description</div>
-                    <div class="detail__value">
-                        <p class="text">{{ report.job.jobDescription }}</p>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="details-group">
-                <div class="detail">
-                    <div class="detail__label">Reported By</div>
-                    <div class="detail__value">
-                        <span class="detail__value__header">Email - <p class="text">
-                                {{ report.applicant_profile.user.firstName + " "+ report.applicant_profile.user.lastName  }}
-                            </p></span>
-                        <span class="detail__value__header">Name - <p class="text">
-                                {{ report.applicant_profile.user.email  }}</p></span>
-
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
+      <div
+        [title]="report.checked ? 'Checked' : 'Check'"
+        (click)="toggleChecked(report.id)"
+        class="verify"
+      >
+        <fa-icon
+          *ngIf="report.verified"
+          class="verify__icon"
+          [icon]="faCheckCircle"
+        ></fa-icon>
+        <span class="verify__text">{{
+          report.checked ? "Checked" : "Check"
+        }}</span>
+        <div *ngIf="loading" class="verify__loading"></div>
+      </div>
     </div>
+
+    <div class="report__body">
+      <div class="details-group">
+        <div class="detail">
+          <div class="detail__label">Job Title</div>
+          <div class="detail__value">
+            <h2 class=" text name">{{ report.job.jobTitle }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="details-group">
+        <div class="detail">
+          <div class="detail__label">Report</div>
+          <div class="detail__value">
+            <p class="text">{{ report.reportType }}</p>
+          </div>
+        </div>
+        <div class="detail">
+          <div class="detail__label">Comment</div>
+          <div class="detail__value">
+            <p class="text">{{ report.comment }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-group">
+        <div class="detail">
+          <div class="detail__label">Job Description</div>
+          <div class="detail__value">
+            <p class="text">{{ report.job.jobDescription }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-group">
+        <div class="detail">
+          <div class="detail__label">Reported By</div>
+          <div class="detail__value">
+            <span class="detail__value__header"
+              >Email -
+              <p class="text">
+                {{
+                  report.applicant_profile.user.firstName +
+                    " " +
+                    report.applicant_profile.user.lastName
+                }}
+              </p></span
+            >
+            <span class="detail__value__header"
+              >Name -
+              <p class="text">
+                {{ report.applicant_profile.user.email }}
+              </p></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

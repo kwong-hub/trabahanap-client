@@ -1,110 +1,146 @@
 <div class="sub-module-container">
-    <h3 *ngIf="applicants && applicants.length == 0">
-        <div class="not_Found">
-            <span> Sorry, we didn't find any Applicants matching your criteria
-            </span>
-        </div>
-    </h3>
-
-    <div class="overlay" [class.active]="!filterHidden">
+  <h3 *ngIf="applicants && applicants.length == 0">
+    <div class="not_Found">
+      <span> Sorry, we didn't find any Applicants matching your criteria </span>
     </div>
-    <div class="fab" title="Add new applicant">
-        <button routerLink="add" class="fab__button">
-            <fa-icon [icon]="faPlus"></fa-icon>
-        </button>
+  </h3>
+
+  <div class="overlay" [class.active]="!filterHidden"></div>
+  <div class="fab" title="Add new applicant">
+    <button routerLink="add" class="fab__button">
+      <fa-icon [icon]="faPlus"></fa-icon>
+    </button>
+  </div>
+  <div class="sub-module-container__container job">
+    <div class="filter">
+      <h3 class="filter__heading">Applicants</h3>
+      <div (click)="toggleFilter($event)" class="filter__header">
+        <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
+      </div>
+      <div class="filter__content" [class.filter__hide]="filterHidden">
+        <form
+          action="#"
+          (ngSubmit)="filterApplicants()"
+          class="form"
+          [formGroup]="searchForm"
+          autocomplete="off"
+        >
+          <div class="sub-container">
+            <shared-custom-input-field
+              class="input-element-type-2"
+              [formGroup]="searchForm"
+              name="name"
+              defaultValue=""
+              label="Name"
+              placeholder="Enter Name"
+              [input]="searchForm.controls['name']"
+              type="text"
+              [submitted]="false"
+              [disabled]="false"
+            >
+            </shared-custom-input-field>
+          </div>
+          <div class="sub-container">
+            <shared-custom-input-field
+              class="input-element-type-2"
+              [formGroup]="searchForm"
+              name="email"
+              defaultValue=""
+              label="Email"
+              placeholder="Enter Search Email"
+              [input]="searchForm.controls['email']"
+              type="text"
+              [submitted]="false"
+              [disabled]="false"
+            >
+            </shared-custom-input-field>
+          </div>
+          <div class="form__group--btn">
+            <input
+              type="submit"
+              value="Search"
+              class="form__submit th-btn th-btn--primary"
+            />
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="sub-module-container__container job">
-        <div class="filter">
-            <h3 class="filter__heading">Applicants</h3>
-            <div (click)="toggleFilter($event)" class="filter__header">
-                <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
-            </div>
-            <div class="filter__content" [class.filter__hide]="filterHidden">
-                <form action="#" (ngSubmit)="filterApplicants()" class="form" [formGroup]="searchForm"
-                    autocomplete="off">
-                    <div class="sub-container">
-                        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="name"
-                            defaultValue="" label='Name' placeholder='Enter Name' [input]="searchForm.controls['name']"
-                            type='text' [submitted]="false" [disabled]="false">
-                        </shared-custom-input-field>
-                    </div>
-                    <div class="sub-container">
-                        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="email"
-                            defaultValue="" label='Email' placeholder='Enter Search Email'
-                            [input]="searchForm.controls['email']" type='text' [submitted]="false" [disabled]="false">
-                        </shared-custom-input-field>
-                    </div>
-                    <div class="form__group--btn">
-                        <input type="submit" value="Search" class="form__submit th-btn th-btn--primary">
-                    </div>
-                </form>
-            </div>
-        </div>
-        <table *ngIf="applicants.length > 0" mat-table [dataSource]="applicants" class="mat-elevation-z3">
+    <table
+      *ngIf="applicants.length > 0"
+      mat-table
+      [dataSource]="applicants"
+      class="mat-elevation-z3"
+    >
+      <!-- Name Column -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef>First Name</th>
+        <td mat-cell *matCellDef="let applicant">{{ applicant.firstName }}</td>
+      </ng-container>
 
-            <!-- Name Column -->
-            <ng-container matColumnDef="firstName">
-                <th mat-header-cell *matHeaderCellDef> First Name </th>
-                <td mat-cell *matCellDef="let applicant">{{ applicant.firstName }}</td>
-            </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef>Last Name</th>
+        <td mat-cell *matCellDef="let applicant">{{ applicant.lastName }}</td>
+      </ng-container>
 
-            <!-- Name Column -->
-            <ng-container matColumnDef="lastName">
-                <th mat-header-cell *matHeaderCellDef> Last Name </th>
-                <td mat-cell *matCellDef="let applicant"> {{ applicant.lastName }} </td>
-            </ng-container>
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let applicant">{{ applicant.email }}</td>
+      </ng-container>
 
-            <!-- Email Column -->
-            <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef> Email </th>
-                <td mat-cell *matCellDef="let applicant">{{ applicant.email }}</td>
-            </ng-container>
+      <!-- Phone Number Column -->
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+        <td mat-cell *matCellDef="let applicant">
+          {{ applicant.phoneNumber }}
+        </td>
+      </ng-container>
 
-            <!-- Phone Number Column -->
-            <ng-container matColumnDef="phoneNumber">
-                <th mat-header-cell *matHeaderCellDef> Phone Number </th>
-                <td mat-cell *matCellDef="let applicant">{{ applicant.phoneNumber }}</td>
-            </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let applicant">
+          <div *ngIf="applicant.active" class="tag tag--verified">
+            <fa-icon [icon]="faCheckCircle"></fa-icon>
+          </div>
+          <div *ngIf="!applicant.active" class="tag tag--unverified">
+            <fa-icon [icon]="faTimesCircle"></fa-icon>
+          </div>
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef> Status </th>
-                <td mat-cell *matCellDef="let applicant">
-                    <div *ngIf="applicant.active" class="tag tag--verified">
-                        <fa-icon [icon]="faCheckCircle"></fa-icon>
-                    </div>
-                    <div *ngIf="!applicant.active" class="tag tag--unverified">
-                        <fa-icon [icon]="faTimesCircle"></fa-icon>
-                    </div>
-                </td>
-            </ng-container>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let applicant">
+          <button mat-button [matMenuTriggerFor]="menu">
+            <fa-icon style="color: tomato" [icon]="faEllipsisV"></fa-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['details/', applicant.id]">
+              <fa-icon class="menu-icon" [icon]="faArrowCircleRight"></fa-icon>
+              Details
+            </button>
+            <button (click)="activateUser(applicant.id)" mat-menu-item>
+              <fa-icon class="menu-icon"></fa-icon
+              >{{ applicant.active ? "Deactivate" : "Activate" }}
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
 
-            <!-- Actions Column -->
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef> Actions </th>
-                <td mat-cell *matCellDef="let applicant">
-                    <button mat-button [matMenuTriggerFor]="menu">
-                        <fa-icon style="color: tomato" [icon]="faEllipsisV"></fa-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item [routerLink]="['details/', applicant.id]">
-                            <fa-icon class="menu-icon" [icon]="faArrowCircleRight"></fa-icon> Details
-                        </button>
-                        <button (click)="activateUser(applicant.id)" mat-menu-item>
-                            <fa-icon class="menu-icon"></fa-icon>{{ applicant.active ? "Deactivate" : "Activate"}}
-                        </button>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
 
-                    </mat-menu>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        </table>
-        <div *ngIf="applicants.length > 0" class="paginator">
-            <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize"
-                [pageSizeOptions]="[5, 8, 10, 25, 100]" (page)="getServerData($event)">
-            </mat-paginator>
-        </div>
+    <div *ngIf="applicants.length > 0" class="paginator">
+      <mat-paginator
+        [length]="pager?.totalItems"
+        [pageSize]="pager?.pageSize"
+        [pageSizeOptions]="[5, 8, 10, 25, 100]"
+        (page)="getServerData($event)"
+      >
+      </mat-paginator>
     </div>
+  </div>
 </div>

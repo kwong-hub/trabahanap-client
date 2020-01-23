@@ -1,58 +1,66 @@
 <div class="sub-module-container">
-    <h3 class="sub-module-container__heading">Staff</h3>
-    <div class="fab" title="Add New Staff">
-        <button routerLink="add" class="fab__button">
-            <fa-icon [icon]="faPlus"></fa-icon>
-        </button>
-    </div>
-    <h3 *ngIf="staffs && staffs.length == 0">
-            No staff added! you don't have any staff yet.
-    </h3>
-    
-    <div class="sub-module-container__container job">
-            <table *ngIf="staffs.length > 0" mat-table [dataSource]="staffs" class="mat-elevation-z3">
-                            
-                <!-- Name Column -->
-                <ng-container matColumnDef="firstName">
-                    <th mat-header-cell *matHeaderCellDef>Name </th>
-                    <td mat-cell *matCellDef="let staffs"> {{ staffs.firstName +" "+ staffs.lastName }} </td>
-                </ng-container>
-            
-                <!-- Name Column -->
-                <ng-container matColumnDef="email">
-                    <th mat-header-cell *matHeaderCellDef>  Email </th>
-                    <td mat-cell *matCellDef="let staffs"> {{ staffs.email }} </td>
-                </ng-container>
-            
-                <!-- Phone Number Column -->
-                <ng-container matColumnDef="phoneNumber">
-                    <th mat-header-cell *matHeaderCellDef> Phone Number </th>
-                    <td mat-cell *matCellDef="let staffs"> {{ staffs.phoneNumber }} </td>
-                </ng-container>
-            
-                <!-- Actions Column -->
-                <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef>  </th>
-                    <td class="company-list__actions-container" mat-cell *matCellDef="let company">
-                        <button mat-button [matMenuTriggerFor]="menu">
-                            <fa-icon style="color: tomato" [icon]="faEllipsisV"></fa-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item>
-                                <fa-icon class="menu-icon" [icon]="faArrowCircleRight"></fa-icon> Details
-                            </button>
-                            <button mat-menu-item >
-                                <fa-icon class="menu-icon" [icon]="faTimes"></fa-icon> Delete
-                            </button>
-                        </mat-menu>
-                    </td>
-                </ng-container>
-            
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
-            </table>
-    
-           
-        </div>
+  <h3 class="sub-module-container__heading">Staff</h3>
+  <div class="fab" title="Add New Staff">
+    <button routerLink="add" class="fab__button">
+      <fa-icon [icon]="faPlus"></fa-icon>
+    </button>
+  </div>
+  <h3 *ngIf="staffs && staffs.length == 0">
+    No staff added! you don't have any staff yet.
+  </h3>
+
+  <div class="sub-module-container__container job">
+    <table
+      *ngIf="staffs.length > 0"
+      mat-table
+      [dataSource]="staffs"
+      class="mat-elevation-z3"
+    >
+      <!-- Name Column -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let staffs">
+          {{ staffs.firstName + " " + staffs.lastName }}
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let staffs">{{ staffs.email }}</td>
+      </ng-container>
+
+      <!-- Phone Number Column -->
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+        <td mat-cell *matCellDef="let staffs">{{ staffs.phoneNumber }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td
+          class="company-list__actions-container"
+          mat-cell
+          *matCellDef="let company"
+        >
+          <button mat-button [matMenuTriggerFor]="menu">
+            <fa-icon style="color: tomato" [icon]="faEllipsisV"></fa-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <fa-icon class="menu-icon" [icon]="faArrowCircleRight"></fa-icon>
+              Details
+            </button>
+            <button mat-menu-item>
+              <fa-icon class="menu-icon" [icon]="faTimes"></fa-icon> Delete
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
 </div>

@@ -1,10 +1,19 @@
 <div class="form__group">
-    <input (change)="onFileChange($event)" [accept]="accept" [type]="type" [value]="defaultValue" [name]="name" [id]="name" class="form__input" [placeholder]="placeholder"
+  <input
+    (change)="onFileChange($event)"
+    [accept]="accept"
+    [type]="type"
+    [value]="defaultValue"
+    [name]="name"
+    [id]="name"
+    class="form__input"
+    [placeholder]="placeholder"
     [class.form__input--error]="submitted && errorMessage"
-    [formControlName]="name" [ngClass]="{ 'is-invalid': submitted && input.status == 'INVALID'}" />
-    <label class="form__label" [for]="name">{{ label }}</label>
-    <div *ngIf="submitted && input.status == 'INVALID'" class="invalid-feedback">
-        <div class="invalid-feedback__message">{{label}} is not valid</div>
-    </div>
+    [formControlName]="name"
+    [ngClass]="{ 'is-invalid': submitted && input.status == 'INVALID' }"
+  />
+  <label class="form__label" [for]="name">{{ label }}</label>
+  <div *ngIf="submitted && input.status == 'INVALID'" class="invalid-feedback">
+    <div class="invalid-feedback__message">{{ label }} is not valid</div>
+  </div>
 </div>
-    

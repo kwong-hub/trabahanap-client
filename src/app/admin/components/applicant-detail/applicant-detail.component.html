@@ -1,78 +1,105 @@
 <div *ngIf="applicant" class="container">
-    <div class="company">
-        <div class="company__header">
-            <img [src]="applicant.applicantPicture ? applicant.applicantPicture : 'assets/img/anonymous-avatar.png'" alt="" class="img">
-            <h2 class="name">{{ applicant.user.firstName + " " + applicant.user.lastName }}</h2>
+  <div class="company">
+    <div class="company__header">
+      <img
+        [src]="
+          applicant.applicantPicture
+            ? applicant.applicantPicture
+            : 'assets/img/anonymous-avatar.png'
+        "
+        alt=""
+        class="img"
+      />
+      <h2 class="name">
+        {{ applicant.user.firstName + " " + applicant.user.lastName }}
+      </h2>
 
-            <div class="preview">
-                <i class="preview__icon far fa-file-pdf"></i>
-                <a [href]='applicant.cv' target="_heopenit" class="preview__text">CV or Resume</a>
-            </div>
+      <div class="preview">
+        <i class="preview__icon far fa-file-pdf"></i>
+        <a [href]="applicant.cv" target="_heopenit" class="preview__text"
+          >CV or Resume</a
+        >
+      </div>
 
-            <div [title]="applicant.user.active ? 'Activated' : 'Deactivated'" (click)="toggleActivate(applicant.user.id)"
-                class="verify">
-                <fa-icon *ngIf="applicant.user.active" class="verify__icon" [icon]="faCheckCircle"></fa-icon>
-                <span class="verify__text">{{ applicant.user.active ? 'Activated' : 'Deactivated' }}</span>
-                <div *ngIf="loading" class="verify__loading"></div>
-            </div>
-        </div>
-        <div class="company__body">
-
-            <div class="details-group">
-                <div class="detail">
-                    <div class="detail__label">Basic Informations</div>
-                    <div class="detail__value">
-                        <span class="detail__value__header">Email - <p class="text"> {{ applicant.user.email }}</p> </span> 
-                        <span class="detail__value__header">Phone Number -  <p class="text"> {{ applicant.user.phoneNumber }}</p> </span> 
-                        <span class="detail__value__header">Gender -  <p class="text"> {{ applicant.gender }}</p> </span> 
-                        <span class="detail__value__header">Date of Birth -  <p class="text"> {{ applicant.dateOfBirth | date:'longDate' }}</p> </span> 
-
-                    </div>
-                    <!-- <div class="detail__value">
+      <div
+        [title]="applicant.user.active ? 'Activated' : 'Deactivated'"
+        (click)="toggleActivate(applicant.user.id)"
+        class="verify"
+      >
+        <fa-icon
+          *ngIf="applicant.user.active"
+          class="verify__icon"
+          [icon]="faCheckCircle"
+        ></fa-icon>
+        <span class="verify__text">{{
+          applicant.user.active ? "Activated" : "Deactivated"
+        }}</span>
+        <div *ngIf="loading" class="verify__loading"></div>
+      </div>
+    </div>
+    <div class="company__body">
+      <div class="details-group">
+        <div class="detail">
+          <div class="detail__label">Basic Informations</div>
+          <div class="detail__value">
+            <span class="detail__value__header"
+              >Email -
+              <p class="text">{{ applicant.user.email }}</p>
+            </span>
+            <span class="detail__value__header"
+              >Phone Number -
+              <p class="text">{{ applicant.user.phoneNumber }}</p>
+            </span>
+            <span class="detail__value__header"
+              >Gender -
+              <p class="text">{{ applicant.gender }}</p>
+            </span>
+            <span class="detail__value__header"
+              >Date of Birth -
+              <p class="text">{{ applicant.dateOfBirth | date: "longDate" }}</p>
+            </span>
+          </div>
+          <!-- <div class="detail__value">
                         <p class="text">{{ applicant.user.phoneNumber }}</p>
                     </div>
                     <div class="detail__value">
                         <p class="text">{{ applicant.gender }}</p>
                     </div> -->
-
-                </div>
-            </div>
-            <div class="details-group">
-                <div class="detail">
-                    <div class="detail__label">Current Employer</div>
-                    <div class="detail__value">
-                        <p class="text"> {{ applicant.currentEmployer }} </p>
-                    </div>
-                </div>
-
-                <div class="detail">
-                    <div class="detail__label">Address</div>
-                    <div class="detail__value">
-                        <p class="text">{{ applicant.address }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="details-group">
-                <div class="detail">
-                    <div class="detail__label">Self Description</div>
-                    <div class="detail__value">
-                        <p class="text">{{ applicant.selfDescription }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="details-group">
-                <div class="detail">
-                    <div class="detail__label">Current Occopation</div>
-                    <div class="detail__value">
-                        <p class="text">{{ applicant.currentOccopation }}</p>
-                    </div>
-                </div>
-            </div>
-
-          
-            
         </div>
+      </div>
+      <div class="details-group">
+        <div class="detail">
+          <div class="detail__label">Current Employer</div>
+          <div class="detail__value">
+            <p class="text">{{ applicant.currentEmployer }}</p>
+          </div>
+        </div>
+
+        <div class="detail">
+          <div class="detail__label">Address</div>
+          <div class="detail__value">
+            <p class="text">{{ applicant.address }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-group">
+        <div class="detail">
+          <div class="detail__label">Self Description</div>
+          <div class="detail__value">
+            <p class="text">{{ applicant.selfDescription }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-group">
+        <div class="detail">
+          <div class="detail__label">Current Occopation</div>
+          <div class="detail__value">
+            <p class="text">{{ applicant.currentOccopation }}</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
