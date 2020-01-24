@@ -1,107 +1,114 @@
 <div class="container">
-    <div class="advertisement">
-        <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
+  <div class="advertisement">
+    <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)">
+    </app-advertisement>
+  </div>
+  <section class="register">
+    <div class="guide guide--applicant">
+      <div>
+        <div class="guide__title">
+          <div>Naghahanap ka ba ng trabaho?</div>
+        </div>
+        <div class="guide__sub-title">
+          <div>Hanapin na ang trabahong</div>
+          <div>gusto mo!</div>
+        </div>
+      </div>
+      <div class="guide__lists">
+        <div class="list-item">
+          <div class="list-item__icon">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x"></i>
+              <i class="fas fa-user-plus fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+          <div class="list-item__text">
+            <span>Gumawa ng account</span>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-item__icon">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x"></i>
+              <i class="fas fa-tasks fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+          <div class="list-item__text">
+            <span>Maghanap ng trabaho</span>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-item__icon">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x"></i>
+              <i class="fas fa-clipboard-check fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+          <div class="list-item__text">
+            <span>Mag-apply</span>
+          </div>
+        </div>
+      </div>
+      <button
+        class="th-btn th-btn--primary guide__btn"
+        [routerLink]="['/auth/register']"
+        [queryParams]="{ as: 'app' }"
+      >
+        MAG-REGISTER BILANG APLIKANTE
+      </button>
     </div>
-    <section class="register">
-        <div class="guide guide--applicant">
-            <div>
-                <div class="guide__title">
-                    <div>Naghahanap ka ba ng trabaho?</div>
-                </div>
-                <div class="guide__sub-title">
-                    <div>Hanapin na ang trabahong</div>
-                    <div>gusto mo!</div>
-                </div>
-            </div>
-            <div class="guide__lists">
-                <div class="list-item">
-                    <div class="list-item__icon">
-                        <span class="fa-stack fa-2x">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-user-plus fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </div>
-                    <div class="list-item__text">
-                        <span>Gumawa ng account</span>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item__icon">
-                        <span class="fa-stack fa-2x">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-tasks fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </div>
-                    <div class="list-item__text">
-                        <span>Maghanap ng trabaho</span>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item__icon">
-                        <span class="fa-stack fa-2x">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-clipboard-check fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </div>
-                    <div class="list-item__text">
-                        <span>Mag-apply</span>
-                    </div>
-                </div>
-            </div>
-            <button class="th-btn th-btn--primary guide__btn" [routerLink]="['/auth/register']"
-                [queryParams]="{ as: 'app' }">
-                MAG-REGISTER BILANG APLIKANTE
-            </button>
+    <div class="guide guide--company">
+      <div>
+        <div class="guide__title">
+          <div>Looking for skilled applicants?</div>
         </div>
-        <div class="guide guide--company">
-            <div>
-                <div class="guide__title">
-                    <div>Looking for skilled applicants?</div>
-                </div>
-                <div class="guide__sub-title">
-                    <div>Start searching for applicants that</div>
-                    <div>fits your job requirements</div>
-                </div>
-            </div>
-            <div class="guide__lists">
-                <div class="list-item">
-                    <div class="list-item__icon">
-                        <span class="fa-stack fa-2x">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-user-tie fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </div>
-                    <div class="list-item__text">
-                        <span>Create a free account</span>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item__icon">
-                        <span class="fa-stack fa-2x">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-user-check fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </div>
-                    <div class="list-item__text">
-                        <span>Verify account</span>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item__icon">
-                        <span class="fa-stack fa-2x">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-clipboard-list fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </div>
-                    <div class="list-item__text">
-                        <span>Post a job ad</span>
-                    </div>
-                </div>
-            </div>
-            <button class="th-btn th-btn--primary guide__btn guide__btn--emp" [routerLink]="['/auth/register']"
-                [queryParams]="{ as: 'emp' }">
-                Register as an Employer
-            </button>
+        <div class="guide__sub-title">
+          <div>Start searching for applicants that</div>
+          <div>fits your job requirements</div>
         </div>
-    </section>
+      </div>
+      <div class="guide__lists">
+        <div class="list-item">
+          <div class="list-item__icon">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x"></i>
+              <i class="fas fa-user-tie fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+          <div class="list-item__text">
+            <span>Create a free account</span>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-item__icon">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x"></i>
+              <i class="fas fa-user-check fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+          <div class="list-item__text">
+            <span>Verify account</span>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-item__icon">
+            <span class="fa-stack fa-2x">
+              <i class="fas fa-circle fa-stack-2x"></i>
+              <i class="fas fa-clipboard-list fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+          <div class="list-item__text">
+            <span>Post a job ad</span>
+          </div>
+        </div>
+      </div>
+      <button
+        class="th-btn th-btn--primary guide__btn guide__btn--emp"
+        [routerLink]="['/auth/register']"
+        [queryParams]="{ as: 'emp' }"
+      >
+        Register as an Employer
+      </button>
+    </div>
+  </section>
 </div>

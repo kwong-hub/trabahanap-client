@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { CustomTextareaComponent } from './custom-textarea.component';
+import { CustomTextareaComponent } from "./custom-textarea.component";
 
-describe('CustomTextareaComponent', () => {
+describe("CustomTextareaComponent", () => {
   let component: CustomTextareaComponent;
   let fixture: ComponentFixture<CustomTextareaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomTextareaComponent ]
-    })
-    .compileComponents();
+      declarations: [CustomTextareaComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('CustomTextareaComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

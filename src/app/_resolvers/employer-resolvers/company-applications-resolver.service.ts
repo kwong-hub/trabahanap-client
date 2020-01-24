@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { EmployerService } from '@app/_services/employer.service';
+import { Injectable } from "@angular/core";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { Observable } from "rxjs";
+import { EmployerService } from "@app/_services/employer.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class CompanyApplicationsResolverService {
+  constructor(private employerService: EmployerService) {}
 
-  constructor(private employerService: EmployerService) { }
-  
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<any> {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<any> {
     return this.employerService.getApplications(1);
   }
 }

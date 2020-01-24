@@ -1,14 +1,18 @@
-import { Router, ActivatedRoute } from '@angular/router';
-import { JobService } from './../../../_services/jobs.service';
-import { Component, OnInit, Input } from '@angular/core';
-import { faUsers, faPenFancy, faSlidersH } from '@fortawesome/free-solid-svg-icons';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EmployerService } from '@app/_services/employer.service';
+import { Router, ActivatedRoute } from "@angular/router";
+import { JobService } from "./../../../_services/jobs.service";
+import { Component, OnInit, Input } from "@angular/core";
+import {
+  faUsers,
+  faPenFancy,
+  faSlidersH
+} from "@fortawesome/free-solid-svg-icons";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { EmployerService } from "@app/_services/employer.service";
 
 @Component({
-  selector: 'app-filtered-candidates-list',
-  templateUrl: './filtered-candidates-list.component.html',
-  styleUrls: ['./filtered-candidates-list.component.scss']
+  selector: "app-filtered-candidates-list",
+  templateUrl: "./filtered-candidates-list.component.html",
+  styleUrls: ["./filtered-candidates-list.component.scss"]
 })
 export class FilteredCandidatesListComponent implements OnInit {
   @Input() pager: any;
@@ -18,28 +22,33 @@ export class FilteredCandidatesListComponent implements OnInit {
   faPenFancy = faPenFancy;
   faSlidersH = faSlidersH;
   searchForm: FormGroup;
-  displayedColumns: string[] = ['jobTitle', 'position', 'noOfApplicants', 'detail'];
+  displayedColumns: string[] = [
+    "jobTitle",
+    "position",
+    "noOfApplicants",
+    "detail"
+  ];
 
   filterHidden: boolean = true;
   filtered: boolean = false;
   openActions: {};
 
   constructor(
-    private JobsService: JobService, 
-    private EmployerService: EmployerService, 
-    private formBuilder: FormBuilder, 
+    private JobsService: JobService,
+    private EmployerService: EmployerService,
+    private formBuilder: FormBuilder,
     private router: Router,
-    private route:ActivatedRoute) {
-  }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
-      jobTitle: ['', Validators.nullValidator],
-      industry: ['', Validators.nullValidator],
-      position: ['', Validators.nullValidator]
+      jobTitle: ["", Validators.nullValidator],
+      industry: ["", Validators.nullValidator],
+      position: ["", Validators.nullValidator]
     });
 
-    let elem = document.getElementsByClassName('overlay')
+    let elem = document.getElementsByClassName("overlay");
     elem[0].addEventListener("click", () => {
       this.openActions = {};
       this.filterHidden = true;
@@ -47,21 +56,25 @@ export class FilteredCandidatesListComponent implements OnInit {
   }
 
   showCadidates(application) {
-    this.router.navigate([`../filtered_candidates/job/${application.jobId}`],{relativeTo: this.route});
+    this.router.navigate([`../filtered_candidates/job/${application.jobId}`], {
+      relativeTo: this.route
+    });
   }
 
   getServerData(page) {
     if (!this.filtered) {
-      this.JobsService.getJobWithApplications(page.pageIndex + 1, page.pageSize)
-        .subscribe(
-          success => {
-            if (success.success == true) {
-              this.jobs = success.applications.rows;
-              this.pager = success.applications.pager;
-            }
-          },
-          err => console.log(err)
-        )
+      this.JobsService.getJobWithApplications(
+        page.pageIndex + 1,
+        page.pageSize
+      ).subscribe(
+        success => {
+          if (success.success == true) {
+            this.jobs = success.applications.rows;
+            this.pager = success.applications.pager;
+          }
+        },
+        err => console.log(err)
+      );
     } else {
       var val = this.searchForm.value;
       this.EmployerService.getFilterJobsFilteredApplications(val.jobTitle, val.industry, val.position, page.pageIndex + 1,page.pageSize)
@@ -73,7 +86,6 @@ export class FilteredCandidatesListComponent implements OnInit {
         )
 
     }
-
   }
 
   toggleFilter(event) {
@@ -93,8 +105,5 @@ export class FilteredCandidatesListComponent implements OnInit {
       )
 
     this.filtered = true;
-
   }
-
-
 }

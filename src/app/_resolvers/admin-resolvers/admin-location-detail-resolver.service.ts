@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AdminService } from '@app/_services/admin.service';
+import { Injectable } from "@angular/core";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { Observable } from "rxjs";
+import { AdminService } from "@app/_services/admin.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AdminLocationDetailResolverService {
+  constructor(private adminService: AdminService) {}
 
-  constructor(private adminService: AdminService) { }
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<any> {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<any> {
     let id = route.params.locationId;
     return this.adminService.getCompanyLocationById(id);
   }

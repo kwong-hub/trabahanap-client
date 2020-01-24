@@ -1,21 +1,18 @@
 .form {
-    background-color: white;
-    padding: 2rem;
-    
-    &__group {
-        
-        &--double {
-            display: flex;
-            justify-content: space-evenly;
-        }
+  background-color: white;
+  padding: 2rem;
 
+  &__group {
+    &--double {
+      display: flex;
+      justify-content: space-evenly;
     }
+  }
 
-    .progress {
-        background: white;
-        color: grey;
-        border: 2px solid grey;
-        cursor: progress;
-        
-    }
+  .progress {
+    background: white;
+    color: grey;
+    border: 2px solid grey;
+    cursor: progress;
+  }
 }

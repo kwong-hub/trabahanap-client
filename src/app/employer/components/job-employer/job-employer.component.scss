@@ -1,176 +1,177 @@
-.job{
+.job {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 95%;
+  margin: 2rem auto;
+  position: relative;
+  padding: 2rem 1rem;
+  border: 2px solid #ccc;
+
+  &__left {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+
+    &--top {
+      display: flex;
+    }
+
+    &--middle {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 0rem;
+      justify-content: center;
+    }
+
+    &--bottom {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 15%;
+    margin: 1.5rem 0rem;
+  }
+
+  &__apply-button {
+    align-self: center;
+    border: 2px solid tomato;
+    border-radius: 5px;
+    font-weight: 700;
+
+    &:hover,
+    &:active {
+      // box-shadow: 0 .5rem .5rem rgba(black, .2);
+      background-color: tomato;
+      color: white;
+    }
+  }
+
+  &__left--top__container {
+    margin: 1rem 0rem;
+  }
+
+  &__title {
+    color: #42597b;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+  }
+
+  &__company-image {
+    height: 13rem;
+  }
+
+  &__description {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #555;
+  }
+
+  &__salary-range {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  &__tag {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #42597b;
+    text-transform: capitalize;
+    margin-right: 1rem;
+    display: flex;
+    width: 5rem;
+    justify-content: space-around;
+  }
+
+  &__tag-elements {
+    text-align: center;
+  }
+
+  &__tag-element {
+    color: white;
+    background-color: #42597b;
+    padding: 0.7rem 1.2rem;
+    border-radius: 1.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 3px 0.3rem;
+    font-size: 1rem;
+  }
+
+  &__company-verified {
+    font-size: 1.5rem;
+    color: #888;
+    text-transform: uppercase;
+  }
+
+  &__company-verified-icon {
+    // font-size:1.rem;
+    color: #3f7f98;
+    margin-right: 0.5rem;
+  }
+
+  &__company-name {
+    color: black;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+  }
+
+  &__location {
+    font-size: 1.5rem;
+    color: #0072bc;
+    font-weight: 300;
+  }
+
+  &__location-icon {
+    color: #71171c;
+    margin-right: 0.5rem;
+  }
+
+  &__general-info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 95%;
-    margin: 2rem auto;
-    position: relative;
-    padding: 2rem 1rem;
-    border: 2px solid #ccc;
+    padding: 0.5rem;
+    margin-top: 1rem;
+  }
 
-    &__left{
-        width: 85%;
-        display: flex;
-        justify-content: space-between;
+  &__info {
+    font-size: 1.1rem;
+    color: #42597b;
+    font-weight: 700;
 
-        &--top{
-            display: flex;
-        }
-
-        &--middle{
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem 0rem;
-            justify-content: center;
-        }
-
-        &--bottom{
-            display: flex;
-            align-items: center;
-        }
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
     }
-
-    &__right{
-        display: flex;
-        flex-direction: column-reverse;
-        width: 15%;
-        margin: 1.5rem 0rem;
-    }
-
-    &__apply-button{
-        align-self: center;
-        border: 2px solid tomato;
-        border-radius: 5px;
-        font-weight: 700;
-
-        &:hover, &:active {
-            // box-shadow: 0 .5rem .5rem rgba(black, .2);
-            background-color: tomato;
-            color: white;
-        }
-    }
-
-    &__left--top__container{
-        margin: 1rem 0rem;
-    }
-
-    &__title{
-        color: #42597B ;
-        font-size: 2rem ;
-        font-weight: 700;
-        margin-bottom: 0px ;
-        text-transform: uppercase;
-    }
-
-    &__company-image{
-        height: 13rem;
-    }
-
-    &__description{
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
-        color: #555;
-    }
-
-    &__salary-range{
-        font-size: 1.1rem;
-        font-weight: 700;
-    }
-
-    &__tag{
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #42597B;
-        text-transform: capitalize;
-        margin-right: 1rem;
-        display: flex;
-        width: 5rem;
-        justify-content: space-around;
-    }
-
-    &__tag-elements{
-        text-align: center;
-    }
-
-    &__tag-element{
-        color: white;
-        background-color: #42597B;
-        padding: 0.7rem 1.2rem;
-        border-radius: 1.5rem;
-        text-transform: uppercase;
-        font-weight: 600;
-        margin: 3px 0.3rem;
-        font-size: 1rem;
-    }
-
-    &__company-verified{
-        font-size: 1.5rem;
-        color: #888;
-        text-transform: uppercase;
-    }
-
-    &__company-verified-icon{
-        // font-size:1.rem;
-        color:#3f7f98;
-        margin-right: .5rem;
-    }
-
-    &__company-name{
-        color: black;
-        font-size: 1.5rem;
-        margin-right: 1rem;
-    }
-
-    &__location{
-        font-size: 1.5rem;
-        color: #0072bc;
-        font-weight: 300;
-    }
-
-    &__location-icon{
-        color: #71171c;
-        margin-right: .5rem;
-    }
-
-    &__general-info{
-        display: flex;
-        flex-direction: column;
-        padding: .5rem;
-        margin-top: 1rem;
-    }
-
-    &__info{
-        font-size: 1.1rem;
-        color: #42597B;
-        font-weight: 700;
-
-        &:not(:last-child){
-            margin-bottom: .5rem;
-        }
-    }
+  }
 }
 
-@media only screen and (min-width:480px) { 
-    .job{
-        flex-direction: row;
+@media only screen and (min-width: 480px) {
+  .job {
+    flex-direction: row;
 
-        &__left{
-            // width: 70%;
-        }
-
-        &__right{
-            flex-direction: column;
-            width: auto;
-        }
-
-        &__apply-button{
-            align-self: initial;
-        }
+    &__left {
+      // width: 70%;
     }
+
+    &__right {
+      flex-direction: column;
+      width: auto;
+    }
+
+    &__apply-button {
+      align-self: initial;
+    }
+  }
 }
 
-@media only screen and (min-width:700px) { 
-    // .job{
-    //     width: 80%;
-    // }
+@media only screen and (min-width: 700px) {
+  // .job{
+  //     width: 80%;
+  // }
 }

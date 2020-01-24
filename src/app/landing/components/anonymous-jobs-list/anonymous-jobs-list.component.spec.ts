@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AnonymousJobsListComponent } from './anonymous-jobs-list.component';
+import { AnonymousJobsListComponent } from "./anonymous-jobs-list.component";
 
-describe('AnonymousJobsListComponent', () => {
+describe("AnonymousJobsListComponent", () => {
   let component: AnonymousJobsListComponent;
   let fixture: ComponentFixture<AnonymousJobsListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnonymousJobsListComponent ]
-    })
-    .compileComponents();
+      declarations: [AnonymousJobsListComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('AnonymousJobsListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

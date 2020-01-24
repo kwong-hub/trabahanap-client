@@ -1,27 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { EmployerService } from '@app/_services/employer.service';
-import { JobService } from '@app/_services/jobs.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { EmployerService } from "@app/_services/employer.service";
+import { JobService } from "@app/_services/jobs.service";
 
 @Component({
-  selector: 'app-filtered-candidate-applicant-detail',
-  templateUrl: './filtered-candidate-applicant-detail.component.html',
-  styleUrls: ['./filtered-candidate-applicant-detail.component.scss']
+  selector: "app-filtered-candidate-applicant-detail",
+  templateUrl: "./filtered-candidate-applicant-detail.component.html",
+  styleUrls: ["./filtered-candidate-applicant-detail.component.scss"]
 })
 export class FilteredCandidateApplicantDetailComponent implements OnInit {
-
   applicant: any = {};
   hired = false;
   jobId;
-  applicantId;  
+  applicantId;
 
   constructor(
-    private route: ActivatedRoute, 
-    private employerService: EmployerService, 
-    private jobService: JobService) { }
+    private route: ActivatedRoute,
+    private employerService: EmployerService,
+    private jobService: JobService
+  ) {}
 
   ngOnInit() {
-
     this.route.paramMap.subscribe(
       success => {
         this.applicantId = success.get('applicantId');
@@ -50,9 +49,10 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
     );
   }
 
-  hireApplicant(){
+  hireApplicant() {
     //console.log(this.jobId,this.applicantId)
-    this.jobService.hireJobApplication({jobId: this.jobId, applicantId: this.applicantId})
+    this.jobService
+      .hireJobApplication({ jobId: this.jobId, applicantId: this.applicantId })
       .subscribe(
         success => {
           // console.log(success)

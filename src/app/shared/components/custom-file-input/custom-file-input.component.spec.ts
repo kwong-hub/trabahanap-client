@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { CustomFileInputComponent } from './custom-file-input.component';
+import { CustomFileInputComponent } from "./custom-file-input.component";
 
-describe('CustomFileInputComponent', () => {
+describe("CustomFileInputComponent", () => {
   let component: CustomFileInputComponent;
   let fixture: ComponentFixture<CustomFileInputComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomFileInputComponent ]
-    })
-    .compileComponents();
+      declarations: [CustomFileInputComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('CustomFileInputComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

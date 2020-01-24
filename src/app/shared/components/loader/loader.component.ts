@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'shared-loader',
-  templateUrl: './loader.component.html',
-  styleUrls: ['./loader.component.scss']
+  selector: "shared-loader",
+  templateUrl: "./loader.component.html",
+  styleUrls: ["./loader.component.scss"]
 })
 export class LoaderComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

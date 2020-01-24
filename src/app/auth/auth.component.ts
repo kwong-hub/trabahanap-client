@@ -1,26 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
-import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { Component, OnInit } from "@angular/core";
+import {
+  Router,
+  Event,
+  NavigationStart,
+  NavigationEnd,
+  NavigationCancel,
+  NavigationError
+} from "@angular/router";
+import { AuthenticationService } from "@app/_services/authentication-service.service";
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  selector: "app-auth",
+  templateUrl: "./auth.component.html",
+  styleUrls: ["./auth.component.scss"]
 })
 export class AuthComponent implements OnInit {
-
   menuActive: boolean = false;
   currentUser = this.authenticationService.currentUserValue;
   routing: boolean;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
-    this.authenticationService.currentUserSubject.subscribe(
-      data => {
-        this.currentUser = data;
-      }
-    )
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {
+    this.authenticationService.currentUserSubject.subscribe(data => {
+      this.currentUser = data;
+    });
     this.router.events.subscribe((event: Event) => {
-      switch(true) {
+      switch (true) {
         case event instanceof NavigationStart: {
           this.routing = true;
           window.scrollTo(0, 0);
@@ -36,13 +43,11 @@ export class AuthComponent implements OnInit {
           break;
         }
       }
-    })
-   }
-
-  ngOnInit() {
+    });
   }
 
-   
+  ngOnInit() {}
+
   redirect($event) {
     this.toggleNav($event);
     return false;
@@ -51,7 +56,7 @@ export class AuthComponent implements OnInit {
   stopProp(e) {
     e.stopPropagation();
   }
-  
+
   closeNav() {
     this.menuActive = false;
   }
@@ -65,5 +70,4 @@ export class AuthComponent implements OnInit {
     this.authenticationService.logout();
     this.closeNav();
   }
-
 }

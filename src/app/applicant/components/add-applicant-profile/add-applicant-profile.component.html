@@ -1,5 +1,5 @@
 <div *ngIf="!showCVPreview">
-  <div class="employer-steps">
+  <!-- <div class="employer-steps">
     <div
       class="employer-steps__step employer__first-step employer-steps__step--done"
     >
@@ -30,7 +30,7 @@
       <fa-icon class="employer-steps__icon" [icon]="faCloudUploadAlt"></fa-icon>
       <div class="employer-steps__display-text"><h5>Apply</h5></div>
     </div>
-  </div>
+  </div> -->
   <form
     action="#"
     class="form"
@@ -70,7 +70,35 @@
         </div>
       </div>
       <h4 *ngIf="!applicantProfile" class="form__title">Add Your Profile</h4>
-      <h4 *ngIf="applicantProfile" class="form__title">Your Profile</h4>
+      <div *ngIf="applicantProfile" class="form__title">
+        <shared-custom-input-field
+          class="input-element-type-1"
+          [formGroup]="addApplicantProfileForm"
+          name="fullName"
+          [defaultValue]="applicantProfile?.fullName"
+          placeholder="Full Name"
+          label="Full Name"
+          [input]="addApplicantProfileForm.controls['fullName']"
+          type="text"
+          [submitted]="submitted"
+          [disabled]="hasProfile"
+          [styleObject]="styleObject"
+        ></shared-custom-input-field>
+
+        <shared-custom-input-field
+          class="input-element-type-1"
+          [formGroup]="addApplicantProfileForm"
+          name="phoneNumber"
+          [defaultValue]="applicantProfile?.phoneNumber"
+          placeholder="Phone Number"
+          label="Phone Number"
+          [input]="addApplicantProfileForm.controls['phoneNumber']"
+          type="text"
+          [submitted]="submitted"
+          [disabled]="hasProfile"
+          [styleObject]="styleObject"
+        ></shared-custom-input-field>
+      </div>
     </div>
     <div class="add-company-profile">
       <div
@@ -142,34 +170,34 @@
         ></shared-custom-input-field>
       </div>
 
-        <div class="sub-container">
-            <shared-custom-select 
-                [valid]="addApplicantProfileForm.controls['gender']?.status"  
-                (onValueChange)="selectChanged($event, 'gender')" 
-                name="gender"
-                label="Gender" 
-                [defaultValue]="applicantProfile?.gender"
-                [styleObject]="styleObject" 
-                class="input-element-type-1" 
-                placeholder="Select Gender" 
-                [options]="genderOptions"
-                [submitted]="submitted"
-                [disabled]="hasProfile"
-            ></shared-custom-select>
-            <div class="date-picker">   
-                <shared-custom-select 
-                    [valid]="addApplicantProfileForm.controls['month']?.status"  
-                    (onValueChange)="selectChanged($event, 'month')" 
-                    name="month"
-                    label="Birth Date" 
-                    [defaultValue]="applicantProfile?.month"
-                    [styleObject]="monthStyle" 
-                    class="input-element-type-1" 
-                    placeholder="Month" 
-                    [options]="monthOptions"
-                    [submitted]="submitted"
-                    [disabled]="hasProfile"
-                ></shared-custom-select>
+      <div class="sub-container">
+        <shared-custom-select
+          [valid]="addApplicantProfileForm.controls['gender']?.status"
+          (onValueChange)="selectChanged($event, 'gender')"
+          name="gender"
+          label="Gender"
+          [defaultValue]="applicantProfile?.gender"
+          [styleObject]="styleObject"
+          class="input-element-type-1"
+          placeholder="Select Gender"
+          [options]="genderOptions"
+          [submitted]="submitted"
+          [disabled]="hasProfile"
+        ></shared-custom-select>
+        <div class="date-picker">
+          <shared-custom-select
+            [valid]="addApplicantProfileForm.controls['month']?.status"
+            (onValueChange)="selectChanged($event, 'month')"
+            name="month"
+            label="Birth Date"
+            [defaultValue]="applicantProfile?.month"
+            [styleObject]="monthStyle"
+            class="input-element-type-1"
+            placeholder="Month"
+            [options]="monthOptions"
+            [submitted]="submitted"
+            [disabled]="hasProfile"
+          ></shared-custom-select>
 
           <shared-custom-input-field
             class="input-element-type-1"

@@ -5,32 +5,36 @@ import { faPlus, faEllipsisV, faEdit, faTimes } from '@fortawesome/free-solid-sv
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-locations',
-  templateUrl: './locations.component.html',
-  styleUrls: ['./locations.component.scss']
+  selector: "app-locations",
+  templateUrl: "./locations.component.html",
+  styleUrls: ["./locations.component.scss"]
 })
-
 export class LocationsComponent implements OnInit {
-
   faPlus = faPlus;
   faEllipsisV = faEllipsisV;
   faEdit = faEdit;
   faTimes = faTimes;
   locations: Array<object>;
   noLocation: boolean = true;
-  displayedColumns: string[] = ['picture', 'name', 'address', 'phoneNumber', 'action'];
+  displayedColumns: string[] = [
+    "picture",
+    "name",
+    "address",
+    "phoneNumber",
+    "action"
+  ];
   confirm: boolean;
 
-  constructor(private Route: ActivatedRoute,private router:Router) { 
-      this.Route.data.subscribe(res => {
-        let locations = res.data;
-        if(locations.success) {
-          if(locations.locations.length !== 0) {
-            this.noLocation = false;
-          }
-          this.locations = locations.locations;
+  constructor(private Route: ActivatedRoute, private router:Router) {
+    this.Route.data.subscribe(res => {
+      let locations = res.data;
+      if (locations.success) {
+        if (locations.locations.length !== 0) {
+          this.noLocation = false;
         }
-      })
+        this.locations = locations.locations;
+      }
+    });
   }
 
   ngOnInit() {
@@ -51,11 +55,11 @@ export class LocationsComponent implements OnInit {
   }
 
   deleteLocation(id) {
-    console.log(id)
+    console.log(id);
   }
 
   editLocation($event){
-    console.log($event,"id for loca")
+  
     this.router.navigate([`../branches/${$event}`],{relativeTo: this.Route});
   }
 

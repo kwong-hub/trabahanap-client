@@ -1,12 +1,22 @@
-import { ApplicantService } from './../../../_services/applicant.service';
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LocationService } from '@app/_services/location.service';
-import _ from 'lodash';
-import { faCheck, faUserPlus, faIdCard, faCloudUploadAlt, faUserCheck, faEyeDropper, faEdit, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '@app/_services/authentication-service.service';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { ApplicantService } from "./../../../_services/applicant.service";
+import { Component, OnInit, Input } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { LocationService } from "@app/_services/location.service";
+import _ from "lodash";
+import {
+  faCheck,
+  faUserPlus,
+  faIdCard,
+  faCloudUploadAlt,
+  faUserCheck,
+  faEyeDropper,
+  faEdit,
+  faCamera,
+  faTimes
+} from "@fortawesome/free-solid-svg-icons";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "@app/_services/authentication-service.service";
+import { ImageCroppedEvent } from "ngx-image-cropper";
 
 @Component({
   selector: "app-add-applicant-profile",
@@ -14,7 +24,6 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
   styleUrls: ["./add-applicant-profile.component.scss"]
 })
 export class AddApplicantProfileComponent implements OnInit {
-  
   @Input() applicantProfile: any;
   faCheck = faCheck;
   faUserPlus = faUserPlus;
@@ -116,6 +125,10 @@ export class AddApplicantProfileComponent implements OnInit {
     this.getCountries();
 
     this.addApplicantProfileForm = this.formBuilder.group({
+      fullName: ["", Validators.required],
+      phoneNumber: ["", Validators.required],
+      firstName: [""],
+      lastName: [""],
       currentEmployer: [""],
       currentOccopation: [""],
       address: [""],
@@ -132,19 +145,11 @@ export class AddApplicantProfileComponent implements OnInit {
       CountryId: ["", Validators.required]
     });
 
-    if (this.applicantProfile) {
-      let temp_date = new Date(this.applicantProfile.dateOfBirth);
-
-      this.applicantProfile = {
-        ...this.applicantProfile,
-        year: temp_date.getFullYear(),
-        month: temp_date.getMonth() + 1,
-        date: temp_date.getDate()
-      };
-
+    if (this.applicantProfile) {   
       this.hasProfile = true;
       this.inputType = "text";
       this.updateForm();
+      console.log(this.applicantProfile);
       this.disableEdit();
       this.getCitiesByRegionId(this.applicantProfile.RegionId);
       this.getRegions();
@@ -159,12 +164,19 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   updateForm() {
+    let temp_date = new Date(this.applicantProfile.dateOfBirth);
+      
+    this.applicantProfile = {
+      ...this.applicantProfile,
+      year: temp_date.getFullYear(),
+      month: temp_date.getMonth() + 1,
+      date: temp_date.getDate(),
+      fullName: `${this.applicantProfile.user.firstName} ${this.applicantProfile.user.lastName}`,
+      phoneNumber: this.applicantProfile.user.phoneNumber
+    };
+
     _.map(this.applicantProfile, (value, key) => {
-      if (
-        this.addApplicantProfileForm.controls[key] &&
-        key != "cv" &&
-        key != "applicantPicture"
-      ) {
+      if (this.addApplicantProfileForm.controls[key] && key != "cv" && key != "applicantPicture") {
         this.addApplicantProfileForm.controls[key].setValue(value);
       }
     });
@@ -192,15 +204,14 @@ export class AddApplicantProfileComponent implements OnInit {
   saveImage() {
     this.tempImg = this.croppedImage.base64;
     this.closeImageModal();
-    let byteCharacters = atob(this.tempImg.split(',')[1]);
+    let byteCharacters = atob(this.tempImg.split(",")[1]);
     let byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     let byteArray = new Uint8Array(byteNumbers);
-    let blob = new Blob([byteArray], {type: 'image/png'});
+    let blob = new Blob([byteArray], { type: "image/png" });
 
-    console.log(blob);
     this.formData.append("applicantPicture", blob);
   }
 
@@ -225,9 +236,8 @@ export class AddApplicantProfileComponent implements OnInit {
     // new form value after date of birth is added
     val = this.addApplicantProfileForm.value;
     this.showLoader = true;
-    var vals = this.addApplicantProfileForm.value;
-    _.map(vals, (value, key) => {
-      console.log(key, "=>", value);
+    _.map(val, (value, key) => {
+      // console.log(key, "=>", value);
       if (key != "cv" && key != "applicantPicture") {
         this.formData.append(key, value);
       }
@@ -236,7 +246,7 @@ export class AddApplicantProfileComponent implements OnInit {
 
     this.applicantService.addApplicantProfileWithCV(this.formData).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           this.showLoader = false;
           let currentUser = this.authService.currentUserValue;
@@ -260,7 +270,7 @@ export class AddApplicantProfileComponent implements OnInit {
 
   onEdit() {
     this.submitted = true;
-    var val = this.addApplicantProfileForm.value;
+    let val = this.addApplicantProfileForm.value;
     let date = `${val.year}-${val.month}-${val.date}`;
 
     if (new Date(date).toDateString().includes("Invalid")) {
@@ -269,7 +279,11 @@ export class AddApplicantProfileComponent implements OnInit {
       });
       return;
     }
+    let nameArray = val.fullName.split(" ");
+    let lastName = nameArray.slice(1).join(" "); // in case value includes grandfather's name
 
+    this.addApplicantProfileForm.controls["firstName"].setValue(nameArray[0]);
+    this.addApplicantProfileForm.controls["lastName"].setValue(lastName);
     this.addApplicantProfileForm.controls["dateOfBirth"].setValue(date);
     if (this.addApplicantProfileForm.invalid) {
       return;
@@ -279,32 +293,28 @@ export class AddApplicantProfileComponent implements OnInit {
     this.showLoader = true;
 
     _.map(val, (value, key) => {
-      // console.log(key,"=>", value)
+      console.log(key,"=>", value)
       if (key != "cv" && key != "applicantPicture") {
         this.formData.append(key, value);
       }
     });
 
-    this.applicantService
-      .editApplicantProfile(this.formData, this.applicantProfile.id)
+    this.applicantService.editApplicantProfile(this.formData, this.applicantProfile.id)
       .subscribe(
         data => {
-          console.log(data)
-          if(data.success){
+          console.log(data);
+          if (data.success) {
             this.applicantProfile = data.applicantProfile;
-            let temp_date = new Date(this.applicantProfile.dateOfBirth);
-
-            this.applicantProfile = {...this.applicantProfile, year: temp_date.getFullYear(),
-              month: temp_date.getMonth() + 1, date: temp_date.getDate() }
+            this.updateForm();
             this.showLoader = false;
-            this.tempImg = '';
-            this.imageChangedEvent = null;
+            this.tempImg = "";
             let currentUser = this.authService.currentUserValue;
             this.authService.updateCurrentUser({
               ...currentUser,
               applicantProfile: data.applicantProfile
             });
             this.disableEdit();
+            this.formData = new FormData();
           }
         },
         err => {

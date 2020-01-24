@@ -1,20 +1,25 @@
-import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
-import { AuthenticationService } from '@app/_services/authentication-service.service';
-import { faHome, faAddressCard, faSignOutAlt, faBell, faLock } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { AuthenticationService } from "@app/_services/authentication-service.service";
+import {
+  faHome,
+  faAddressCard,
+  faSignOutAlt,
+  faBell,
+  faLock
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'applicant-header',
-  templateUrl: './applicant-header.component.html',
-  styleUrls: ['./applicant-header.component.scss']
+  selector: "applicant-header",
+  templateUrl: "./applicant-header.component.html",
+  styleUrls: ["./applicant-header.component.scss"]
 })
 export class ApplicantHeaderComponent implements OnInit {
-
   faHome = faHome;
   faAddressCard = faAddressCard;
   faSignOutAlt = faSignOutAlt;
   faBell = faBell;
   faLock = faLock;
-  
+
   @Output() signout = new EventEmitter();
   @Output() toggleBox = new EventEmitter();
 
@@ -22,21 +27,18 @@ export class ApplicantHeaderComponent implements OnInit {
   drop: boolean = false;
   applicantProfile;
 
-  constructor(public authenticationService: AuthenticationService) {  
-    this.authenticationService.currentUserSubject
-      .subscribe(
-        data => {
-          if(data){
-            this.applicantProfile = data.applicantProfile;
-          }
-        }
-      );
+  constructor(public authenticationService: AuthenticationService) {
+    this.authenticationService.currentUserSubject.subscribe(data => {
+      if (data) {
+        this.applicantProfile = data.applicantProfile;
+      }
+    });
   }
 
   ngOnInit() {
     window.onclick = () => {
       this.drop = false;
-    }
+    };
   }
 
   logout() {

@@ -1,11 +1,18 @@
-import { Component, Input } from '@angular/core';
-import { Job } from '@app/_models/Job';
-import { faSlidersH, faEllipsisV, faPenFancy, faTrashAlt, faBan, faInbox } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute, Router } from '@angular/router';
-import { JobService } from '@app/_services/jobs.service';
-import { StateService } from '@app/_services/state.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EmployerService } from '@app/_services/employer.service';
+import { Component, Input } from "@angular/core";
+import { Job } from "@app/_models/Job";
+import {
+  faSlidersH,
+  faEllipsisV,
+  faPenFancy,
+  faTrashAlt,
+  faBan,
+  faInbox
+} from "@fortawesome/free-solid-svg-icons";
+import { ActivatedRoute, Router } from "@angular/router";
+import { JobService } from "@app/_services/jobs.service";
+import { StateService } from "@app/_services/state.service";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { EmployerService } from "@app/_services/employer.service";
 
 export interface PeriodicElement {
   name: string;
@@ -15,12 +22,11 @@ export interface PeriodicElement {
 }
 
 @Component({
-  selector: 'app-jobs-list',
-  templateUrl: './jobs-list.component.html',
-  styleUrls: ['./jobs-list.component.scss']
+  selector: "app-jobs-list",
+  templateUrl: "./jobs-list.component.html",
+  styleUrls: ["./jobs-list.component.scss"]
 })
 export class JobsListComponent {
-
   @Input() jobs: Job[];
   @Input() pager: any;
   public page: any;
@@ -35,7 +41,13 @@ export class JobsListComponent {
   filterHidden = true;
   openActions = {};
 
-  displayedColumns: string[] = ['jobTitle', 'industry', 'education', 'salaryRange', 'edit'];
+  displayedColumns: string[] = [
+    "jobTitle",
+    "industry",
+    "education",
+    "salaryRange",
+    "edit"
+  ];
   searchForm: FormGroup;
 
   filtered: boolean = false;
@@ -48,40 +60,52 @@ export class JobsListComponent {
     private router: Router,
     private stateService: StateService,
     private formBuilder: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
-      jobTitle: ['', Validators.nullValidator],
-      industry: ['', Validators.nullValidator],
-      position: ['', Validators.nullValidator]
+      jobTitle: ["", Validators.nullValidator],
+      industry: ["", Validators.nullValidator],
+      position: ["", Validators.nullValidator]
     });
 
-    let elem = document.getElementsByClassName('overlay')
+    let elem = document.getElementsByClassName("overlay");
     elem[0].addEventListener("click", () => {
       this.openActions = {};
       this.filterHidden = true;
+      console.log(this.filterHidden);
     });
 
-    document.addEventListener("click", () => { this.openActions = {} });
+    document.addEventListener("click", () => {
+      this.openActions = {};
+    });
+
+    // this.JobsService.getCompanyJobs(1, this.pager ? this.pager.pageSize : 8)
+    //   .subscribe(
+    //     success => {
+    //       if (success.success == true) {
+    //         this.jobs = success.jobs.rows;
+    //         this.pager = success.jobs.pager;
+    //       }
+    //     },
+    //     err => console.log(err)
+    //   )
   } // ngOnInit ends here
 
   deleteJob($event) {
-    if($event){
-      this.EmployerService.deleteEmployerJob(this.deletedId).subscribe(
-        data => {
-          if (data.success) {
-            this.jobs = this.jobs.filter(item => {
-              if (item.id !== data.job.id) {
-                return item;
-              }
-            })
-            this.pager.totalItems = this.pager.totalItems -1;
-          }
+    if ($event) {
+      this.EmployerService.deleteEmployerJob(this.deletedId).subscribe(data => {
+        console.log(data, "this is deleted job");
+        if (data.success) {
+          this.jobs = this.jobs.filter(item => {
+            if (item.id !== data.job.id) {
+              return item;
+            }
+          });
+          this.pager.totalItems = this.pager.totalItems - 1;
         }
-      )
+      });
     }
-    
   }
   toggleJob($event) {
     this.isLogoEditModalOpen = !this.isLogoEditModalOpen;
@@ -101,22 +125,24 @@ export class JobsListComponent {
   }
 
   toggleActions($evnet, id) {
-    $evnet.stopPropagation()
+    $evnet.stopPropagation();
     this.openActions[id] = !this.openActions[id];
   }
 
   getServerData(page) {
-    this.JobsService.getCompanyJobs(page.pageIndex + 1, page.pageSize)
-      .subscribe(
-        success => {
-          if (success.success == true) {
-            this.jobs = success.jobs.rows;
-            this.pager = success.jobs.pager;
-            // this.pager.pages = this.renderedPages();
-          }
-        },
-        err => console.log(err)
-      )
+    this.JobsService.getCompanyJobs(
+      page.pageIndex + 1,
+      page.pageSize
+    ).subscribe(
+      success => {
+        if (success.success == true) {
+          this.jobs = success.jobs.rows;
+          this.pager = success.jobs.pager;
+          // this.pager.pages = this.renderedPages();
+        }
+      },
+      err => console.log(err)
+    );
   }
   toggleFilter(event) {
     event.stopPropagation();
@@ -135,7 +161,6 @@ export class JobsListComponent {
       )
 
     this.filtered = true;
-
   }
 
   // renderedPages(){
