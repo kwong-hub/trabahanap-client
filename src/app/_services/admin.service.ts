@@ -36,19 +36,23 @@ export class AdminService {
     return this.http.get<any>(`${environment.apiUrl}/admin/jobs/${companyProfileId}?page=${page}&pageSize=${pageSize}`);
   }
 
-  getFilterJobs(key,industry,employtype,salaryRange,page){
-    return this.http.get<any>(`${environment.apiUrl}/admin/filter/jobs?industry=${industry}&et=${employtype}&salary=${salaryRange}&search=${key}&page=${page}`);
+  getJobs(page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/search?page=${page}&pageSize=${pageSize}`);
   }
 
-  getFilterApplications(applicantName,jobtitle,companyName,page){
-    return this.http.get<any>(`${environment.apiUrl}/admin/filter/applications?applicant=${applicantName}&job=${jobtitle}&company=${companyName}&hired=&page=${page}`);
+  getFilterJobs(key,industry,employtype,salaryRange,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/admin/filter/jobs?industry=${industry}&et=${employtype}&salary=${salaryRange}&search=${key}&page=${page}&pageSize=${pageSize}`);
   }
 
-  getFilterEmployers(companyName,industry,page){
-    return this.http.get<any>(`${environment.apiUrl}/admin/filter/employers?companyName=${companyName}&industry=${industry}&page=${page}`);
+  getFilterApplications(applicantName,jobtitle,companyName,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/admin/filter/applications?applicant=${applicantName}&job=${jobtitle}&company=${companyName}&hired=&page=${page}&pageSize=${pageSize}`);
   }
-  getFilterApplicants(name,email,page){
-    return this.http.get<any>(`${environment.apiUrl}/admin/filter/applicants?name=${name}&email=${email}&page=${page}`);
+
+  getFilterEmployers(companyName,industry,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/admin/filter/employers?companyName=${companyName}&industry=${industry}&page=${page}&pageSize=${pageSize}`);
+  }
+  getFilterApplicants(name,email,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/admin/filter/applicants?name=${name}&email=${email}&page=${page}&pageSize=${pageSize}`);
   }
   getCompanyLocation(page,pageSize, id) : Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/location/${id}?page=${page}&pageSize=${pageSize}`);
@@ -86,8 +90,8 @@ export class AdminService {
     return this.http.post<any>(`${environment.apiUrl}/admin/staff/${companyProfileId}`, formData)
   }
 
-  getAllApplicants(page) : Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/admin/applicants?page=${page}`);
+  getAllApplicants(page,pageSize) : Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/admin/applicants?page=${page}&pageSize=${pageSize}`);
   }
 
   verfifyEmployer(id): Observable<any> {
@@ -157,8 +161,8 @@ export class AdminService {
     return this.http.post<any>(`${environment.apiUrl}/admin/staff/add`, staffer);
   }
 
-  getAllApplications(page):Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/admin/applications?page=${page}`);
+  getAllApplications(page,pageSize):Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}/admin/applications?page=${page}&pageSize=${pageSize}`);
   }
 
   getApplicantById(id):Observable<any>{

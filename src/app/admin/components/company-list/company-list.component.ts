@@ -118,7 +118,7 @@ export class CompanyListComponent implements OnInit {
   getServerData(page) {
     if (this.filtered) {
       var val = this.searchForm.value;
-      this.adminService.getFilterEmployers(val.companyName, val.industry, page.pageIndex + 1)
+      this.adminService.getFilterEmployers(val.companyName, val.industry, page.pageIndex + 1,page.pageSize)
         .subscribe(
           data => {
             console.log(data);
@@ -159,7 +159,7 @@ export class CompanyListComponent implements OnInit {
     var val = this.searchForm.value;
     console.log(val);
     this.filterHidden = true;
-    this.adminService.getFilterEmployers(val.companyName, val.industry, this.page || 1)
+    this.adminService.getFilterEmployers(val.companyName, val.industry, this.page || 1,8)
       .subscribe(
         data => {
           console.log(data);

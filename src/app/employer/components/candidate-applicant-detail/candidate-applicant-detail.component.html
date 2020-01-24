@@ -1,4 +1,4 @@
-<div class="sub-module-container">
+<div *ngIf="applicant && (applicant.length != 0)" class="sub-module-container">
   <h3 class="sub-module-container__heading">Applicant Detail</h3>
 
   <div class="sub-module-container__container">
@@ -11,7 +11,7 @@
           [src]="applicant?.applicantPicture"
           alt="Profile Picture"
           class="applicant-detail__image"
-        />
+        >
       </div>
 
       <div class="applicant-detail__infos">

@@ -100,7 +100,6 @@ export class AllJobsComponent implements OnInit {
     elem[0].addEventListener("click", () => {
       // this.openActions = {};
       this.filterHidden = true;
-      console.log(this.filterHidden)
     });
 
 
@@ -137,7 +136,6 @@ export class AllJobsComponent implements OnInit {
     if($event){
       this.adminService.deleteEmployerJob(this.deletedId).subscribe(
         data => {
-          console.log(data,'this is deleted job')
           if (data.success) {
             this.jobs = this.jobs.filter(item => {
               if (item.jobId !== data.job.id) {
@@ -153,7 +151,6 @@ export class AllJobsComponent implements OnInit {
   }
 
   toggleJob($event) {
-    console.log($event);
     this.isLogoEditModalOpen = !this.isLogoEditModalOpen;
     this.deletedId = $event;
   }
@@ -161,7 +158,7 @@ export class AllJobsComponent implements OnInit {
   getServerData(page) {
     if (this.filtered) {
       var val = this.searchForm.value;
-      this.adminService.getFilterJobs(val.query, this.industryName, val.employmentType || '', val.salaryRange || '', page.pageIndex + 1)
+      this.adminService.getFilterJobs(val.query, this.industryName, val.employmentType || '', val.salaryRange || '', page.pageIndex + 1,page.pageSize)
         .subscribe(
           data => {
             //console.log(data);
@@ -172,7 +169,7 @@ export class AllJobsComponent implements OnInit {
 
 
     } else {
-      this.JobService.getAllJobs(page.pageIndex + 1)
+      this.adminService.getJobs(page.pageIndex + 1,page.pageSize)
         .subscribe(
           success => {
             if (success.success == true) {
@@ -211,7 +208,6 @@ export class AllJobsComponent implements OnInit {
 
   customValueChanged(value, name) {
     this.searchForm.controls[name].setValue(value);
-    console.log(value, name);
   }
 
   toggleFilter(event) {
@@ -222,9 +218,8 @@ export class AllJobsComponent implements OnInit {
   filterJobs() {
 
     var val = this.searchForm.value;
-    console.log(val.SalaryRange);
     this.filterHidden = true;
-    this.adminService.getFilterJobs(val.query, this.industryName || '', val.employmentType || '', val.SalaryRange || '', this.page || 1)
+    this.adminService.getFilterJobs(val.query, this.industryName || '', val.employmentType || '', val.SalaryRange || '', this.page || 1,8)
       .subscribe(
         data => {
           console.log(data);

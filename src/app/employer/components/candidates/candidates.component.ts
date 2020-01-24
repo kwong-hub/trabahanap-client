@@ -14,7 +14,6 @@ export class CandidatesComponent implements OnInit {
     this.Route.data.subscribe(
       res => {
         let candidates = res.candidates;
-        console.log(candidates)
         if(candidates.success) {
           this.rows = candidates.applications.rows;
           this.pager = candidates.applications.pager;

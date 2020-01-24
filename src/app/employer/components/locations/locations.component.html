@@ -64,7 +64,7 @@
           </button>
           <mat-menu #menu="matMenu">
             <button
-              [routerLink]="['/employer/branches/', location.id]"
+            (click)="editLocation(location.id)"
               mat-menu-item
             >
               <fa-icon class="menu-icon" [icon]="faEdit"></fa-icon> Edit

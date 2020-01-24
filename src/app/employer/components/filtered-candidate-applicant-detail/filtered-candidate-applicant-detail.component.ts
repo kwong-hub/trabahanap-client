@@ -24,7 +24,6 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
 
     this.route.paramMap.subscribe(
       success => {
-        console.log(this.hired)
         this.applicantId = success.get('applicantId');
         this.jobId = success.get('jobId');
         if(this.applicantId){
@@ -38,7 +37,6 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
                   .subscribe(
                     data => {
                       this.hired=data.applicant.hired;
-                      console.log(data)
                     }
                   )
                   
@@ -57,7 +55,7 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
     this.jobService.hireJobApplication({jobId: this.jobId, applicantId: this.applicantId})
       .subscribe(
         success => {
-          console.log(success)
+          // console.log(success)
           this.hired = !this.hired;
         },
         err => console.log(err)

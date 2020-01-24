@@ -19,8 +19,6 @@ export class JobsComponent implements OnInit {
       res => {
         let company = res.company;
         let jobs = res.jobs;
-        console.log(company, jobs,'hey')
-        console.log(company,'comp')
         if(company.success) {
           this.authService.updateCurrentUser(company.employer);
         }
@@ -31,7 +29,6 @@ export class JobsComponent implements OnInit {
         if(jobs.success) {
           this.jobs = jobs.jobs.rows;
           this.pager = jobs.jobs.pager;
-          console.log(this.jobs, this.pager)
         }
       },
       error => {
@@ -43,7 +40,6 @@ export class JobsComponent implements OnInit {
       
         if(userValue) {
           this.companyProfile = userValue.company_profile;
-          console.log(this.companyProfile.verified,'user')
         }
       }
     )

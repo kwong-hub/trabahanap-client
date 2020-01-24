@@ -11,6 +11,6 @@ export class ApplicantListResolverService {
   constructor(private adminService: AdminService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<any> {
-    return this.adminService.getAllApplicants(1);
+    return this.adminService.getAllApplicants(1,8);
   }
 }

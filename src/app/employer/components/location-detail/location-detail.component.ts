@@ -56,7 +56,7 @@ export class LocationDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.Route.snapshot.params.id;
-
+    console.log(this.id)
     this.getCountries();
     this.getRegions();
    
@@ -74,8 +74,8 @@ export class LocationDetailComponent implements OnInit {
 
     this.employerService.getCompanyLocationById(this.id).subscribe(
       data => {
+        console.log(data);
         if(data.success) {
-          // console.log(data.location);
           this.location = data.location;
           this.modalImgSrc = data.location.picture;
           this.formImgSrc = data.location.picture;

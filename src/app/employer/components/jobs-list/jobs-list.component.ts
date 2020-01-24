@@ -61,28 +61,15 @@ export class JobsListComponent {
     elem[0].addEventListener("click", () => {
       this.openActions = {};
       this.filterHidden = true;
-      console.log(this.filterHidden)
     });
 
     document.addEventListener("click", () => { this.openActions = {} });
-
-    // this.JobsService.getCompanyJobs(1, this.pager ? this.pager.pageSize : 8)
-    //   .subscribe(
-    //     success => {
-    //       if (success.success == true) {
-    //         this.jobs = success.jobs.rows;
-    //         this.pager = success.jobs.pager;
-    //       }
-    //     },
-    //     err => console.log(err)
-    //   )
   } // ngOnInit ends here
 
   deleteJob($event) {
     if($event){
       this.EmployerService.deleteEmployerJob(this.deletedId).subscribe(
         data => {
-          console.log(data,'this is deleted job')
           if (data.success) {
             this.jobs = this.jobs.filter(item => {
               if (item.id !== data.job.id) {
@@ -97,20 +84,19 @@ export class JobsListComponent {
     
   }
   toggleJob($event) {
-    console.log($event);
     this.isLogoEditModalOpen = !this.isLogoEditModalOpen;
     this.deletedId = $event;
   }
 
   editJob($event) {
     this.stateService.data = $event;
-    this.router.navigate([`/employer/jobs/${$event.id}`]);
+    this.router.navigate([`../jobs/${$event.id}`],{relativeTo: this.route});
 
   }
 
   candidatesJob($event) {
     this.stateService.data = $event;
-    this.router.navigate([`/employer/candidates/job/${$event}`]);
+    this.router.navigate([`../candidates/job/${$event}`],{relativeTo: this.route});
 
   }
 
@@ -138,14 +124,11 @@ export class JobsListComponent {
   }
 
   filterJobsApplications() {
-
     var val = this.searchForm.value;
-    console.log(val);
     this.filterHidden = true;
-    this.EmployerService.getJobsFilter(val.jobTitle, val.industry, val.position, this.page || 1)
+    this.EmployerService.getJobsFilter(val.jobTitle, val.industry, val.position, this.page || 1,8)
       .subscribe(
         data => {
-          console.log(data);
           this.jobs = data.applications.rows;
           this.pager = data.applications.pager;
         }

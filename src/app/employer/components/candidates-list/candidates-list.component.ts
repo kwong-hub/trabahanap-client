@@ -74,7 +74,7 @@ export class CandidatesListComponent implements OnInit {
         )
     } else {
       var val = this.searchForm.value;
-      this.EmployerService.getFilterJobsApplications(val.jobTitle, val.industry, val.position, page.pageIndex + 1)
+      this.EmployerService.getFilterJobsApplications(val.jobTitle, val.industry, val.position, page.pageIndex + 1,page.pageSize)
         .subscribe(
           data => {
             //console.log(data);
@@ -101,10 +101,9 @@ export class CandidatesListComponent implements OnInit {
     var val = this.searchForm.value;
     //console.log(val);
     this.filterHidden = true;
-    this.EmployerService.getFilterJobsApplications(val.jobTitle, val.industry, val.position, this.page || 1)
+    this.EmployerService.getFilterJobsApplications(val.jobTitle, val.industry, val.position, this.page || 1,8)
       .subscribe(
         data => {
-          console.log(data);
           this.jobs = data.applications.rows;
           this.pager = data.applications.pager;
         }
