@@ -55,7 +55,7 @@
   }
 
   &__submit {
-    width: 100%;
+    width: 35%;
     align-self: center;
   }
 
@@ -125,9 +125,9 @@
 
 .submit-container {
   display: flex;
-  width: 90%;
+  width: 100%;
   max-width: 60rem;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   margin: 0 auto;
 }
 

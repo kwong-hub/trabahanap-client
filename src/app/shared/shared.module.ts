@@ -41,6 +41,8 @@ import { AuthenticationService } from '@app/_services/authentication-service.ser
 import { EmployerService } from '@app/_services/employer.service';
 import { ApplicantService } from '@app/_services/applicant.service';
 import { LocationService } from '@app/_services/location.service';
+import { CustomSubmitButtonComponent } from './components/custom-submit-button/custom-submit-button.component';
+import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
 // import { FeatureJobComponent } from './components/feature-job/feature-job.component';
 
 @NgModule({
@@ -71,6 +73,8 @@ import { LocationService } from '@app/_services/location.service';
     SharedConfirmModelComponent,
     SharedLoginTempComponent,
     ChangePasswordTempComponent,
+    CustomSubmitButtonComponent,
+    CustomNotificationComponent,
     // FeatureJobComponent
   ],
   imports: [

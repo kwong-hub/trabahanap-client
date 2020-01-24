@@ -200,7 +200,6 @@ export class AddApplicantProfileComponent implements OnInit {
     let byteArray = new Uint8Array(byteNumbers);
     let blob = new Blob([byteArray], {type: 'image/png'});
 
-    console.log(blob);
     this.formData.append("applicantPicture", blob);
   }
 
@@ -225,8 +224,7 @@ export class AddApplicantProfileComponent implements OnInit {
     // new form value after date of birth is added
     val = this.addApplicantProfileForm.value;
     this.showLoader = true;
-    var vals = this.addApplicantProfileForm.value;
-    _.map(vals, (value, key) => {
+    _.map(val, (value, key) => {
       console.log(key, "=>", value);
       if (key != "cv" && key != "applicantPicture") {
         this.formData.append(key, value);
@@ -260,7 +258,7 @@ export class AddApplicantProfileComponent implements OnInit {
 
   onEdit() {
     this.submitted = true;
-    var val = this.addApplicantProfileForm.value;
+    let val = this.addApplicantProfileForm.value;
     let date = `${val.year}-${val.month}-${val.date}`;
 
     if (new Date(date).toDateString().includes("Invalid")) {
@@ -285,8 +283,11 @@ export class AddApplicantProfileComponent implements OnInit {
       }
     });
 
-    this.applicantService
-      .editApplicantProfile(this.formData, this.applicantProfile.id)
+     //@ts-ignore
+    for (var pair of this.formData.entries()) {
+      console.log(pair[0], pair[1])
+    }
+    this.applicantService.editApplicantProfile(this.formData, this.applicantProfile.id)
       .subscribe(
         data => {
           console.log(data)
@@ -298,13 +299,12 @@ export class AddApplicantProfileComponent implements OnInit {
               month: temp_date.getMonth() + 1, date: temp_date.getDate() }
             this.showLoader = false;
             this.tempImg = '';
-            this.imageChangedEvent = null;
             let currentUser = this.authService.currentUserValue;
             this.authService.updateCurrentUser({
-              ...currentUser,
-              applicantProfile: data.applicantProfile
+              ...currentUser, applicantProfile: data.applicantProfile
             });
             this.disableEdit();
+            this.formData = new FormData()
           }
         },
         err => {
