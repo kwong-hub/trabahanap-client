@@ -116,6 +116,10 @@ export class AddApplicantProfileComponent implements OnInit {
     this.getCountries();
 
     this.addApplicantProfileForm = this.formBuilder.group({
+      fullName: ["", Validators.required],
+      phoneNumber: ["", Validators.required],
+      firstName: [""],
+      lastName: [""],
       currentEmployer: [""],
       currentOccopation: [""],
       address: [""],
@@ -132,19 +136,11 @@ export class AddApplicantProfileComponent implements OnInit {
       CountryId: ["", Validators.required]
     });
 
-    if (this.applicantProfile) {
-      let temp_date = new Date(this.applicantProfile.dateOfBirth);
-
-      this.applicantProfile = {
-        ...this.applicantProfile,
-        year: temp_date.getFullYear(),
-        month: temp_date.getMonth() + 1,
-        date: temp_date.getDate()
-      };
-
+    if (this.applicantProfile) {   
       this.hasProfile = true;
       this.inputType = "text";
       this.updateForm();
+      console.log(this.applicantProfile);
       this.disableEdit();
       this.getCitiesByRegionId(this.applicantProfile.RegionId);
       this.getRegions();
@@ -159,12 +155,19 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   updateForm() {
+    let temp_date = new Date(this.applicantProfile.dateOfBirth);
+      
+    this.applicantProfile = {
+      ...this.applicantProfile,
+      year: temp_date.getFullYear(),
+      month: temp_date.getMonth() + 1,
+      date: temp_date.getDate(),
+      fullName: `${this.applicantProfile.user.firstName} ${this.applicantProfile.user.lastName}`,
+      phoneNumber: this.applicantProfile.user.phoneNumber
+    };
+
     _.map(this.applicantProfile, (value, key) => {
-      if (
-        this.addApplicantProfileForm.controls[key] &&
-        key != "cv" &&
-        key != "applicantPicture"
-      ) {
+      if (this.addApplicantProfileForm.controls[key] && key != "cv" && key != "applicantPicture") {
         this.addApplicantProfileForm.controls[key].setValue(value);
       }
     });
@@ -225,7 +228,7 @@ export class AddApplicantProfileComponent implements OnInit {
     val = this.addApplicantProfileForm.value;
     this.showLoader = true;
     _.map(val, (value, key) => {
-      console.log(key, "=>", value);
+      // console.log(key, "=>", value);
       if (key != "cv" && key != "applicantPicture") {
         this.formData.append(key, value);
       }
@@ -234,7 +237,7 @@ export class AddApplicantProfileComponent implements OnInit {
 
     this.applicantService.addApplicantProfileWithCV(this.formData).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           this.showLoader = false;
           let currentUser = this.authService.currentUserValue;
@@ -267,7 +270,11 @@ export class AddApplicantProfileComponent implements OnInit {
       });
       return;
     }
+    let nameArray = val.fullName.split(" ");
+    let lastName = nameArray.slice(1).join(" "); // in case value includes grandfather's name
 
+    this.addApplicantProfileForm.controls["firstName"].setValue(nameArray[0]);
+    this.addApplicantProfileForm.controls["lastName"].setValue(lastName);
     this.addApplicantProfileForm.controls["dateOfBirth"].setValue(date);
     if (this.addApplicantProfileForm.invalid) {
       return;
@@ -277,26 +284,19 @@ export class AddApplicantProfileComponent implements OnInit {
     this.showLoader = true;
 
     _.map(val, (value, key) => {
-      // console.log(key,"=>", value)
+      console.log(key,"=>", value)
       if (key != "cv" && key != "applicantPicture") {
         this.formData.append(key, value);
       }
     });
 
-     //@ts-ignore
-    for (var pair of this.formData.entries()) {
-      console.log(pair[0], pair[1])
-    }
     this.applicantService.editApplicantProfile(this.formData, this.applicantProfile.id)
       .subscribe(
         data => {
           console.log(data)
           if(data.success){
             this.applicantProfile = data.applicantProfile;
-            let temp_date = new Date(this.applicantProfile.dateOfBirth);
-
-            this.applicantProfile = {...this.applicantProfile, year: temp_date.getFullYear(),
-              month: temp_date.getMonth() + 1, date: temp_date.getDate() }
+            this.updateForm();
             this.showLoader = false;
             this.tempImg = '';
             let currentUser = this.authService.currentUserValue;
