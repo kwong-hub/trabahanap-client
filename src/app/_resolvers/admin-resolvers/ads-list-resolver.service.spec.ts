@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { AdsListResolverService } from './ads-list-resolver.service';
+import { AdsListResolverService } from "./ads-list-resolver.service";
 
-describe('AdsListResolverService', () => {
+describe("AdsListResolverService", () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
+  it("should be created", () => {
     const service: AdsListResolverService = TestBed.get(AdsListResolverService);
     expect(service).toBeTruthy();
   });

@@ -1,12 +1,14 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { ApplicantApplicationsResolverService } from './applicant-applications-resolver.service';
+import { ApplicantApplicationsResolverService } from "./applicant-applications-resolver.service";
 
-describe('ApplicantApplicationsResolverService', () => {
+describe("ApplicantApplicationsResolverService", () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
-    const service: ApplicantApplicationsResolverService = TestBed.get(ApplicantApplicationsResolverService);
+  it("should be created", () => {
+    const service: ApplicantApplicationsResolverService = TestBed.get(
+      ApplicantApplicationsResolverService
+    );
     expect(service).toBeTruthy();
   });
 });

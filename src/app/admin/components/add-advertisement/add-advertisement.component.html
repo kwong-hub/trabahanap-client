@@ -1,72 +1,128 @@
 <div class="sub-module-container">
-    <div class="notification notification--success" [class.active]="AdsAdded">
-        <div class="notification__body">
-            <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-                class="far fa-check-circle"></i>
-            <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+  <div class="notification notification--success" [class.active]="AdsAdded">
+    <div class="notification__body">
+      <i
+        style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
+        class="far fa-check-circle"
+      ></i>
+      <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
-            <span class="text">Successfully added a New Ads</span>
-        </div>
+      <span class="text">Successfully added a New Ads</span>
     </div>
-    <h3 class="sub-module-container__heading">Advertsiemet</h3>
-    <div class="sub-module-container__container job">
-        <div class="form-container">
-            <h2 class="form__header">Add Advertisemet</h2>
-            <form action="#" class="form" [formGroup]="addAdsForm" enctype="multipart/form-data"
-                (ngSubmit)="onSubmit()">
-                <div class="form__group">
-                    <shared-custom-input-field defaultValue='' placeholder='Title' label='Title'
-                        [input]="addAdsForm.controls['title']" [submitted]="submitted" type='text' name='title'
-                        [formGroup]="addAdsForm">
-                    </shared-custom-input-field>
-
-                </div>
-
-                <div class="form__group form__group--selects">
-
-                    <shared-custom-datepicker class="input-element-type-1" [formGroup]="addAdsForm" name="adsStart"
-                        [defaultValue]="" placeholder='Ads Start Date' label='Ads Start Date'
-                        (onValueChange)="dateChanged($event, 'adsStart')" type='text' [submitted]="submitted">
-                    </shared-custom-datepicker>
-                    <div class="form__group--selects__time">
-                            <input [formGroup]="addAdsForm"  [ngModelOptions]="{standalone: true}" [(ngModel)]="times.adsStart"  matInput type="time" placeholder="start date">
-                      
-                    </div>
-                </div>
-
-                <div class="form__group form__group--selects">
-                    <shared-custom-datepicker class="input-element-type-1" [formGroup]="addAdsForm" name="adsEnd"
-                        [defaultValue]="" placeholder='Ads End Date' label='Ads End Date'
-                        (onValueChange)="dateChanged($event, 'adsEnd')" type='text' [submitted]="submitted">
-                    </shared-custom-datepicker>
-                    <div class="form__group__time">
-                        <input matInput  type="time" [ngModelOptions]="{standalone: true}" [(ngModel)]="times.adsEnd" placeholder="start date">
-                  
-                </div>
-                </div>
-
-                <div class="form__group">
-                    <shared-custom-file-input placeholder='Image' defaultValue='' label='Ads Picture'
-                        [input]="addAdsForm.controls['image']" [submitted]="submitted" type='file'
-                        accept=".png,.jpg,.jpeg,.gif" name='image' [formGroup]="addAdsForm"
-                        (onValueChange)="fileChanged($event, 'image')">
-                    </shared-custom-file-input>
-                </div>
-
-                <div class="form__group">
-                    <shared-custom-input-field defaultValue='' placeholder='Ads URL' label='ads URL'
-                        [input]="addAdsForm.controls['websiteURL']" [submitted]="submitted" type='text' name='websiteURL'
-                        [formGroup]="addAdsForm">
-                    </shared-custom-input-field>
-
-                </div>
-
-
-                <div class="form__group">
-                    <input [class.disabled]="addAdsForm.invalid || loading" type="submit" value="Submit"
-                        class="form__submit th-btn th-btn--primary">
-                </div>
-            </form>
+  </div>
+  <h3 class="sub-module-container__heading">Advertsiemet</h3>
+  <div class="sub-module-container__container job">
+    <div class="form-container">
+      <h2 class="form__header">Add Advertisemet</h2>
+      <form
+        action="#"
+        class="form"
+        [formGroup]="addAdsForm"
+        enctype="multipart/form-data"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="form__group">
+          <shared-custom-input-field
+            defaultValue=""
+            placeholder="Title"
+            label="Title"
+            [input]="addAdsForm.controls['title']"
+            [submitted]="submitted"
+            type="text"
+            name="title"
+            [formGroup]="addAdsForm"
+          >
+          </shared-custom-input-field>
         </div>
+
+        <div class="form__group form__group--selects">
+          <shared-custom-datepicker
+            class="input-element-type-1"
+            [formGroup]="addAdsForm"
+            name="adsStart"
+            [defaultValue]=""
+            placeholder="Ads Start Date"
+            label="Ads Start Date"
+            (onValueChange)="dateChanged($event, 'adsStart')"
+            type="text"
+            [submitted]="submitted"
+          >
+          </shared-custom-datepicker>
+          <div class="form__group--selects__time">
+            <input
+              [formGroup]="addAdsForm"
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="times.adsStart"
+              matInput
+              type="time"
+              placeholder="start date"
+            />
+          </div>
+        </div>
+
+        <div class="form__group form__group--selects">
+          <shared-custom-datepicker
+            class="input-element-type-1"
+            [formGroup]="addAdsForm"
+            name="adsEnd"
+            [defaultValue]=""
+            placeholder="Ads End Date"
+            label="Ads End Date"
+            (onValueChange)="dateChanged($event, 'adsEnd')"
+            type="text"
+            [submitted]="submitted"
+          >
+          </shared-custom-datepicker>
+          <div class="form__group__time">
+            <input
+              matInput
+              type="time"
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="times.adsEnd"
+              placeholder="start date"
+            />
+          </div>
+        </div>
+
+        <div class="form__group">
+          <shared-custom-file-input
+            placeholder="Image"
+            defaultValue=""
+            label="Ads Picture"
+            [input]="addAdsForm.controls['image']"
+            [submitted]="submitted"
+            type="file"
+            accept=".png,.jpg,.jpeg,.gif"
+            name="image"
+            [formGroup]="addAdsForm"
+            (onValueChange)="fileChanged($event, 'image')"
+          >
+          </shared-custom-file-input>
+        </div>
+
+        <div class="form__group">
+          <shared-custom-input-field
+            defaultValue=""
+            placeholder="Ads URL"
+            label="ads URL"
+            [input]="addAdsForm.controls['websiteURL']"
+            [submitted]="submitted"
+            type="text"
+            name="websiteURL"
+            [formGroup]="addAdsForm"
+          >
+          </shared-custom-input-field>
+        </div>
+
+        <div class="form__group">
+          <input
+            [class.disabled]="addAdsForm.invalid || loading"
+            type="submit"
+            value="Submit"
+            class="form__submit th-btn th-btn--primary"
+          />
+        </div>
+      </form>
     </div>
+  </div>
 </div>

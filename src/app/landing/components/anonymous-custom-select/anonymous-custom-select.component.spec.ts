@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AnonymousCustomSelectComponent } from './anonymous-custom-select.component';
+import { AnonymousCustomSelectComponent } from "./anonymous-custom-select.component";
 
-describe('AnonymousCustomSelectComponent', () => {
+describe("AnonymousCustomSelectComponent", () => {
   let component: AnonymousCustomSelectComponent;
   let fixture: ComponentFixture<AnonymousCustomSelectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnonymousCustomSelectComponent ]
-    })
-    .compileComponents();
+      declarations: [AnonymousCustomSelectComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('AnonymousCustomSelectComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

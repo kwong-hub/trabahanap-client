@@ -1,52 +1,57 @@
-<div  class="container">
-    <div class="company">
-        <div class="company__header">
-            <img [src]="imageUrl" alt="" class="img">
-            <h2 class="name">{{ company?.companyName }}</h2>
-        </div>
-        <div class="company__body">
-            <div class="detail">
-                <div class="detail__label">About - {{ company?.companyName }}</div>
-                <div class="detail__value">
-                    <span class="detail__value__header">Adress - <p class="text"> {{ company?.companyAddress }}</p>
-                    </span>
-                    <span class="detail__value__header">Industry Category - <p class="text"> {{ company?.industryType }}
-                        </p> </span>
-                    <span class="detail__value__header ">Contact  <p class="text">
-                            {{ company?.contactPerson }}, {{ company?.contactNumber}}
-                        </p> </span>
-                    <span class="detail__value__header ">Webiste <p class="text">
-                            {{ company?.websiteURL }}
-                        </p> </span>
-                </div>
-            </div>
-
-        </div>
+<div class="container">
+  <div class="company">
+    <div class="company__header">
+      <img [src]="imageUrl" alt="" class="img" />
+      <h2 class="name">{{ company?.companyName }}</h2>
     </div>
-    <div class="sub-module-container">
-        <h3 class="sub-module-container__heading">Jobs</h3>
-        <div class="sub-container">
-
-            <div *ngIf="jobs" class="job-list-container">
-
-                <div #jobsListAnchor *ngFor="let job of jobs">
-                    <app-feature-job [isBookMarked]="checkJobBookmarked(job.jobId)" [Job]="job"></app-feature-job>
-                </div>
-                <div #anchor *ngIf="!reachedPageEnd && !(jobs && jobs.length == 0)">
-                    <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
-                    <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
-                </div>
-            </div>
-            <h3 *ngIf="jobs && jobs.length == 0">
-                <div class="noJob">
-                    <span class="noJob__text"> No job posted yet
-
-                    </span>
-
-                </div>
-            </h3>
-
+    <div class="company__body">
+      <div class="detail">
+        <div class="detail__label">About - {{ company?.companyName }}</div>
+        <div class="detail__value">
+          <span class="detail__value__header"
+            >Adress -
+            <p class="text">{{ company?.companyAddress }}</p>
+          </span>
+          <span class="detail__value__header"
+            >Industry Category -
+            <p class="text">{{ company?.industryType }}</p>
+          </span>
+          <span class="detail__value__header "
+            >Contact
+            <p class="text">
+              {{ company?.contactPerson }}, {{ company?.contactNumber }}
+            </p>
+          </span>
+          <span class="detail__value__header "
+            >Webiste
+            <p class="text">
+              {{ company?.websiteURL }}
+            </p>
+          </span>
         </div>
+      </div>
     </div>
-
+  </div>
+  <div class="sub-module-container">
+    <h3 class="sub-module-container__heading">Jobs</h3>
+    <div class="sub-container">
+      <div *ngIf="jobs" class="job-list-container">
+        <div #jobsListAnchor *ngFor="let job of jobs">
+          <app-feature-job
+            [isBookMarked]="checkJobBookmarked(job.jobId)"
+            [Job]="job"
+          ></app-feature-job>
+        </div>
+        <div #anchor *ngIf="!reachedPageEnd && !(jobs && jobs.length == 0)">
+          <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
+          <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
+        </div>
+      </div>
+      <h3 *ngIf="jobs && jobs.length == 0">
+        <div class="noJob">
+          <span class="noJob__text"> No job posted yet </span>
+        </div>
+      </h3>
+    </div>
+  </div>
 </div>

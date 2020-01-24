@@ -1,143 +1,146 @@
-.custom-select{
-    position: relative;
-    cursor: pointer;
-    user-select: none;
+.custom-select {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  // background-color: transparent;
+
+  &__container {
+    margin: 0 1rem;
     // background-color: transparent;
-    
-    &__container{
-        margin: 0 1rem;
-        // background-color: transparent;
-        // width: 20rem;
-        // overflow: hidden;
-        &::after{
-            position: absolute;
-            content: "";
-            top: 1.5rem;
-            right: 1.2rem;
-            width: 0;
-            height: 0;
-            border: .7rem solid transparent;
-            border-color: #CE4C1B transparent transparent transparent;
-            z-index: -1;
-        }
+    // width: 20rem;
+    // overflow: hidden;
+    &::after {
+      position: absolute;
+      content: "";
+      top: 1.5rem;
+      right: 1.2rem;
+      width: 0;
+      height: 0;
+      border: 0.7rem solid transparent;
+      border-color: #ce4c1b transparent transparent transparent;
+      z-index: -1;
+    }
+  }
+
+  &__header,
+  &__options {
+    width: 100%;
+    padding: 0.6rem 1.2rem;
+    // height: 4rem;
+    color: #fff;
+    font-size: 1.5rem;
+  }
+
+  &__label {
+    opacity: 0;
+    transform: translateY(-2.5rem);
+    font-size: 1.2rem;
+    display: block;
+    transition: all 0.2s;
+    color: #555;
+    height: 2rem;
+  }
+
+  &__options {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333;
+    transition: all 0.3s;
+    // position: relative;
+
+    &:not(:last-child) {
+      // border: 1px solid transparent;
+      border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    }
+  }
+
+  &__header {
+    color: #333;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    // position: relative;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid orange;
+      background-color: rgba(221, 221, 221, 0.349);
     }
 
-    &__header, &__options{
-        width: 100%;
-        padding: .6rem 1.2rem;
-        // height: 4rem;
-        color: #fff;
-        font-size: 1.5rem;
+    &:focus:invalid {
+      border-bottom: 1px solid orangered;
     }
 
-    &__label{
-        opacity: 0;
-        transform: translateY(-2.5rem);
-        font-size: 1.2rem;
-        display: block;
-        transition: all .2s;
-        color: #555;
-        height: 2rem;
+    &--error {
+      border-bottom: 1px solid rgba(255, 0, 0, 0.5);
     }
 
-    &__options{
-        background-color: rgba(255,255,255, .95);
-        color: #333;
-        transition: all .3s;
-        // position: relative;
-
-        &:not(:last-child){
-            // border: 1px solid transparent;
-            border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-        }
+    &:disabled {
+      background-color: rgba(221, 221, 221, 0.356);
     }
 
-    &__header{
-        color: #333;
-        cursor: pointer;
-        border: none;
-        background-color: transparent;
-        // position: relative;
-        &:focus {
-            outline: none;
-            border-bottom: 1px solid orange;
-            background-color: rgba(221, 221, 221, 0.349);
-        }
-
-        &:focus:invalid {
-            border-bottom: 1px solid orangered;
-        }
-
-        &--error {
-            border-bottom: 1px solid rgba(255,0,0, .5);
-        }
-
-        &:disabled{
-            background-color: rgba(221, 221, 221, 0.356);
-        }
-
-        &:not(:placeholder-shown) + label, &:focus + label{
-            transform: translateY(-5rem);
-            opacity: 1;
-        }
+    &:not(:placeholder-shown) + label,
+    &:focus + label {
+      transform: translateY(-5rem);
+      opacity: 1;
     }
+  }
 
-    &__active{
-        &::after{
-            border-color: transparent transparent #CE4C1B transparent;
-            top: 0.6rem;
-        }
+  &__active {
+    &::after {
+      border-color: transparent transparent #ce4c1b transparent;
+      top: 0.6rem;
     }
+  }
 
-    &__selected, &__options:hover{
-        background-color: #ccc
-    }
+  &__selected,
+  &__options:hover {
+    background-color: #ccc;
+  }
 
-    &__options-container{
-        max-height: 0px;
-        // height: 25rem;
-        z-index: 1500;
-        left: 0;
-        right: 0;
-        transition: max-height .3s;
-        overflow-y: auto;
-        position: absolute;
-        top: 4rem;
+  &__options-container {
+    max-height: 0px;
+    // height: 25rem;
+    z-index: 1500;
+    left: 0;
+    right: 0;
+    transition: max-height 0.3s;
+    overflow-y: auto;
+    position: absolute;
+    top: 4rem;
 
-        // &:hover{
-        //     overflow-y: auto;
-        // }
-    }
+    // &:hover{
+    //     overflow-y: auto;
+    // }
+  }
 
-    &__active > &__options-container {
-        max-height: 16.7rem;
-    }
+  &__active > &__options-container {
+    max-height: 16.7rem;
+  }
 
-    &__options-container::-webkit-scrollbar {
-        width: 6px;
-    }
-    
-    &__options-container::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px #fff;
-        box-shadow: inset 0 0 6px #fff;
-        border-radius: 1px;
-    }
-    
-    &__options-container::-webkit-scrollbar-thumb {
-        border-radius: 1px;
-        -webkit-box-shadow: inset 0 0 6px rgba(37, 37, 37, 0.911); 
-        box-shadow: inset 0 0 6px rgba(37, 37, 37, 0.911);
-    }
+  &__options-container::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &__options-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #fff;
+    box-shadow: inset 0 0 6px #fff;
+    border-radius: 1px;
+  }
+
+  &__options-container::-webkit-scrollbar-thumb {
+    border-radius: 1px;
+    -webkit-box-shadow: inset 0 0 6px rgba(37, 37, 37, 0.911);
+    box-shadow: inset 0 0 6px rgba(37, 37, 37, 0.911);
+  }
 }
 
 @media only screen and (min-width: 450px) {
-    .custom-select {
-        &__options-container {
-            overflow-y: hidden;
+  .custom-select {
+    &__options-container {
+      overflow-y: hidden;
 
-            &:hover {
-                overflow-y: auto;
-            }
-        }
+      &:hover {
+        overflow-y: auto;
+      }
     }
-} 
+  }
+}

@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SharedDeleteModalComponent } from './shared-delete-modal.component';
+import { SharedDeleteModalComponent } from "./shared-delete-modal.component";
 
-describe('SharedDeleteModalComponent', () => {
+describe("SharedDeleteModalComponent", () => {
   let component: SharedDeleteModalComponent;
   let fixture: ComponentFixture<SharedDeleteModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SharedDeleteModalComponent ]
-    })
-    .compileComponents();
+      declarations: [SharedDeleteModalComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('SharedDeleteModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

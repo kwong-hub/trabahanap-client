@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { FeatureJobListComponent } from './feature-job-list.component';
+import { FeatureJobListComponent } from "./feature-job-list.component";
 
-describe('FeatureJobListComponent', () => {
+describe("FeatureJobListComponent", () => {
   let component: FeatureJobListComponent;
   let fixture: ComponentFixture<FeatureJobListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FeatureJobListComponent ]
-    })
-    .compileComponents();
+      declarations: [FeatureJobListComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('FeatureJobListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

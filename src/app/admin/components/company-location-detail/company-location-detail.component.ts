@@ -1,20 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { faEdit, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { tileLayer, latLng, marker, icon, Point, LatLng } from 'leaflet';
-import { Location } from '@angular/common';
-import { LocationService } from '@app/_services/location.service';
-import _ from 'lodash';
-import { AdminService } from '@app/_services/admin.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { faEdit, faCamera, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { tileLayer, latLng, marker, icon, Point, LatLng } from "leaflet";
+import { Location } from "@angular/common";
+import { LocationService } from "@app/_services/location.service";
+import _ from "lodash";
+import { AdminService } from "@app/_services/admin.service";
 
 @Component({
-  selector: 'app-company-location-detail',
-  templateUrl: './company-location-detail.component.html',
-  styleUrls: ['./company-location-detail.component.scss']
+  selector: "app-company-location-detail",
+  templateUrl: "./company-location-detail.component.html",
+  styleUrls: ["./company-location-detail.component.scss"]
 })
 export class CompanyLocationDetailComponent implements OnInit {
-
   location;
   marker: any;
   editable: boolean = false;
@@ -23,16 +22,34 @@ export class CompanyLocationDetailComponent implements OnInit {
   countries = [];
   regions = [];
   cities = [];
-  faEdit = faEdit; faCamera = faCamera; faTimes = faTimes;
+  faEdit = faEdit;
+  faCamera = faCamera;
+  faTimes = faTimes;
   submitted = false;
-  selectStyle = { 'inputContainer': {}, 'inputHeader': { fontSize: "1.5rem", borderBottom: "1px solid #888" }, 'optionContainer': { backgroundColor: "#555", top: "3.3rem", boxShadow: '0px 1px 2px #aaa' }, 'option': { fontSize: "1.5rem", borderBottom: "1px solid #ddd", backgroundColor: '#fff' } };
+  selectStyle = {
+    inputContainer: {},
+    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    optionContainer: {
+      backgroundColor: "#555",
+      top: "3.3rem",
+      boxShadow: "0px 1px 2px #aaa"
+    },
+    option: {
+      fontSize: "1.5rem",
+      borderBottom: "1px solid #ddd",
+      backgroundColor: "#fff"
+    }
+  };
   isModalVisible: boolean = false;
   pictureUpdate: FormGroup;
   imageData = new FormData();
   uploading: boolean = false;
   options = {
     layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+      tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+        attribution: "..."
+      })
     ],
     zoom: 20,
     center: latLng(14.6042, 120.9822)
@@ -50,36 +67,35 @@ export class CompanyLocationDetailComponent implements OnInit {
     private Route: ActivatedRoute,
     private locationService: LocationService,
     private _location: Location,
-    private adminService: AdminService) {
-    this.Route.data.subscribe(
-      res => {
-        // console.log(res);
-        let location = res.location;
-        if (location.success) {
-          this.location = location.location;
-          res.helpers.countries.map(country => {
-            this.countries.push({ name: country.countryName, value: country.id })
-          })
-          res.helpers.regions.map(region => {
-            this.regions.push({ name: region.regionName, value: region.id })
-          })
-        }
+    private adminService: AdminService
+  ) {
+    this.Route.data.subscribe(res => {
+      // console.log(res);
+      let location = res.location;
+      if (location.success) {
+        this.location = location.location;
+        res.helpers.countries.map(country => {
+          this.countries.push({ name: country.countryName, value: country.id });
+        });
+        res.helpers.regions.map(region => {
+          this.regions.push({ name: region.regionName, value: region.id });
+        });
       }
-    )
+    });
     this.id = this.Route.snapshot.params.locationId;
   }
 
   ngOnInit() {
-    console.log(this.location)
+    console.log(this.location);
 
     this.locationForm = this.formBuilder.group({
-      locationName: [{ value: '', disabled: true }, Validators.required],
-      locationPhoneNumber: [{ value: '', disabled: true }, Validators.required],
-      email: [{ value: '', disabled: true }, Validators.required],
-      address: [{ value: '', disabled: true }],
-      cityId: [{ value: '', disabled: true }, Validators.required],
-      regionId: [{ value: '', disabled: true }, Validators.required],
-      countryId: [{ value: '', disabled: true }, Validators.required],
+      locationName: [{ value: "", disabled: true }, Validators.required],
+      locationPhoneNumber: [{ value: "", disabled: true }, Validators.required],
+      email: [{ value: "", disabled: true }, Validators.required],
+      address: [{ value: "", disabled: true }],
+      cityId: [{ value: "", disabled: true }, Validators.required],
+      regionId: [{ value: "", disabled: true }, Validators.required],
+      countryId: [{ value: "", disabled: true }, Validators.required],
       isHeadOffice: [false]
     });
 
@@ -89,79 +105,76 @@ export class CompanyLocationDetailComponent implements OnInit {
     this.updateInputs();
     ({ latitude: this.latitude, longitude: this.longitude } = this.location);
     this.options.center = latLng(this.latitude, this.longitude);
-    this.marker = marker([this.latitude, this.longitude],
-      {
-        icon: icon({
-          iconSize: [25, 41],
-          iconAnchor: [13, 41],
-          iconUrl: 'assets/marker-icon.png',
-          shadowUrl: 'assets/marker-shadow.png'
-        }),
-        draggable: true,
-        autoPan: true,
-        autoPanPadding: new Point(70, 70)
-      });
-    this.marker.on('dragend', (e) => {
+    this.marker = marker([this.latitude, this.longitude], {
+      icon: icon({
+        iconSize: [25, 41],
+        iconAnchor: [13, 41],
+        iconUrl: "assets/marker-icon.png",
+        shadowUrl: "assets/marker-shadow.png"
+      }),
+      draggable: true,
+      autoPan: true,
+      autoPanPadding: new Point(70, 70)
+    });
+    this.marker.on("dragend", e => {
       ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
     });
 
     this.pictureUpdate = this.formBuilder.group({
-      picture: ['picture']
+      picture: ["picture"]
     });
-
   } // ngOnInit ends here
 
   updateInputs() {
     _.map(this.location, (value, key) => {
-      if (this.locationForm.controls[key] && key !== 'picture') {
+      if (this.locationForm.controls[key] && key !== "picture") {
         this.locationForm.controls[key].setValue(value);
       }
-    })
+    });
     this.getCitiesByRegionId(this.location.regionId);
   }
 
-  get form() { return this.locationForm.controls }
+  get form() {
+    return this.locationForm.controls;
+  }
 
   getCountries() {
-    this.locationService.getAllCountries()
-      .subscribe(
-        response => {
-          const countries = response.countries;
-          countries.map(country => {
-            this.countries.push({ name: country.countryName, value: country.id })
-          })
+    this.locationService.getAllCountries().subscribe(
+      response => {
+        const countries = response.countries;
+        countries.map(country => {
+          this.countries.push({ name: country.countryName, value: country.id });
+        });
 
-          this.locationForm.controls['countryId'].setValue(countries[0].id)
-        },
-        error => console.log(error)
-      )
+        this.locationForm.controls["countryId"].setValue(countries[0].id);
+      },
+      error => console.log(error)
+    );
   }
 
   getRegions() {
-    this.locationService.getAllRegions()
-      .subscribe(
-        response => {
-          const regions = response.regions;
-          regions.map(region => {
-            this.regions.push({ name: region.regionName, value: region.id })
-          })
-        },
-        error => console.log(error)
-      )
+    this.locationService.getAllRegions().subscribe(
+      response => {
+        const regions = response.regions;
+        regions.map(region => {
+          this.regions.push({ name: region.regionName, value: region.id });
+        });
+      },
+      error => console.log(error)
+    );
   }
 
   getCitiesByRegionId(regionId) {
-    this.locationService.getAllRegionCities(regionId)
-      .subscribe(
-        response => {
-          const cities = response.cities;
-          this.cities = [];
-          cities.map(city => {
-            this.cities.push({ name: city.cityName, value: city.id })
-          })
-        },
-        error => console.log(error)
-      )
+    this.locationService.getAllRegionCities(regionId).subscribe(
+      response => {
+        const cities = response.cities;
+        this.cities = [];
+        cities.map(city => {
+          this.cities.push({ name: city.cityName, value: city.id });
+        });
+      },
+      error => console.log(error)
+    );
   }
 
   selectChanged(value, name) {
@@ -172,7 +185,7 @@ export class CompanyLocationDetailComponent implements OnInit {
   }
 
   enableEdit() {
-    Object.keys(this.locationForm.controls).forEach((controlName) => {
+    Object.keys(this.locationForm.controls).forEach(controlName => {
       this.locationForm.controls[controlName].enable();
     });
     this.isDisabled = false;
@@ -202,19 +215,19 @@ export class CompanyLocationDetailComponent implements OnInit {
     reader.onload = (e: Event) => {
       // console.log(e.target, "target")
       this.modalImgSrc = reader.result;
-    }
+    };
     reader.readAsDataURL(value);
 
     this.imageData.append(name, value, value.name);
-
   }
 
   onUpdatePicture() {
     this.uploading = true;
-    this.adminService.editCompanyBranchPicture(this.imageData, this.id)
+    this.adminService
+      .editCompanyBranchPicture(this.imageData, this.id)
       .subscribe(
         data => {
-          console.log(data)
+          console.log(data);
           this.formImgSrc = data.location.picture;
           this.uploading = false;
           this.showModal();
@@ -224,39 +237,39 @@ export class CompanyLocationDetailComponent implements OnInit {
           }, 4000);
         },
         error => {
-          console.log(error)
+          console.log(error);
         }
-      )
+      );
   }
 
   onSubmit() {
-
     this.submitted = true;
     if (this.locationForm.invalid) {
       return;
     }
     this.loading = true;
-    let newLocation = { ...this.locationForm.value, latitude: this.latitude, longitude: this.longitude };
+    let newLocation = {
+      ...this.locationForm.value,
+      latitude: this.latitude,
+      longitude: this.longitude
+    };
     console.log(newLocation);
-    this.adminService.editCompanyBranch(newLocation, this.id)
-      .subscribe(
-        data => {
-          console.log(data)
-          this.loading = false;
-          if (data.success) {
-            this.editSuccess = true;
-            setTimeout(() => {
-              this.editSuccess = false;
-              this.goBack()
-            }, 3000);
-          }
-          else {
-
-          }
-        },
-        error => {
-          console.log(error)
+    this.adminService.editCompanyBranch(newLocation, this.id).subscribe(
+      data => {
+        console.log(data);
+        this.loading = false;
+        if (data.success) {
+          this.editSuccess = true;
+          setTimeout(() => {
+            this.editSuccess = false;
+            this.goBack();
+          }, 3000);
+        } else {
         }
-      )
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }
