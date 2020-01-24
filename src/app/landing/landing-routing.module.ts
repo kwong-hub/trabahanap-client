@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LandingComponent } from './landing.component';
 import { SimpleJobSearchResolveService } from '@app/_resolvers/simple-job-search-resolve.service';
 import { JobDetailResolverService } from '@app/_resolvers/job-detail-resolver.service';
+import { FeatureJobListComponent } from './components/feature-job-list/feature-job-list.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent,
@@ -19,7 +20,7 @@ const routes: Routes = [
     { path: 'jobs/details/:id', component: LandingJobDetailComponent, resolve: {data: JobDetailResolverService}},
     { path: 'search/jobs', component: LandingJobListComponent, resolve: {jsRes: SimpleJobSearchResolveService}},
     { path: 'search/jobs/details/:id', component: LandingJobDetailComponent, resolve: {data: JobDetailResolverService}},
-    { path: 'featured/jobs', component:FeatureJobComponent,resolve:{data:SimpleJobSearchResolveService} }
+    { path: 'featured/jobs', component:FeatureJobListComponent,resolve:{data:SimpleJobSearchResolveService} }
   ]}
 ];
 

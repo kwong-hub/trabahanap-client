@@ -29,8 +29,6 @@ export class HomeSectionThreeComponent implements OnInit {
 
       }
     )
-
-   
   }
 
   searchJobs($event) {

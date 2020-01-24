@@ -25,6 +25,8 @@ import { SimpleJobSearchResolveService } from '@app/_resolvers/simple-job-search
 import { JobService } from '@app/_services/jobs.service';
 import { AnonymousService } from '@app/_services/anonymous.service';
 import { FeatureJobComponent } from './components/feature-job/feature-job.component';
+import { AdvertisementComponent } from './components/advertisement/advertisement.component';
+import { FeatureJobListComponent } from './components/feature-job-list/feature-job-list.component';
 
 
 
@@ -45,6 +47,8 @@ import { FeatureJobComponent } from './components/feature-job/feature-job.compon
     AnonymousJobsListComponent,
     AnonymousJobComponent,
     AnonymousJobSkeletonComponent,
+    FeatureJobListComponent,
+    AdvertisementComponent,
     FeatureJobComponent
   ],
   imports: [

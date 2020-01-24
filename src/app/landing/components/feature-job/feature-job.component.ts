@@ -27,7 +27,7 @@ export class FeatureJobComponent implements OnInit {
   bookmarkJob() {
     let auth = this.authService.currentUserValue;
     if (auth === null) {
-      this.router.navigate(['/login'], { queryParams: { returnUrl: `/applicant/jobs/details/${this.Job.jobId}` } });
+      this.router.navigate(['/auth/login'], { queryParams: { returnUrl: `/applicant/jobs/details/${this.Job.jobId}` } });
       return false; // to prevent reload
     }
     else if (!auth.hasFinishedProfile) {

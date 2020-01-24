@@ -1,13 +1,16 @@
 @import '../../../../assets/scss/abstracts/variables';
-
+.advertisement {
+    padding: 0.5rem 1rem 0 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
 .register {
     display: flex;
     flex-direction: column;
     padding: 2rem 0;
-    // margin-bottom: 3rem;
     background-image: url('../../../../assets/img/pattern-2.png');
-    // background-size: cover;
-    // background-repeat: no-repeat;
 
     .guide {
         display: flex;
@@ -16,8 +19,6 @@
         align-items: center;
         width: 100%;
         padding: 3rem 0;
-        // border: 2px solid #ddd;
-        // margin-bottom: 3rem;
 
         &--applicant {
             border-right: .5px solid #ddd;
@@ -84,11 +85,6 @@
             }
         }
 
-        // &__btn--emp {
-        //     &::after {
-        //         animation-delay: 2s;
-        //     }
-        // }
 
         .list-item {
             flex: 1;

@@ -49,7 +49,7 @@ export class JobCandidatesComponent implements OnInit {
   }
 
   showApplicantDetail(applicant, job){
-    this.router.navigate([`/employer/candidates/job/${job.id}/applicant/${applicant.id}`]);
+    this.router.navigate([`../../../candidates/job/${job.id}/applicant/${applicant.id}`],{relativeTo: this.route});
   }
 
 }

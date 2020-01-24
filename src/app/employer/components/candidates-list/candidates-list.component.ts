@@ -2,7 +2,7 @@ import { JobService } from '@app/_services/jobs.service';
 
 import { Component, OnInit, Input } from '@angular/core';
 import { faUsers, faPenFancy, faSlidersH } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmployerService } from '@app/_services/employer.service';
@@ -31,7 +31,8 @@ export class CandidatesListComponent implements OnInit {
     private JobsService: JobService, 
     private EmployerService: EmployerService, 
     private formBuilder: FormBuilder, 
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute, 
   ) { }
 
   ngOnInit() {
@@ -47,22 +48,6 @@ export class CandidatesListComponent implements OnInit {
       this.filterHidden = true;
       console.log(this.filterHidden)
     });
-
-    // console.log('Hello from candidates list');
-    // this.JobsService.getJobWithApplications(1, this.pager ? this.pager.pageSize : 8)
-    //   .subscribe(
-    //     success => {
-    //       //console.log(success)
-    //       if (success.success == true) {
-    //         this.jobs = success.applications.rows;
-    //         this.pager = success.applications.pager;
-    //         //console.log(this.jobs.length)
-
-    //         // this.pager = success.jobs.pager;
-    //       }
-    //     },
-    //     err => console.log(err)
-    //   )
   }
 
   updateExpansionState(jobId) {
@@ -70,7 +55,7 @@ export class CandidatesListComponent implements OnInit {
   }
 
   showCadidates(application) {
-    this.router.navigate([`/employer/candidates/job/${application.jobId}`]);
+    this.router.navigate([`../candidates/job/${application.jobId}`],{relativeTo: this.route});
   }
 
 

@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { JobService } from './../../../_services/jobs.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { faUsers, faPenFancy, faSlidersH } from '@fortawesome/free-solid-svg-icons';
@@ -28,7 +28,8 @@ export class FilteredCandidatesListComponent implements OnInit {
     private JobsService: JobService, 
     private EmployerService: EmployerService, 
     private formBuilder: FormBuilder, 
-    private router: Router) {
+    private router: Router,
+    private route:ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -58,7 +59,7 @@ export class FilteredCandidatesListComponent implements OnInit {
   }
 
   showCadidates(application) {
-    this.router.navigate([`/employer/filtered_candidates/job/${application.jobId}`]);
+    this.router.navigate([`../filtered_candidates/job/${application.jobId}`],{relativeTo: this.route});
   }
 
   getServerData(page) {
