@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '@environments/environment';
+import { Injectable } from "@angular/core";
+import { of, Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "@environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AnonymousService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   searchCities(term): Observable<any> {
     if (!term.trim()) {
@@ -23,28 +22,36 @@ export class AnonymousService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<any>(`${environment.apiUrl}/search/industry?search=${term}`);
+    return this.http.get<any>(
+      `${environment.apiUrl}/search/industry?search=${term}`
+    );
   }
 
   jobSimpleSearch(key, city): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/search?key=${key}&city=${city}`);
+    return this.http.get(
+      `${environment.apiUrl}/search?key=${key}&city=${city}`
+    );
   }
 
   searchJobByProximity(lat, long, distance, term): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/search/location?lat=${lat}&long=${long}&distance=${distance}&key=${term}`)
+    return this.http.get(
+      `${environment.apiUrl}/search/location?lat=${lat}&long=${long}&distance=${distance}&key=${term}`
+    );
   }
-  searchAllJobs(key,city,companyId,page): Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/search?key=${key}&cityName=${city}&page=${page}&compId=${companyId}`);
+  searchAllJobs(key, city, companyId, page): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/search?key=${key}&cityName=${city}&page=${page}&compId=${companyId}`
+    );
   }
-  advancedSearch(key,industry,employtype,salaryRange,cityName,pwd,page){
-    return this.http.get<any>(`${environment.apiUrl}/search/advanced?search=${key}&et=${employtype}&industry=${industry}&sr=${salaryRange}&ct=${cityName}&pwd=${pwd}&page=${page}`);
+  advancedSearch(key, industry, employtype, salaryRange, cityName, pwd, page) {
+    return this.http.get<any>(
+      `${environment.apiUrl}/search/advanced?search=${key}&et=${employtype}&industry=${industry}&sr=${salaryRange}&ct=${cityName}&pwd=${pwd}&page=${page}`
+    );
   }
-  getCompanyByProfileId(id){
+  getCompanyByProfileId(id) {
     return this.http.get<any>(`${environment.apiUrl}/company/${id}`);
-
   }
-  getAdvertisement(){
+  getAdvertisement() {
     return this.http.get<any>(`${environment.apiUrl}/ads`);
   }
-  
 }

@@ -1,13 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit, Input } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 
 @Component({
-  selector: 'shared-textarea-field',
-  templateUrl: './custom-textarea.component.html',
-  styleUrls: ['./custom-textarea.component.scss']
+  selector: "shared-textarea-field",
+  templateUrl: "./custom-textarea.component.html",
+  styleUrls: ["./custom-textarea.component.scss"]
 })
 export class CustomTextareaComponent implements OnInit {
-
   @Input() placeholder: string;
   @Input() defaultValue: string;
   @Input() label: string;
@@ -19,10 +18,9 @@ export class CustomTextareaComponent implements OnInit {
   @Input() formGroup: FormGroup;
   @Input() disabled: false;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     // console.log(this.placeholder, this.defaultValue, this.label, this.valid, this.errorMessage, this.type);
   }
-
 }

@@ -1,12 +1,22 @@
-import { ApplicantService } from './../../../_services/applicant.service';
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LocationService } from '@app/_services/location.service';
-import _ from 'lodash';
-import { faCheck, faUserPlus, faIdCard, faCloudUploadAlt, faUserCheck, faEyeDropper, faEdit, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '@app/_services/authentication-service.service';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { ApplicantService } from "./../../../_services/applicant.service";
+import { Component, OnInit, Input } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { LocationService } from "@app/_services/location.service";
+import _ from "lodash";
+import {
+  faCheck,
+  faUserPlus,
+  faIdCard,
+  faCloudUploadAlt,
+  faUserCheck,
+  faEyeDropper,
+  faEdit,
+  faCamera,
+  faTimes
+} from "@fortawesome/free-solid-svg-icons";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "@app/_services/authentication-service.service";
+import { ImageCroppedEvent } from "ngx-image-cropper";
 
 @Component({
   selector: "app-add-applicant-profile",
@@ -14,7 +24,6 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
   styleUrls: ["./add-applicant-profile.component.scss"]
 })
 export class AddApplicantProfileComponent implements OnInit {
-  
   @Input() applicantProfile: any;
   faCheck = faCheck;
   faUserPlus = faUserPlus;
@@ -192,13 +201,13 @@ export class AddApplicantProfileComponent implements OnInit {
   saveImage() {
     this.tempImg = this.croppedImage.base64;
     this.closeImageModal();
-    let byteCharacters = atob(this.tempImg.split(',')[1]);
+    let byteCharacters = atob(this.tempImg.split(",")[1]);
     let byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     let byteArray = new Uint8Array(byteNumbers);
-    let blob = new Blob([byteArray], {type: 'image/png'});
+    let blob = new Blob([byteArray], { type: "image/png" });
 
     this.formData.append("applicantPicture", blob);
   }
@@ -283,28 +292,34 @@ export class AddApplicantProfileComponent implements OnInit {
       }
     });
 
-     //@ts-ignore
+    //@ts-ignore
     for (var pair of this.formData.entries()) {
-      console.log(pair[0], pair[1])
+      console.log(pair[0], pair[1]);
     }
-    this.applicantService.editApplicantProfile(this.formData, this.applicantProfile.id)
+    this.applicantService
+      .editApplicantProfile(this.formData, this.applicantProfile.id)
       .subscribe(
         data => {
-          console.log(data)
-          if(data.success){
+          console.log(data);
+          if (data.success) {
             this.applicantProfile = data.applicantProfile;
             let temp_date = new Date(this.applicantProfile.dateOfBirth);
 
-            this.applicantProfile = {...this.applicantProfile, year: temp_date.getFullYear(),
-              month: temp_date.getMonth() + 1, date: temp_date.getDate() }
+            this.applicantProfile = {
+              ...this.applicantProfile,
+              year: temp_date.getFullYear(),
+              month: temp_date.getMonth() + 1,
+              date: temp_date.getDate()
+            };
             this.showLoader = false;
-            this.tempImg = '';
+            this.tempImg = "";
             let currentUser = this.authService.currentUserValue;
             this.authService.updateCurrentUser({
-              ...currentUser, applicantProfile: data.applicantProfile
+              ...currentUser,
+              applicantProfile: data.applicantProfile
             });
             this.disableEdit();
-            this.formData = new FormData()
+            this.formData = new FormData();
           }
         },
         err => {

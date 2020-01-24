@@ -1,230 +1,230 @@
-.job{
+.job {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 95%;
+  margin: 2rem auto;
+  position: relative;
+  padding: 2rem 3rem;
+  background-color: white;
+  // box-shadow: 0 0 .5rem rgba(black, .2);
+  border-radius: 3px;
+  cursor: pointer;
+
+  &__left {
+    width: 100%;
+
+    &--top {
+      display: flex;
+    }
+
+    &--middle {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 0rem;
+    }
+
+    &--bottom {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__right {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 95%;
-    margin: 2rem auto;
-    position: relative;
-    padding: 2rem 3rem;
-    background-color: white;
-    // box-shadow: 0 0 .5rem rgba(black, .2);
+    flex-direction: column-reverse;
+    width: 100%;
+    margin: 1.5rem 0rem;
+  }
+
+  &__detail-button {
+    align-self: center;
+    border: 1px solid tomato;
     border-radius: 3px;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+
+    &:hover,
+    &:active {
+      // box-shadow: 0 .5rem .5rem rgba(black, .2);
+      background-color: tomato;
+      color: white;
+    }
+  }
+
+  &__left--top__container {
+    margin: 1rem 2rem;
+  }
+
+  &__title {
+    color: #42597b;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+  }
+
+  &__company-image {
+    height: 13rem;
+    max-width: 17.5rem;
+  }
+
+  &__description {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #555;
+    height: 6rem;
+    overflow: hidden;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 150px;
+      height: 2rem;
+      text-align: center;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0), #fff 50%);
+    }
+  }
+
+  &__salary-range {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  &__tag {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #42597b;
+    text-transform: capitalize;
+    margin-right: 1rem;
+  }
+
+  &__tag-elements {
+    display: flex;
+  }
+
+  &__tag-element {
+    display: flex;
+    align-items: center;
+    color: #42597b;
+    background-color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 1.5rem;
+    border: 1px solid #42597b;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 3px 0.3rem;
+    font-size: 1rem;
+  }
+
+  &__company-verified {
+    font-size: 1.5rem;
+    color: #888;
+    text-transform: uppercase;
+  }
+
+  &__company-verified-icon {
+    // font-size:1.rem;
+    color: #3f7f98;
+    margin-right: 0.5rem;
+  }
+
+  &__company-name {
+    color: black;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+  }
+
+  &__location {
+    font-size: 1.5rem;
+    color: #0072bc;
+    font-weight: 300;
+  }
+
+  &__location-icon {
+    color: #71171c;
+    margin-right: 0.5rem;
+  }
+
+  &__bookmark {
+    position: absolute;
+    top: -6px;
+    right: 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #777;
+    background-color: transparent;
+    border: none;
+    outline: none;
     cursor: pointer;
-    
-    &__left{
-        width: 100%;
 
-        &--top{
-            display: flex;
-        }
-
-        &--middle{
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem 0rem;
-        }
-
-        &--bottom{
-            display: flex;
-            align-items: center;
-        }
+    &--saved {
+      color: tomato;
     }
+  }
 
-    &__right{
-        display: flex;
-        flex-direction: column-reverse;
-        width: 100%;
-        margin: 1.5rem 0rem;
-    }
+  &__bookmark-icon {
+    margin-top: -2px;
+    font-size: 2.7rem;
+    background-color: #fff;
+    // color: #777;
+    margin-left: 5px;
+  }
 
-    &__detail-button{
-        align-self: center;
-        border: 1px solid tomato;
-        border-radius: 3px;
-        font-weight: 600;
-        padding: .8rem 1.5rem;
-        
-        &:hover, &:active {
-            // box-shadow: 0 .5rem .5rem rgba(black, .2);
-            background-color: tomato;
-            color: white;
-        }
-    }
+  &__general-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0.5rem;
+    margin-top: 1rem;
+  }
 
-    &__left--top__container{
-        margin: 1rem 2rem;
-    }
-
-    &__title{
-        color: #42597B ;
-        font-size: 2rem ;
-        font-weight: 700;
-        margin-bottom: 0px ;
-        text-transform: uppercase;
-    }
-
-    &__company-image{
-        height: 13rem;
-        max-width: 17.5rem;
-    }
-
-    &__description{
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
-        color: #555;
-        height: 6rem;
-        overflow: hidden;
-        position: relative;
-
-        &::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 150px;
-            height: 2rem;
-            text-align: center;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0), #fff 50%);
-        }
-    }
-
-    &__salary-range{
-        font-size: 1.1rem;
-        font-weight: 700;
-    }
-
-    &__tag{
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #42597B;
-        text-transform: capitalize;
-        margin-right: 1rem;
-    }
-
-    &__tag-elements{
-        display: flex;
-    }
-
-    &__tag-element{
-        display: flex;
-        align-items: center;
-        color: #42597B;
-        background-color: white;
-        padding: 0.5rem 1.2rem;
-        border-radius: 1.5rem;
-        border: 1px solid #42597B;
-        text-transform: uppercase;
-        font-weight: 700;
-        margin: 3px 0.3rem;
-        font-size: 1rem;
-    }
-
-    &__company-verified{
-        font-size: 1.5rem;
-        color: #888;
-        text-transform: uppercase;
-    }
-
-    &__company-verified-icon{
-        // font-size:1.rem;
-        color:#3f7f98;
-        margin-right: .5rem;
-    }
-
-    &__company-name{
-        color: black;
-        font-size: 1.5rem;
-        margin-right: 1rem;
-    }
-
-    &__location{
-        font-size: 1.5rem;
-        color: #0072bc;
-        font-weight: 300;
-    }
-
-    &__location-icon{
-        color: #71171c;
-        margin-right: .5rem;
-    }
-
-    &__bookmark{
-        position: absolute;
-        top: -6px;
-        right: 2.5rem;
-        font-size: 1.1rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: #777;
-        background-color: transparent;
-        border: none;
-        outline: none;
-        cursor: pointer;
-
-        &--saved{
-            color: tomato;
-        }
-        
-    }
-
-    &__bookmark-icon{
-        margin-top: -2px;
-        font-size: 2.7rem;
-        background-color: #fff;
-        // color: #777;
-        margin-left: 5px;
-    }
-
-    &__general-info{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        padding: .5rem;
-        margin-top: 1rem;
-    }
-
-    &__info{
-        font-size: 1.3rem;
-        color: #42597B;
-        font-weight: 700;
-    }
+  &__info {
+    font-size: 1.3rem;
+    color: #42597b;
+    font-weight: 700;
+  }
 }
 
-@media only screen and (min-width:480px) { 
-    .job{
-        flex-direction: row;
+@media only screen and (min-width: 480px) {
+  .job {
+    flex-direction: row;
 
-        &__left{
-            width: 70%;
-        }
-
-        &__right{
-            flex-direction: column;
-            width: auto;
-        }
-
-        &__apply-button{
-            align-self: initial;
-        }
-
-        &__general-info {
-            flex-direction: column;
-        }
-
-        &__info {
-            &:not(:last-child){
-                margin-bottom: .5rem;
-            }
-        }
-
-        &__description {
-            width: 80%;
-        }
+    &__left {
+      width: 70%;
     }
+
+    &__right {
+      flex-direction: column;
+      width: auto;
+    }
+
+    &__apply-button {
+      align-self: initial;
+    }
+
+    &__general-info {
+      flex-direction: column;
+    }
+
+    &__info {
+      &:not(:last-child) {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    &__description {
+      width: 80%;
+    }
+  }
 }
 
-@media only screen and (min-width:700px) { 
-    // .job{
-    //     width: 80%;
-    // }
+@media only screen and (min-width: 700px) {
+  // .job{
+  //     width: 80%;
+  // }
 }

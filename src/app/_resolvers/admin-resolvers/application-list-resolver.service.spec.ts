@@ -1,12 +1,14 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { ApplicationListResolverService } from './application-list-resolver.service';
+import { ApplicationListResolverService } from "./application-list-resolver.service";
 
-describe('ApplicationListResolverService', () => {
+describe("ApplicationListResolverService", () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
-    const service: ApplicationListResolverService = TestBed.get(ApplicationListResolverService);
+  it("should be created", () => {
+    const service: ApplicationListResolverService = TestBed.get(
+      ApplicationListResolverService
+    );
     expect(service).toBeTruthy();
   });
 });

@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SimpleFileInputComponent } from './simple-file-input.component';
+import { SimpleFileInputComponent } from "./simple-file-input.component";
 
-describe('SimpleFileInputComponent', () => {
+describe("SimpleFileInputComponent", () => {
   let component: SimpleFileInputComponent;
   let fixture: ComponentFixture<SimpleFileInputComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SimpleFileInputComponent ]
-    })
-    .compileComponents();
+      declarations: [SimpleFileInputComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('SimpleFileInputComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

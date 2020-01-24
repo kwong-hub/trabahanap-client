@@ -1,8 +1,14 @@
-<div *ngIf='advertisement && advertisement.length > 0' class="ads" [class.ads__show]="isAds">
-    <div  class="ads__img">
-      <a [href]="displayed?.websiteURL" target="_blank"><img [src]='displayed?.image' alt="Ads Image"> </a>  
-    </div>
-    <div class="ads__control">
-        <button (click)="closeAds()"><fa-icon [icon]="faTimes"></fa-icon></button>
-    </div>
+<div
+  *ngIf="advertisement && advertisement.length > 0"
+  class="ads"
+  [class.ads__show]="isAds"
+>
+  <div class="ads__img">
+    <a [href]="displayed?.websiteURL" target="_blank"
+      ><img [src]="displayed?.image" alt="Ads Image" />
+    </a>
+  </div>
+  <div class="ads__control">
+    <button (click)="closeAds()"><fa-icon [icon]="faTimes"></fa-icon></button>
+  </div>
 </div>

@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ApplicantHeaderComponent } from './applicant-header.component';
+import { ApplicantHeaderComponent } from "./applicant-header.component";
 
-describe('ApplicantHeaderComponent', () => {
+describe("ApplicantHeaderComponent", () => {
   let component: ApplicantHeaderComponent;
   let fixture: ComponentFixture<ApplicantHeaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApplicantHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [ApplicantHeaderComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('ApplicantHeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

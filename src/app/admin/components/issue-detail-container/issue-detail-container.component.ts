@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { AdminService } from '@app/_services/admin.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { AdminService } from "@app/_services/admin.service";
+import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { Location } from "@angular/common";
 
 @Component({
-  selector: 'app-issue-detail-container',
-  templateUrl: './issue-detail-container.component.html',
-  styleUrls: ['./issue-detail-container.component.scss']
+  selector: "app-issue-detail-container",
+  templateUrl: "./issue-detail-container.component.html",
+  styleUrls: ["./issue-detail-container.component.scss"]
 })
 export class IssueDetailContainerComponent implements OnInit {
   issue: any;
@@ -20,20 +20,21 @@ export class IssueDetailContainerComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     public adminService: AdminService,
-    private _location: Location) {
+    private _location: Location
+  ) {
     this.route.data.subscribe(res => {
       let data = res.data;
       if (data.success) {
         this.issue = data.issue;
+      } else {
+        console.log(data);
       }
-
-      else { console.log(data) }
-    })
+    });
   }
 
   ngOnInit() {
     this.replyIssue = this.formBuilder.group({
-      issueResponse: ['', Validators.required],
+      issueResponse: ["", Validators.required]
     });
   }
 
@@ -49,14 +50,23 @@ export class IssueDetailContainerComponent implements OnInit {
 
   onSubmit() {
     this.submited = true;
-    if (!this.replyIssue.valid) { return; }
+    if (!this.replyIssue.valid) {
+      return;
+    }
 
-    this.adminService.addIssueResponse({ ...this.replyIssue.value, issueId: this.issue.id })
+    this.adminService
+      .addIssueResponse({ ...this.replyIssue.value, issueId: this.issue.id })
       .subscribe(
         data => {
           if (data.success) {
             this.successReply = true;
-            this.issue = { ...this.issue, issueResponseId: data.issueResponse.id, issue_response: { issueResponse: data.issueResponse.issueResponse } };
+            this.issue = {
+              ...this.issue,
+              issueResponseId: data.issueResponse.id,
+              issue_response: {
+                issueResponse: data.issueResponse.issueResponse
+              }
+            };
             setTimeout(() => {
               this.successReply = false;
             }, 4500);
@@ -64,6 +74,5 @@ export class IssueDetailContainerComponent implements OnInit {
         },
         err => console.log(err)
       );
-
   }
 }

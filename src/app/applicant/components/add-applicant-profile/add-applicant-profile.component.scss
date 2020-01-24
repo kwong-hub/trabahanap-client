@@ -246,21 +246,21 @@
     text-align: center;
     cursor: pointer;
 
-    &__edit{
-        position: absolute;
-        top: 100%;
-        width:100%;
-        padding: 1rem;
-        padding-bottom: 2.5rem;
-        transition: all .3s;
-        text-transform: uppercase;
-        background-color: rgba(27, 27, 27, 0.493);
-        text-align: center;
-        cursor: pointer;
+    &__edit {
+      position: absolute;
+      top: 100%;
+      width: 100%;
+      padding: 1rem;
+      padding-bottom: 2.5rem;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      background-color: rgba(27, 27, 27, 0.493);
+      text-align: center;
+      cursor: pointer;
 
-        &:active .picture-icon{
-            transform: scale(1.05);
-        }
+      &:active .picture-icon {
+        transform: scale(1.05);
+      }
     }
   }
 
