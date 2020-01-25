@@ -125,8 +125,8 @@ export class AddApplicantProfileComponent implements OnInit {
     this.getCountries();
 
     this.addApplicantProfileForm = this.formBuilder.group({
-      fullName: ["", Validators.required],
-      phoneNumber: ["", Validators.required],
+      fullName: ["", this.applicantProfile ? Validators.required : ""],
+      phoneNumber: ["", this.applicantProfile ? Validators.required : ""],
       firstName: [""],
       lastName: [""],
       currentEmployer: [""],
