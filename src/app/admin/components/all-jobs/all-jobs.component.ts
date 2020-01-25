@@ -188,7 +188,7 @@ export class AllJobsComponent implements OnInit {
           this.pager = data.jobs.pager;
         });
     } else {
-      this.JobService.getAllJobs(page.pageIndex + 1).subscribe(
+      this.adminService.getJobs(page.pageIndex + 1,page.pageSize).subscribe(
         success => {
           if (success.success == true) {
             this.jobs = success.jobs.rows;
