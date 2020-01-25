@@ -90,7 +90,8 @@ export class ApplicationsListComponent implements OnInit {
 
   getServerData(page) {
     if (!this.filtered) {
-      this.adminService.getAllApplications(page.pageIndex + 1).subscribe(
+      this.adminService.getAllApplications(page.pageIndex+1,page.pageSize)
+      .subscribe(
         success => {
           if (success.success == true) {
             this.applications = success.applications.rows;
@@ -102,14 +103,9 @@ export class ApplicationsListComponent implements OnInit {
       );
     } else {
       var val = this.searchForm.value;
-      this.adminService
-        .getFilterApplications(
-          val.applicantName,
-          val.jobtitle,
-          val.companyName,
-          page.pageIndex + 1
-        )
-        .subscribe(data => {
+      this.adminService.getFilterApplications(val.applicantName,val.jobtitle,val.companyName,page.pageIndex + 1,page.pageSize)
+      .subscribe(
+        data => {
           //console.log(data);
           this.applications = data.applications.rows;
           this.pager = data.applications.pager;
@@ -126,19 +122,14 @@ export class ApplicationsListComponent implements OnInit {
     var val = this.searchForm.value;
     //console.log(val);
     this.filterHidden = true;
-    this.adminService
-      .getFilterApplications(
-        val.applicantName,
-        val.jobtitle,
-        val.companyName,
-        this.page || 1
+    this.adminService.getFilterApplications(val.applicantName,val.jobtitle,val.companyName,this.page || 1,8)
+      .subscribe(
+        data => {
+          //console.log(data);
+          this.applications = data.applications.rows;
+          this.pager = data.applications.pager;
+        }
       )
-      .subscribe(data => {
-        //console.log(data);
-        this.applications = data.applications.rows;
-        this.pager = data.applications.pager;
-      });
-
     this.filtered = true;
   }
 }

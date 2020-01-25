@@ -73,7 +73,7 @@ export class LocationDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.Route.snapshot.params.id;
-
+    console.log(this.id)
     this.getCountries();
     this.getRegions();
 

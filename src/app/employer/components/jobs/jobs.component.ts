@@ -21,9 +21,7 @@ export class JobsComponent implements OnInit {
       res => {
         let company = res.company;
         let jobs = res.jobs;
-        console.log(company, jobs, "hey");
-        console.log(company, "comp");
-        if (company.success) {
+        if(company.success) {
           this.authService.updateCurrentUser(company.employer);
         } else {
           console.log(company);
@@ -32,7 +30,6 @@ export class JobsComponent implements OnInit {
         if (jobs.success) {
           this.jobs = jobs.jobs.rows;
           this.pager = jobs.jobs.pager;
-          console.log(this.jobs, this.pager);
         }
       },
       error => {

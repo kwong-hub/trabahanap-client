@@ -13,7 +13,6 @@ export class CandidatesComponent implements OnInit {
   constructor(private Route: ActivatedRoute) {
     this.Route.data.subscribe(res => {
       let candidates = res.candidates;
-      console.log(candidates);
       if (candidates.success) {
         this.rows = candidates.applications.rows;
         this.pager = candidates.applications.pager;

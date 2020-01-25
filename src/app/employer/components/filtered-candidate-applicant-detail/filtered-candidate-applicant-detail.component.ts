@@ -23,25 +23,26 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(
       success => {
-        console.log(this.hired);
-        this.applicantId = success.get("applicantId");
-        this.jobId = success.get("jobId");
-        if (this.applicantId) {
-          this.employerService.getApplicant(this.applicantId).subscribe(
-            success => {
-              //console.log(success)
-              if (success.applicant) {
-                this.applicant = success.applicant;
-                this.employerService
-                  .getIsHired(this.applicantId, this.jobId)
-                  .subscribe(data => {
-                    this.hired = data.applicant.hired;
-                    console.log(data);
-                  });
-              }
-            },
-            err => console.log(err)
-          );
+        this.applicantId = success.get('applicantId');
+        this.jobId = success.get('jobId');
+        if(this.applicantId){
+          this.employerService.getApplicant(this.applicantId)
+            .subscribe(
+              success => {
+                //console.log(success)
+                if(success.applicant){
+                  this.applicant = success.applicant;
+                  this.employerService.getIsHired(this.applicantId,this.jobId)
+                  .subscribe(
+                    data => {
+                      this.hired=data.applicant.hired;
+                    }
+                  )
+                  
+                }
+              },
+              err => console.log(err)
+            )
         }
       },
       err => console.log(err)
@@ -54,7 +55,7 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
       .hireJobApplication({ jobId: this.jobId, applicantId: this.applicantId })
       .subscribe(
         success => {
-          console.log(success);
+          // console.log(success)
           this.hired = !this.hired;
         },
         err => console.log(err)

@@ -144,32 +144,22 @@ export class EmployerService {
     return this.http.delete<any>(`${environment.apiUrl}/employer/issue/${id}`);
   }
 
-  getFilterJobsApplications(jobtitle, industry, position, page) {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/filter/jobs/applications?job=${jobtitle}&industry=${industry}&position=${position}&page=${page}`
-    );
+  getFilterJobsApplications(jobtitle,industry,position,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/employer/filter/jobs/applications?job=${jobtitle}&industry=${industry}&position=${position}&page=${page}&pageSize=${pageSize}`);
+  }
+  
+  getFilterJobsFilteredApplications(jobtitle,industry,position,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/employer/filter/filtered/applications?job=${jobtitle}&industry=${industry}&position=${position}&page=${page}&pageSize=${pageSize}`);
+  }
+  
+  getApplications(page){
+    return this.http.get<any>(`${environment.apiUrl}/employer/applications?page=${page}`)
   }
 
-  getFilterJobsFilteredApplications(jobtitle, industry, position, page) {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/filter/filtered/applications?job=${jobtitle}&industry=${industry}&position=${position}&page=${page}`
-    );
+  getFilterApplications(applicantName,job,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/employer/filter/applications?applicant=${applicantName}&job=${job}&page=${page}&pageSize=${pageSize}`)
   }
-
-  getApplications(page) {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/applications?page=${page}`
-    );
-  }
-
-  getFilterApplications(applicantName, job, page) {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/filter/applications?applicant=${applicantName}&job=${job}&page=${page}`
-    );
-  }
-  getJobsFilter(jobtitle, industry, position, page) {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/filter/jobs?job=${jobtitle}&industry=${industry}&position=${position}&page=${page}`
-    );
+  getJobsFilter(jobtitle,industry,position,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/employer/filter/jobs?job=${jobtitle}&industry=${industry}&position=${position}&page=${page}&pageSize=${pageSize}`);
   }
 }

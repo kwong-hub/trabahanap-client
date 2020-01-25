@@ -27,10 +27,8 @@ export class CandidateApplicantDetailComponent implements OnInit {
         this.jobId = success.get("jobId");
         this.applicantId = success.get("applicantId");
         const applicantId = success.get("applicantId");
-        console.log(this.jobId);
         if (applicantId && this.jobId) {
           this.jobService.getJobById(this.jobId).subscribe(success => {
-            console.log(success);
             this.job = success.job;
           });
         }
@@ -42,12 +40,21 @@ export class CandidateApplicantDetailComponent implements OnInit {
               );
               this.employerService.getApplicant(applicantId).subscribe(
                 success => {
-                  if (applicationIds.includes(success.applicant.id)) {
-                    this.passFilter = true;
-                  }
-                  if (success.applicant) {
-                    this.applicant = success.applicant;
-                    console.log(this.applicant);
+                  
+                  if(success.success){
+                    const applicationIds = success.applicants.map(applicant => applicant.id);
+                    this.employerService.getApplicant(applicantId)
+                      .subscribe(
+                        success => {
+                          if(applicationIds.includes(success.applicant.id)){
+                            this.passFilter = true;
+                          }
+                          if(success.applicant){
+                            this.applicant = success.applicant;
+                          }
+                        },
+                        err => console.log(err)
+                      );
                   }
                 },
                 err => console.log(err)
@@ -69,7 +76,10 @@ export class CandidateApplicantDetailComponent implements OnInit {
       })
       .subscribe(
         success => {
-          this.passFilter = !this.passFilter;
+          if(success.success){
+            this.passFilter = !this.passFilter;
+          }
+         
         },
         err => console.log(err)
       );

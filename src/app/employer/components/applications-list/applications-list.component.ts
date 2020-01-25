@@ -48,7 +48,6 @@ export class ApplicationsListComponent implements OnInit {
   ) {
     this.Route.data.subscribe(res => {
       let data = res.data;
-      console.log(data);
       if (data.success) {
         this.pager = data.applications.pager;
         this.applications = data.applications.rows;
@@ -77,13 +76,9 @@ export class ApplicationsListComponent implements OnInit {
       );
     } else {
       var val = this.searchForm.value;
-      this.employerService
-        .getFilterApplications(
-          val.applicantName,
-          val.jobtitle,
-          page.pageIndex + 1
-        )
-        .subscribe(data => {
+      this.employerService.getFilterApplications(val.applicantName,val.jobtitle,page.pageIndex + 1,page.pageSize)
+      .subscribe(
+        data => {
           //console.log(data);
           this.applications = data.applications.rows;
           this.pager = data.applications.pager;
@@ -109,13 +104,14 @@ export class ApplicationsListComponent implements OnInit {
     var val = this.searchForm.value;
     //console.log(val);
     this.filterHidden = true;
-    this.employerService
-      .getFilterApplications(val.applicantName, val.jobtitle, this.page || 1)
-      .subscribe(data => {
-        //console.log(data);
-        this.applications = data.applications.rows;
-        this.pager = data.applications.pager;
-      });
+    this.employerService.getFilterApplications(val.applicantName,val.jobtitle,this.page || 1,8)
+      .subscribe(
+        data => {
+          //console.log(data);
+          this.applications = data.applications.rows;
+          this.pager = data.applications.pager;
+        }
+      )
 
     this.filtered = true;
   }

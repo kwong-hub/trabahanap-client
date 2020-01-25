@@ -13,6 +13,6 @@ export class ApplicantListResolverService {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    return this.adminService.getAllApplicants(1);
+    return this.adminService.getAllApplicants(1,8);
   }
 }

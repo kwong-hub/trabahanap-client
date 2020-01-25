@@ -93,7 +93,8 @@ export class ApplicantListComponent implements OnInit {
 
   getServerData(page) {
     if (!this.filtered) {
-      this.adminService.getAllApplicants(page.pageIndex + 1).subscribe(
+      this.adminService.getAllApplicants(page.pageIndex+1,page.pageSize)
+      .subscribe(
         success => {
           this.applicants = [];
           if (success.success == true) {
@@ -107,13 +108,14 @@ export class ApplicantListComponent implements OnInit {
       );
     } else {
       var val = this.searchForm.value;
-      this.adminService
-        .getFilterApplicants(val.name, val.email, page.pageIndex + 1)
-        .subscribe(data => {
-          this.applicants = [];
-          data.applicants.rows.forEach(apps => {
-            this.applicants.push(apps.user);
-          });
+      this.adminService.getFilterApplicants(val.name,val.email,page.pageIndex + 1,page.pageSize)
+      .subscribe(   
+        data => {
+          console.log(data)
+          this.applicants = data.applicants.rows;
+          // data.applicants.rows.forEach(apps => {
+          //   this.applicants.push(apps.user)
+          // });
           this.pager = data.applicants.pager;
         });
     }
@@ -128,13 +130,14 @@ export class ApplicantListComponent implements OnInit {
     var val = this.searchForm.value;
     //console.log(val);
     this.filterHidden = true;
-    this.adminService
-      .getFilterApplicants(val.name || "", val.email || "", this.page || 1)
-      .subscribe(data => {
-        //console.log(data);
-        this.applicants = data.applicants.rows;
-        this.pager = data.applicants.pager;
-      });
+    this.adminService.getFilterApplicants(val.name || '',val.email || '',this.page || 1,10)
+      .subscribe(
+        data => {
+          //console.log(data);
+          this.applicants = data.applicants.rows;
+          this.pager = data.applicants.pager;
+        }
+      )
 
     this.filtered = true;
   }

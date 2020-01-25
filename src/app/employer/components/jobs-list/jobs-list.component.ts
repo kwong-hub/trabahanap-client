@@ -108,19 +108,20 @@ export class JobsListComponent {
     }
   }
   toggleJob($event) {
-    console.log($event);
     this.isLogoEditModalOpen = !this.isLogoEditModalOpen;
     this.deletedId = $event;
   }
 
   editJob($event) {
     this.stateService.data = $event;
-    this.router.navigate([`/employer/jobs/${$event.id}`]);
+    this.router.navigate([`../jobs/${$event.id}`],{relativeTo: this.route});
+
   }
 
   candidatesJob($event) {
     this.stateService.data = $event;
-    this.router.navigate([`/employer/candidates/job/${$event}`]);
+    this.router.navigate([`../candidates/job/${$event}`],{relativeTo: this.route});
+
   }
 
   toggleActions($evnet, id) {
@@ -150,18 +151,14 @@ export class JobsListComponent {
 
   filterJobsApplications() {
     var val = this.searchForm.value;
-    console.log(val);
     this.filterHidden = true;
-    this.EmployerService.getJobsFilter(
-      val.jobTitle,
-      val.industry,
-      val.position,
-      this.page || 1
-    ).subscribe(data => {
-      console.log(data);
-      this.jobs = data.applications.rows;
-      this.pager = data.applications.pager;
-    });
+    this.EmployerService.getJobsFilter(val.jobTitle, val.industry, val.position, this.page || 1,8)
+      .subscribe(
+        data => {
+          this.jobs = data.applications.rows;
+          this.pager = data.applications.pager;
+        }
+      )
 
     this.filtered = true;
   }

@@ -52,19 +52,7 @@ export class FilteredCandidatesListComponent implements OnInit {
     elem[0].addEventListener("click", () => {
       this.openActions = {};
       this.filterHidden = true;
-      console.log(this.filterHidden);
     });
-
-    // this.JobsService.getFilteredJobWithApplications(1, this.pager ? this.pager.pageSize : 8)
-    //   .subscribe(
-    //     success => {
-    //       if (success.success == true) {
-    //         this.jobs = success.applications.rows;
-    //         this.pager = success.applications.pager;
-    //       }
-    //     },
-    //     err => console.log(err)
-    //   )
   }
 
   showCadidates(application) {
@@ -89,17 +77,14 @@ export class FilteredCandidatesListComponent implements OnInit {
       );
     } else {
       var val = this.searchForm.value;
-      //console.log(val);
-      this.EmployerService.getFilterJobsFilteredApplications(
-        val.jobTitle,
-        val.industry,
-        val.position,
-        page.pageIndex + 1
-      ).subscribe(data => {
-        console.log(data);
-        this.jobs = data.applications.rows;
-        this.pager = data.applications.pager;
-      });
+      this.EmployerService.getFilterJobsFilteredApplications(val.jobTitle, val.industry, val.position, page.pageIndex + 1,page.pageSize)
+        .subscribe(
+          data => {
+            this.jobs = data.applications.rows;
+            this.pager = data.applications.pager;
+          }
+        )
+
     }
   }
 
@@ -110,18 +95,14 @@ export class FilteredCandidatesListComponent implements OnInit {
 
   filterJobsApplications() {
     var val = this.searchForm.value;
-    //console.log(val);
     this.filterHidden = true;
-    this.EmployerService.getFilterJobsFilteredApplications(
-      val.jobTitle,
-      val.industry,
-      val.position,
-      this.page || 1
-    ).subscribe(data => {
-      console.log(data);
-      this.jobs = data.applications.rows;
-      this.pager = data.applications.pager;
-    });
+    this.EmployerService.getFilterJobsFilteredApplications(val.jobTitle, val.industry, val.position, this.page || 1,6)
+      .subscribe(
+        data => {
+          this.jobs = data.applications.rows;
+          this.pager = data.applications.pager;
+        }
+      )
 
     this.filtered = true;
   }
