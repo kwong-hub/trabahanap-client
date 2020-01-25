@@ -318,29 +318,29 @@
         ></shared-textarea-field>
       </div>
       <div class="submit-container">
-        <div
-          (click)="enableEdit($event)"
-          *ngIf="hasProfile && applicantProfile"
-          class="form__edit"
-        >
+        <div (click)="enableEdit($event)" *ngIf="hasProfile && applicantProfile" class="form__edit">
           Edit <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon>
         </div>
-        <div
-          (click)="disableEdit()"
-          *ngIf="!hasProfile && applicantProfile"
-          class="form__edit"
-        >
+        <div (click)="disableEdit()" *ngIf="!hasProfile && applicantProfile" class="form__edit" >
           Cancel
           <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon>
         </div>
-        <input
+        <!-- <input
           type="submit"
           class="form__submit th-btn th-btn--primary"
           *ngIf="!hasProfile"
           [class.form__submit--inactive]="hasProfile"
           [disabled]="hasProfile"
           [value]="applicantProfile ? 'Save Profile' : 'Add Profile'"
-        />
+        /> -->
+        <app-custom-submit-button *ngIf="!hasProfile" 
+          [text]="applicantProfile ? 'Save Profile' : 'Add Profile'"
+          [loading]="loading"
+        ></app-custom-submit-button>
+        
+        <app-custom-notification [show]="success" type="success" [callback]="!applicantProfile ? '/applicant/jobs' : ''"
+          [text]="applicantProfile ? 'Profile Editted Successfully' : 'Profile Submitted Successfully'">
+        </app-custom-notification>
       </div>
     </div>
   </form>

@@ -1,1 +1,21 @@
-<p>custom-notification works!</p>
+<div *ngIf="type === 'success'" class="notification notification--success" 
+    [class.active]="show" [ngStyle]="styleObject?.notification">
+    <div class="notification__body" [ngStyle]="styleObject?.body">
+      <i style="color: #50e83e" [ngStyle]="styleObject?.icon"
+        class="far fa-check-circle notification__icon"></i>
+      <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+  
+      <span class="text" [ngStyle]="styleObject?.text">{{ text }}</span>
+    </div>
+</div>
+
+<div *ngIf="type === 'error'" class="notification notification--error" 
+    [class.active]="show" [ngStyle]="styleObject?.notification">
+    <div class="notification__body" [ngStyle]="styleObject?.body">
+      <i style="color: rgb(255, 0, 0)" [ngStyle]="styleObject?.icon"
+        class="far fa-times-circle notification__icon"></i>
+      <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+  
+      <span class="text" [ngStyle]="styleObject?.text">{{ text }}</span>
+    </div>
+</div>

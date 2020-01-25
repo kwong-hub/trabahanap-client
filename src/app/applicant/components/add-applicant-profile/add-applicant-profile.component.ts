@@ -111,6 +111,8 @@ export class AddApplicantProfileComponent implements OnInit {
   imageChangedEvent: any;
   croppedImage: any;
   tempImg: string;
+  loading: boolean;
+  success: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -233,9 +235,11 @@ export class AddApplicantProfileComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+    this.success = false;
     // new form value after date of birth is added
     val = this.addApplicantProfileForm.value;
-    this.showLoader = true;
+    // this.showLoader = true;
     _.map(val, (value, key) => {
       // console.log(key, "=>", value);
       if (key != "cv" && key != "applicantPicture") {
@@ -247,23 +251,23 @@ export class AddApplicantProfileComponent implements OnInit {
     this.applicantService.addApplicantProfileWithCV(this.formData).subscribe(
       data => {
         // console.log(data);
+        this.loading = false;
         if (data.success) {
-          this.showLoader = false;
+          this.success = true;
           let currentUser = this.authService.currentUserValue;
           this.authService.updateCurrentUser({
             ...currentUser,
             hasFinishedProfile: true,
             applicantProfile: data.applicantProfile
           });
-          this.router.navigate(["/applicant/jobs"]);
+          // this.router.navigate(["/applicant/jobs"]);
         } else {
           this.submitted = false;
-          this.showLoader = false;
         }
       },
       err => {
         console.log(err);
-        this.showLoader = false;
+        this.loading = false;
       }
     );
   }
@@ -290,7 +294,9 @@ export class AddApplicantProfileComponent implements OnInit {
     }
 
     val = this.addApplicantProfileForm.value;
-    this.showLoader = true;
+    // this.showLoader = true;
+    this.success = false;
+    this.loading = true;
 
     _.map(val, (value, key) => {
       console.log(key,"=>", value)
@@ -302,11 +308,13 @@ export class AddApplicantProfileComponent implements OnInit {
     this.applicantService.editApplicantProfile(this.formData, this.applicantProfile.id)
       .subscribe(
         data => {
+          this.loading = false;
           console.log(data);
           if (data.success) {
+            this.success = true;
             this.applicantProfile = data.applicantProfile;
             this.updateForm();
-            this.showLoader = false;
+            this.submitted = false;
             this.tempImg = "";
             let currentUser = this.authService.currentUserValue;
             this.authService.updateCurrentUser({
@@ -318,8 +326,8 @@ export class AddApplicantProfileComponent implements OnInit {
           }
         },
         err => {
+          this.loading = false;
           console.log(err);
-          this.showLoader = false;
         }
       );
   }

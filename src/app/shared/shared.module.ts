@@ -43,6 +43,7 @@ import { ApplicantService } from "@app/_services/applicant.service";
 import { LocationService } from "@app/_services/location.service";
 import { CustomSubmitButtonComponent } from "./components/custom-submit-button/custom-submit-button.component";
 import { CustomNotificationComponent } from "./components/custom-notification/custom-notification.component";
+import { CustomOverlayComponent } from './components/custom-overlay/custom-overlay.component';
 // import { FeatureJobComponent } from './components/feature-job/feature-job.component';
 
 @NgModule({
@@ -74,7 +75,8 @@ import { CustomNotificationComponent } from "./components/custom-notification/cu
     SharedLoginTempComponent,
     ChangePasswordTempComponent,
     CustomSubmitButtonComponent,
-    CustomNotificationComponent
+    CustomNotificationComponent,
+    CustomOverlayComponent
     // FeatureJobComponent
   ],
   imports: [
@@ -115,8 +117,11 @@ import { CustomNotificationComponent } from "./components/custom-notification/cu
     SharedDeleteModalComponent,
     SharedConfirmModelComponent,
     SharedLoginTempComponent,
-    ChangePasswordTempComponent
-    // FeatureJobComponent
+    ChangePasswordTempComponent,
+    // FeatureJobComponent,
+    CustomSubmitButtonComponent,
+    CustomOverlayComponent,
+    CustomNotificationComponent
   ],
   providers: [JobService, EmployerService, ApplicantService, LocationService]
 })
