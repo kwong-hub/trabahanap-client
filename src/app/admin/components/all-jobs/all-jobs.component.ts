@@ -205,8 +205,7 @@ export class AllJobsComponent implements OnInit {
     // this.router.navigate([
     //   `/employers/jobs/${companyProfileId}/add/${id}`
     // ]);
-    
-    this.router.navigate([`/employers/jobs/${companyProfileId}/add/${id}`], {
+    this.router.navigate([`../employers/jobs/${companyProfileId}/add/${id}`], {
       relativeTo: this.route
     });
 

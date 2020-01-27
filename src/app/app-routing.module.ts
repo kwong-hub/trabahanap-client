@@ -51,7 +51,7 @@ const routes: Routes = [
     loadChildren: () =>
       import("./admin/admin.module").then(mod => mod.AdminModule)
   },
-  // { path: "**", redirectTo: "home", pathMatch: "full" }
+  { path: "**", redirectTo: "home", pathMatch: "full" }
 ];
 
 @NgModule({
