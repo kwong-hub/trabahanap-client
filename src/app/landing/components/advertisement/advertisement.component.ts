@@ -13,7 +13,7 @@ export class AdvertisementComponent implements OnInit {
   @Input() isAds: boolean;
   @Output() closeModalEvent = new EventEmitter();
 
-  displayed = {};
+  displayed:any;
   id: any;
   counter: number = Math.floor(Math.random() * 4);
   intervalMs = 50000;

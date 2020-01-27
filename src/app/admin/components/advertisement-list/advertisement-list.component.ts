@@ -55,7 +55,7 @@ export class AdvertisementListComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   activateAds(id) {
     this.adminService.deactivateAds(id).subscribe(
@@ -73,4 +73,19 @@ export class AdvertisementListComponent implements OnInit {
       }
     );
   }
+
+  getServerData(page) {
+
+    this.adminService.getAllAds(page.pageIndex + 1, page.pageSize).subscribe(
+      success => {
+        if (success.success == true) {
+          this.ads = success.ads.rows;
+          this.pager = success.ads.pager;
+          // this.pager.pages = this.renderedPages();
+        }
+      },
+      err => console.log(err)
+    );
+  }
+
 }

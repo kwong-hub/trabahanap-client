@@ -202,9 +202,14 @@ export class AllJobsComponent implements OnInit {
   }
 
   editJob(companyProfileId, id) {
-    this.router.navigate([
-      `admin/employers/jobs/${companyProfileId}/add/${id}`
-    ]);
+    // this.router.navigate([
+    //   `/employers/jobs/${companyProfileId}/add/${id}`
+    // ]);
+    
+    this.router.navigate([`/employers/jobs/${companyProfileId}/add/${id}`], {
+      relativeTo: this.route
+    });
+
   }
 
   fetchIndustries(term: string): void {
