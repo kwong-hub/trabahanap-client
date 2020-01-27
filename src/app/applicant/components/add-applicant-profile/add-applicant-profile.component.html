@@ -319,11 +319,10 @@
       </div>
       <div class="submit-container">
         <div (click)="enableEdit($event)" *ngIf="hasProfile && applicantProfile" class="form__edit">
-          Edit <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon>
+          Edit <fa-icon class="form__edit-icon" [icon]="faEdit"></fa-icon>
         </div>
         <div (click)="disableEdit()" *ngIf="!hasProfile && applicantProfile" class="form__edit" >
           Cancel
-          <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon>
         </div>
         <!-- <input
           type="submit"
