@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { OtherService } from "@app/_services/other.service";
 import { ThrowStmt } from "@angular/compiler";
+import { AuthenticationService } from '@app/_services/authentication-service.service';
 
 @Component({
   selector: "app-featured-companies",
@@ -13,10 +14,11 @@ export class FeaturedCompaniesComponent implements OnInit {
   companies = [];
   openConfirmModal = false;
   data: any;
+  url: string;
 
   constructor(
     private Route: ActivatedRoute,
-    private otherService: OtherService
+    private otherService: OtherService, private authService: AuthenticationService
   ) {
     this.Route.data.subscribe(res => {
       let data = res.data;
@@ -24,6 +26,8 @@ export class FeaturedCompaniesComponent implements OnInit {
         this.companies = data.companies;
       }
     });
+    let role = this.authService.currentUserValue.role.toLowerCase();
+    this.url = `/${role}/employers`;
   }
 
   ngOnInit() {}

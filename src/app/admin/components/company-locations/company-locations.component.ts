@@ -50,7 +50,7 @@ export class CompanyLocationsComponent implements OnInit {
       )
       .subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
           if (data.success) {
             this.locations = data.locations.rows;
             this.company = data.locations.company_profile;

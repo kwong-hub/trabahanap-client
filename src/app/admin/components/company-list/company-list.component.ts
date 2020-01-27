@@ -72,7 +72,7 @@ export class CompanyListComponent implements OnInit {
     elem[0].addEventListener("click", () => {
       this.openActions = {};
       this.filterHidden = true;
-      console.log(this.filterHidden);
+      //console.log(this.filterHidden);
     });
 
     // this.adminService.getAllEmployers(1, this.pager ? this.pager.pageSize : 8)
@@ -127,7 +127,7 @@ export class CompanyListComponent implements OnInit {
       this.adminService
         .getFilterEmployers(val.companyName, val.industry, page.pageIndex + 1,page.pageSize)
         .subscribe(data => {
-          console.log(data);
+          //console.log(data);
           if (data) {
             this.companies = data.companies.rows;
             this.pager = data.companies.pager;
@@ -158,12 +158,12 @@ export class CompanyListComponent implements OnInit {
 
   filterEmployers() {
     var val = this.searchForm.value;
-    console.log(val);
+    //console.log(val);
     this.filterHidden = true;
     this.adminService
       .getFilterEmployers(val.companyName, val.industry, this.page || 1, 8)
       .subscribe(data => {
-        console.log(data);
+        //console.log(data);
         if (data) {
           this.companies = data.companies.rows;
           this.pager = data.companies.pager;

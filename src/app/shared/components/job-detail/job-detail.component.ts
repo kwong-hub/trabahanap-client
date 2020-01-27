@@ -89,77 +89,12 @@ export class JobDetailComponent implements OnInit {
         autoPanPadding: new Point(70, 70)
       });
     }
-    // if(this.applicant) {
-    //   this.JobService.getJobDetailForApplicant(id).subscribe(
-    //     data => {
-    //       if(data.success) {
-    //         console.log(data.job);
-    //         this.job = data.job;
-    //         // console.log(data)
-    //         this.bookmarked = data.job.saved;
-    //         let {latitude, longitude} = data.job.location;
-    //         this.options.center = latLng(latitude, longitude);
-    //         this.marker = marker([latitude, longitude],
-    //           {
-    //             icon: icon({
-    //               iconSize: [ 25, 41 ],
-    //               iconAnchor: [ 13, 41 ],
-    //               iconUrl: 'assets/marker-icon.png',
-    //               shadowUrl: 'assets/marker-shadow.png'
-    //            }),
-    //             draggable: false,
-    //             autoPan: true,
-    //             autoPanPadding: new Point(70, 70)
-    //           });
-    //       }
-    //       else {
-    //         console.log(data)
-    //       }
-    //     },
-    //     error => {
-    //       console.log(error)
-    //     }
-    //   );
-    // }
-    // else {
-    //   this.JobService.getJobById(id).subscribe(
-    //     data => {
-    //       if(data.success) {
-    //         // console.log(data.job);
-    //         this.job = data.job;
-    //         let {latitude, longitude} = data.job.location;
-    //         this.options.center = latLng(latitude, longitude);
-    //         this.marker = marker([latitude, longitude],
-    //           {
-    //             icon: icon({
-    //               iconSize: [ 25, 41 ],
-    //               iconAnchor: [ 13, 41 ],
-    //               iconUrl: 'assets/marker-icon.png',
-    //               shadowUrl: 'assets/marker-shadow.png'
-    //            }),
-    //             draggable: false,
-    //             autoPan: true,
-    //             autoPanPadding: new Point(70, 70)
-    //           });
-    //         this.marker.on('dragend', (e) => {
-    //           ({lat: latitude, lng: longitude} = e.target._latlng);
-    //         });
-    //       }
-    //       else {
-    //         console.log(data)
-    //       }
-    //     },
-    //     error => {
-    //       console.log(error)
-    //     }
-    //   );
-    // }
   } // ngOnInit ends here
 
   apply() {
     let auth = this.authService.currentUserValue;
     if (auth === null) {
-      this.router.navigate(["/login"], {
+      this.router.navigate(["/auth/login"], {
         queryParams: { returnUrl: `/applicant/${this.router.url}` }
       });
       return false; // to prevent reload
@@ -188,7 +123,7 @@ export class JobDetailComponent implements OnInit {
     let auth = this.authService.currentUserValue;
 
     if (auth === null) {
-      this.router.navigate(["/login"], {
+      this.router.navigate(["/auth/login"], {
         queryParams: { returnUrl: `/applicant/jobs/details/${jobId}` }
       });
       return false; // to prevent reload

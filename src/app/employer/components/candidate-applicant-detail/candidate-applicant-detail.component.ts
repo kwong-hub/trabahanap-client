@@ -35,14 +35,16 @@ export class CandidateApplicantDetailComponent implements OnInit {
         this.jobService.getFilteredJobApplications(this.jobId).subscribe(
           success => {
             if (success.success) {
+              
               const applicationIds = success.applicants.map(
                 applicant => applicant.id
               );
+
               this.employerService.getApplicant(applicantId).subscribe(
                 success => {
-                  
+                 
                   if(success.success){
-                    const applicationIds = success.applicants.map(applicant => applicant.id);
+                    //const applicationIds = success.applicant.map(applicant => applicant.id);
                     this.employerService.getApplicant(applicantId)
                       .subscribe(
                         success => {
