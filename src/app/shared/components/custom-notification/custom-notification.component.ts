@@ -22,7 +22,7 @@ export class CustomNotificationComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if(changes.show.currentValue) {
       setTimeout(() => {
-        this.show = false;
+        // this.show = false;
         if(this.callback === '') {
           return;
         }
@@ -32,7 +32,7 @@ export class CustomNotificationComponent implements OnInit {
         else {
           this.router.navigate([this.callback]);
         }
-      }, 4750);
+      }, 4650);
     }
   }
 }
