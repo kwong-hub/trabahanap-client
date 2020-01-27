@@ -78,9 +78,9 @@ export class JobsListComponent implements OnInit {
 
   editJob($event) {
     this.stateService.data = $event;
-    this.router.navigate([
-      `admin/employers/jobs/${this.companyId}/add/${$event.id}`
-    ]);
+    this.router.navigate([`../../jobs/${this.companyId}/add/${$event.id}`], {
+      relativeTo: this.route
+    });
   }
 
   toggleActions($evnet, id) {

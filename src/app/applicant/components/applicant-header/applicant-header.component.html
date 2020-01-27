@@ -16,16 +16,16 @@
     ><img src="assets/img/th_logo.png" class="header-section__logo"
   /></a>
   <div class="menu__right">
-    <div class="menu__notification">
+    <!-- <div class="menu__notification">
       <a class="menu__notification-item"
         ><fa-icon [icon]="faBell"></fa-icon
         ><span class="menu__notification-badge">7</span></a
       >
-    </div>
+    </div> -->
     <div class="dropdown">
       <div (click)="toggleDropdown($event)" class="dropbtn">
-        <!-- <!-- <span class="dropbtn__name">{{ authenticationService.currentUserValue.firstName | titlecase}}</span> -->
-        -->
+        <!-- <span class="dropbtn__name">{{ authenticationService.currentUserValue.firstName | titlecase}}</span> -->
+        
         <img
           [src]="
             applicantProfile && applicantProfile.applicantPicture

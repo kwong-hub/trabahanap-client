@@ -188,7 +188,7 @@ export class AllJobsComponent implements OnInit {
           this.pager = data.jobs.pager;
         });
     } else {
-      this.JobService.getAllJobs(page.pageIndex + 1).subscribe(
+      this.adminService.getJobs(page.pageIndex + 1,page.pageSize).subscribe(
         success => {
           if (success.success == true) {
             this.jobs = success.jobs.rows;
@@ -202,9 +202,13 @@ export class AllJobsComponent implements OnInit {
   }
 
   editJob(companyProfileId, id) {
-    this.router.navigate([
-      `admin/employers/jobs/${companyProfileId}/add/${id}`
-    ]);
+    // this.router.navigate([
+    //   `/employers/jobs/${companyProfileId}/add/${id}`
+    // ]);
+    this.router.navigate([`../employers/jobs/${companyProfileId}/add/${id}`], {
+      relativeTo: this.route
+    });
+
   }
 
   fetchIndustries(term: string): void {
