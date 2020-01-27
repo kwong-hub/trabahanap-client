@@ -259,7 +259,7 @@ export class AddLocationComponent implements OnInit {
             }, 2000);
           } else {
             this.loading = false;
-            console.log(data, "error");
+            //console.log(data, "error");
             this.error = data.validationError;
           }
         },

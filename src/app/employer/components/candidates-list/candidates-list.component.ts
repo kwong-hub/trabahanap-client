@@ -54,7 +54,7 @@ export class CandidatesListComponent implements OnInit {
     elem[0].addEventListener("click", () => {
       this.openActions = {};
       this.filterHidden = true;
-      console.log(this.filterHidden);
+     // console.log(this.filterHidden);
     });
   }
 

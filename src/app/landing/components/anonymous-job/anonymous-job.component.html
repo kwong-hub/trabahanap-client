@@ -57,7 +57,7 @@
   <div>
     <button
       *ngIf="!(userRole === 'EMPLOYER' || userRole === 'ADMIN')"
-      (click)="bookmarkJob()"
+      (click)="bookmarkJob($event)"
       [class.job__bookmark--saved]="bookmarked"
       class="job__bookmark"
     >

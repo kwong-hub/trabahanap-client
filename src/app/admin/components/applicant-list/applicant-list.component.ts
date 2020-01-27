@@ -145,7 +145,7 @@ export class ApplicantListComponent implements OnInit {
   activateUser(id) {
     this.adminService.deactivateUser(id).subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
         this.applicants.forEach(applicant => {
           if (applicant.id === id) {
             applicant.active = !applicant.active;

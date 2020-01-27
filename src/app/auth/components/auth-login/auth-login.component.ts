@@ -148,7 +148,7 @@ export class AuthLoginComponent implements OnInit {
     this.authenticationService
       .getUserByEmail(this.f.email.value)
       .subscribe(res => {
-        // console.log(res);
+        console.log(res);
         this.loading = false;
         this.error = "";
         if (res.success) {
@@ -162,7 +162,7 @@ export class AuthLoginComponent implements OnInit {
             this.showOptions = true;
           }
         } else {
-          this.error = res.error || res.message;
+          this.error = res.error;
         }
       });
   }

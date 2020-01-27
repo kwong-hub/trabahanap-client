@@ -29,7 +29,8 @@ export class JobComponent implements OnInit {
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = "");
   }
 
-  bookmarkJob() {
+  bookmarkJob(event) {
+    event.stopPropagation();
     let auth = this.authService.currentUserValue;
     if (auth === null) {
       this.router.navigate(["/login"], {

@@ -37,6 +37,7 @@ export class AllJobsComponent implements OnInit {
   salaryRangeName;
   industries = [];
   SalaryRange = [
+    { name: "All", value: "" },
     { name: "Below 18,000", value: "<18000" },
     { name: "18,000-25,000", value: "18000-25000" },
     { name: "25,001-40,000", value: "25001-40000" },
@@ -49,6 +50,7 @@ export class AllJobsComponent implements OnInit {
   industryName = "";
 
   employmentType = [
+    { name: "All", value: "" },
     { name: "Part Time", value: "PARTTIME" },
     { name: "Full Time", value: "FULLTIME" },
     { name: "Project Based", value: "PROJECTBASED" },
@@ -245,7 +247,7 @@ export class AllJobsComponent implements OnInit {
     this.adminService.getFilterJobs(val.query, this.industryName || '', val.employmentType || '', val.SalaryRange || '', this.page || 1,8)
       .subscribe(
         data => {
-          console.log(data);
+         // console.log(data);
           this.jobs = data.jobs.rows;
           this.pager = data.jobs.pager;
         }

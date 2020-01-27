@@ -56,7 +56,7 @@ export class AddStafferComponent implements OnInit {
     const values = this.addStaffer.value;
     this.otherService.addStaffer(values).subscribe(
       success => {
-        console.log(success);
+       // console.log(success);
         if (success.success) {
           this.stafferAdded = true;
           setTimeout(() => {

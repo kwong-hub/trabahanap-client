@@ -29,7 +29,7 @@ export class ApplicantDetailComponent implements OnInit {
           this.applicant = data.applicant;
           //this.applicant['active'] = data.applicant.user.active;
         }
-        console.log(this.applicant);
+        //console.log(this.applicant);
       },
       error => {
         console.log(error);

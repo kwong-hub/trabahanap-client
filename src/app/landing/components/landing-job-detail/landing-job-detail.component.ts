@@ -160,7 +160,7 @@ export class LandingJobDetailComponent implements OnInit {
   apply() {
     let auth = this.authService.currentUserValue;
     if (auth === null) {
-      this.router.navigate(["/login"], {
+      this.router.navigate(["/auth/login"], {
         queryParams: { returnUrl: `/applicant/${this.router.url}` }
       });
       return false; // to prevent reload
@@ -196,7 +196,7 @@ export class LandingJobDetailComponent implements OnInit {
     let auth = this.authService.currentUserValue;
 
     if (auth === null) {
-      this.router.navigate(["/login"], {
+      this.router.navigate(["/auth/login"], {
         queryParams: { returnUrl: `/applicant/jobs/details/${jobId}` }
       });
       return false; // to prevent reload

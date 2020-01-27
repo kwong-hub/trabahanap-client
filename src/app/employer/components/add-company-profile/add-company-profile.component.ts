@@ -191,7 +191,7 @@ export class AddCompanyProfileComponent implements OnInit {
 
     this.employerService.addCompanyProfileWithFile(this.formData).subscribe(
       response => {
-        console.log(response);
+       // console.log(response);
         if (response.success) {
           this.profileAdded = true;
 
