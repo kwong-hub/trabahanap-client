@@ -29,7 +29,7 @@
             type="email"
             name="email"
             id="email"
-            class="form__input form__input--password"
+            class="form__input"
             placeholder="Email Address"
             [class.form__input--error]="submitted && f.email.errors"
             formControlName="email"
@@ -50,12 +50,15 @@
         </div>
 
         <div class="form__group">
-          <input
+          <!-- <input
             [class.disabled]="loading"
             type="submit"
             value="NEXT"
             class="form__submit th-btn th-btn--primary"
-          />
+          /> -->
+          <auth-custom-submit [styleObject]="submitBtnStyle" [loading]="loading"
+          text="Next"
+        ></auth-custom-submit>
         </div>
         <div
           style="width: 100%; text-align: center; font-size: 1.6rem; margin: 2rem 0rem; font-weight: 700;"
@@ -186,12 +189,15 @@
           class="form__group"
           [class.form__group__animate]="showPasswordForm"
         >
-          <input
+          <!-- <input
             [class.disabled]="loading"
             type="submit"
             value="LOGIN"
             class="form__submit th-btn th-btn--primary"
-          />
+          /> -->
+          <auth-custom-submit [styleObject]="submitBtnStyle" [loading]="loading"
+            text="Login"
+        ></auth-custom-submit>
         </div>
         <!-- <div style="width: 100%; text-align: center; font-size: 1.6rem; margin: 2rem 0rem; font-weight: 700;" class="form_group">-- OR --</div>
                 <div style="text-align: center; display: flex; justify-content: center; flex-direction: column;" class="form__group">

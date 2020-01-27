@@ -13,7 +13,7 @@ import { CommonModule } from "@angular/common";
 import { LandingComponent } from "./landing.component";
 import { AnonymousFooterComponent } from "./components/anonymous-footer/anonymous-footer.component";
 import { LandingRoutingModule } from "./landing-routing.module";
-import { MatProgressBarModule } from "@angular/material";
+import { MatProgressBarModule, MatButtonModule } from "@angular/material";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LeafletModule } from "@asymmetrik/ngx-leaflet";
@@ -56,7 +56,8 @@ import { FeatureJobListComponent } from "./components/feature-job-list/feature-j
     ReactiveFormsModule,
     FormsModule,
     LeafletModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatButtonModule
   ],
   providers: [
     JobDetailResolverService,

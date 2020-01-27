@@ -39,7 +39,7 @@ export class AuthLoginComponent implements OnInit {
   loggedIn: boolean;
   eyeIcon = faEyeSlash;
   passwordType: string = "password";
-
+  submitBtnStyle = {btn: {width: "100%", borderRadius: "5px", fontSize: "2.5rem"}}
   login = false;
   socialError = "";
   emailSent = false;
@@ -148,7 +148,7 @@ export class AuthLoginComponent implements OnInit {
     this.authenticationService
       .getUserByEmail(this.f.email.value)
       .subscribe(res => {
-        // console.log(res);
+        console.log(res);
         this.loading = false;
         this.error = "";
         if (res.success) {
@@ -162,14 +162,19 @@ export class AuthLoginComponent implements OnInit {
             this.showOptions = true;
           }
         } else {
-          this.error = res.error || res.message;
+          if(res.message.includes("connect") || res.message.includes("fail")) {
+            this.error = "Can Not Login"
+          }
+          else {
+            this.error = res.error || res.message;
+          }
         }
       });
   }
 
   onPasswordSubmit() {
     this.submitted = true;
-    if (this.fPassword.invalid) {
+    if (this.passwordForm.invalid) {
       return;
     }
     this.loading = true;
@@ -180,14 +185,14 @@ export class AuthLoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          // console.log(data)
+          console.log(data)
           if (data.success) {
             this.returnUrl =
               this.router.snapshot.queryParams["returnUrl"] ||
               `/${data.user.role.toLowerCase()}`;
             this.route.navigate([this.returnUrl]);
           } else {
-            this.error = data.error;
+            this.error = data.user;
             this.loading = false;
           }
         },

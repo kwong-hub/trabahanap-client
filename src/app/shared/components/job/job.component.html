@@ -6,10 +6,9 @@
         <h3 class="job__title">{{ Job.jobTitle }}</h3>
         <div style="margin-top: 1rem;">
           <span class="job__company-name">{{ Job.companyName }}</span>
-          <span class="job__company-verified"
-            ><i class="fas fa-check-circle job__company-verified-icon"></i>
-            Verified</span
-          >
+          <span class="job__company-verified">
+            <i class="fas fa-check-circle job__company-verified-icon"></i>
+            Verified</span>
         </div>
         <!-- <div>
                     <span class="job__location"><i class="fas fa-map-marker-alt job__location-icon"></i> Location Name</span>
@@ -55,14 +54,12 @@
     </div>
   </div>
   <div>
-    <button
-      *ngIf="!(userRole === 'EMPLOYER' || userRole === 'ADMIN')"
-      (click)="bookmarkJob()"
-      [class.job__bookmark--saved]="bookmarked"
-      class="job__bookmark"
-    >
-      {{ bookmarked ? "SAVED" : "SAVE JOB" }}
-      <i class="job__bookmark-icon far fa-bookmark"></i>
+    <button *ngIf="!(userRole === 'EMPLOYER' || userRole === 'ADMIN')"
+      (click)="bookmarkJob($event)" [class.job__bookmark--saved]="bookmarked"
+      class="job__bookmark">
+        {{ bookmarked ? "SAVED" : "SAVE JOB" }}
+      <i *ngIf="booking !== Job.jobId" class="job__bookmark-icon far fa-bookmark"></i>
+      <div *ngIf="booking === Job.jobId" class="job__bookmark-icon--progress"></div>
     </button>
   </div>
 </div>

@@ -173,6 +173,17 @@
     background-color: #fff;
     // color: #777;
     margin-left: 5px;
+
+    &--progress {
+      display: inline-block;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      border: 2px solid #aaa;
+      border-top-color: #aa111d;
+      border-right-color: #aa111d;
+      animation: spin-booking 1s cubic-bezier(0.29, 0.65, 0.38, 0.72) infinite;
+    }
   }
 
   &__general-info {
@@ -227,4 +238,10 @@
   // .job{
   //     width: 80%;
   // }
+}
+
+@keyframes spin-booking {
+  to {
+    transform: rotate(360deg);
+  }
 }

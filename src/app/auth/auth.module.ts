@@ -23,6 +23,7 @@ import {
   FacebookLoginProvider,
   GoogleLoginProvider
 } from "angularx-social-login";
+import { CustomSubmitComponent } from './components/custom-submit/custom-submit.component';
 
 // Google secrete YqcEI_IxCWPOPy5rgFOKcudM
 const config = new AuthServiceConfig([
@@ -52,7 +53,8 @@ export function provideConfig() {
     AnonymousCustomInputFieldComponent,
     AuthPasswordResetComponent,
     AuthChangePasswordComponent,
-    AuthRegistrationSuccessComponent
+    AuthRegistrationSuccessComponent,
+    CustomSubmitComponent
   ],
   imports: [
     CommonModule,

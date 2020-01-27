@@ -67,12 +67,13 @@
   </div>
 
   <div class="form__group form__group--double">
-    <input
+    <!-- <input
       type="submit"
       (click)="onSubmit()"
       [class.progress]="loading"
       value="Submit"
       class="submit th-btn th-btn--primary"
-    />
+    /> -->
+    <app-custom-submit-button (click)="onSubmit()" text="Submit" [loading]="loading" ></app-custom-submit-button>
   </div>
 </form>

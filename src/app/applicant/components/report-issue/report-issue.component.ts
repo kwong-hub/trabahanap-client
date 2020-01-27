@@ -49,7 +49,7 @@ export class ReportIssueComponent implements OnInit {
   };
   loading: boolean;
   issueSuccess: boolean;
-  deleting: boolean;
+  deleting: string = '';
   isModalVisible: boolean = false;
   selectedIssue: any;
   detailModal: boolean = false;
@@ -104,13 +104,13 @@ export class ReportIssueComponent implements OnInit {
   }
 
   deleteIssue(id) {
-    this.deleting = true;
+    this.deleting = id;
     this.applicantService.deleteIssue(id).subscribe(
       data => {
         console.log(data);
         if (data.success) {
           this.deleteSuccess = true;
-          this.deleting = false;
+          this.deleting = '';
           this.issues = this.issues.filter(iss => {
             if (iss.id !== id) {
               return iss;

@@ -37,7 +37,6 @@ export class JobDetailComponent implements OnInit {
   };
   marker;
   applicant: boolean = false;
-  already: boolean;
   bookmarked: boolean;
   userRole: string;
   lower: boolean;
@@ -176,13 +175,6 @@ export class JobDetailComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  showAppliedNotification() {
-    this.already = true;
-    setTimeout(() => {
-      this.already = false;
-    }, 3500);
   }
 
   modal() {

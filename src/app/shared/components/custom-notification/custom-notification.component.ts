@@ -23,7 +23,7 @@ export class CustomNotificationComponent implements OnInit {
     if(changes.show.currentValue) {
       setTimeout(() => {
         // this.show = false;
-        if(this.callback === '') {
+        if(!this.callback) {
           return;
         }
         else if(this.callback === "goBack") {
@@ -32,7 +32,7 @@ export class CustomNotificationComponent implements OnInit {
         else {
           this.router.navigate([this.callback]);
         }
-      }, 4650);
+      }, 4550);
     }
   }
 }

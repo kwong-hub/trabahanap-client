@@ -2,7 +2,7 @@ import { JobService } from "./../../../_services/jobs.service";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "./../../../_services/authentication-service.service";
 import { Job } from "../../../_models/Job";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-job",
@@ -10,10 +10,12 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./job.component.scss"]
 })
 export class JobComponent implements OnInit {
+
   @Input() Job: Job;
   @Input() isBookMarked: boolean;
-  bookmarked: boolean = false;
   userRole;
+  booking: string = "";
+  bookmarked: boolean = false;
   imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
 
   constructor(
@@ -29,19 +31,23 @@ export class JobComponent implements OnInit {
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = "");
   }
 
-  bookmarkJob() {
+  bookmarkJob(event) {
+    event.stopPropagation();
     let auth = this.authService.currentUserValue;
     if (auth === null) {
-      this.router.navigate(["/login"], {
-        queryParams: { returnUrl: `/applicant/jobs/details/${this.Job.jobId}` }
-      });
+      this.router.navigate(["/login"], { queryParams: { returnUrl: `/applicant/jobs/details/${this.Job.jobId}` }});
       return false; // to prevent reload
-    } else if (!auth.hasFinishedProfile) {
+    } 
+    else if (!auth.hasFinishedProfile) {
       console.error("has not finished profile");
       return false;
-    } else {
+    } 
+    else {
+      this.booking = this.Job.jobId;
       this.jobsService.toggleSaveJob(this.Job.jobId).subscribe(
         data => {
+          console.log(data);
+          this.booking = '';
           if (data.success) {
             this.bookmarked = !this.bookmarked;
           }

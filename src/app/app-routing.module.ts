@@ -3,8 +3,6 @@ import { Routes, RouterModule } from "@angular/router";
 import { AuthGuard } from "./_helpers/auth.guard";
 import { Role } from "./_models/Role";
 
-console.log("from app routing");
-
 const routes: Routes = [
   {
     path: "",
