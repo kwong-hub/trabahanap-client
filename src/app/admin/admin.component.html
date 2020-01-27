@@ -1,113 +1,61 @@
 <div class="main-container">
-  <admin-header
-    [isChecked]="sideBarActive"
-    (signout)="logout()"
-    (toggleBox)="toggleSidebar($event)"
-  ></admin-header>
-  <mat-progress-bar
-    *ngIf="routing"
-    class="progress"
-    color="warn"
-    mode="indeterminate"
-  ></mat-progress-bar>
+  <admin-header [isChecked]="sideBarActive" (signout)="logout()" (toggleBox)="toggleSidebar($event)"></admin-header>
+  <mat-progress-bar *ngIf="routing" class="progress" color="warn" mode="indeterminate"></mat-progress-bar>
   <div class="content-container">
     <div class="sidebar" [class.sideBarActive]="sideBarActive">
       <h3 class="sidebar__header">Main</h3>
       <div class="sidebar__list">
-        <a
-          routerLink="home"
-          routerLinkActive="active"
-          title="Dashboard"
-          (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="sidebar__list-item"
-        >
+        <a routerLink="home" routerLinkActive="active" title="Dashboard" (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons fas fa-home"></i> <span class="names">Dashboard</span>
         </a>
-        <a
-          routerLink="jobs"
-          routerLinkActive="active"
-          title="Jobs"
-          (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="sidebar__list-item"
-        >
+        <a routerLink="jobs" routerLinkActive="active" title="Jobs" (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons fas fa-clipboard-list"></i>
           <span class="names">Jobs</span>
         </a>
-        <a
-          routerLink="employers"
-          routerLinkActive="active"
-          title="Employers"
-          (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="sidebar__list-item"
-        >
+        <a routerLink="employers" routerLinkActive="active" title="Employers" (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons fas fa-building"></i>
           <span class="names">Employers</span>
         </a>
-        <a
-          routerLink="companies/featured"
-          routerLinkActive="active"
-          title="Featured Companies"
-          (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="sidebar__list-item"
-        >
+        <a routerLink="companies/featured" routerLinkActive="active" title="Featured Companies"
+          (click)="toggleSidebar(false)" [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons far fa-star"></i>
           <span class="names">Featured Companies</span>
         </a>
-        <a
-          routerLink="applicants"
-          routerLinkActive="active"
-          title="Applicants"
-          (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="sidebar__list-item"
-        >
+        <a routerLink="applicants" routerLinkActive="active" title="Applicants" (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons fas fa-users"></i>
           <span class="names">Applicants</span>
         </a>
-        <a
-          routerLink="applications"
-          routerLinkActive="active"
-          title="Applicantions"
-          (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="sidebar__list-item"
-        >
+        <a routerLink="applications" routerLinkActive="active" title="Applicantions" (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons fas fa-list"></i>
           <span class="names">Applicantions</span>
         </a>
+
+        <a routerLink="ads" routerLinkActive="active" title="Advertisement" (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
+          <i class="icons fas fa-ad"></i> <span class="names">Advertisement</span>
+        </a>
+
       </div>
 
       <h3 class="sidebar__header">Account</h3>
 
       <div class="sidebar__list">
-        <a
-          *ngIf="
+        <a *ngIf="
             authenticationService.currentUserValue &&
             authenticationService.currentUserValue.role == 'ADMIN'
-          "
-          routerLink="staff"
-          routerLinkActive="active"
-          title="Admin Staff"
-          (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="sidebar__list-item"
-        >
+          " routerLink="staff" routerLinkActive="active" title="Admin Staff" (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons fas fa-stamp"></i>
           <span class="names">Admin Staff</span>
         </a>
 
-        <a
-          routerLink="issues"
-          routerLinkActive="active"
-          title="Reported Issues"
-          (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="sidebar__list-item"
-        >
+        <a routerLink="issues" routerLinkActive="active" title="Reported Issues" (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons fas fa-bug"></i>
           <span class="names">Reported Issues</span>
         </a>
@@ -117,14 +65,8 @@
                     [routerLinkActiveOptions]="{exact: false}" class="sidebar__list-item">
                         <i class="icons far fa-address-card"></i> <span class="names">Account Profile</span>
                     </a> -->
-        <a
-          routerLink="password"
-          routerLinkActive="active"
-          title="Change Password"
-          (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="sidebar__list-item"
-        >
+        <a routerLink="password" routerLinkActive="active" title="Change Password" (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons fas fa-key"></i>
           <span class="names">Change password</span>
         </a>
