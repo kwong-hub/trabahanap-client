@@ -24,17 +24,12 @@ table {
 .filter {
   display: flex;
   flex-direction: row;
-  //align-items: flex-end;
   width: 100%;
   margin: 0 auto;
   position: fixed;
   top: 6.5rem;
   z-index: 2;
-  // margin-left: 1.2rem;
-  // background-color: white;
   padding: 1.8rem 2rem;
-
-  //padding-right: 2rem;
   margin-left: -9rem;
   justify-content: space-between;
 
@@ -46,18 +41,17 @@ table {
   }
   &__heading {
     color: #888;
-    margin: 0 5%;
+    margin: 0 4rem;
     font-size: 2rem;
     text-transform: uppercase;
   }
 
   &__content {
     background-color: white;
-    width: 23%;
+    min-width: 27%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    // max-height: 30rem;
     transition: 0.3s all;
     overflow: visible;
     height: auto;

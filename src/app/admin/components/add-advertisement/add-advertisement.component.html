@@ -40,7 +40,6 @@
             class="input-element-type-1"
             [formGroup]="addAdsForm"
             name="adsStart"
-            [defaultValue]=""
             placeholder="Ads Start Date"
             label="Ads Start Date"
             (onValueChange)="dateChanged($event, 'adsStart')"
@@ -56,6 +55,7 @@
               matInput
               type="time"
               placeholder="start date"
+              value="13:30"
             />
           </div>
         </div>
@@ -71,6 +71,7 @@
             (onValueChange)="dateChanged($event, 'adsEnd')"
             type="text"
             [submitted]="submitted"
+            
           >
           </shared-custom-datepicker>
           <div class="form__group__time">
@@ -80,6 +81,7 @@
               [ngModelOptions]="{ standalone: true }"
               [(ngModel)]="times.adsEnd"
               placeholder="start date"
+              
             />
           </div>
         </div>
@@ -96,6 +98,7 @@
             name="image"
             [formGroup]="addAdsForm"
             (onValueChange)="fileChanged($event, 'image')"
+            
           >
           </shared-custom-file-input>
         </div>
@@ -110,6 +113,7 @@
             type="text"
             name="websiteURL"
             [formGroup]="addAdsForm"
+            
           >
           </shared-custom-input-field>
         </div>
