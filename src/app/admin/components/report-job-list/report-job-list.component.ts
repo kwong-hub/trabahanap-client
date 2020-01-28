@@ -21,7 +21,7 @@ export class ReportJobListComponent implements OnInit {
   ngOnInit() {
     this.adminService.getAllReportedJob().subscribe(data => {
       this.reports = data.reports;
-      console.log(this.reports);
+      //console.log(this.reports);
     });
   }
 }

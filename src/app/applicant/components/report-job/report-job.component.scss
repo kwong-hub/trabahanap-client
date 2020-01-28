@@ -41,7 +41,11 @@
     justify-content: center;
     margin-bottom: 2rem;
   }
-
+  &__group{
+    input{
+      font-size: 1.75rem;
+    }
+  }
   &__title {
     font-size: 2.5rem;
     color: #aaa;
@@ -49,7 +53,7 @@
   }
 
   &__submit {
-    width: 20rem;
+    width: 50%;
     align-self: center;
   }
 
@@ -58,6 +62,7 @@
     color: #555;
     border: 1px solid #555;
     align-self: center;
+    width: 50%;
   }
 
   &__edit-icon {

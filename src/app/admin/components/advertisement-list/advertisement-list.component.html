@@ -1,9 +1,5 @@
 <div class="sub-module-container">
-  <h3 *ngIf="ads && ads.length == 0">
-    <div class="not_Found">
-      <span> Sorry, we didn't find any ads matching your criteria </span>
-    </div>
-  </h3>
+  
 
   <div class="overlay" [class.active]="!filterHidden"></div>
   <div class="fab" title="Add new applicant">
@@ -13,6 +9,11 @@
   </div>
   <div class="sub-module-container__container job">
     <h3 class="sub-module-container__heading">Advertsiemet</h3>
+    <h3 *ngIf="ads && ads.length == 0">
+      <div class="not_Found">
+        <span> No ads posted yet </span>
+      </div>
+    </h3>
     <table
       *ngIf="ads && ads.length > 0"
       mat-table

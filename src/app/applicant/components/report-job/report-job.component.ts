@@ -10,20 +10,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class ReportJobComponent implements OnInit {
   reportForm: FormGroup;
-  selectStyle = {
-    inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
-    optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
-    },
-    option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
-    }
-  };
+  
   options = [
     { name: "Discrimination", value: "Discrimination" },
     { name: "Offensive content", value: "Offensive content" },
@@ -31,6 +18,23 @@ export class ReportJobComponent implements OnInit {
     { name: "Scam/Fraud", value: "Scam/Fraud" },
     { name: "Others", value: "Others" }
   ];
+
+  styleObject = {
+    inputContainer: {},
+    input: { fontSize: "1.6rem" },
+    label:{ fontSize:"1.5rem"},
+    inputHeader: { fontSize: "1.6rem", borderBottom: "1px solid #888" },
+    optionContainer: {
+      backgroundColor: "#555",
+      top: "3.3rem",
+      boxShadow: "0px 1px 2px #aaa"
+    },
+    option: {
+      fontSize: "1.7rem",
+      borderBottom: "1px solid #ddd",
+      backgroundColor: "#fff"
+    }
+  };
   jobId: any;
   invalidFields: any[];
   jobAdded: boolean;

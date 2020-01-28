@@ -192,7 +192,7 @@
         name="cityId"
         [styleObject]="selectStyle"
         class="input-element-type-3"
-        placeholder="Select Region"
+        placeholder="Select City"
         [options]="cities"
         [submitted]="submitted"
       >
@@ -202,6 +202,7 @@
     <div class="form__group">
       <div class="checkbox">
         <input
+          [attr.disabled]="true"
           type="checkbox"
           formControlName="isHeadOffice"
           name="isHeadOffice"
