@@ -51,14 +51,11 @@ export class ApplicantComponent implements OnInit {
   }
 
   toggleSidebar($event) {
+    this.slideActive = false;
     this.sideBarActive = $event;
     // @ts-ignore
     if (!this.authenticationService.currentUserValue.hasFinishedProfile) {
       this.slideActive = true;
     }
-
-    setTimeout(() => {
-      this.slideActive = false;
-    }, 3100);
   }
 }

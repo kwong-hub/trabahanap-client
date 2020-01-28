@@ -28,6 +28,7 @@ export class AuthRegisterComponent implements OnInit {
     feedbackContainer: {},
     feedbackMessage: { fontSize: "1.5rem" }
   };
+  submitStyle = { btn: {width: "100%", borderRadius: "5px"}}
   eyeIcon = faEyeSlash;
   error;
 
