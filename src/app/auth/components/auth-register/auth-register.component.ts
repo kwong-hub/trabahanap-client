@@ -80,7 +80,7 @@ export class AuthRegisterComponent implements OnInit {
 
   resolved(captchaResponse: string) {
     this.recaptchaResponse = captchaResponse;
-    console.log(this.recaptchaResponse);
+    // console.log(this.recaptchaResponse);
   }
 
   change() {
@@ -111,7 +111,7 @@ export class AuthRegisterComponent implements OnInit {
     this.loading = true;
     if (this.empRegister) {
       // Register as Employer
-      console.log("Registering as Employer");
+      // console.log("Registering as Employer");
       this.registrationService
         .registerEmployer({
           ...this.registerForm.value,
@@ -170,7 +170,7 @@ export class AuthRegisterComponent implements OnInit {
             //@ts-ignore
 
             if (data.success) {
-              console.log(data);
+              // console.log(data);
               this.registrationService.userData = {
                 role: Role.applicant,
                 registred: true,
@@ -193,7 +193,7 @@ export class AuthRegisterComponent implements OnInit {
               this.error = data.error;
               this.loading = false;
             }
-            console.log(data);
+            // console.log(data);
             //@ts-ignore
             // else if(data.recaptchaError) {
             // //@ts-ignore

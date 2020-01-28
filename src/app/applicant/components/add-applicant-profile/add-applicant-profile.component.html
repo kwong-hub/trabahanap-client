@@ -184,53 +184,67 @@
           [submitted]="submitted"
           [disabled]="hasProfile"
         ></shared-custom-select>
-        <div class="date-picker">
-          <shared-custom-select
-            [valid]="addApplicantProfileForm.controls['month']?.status"
-            (onValueChange)="selectChanged($event, 'month')"
-            name="month"
-            label="Birth Date"
-            [defaultValue]="applicantProfile?.month"
-            [styleObject]="monthStyle"
-            class="input-element-type-1"
-            placeholder="Month"
-            [options]="monthOptions"
-            [submitted]="submitted"
-            [disabled]="hasProfile"
-          ></shared-custom-select>
-
-          <shared-custom-input-field
-            class="input-element-type-1"
-            [formGroup]="addApplicantProfileForm"
-            name="year"
-            [defaultValue]="applicantProfile?.year"
-            placeholder="Year"
-            label="Year"
-            [input]="addApplicantProfileForm.controls['year']"
-            type="number"
-            [submitted]="submitted"
-            [disabled]="hasProfile"
-            [styleObject]="dateStyle"
-            [range]="yearRange"
-            [styleObject]="styleObject"
-          ></shared-custom-input-field>
-
-          <shared-custom-input-field
-            class="input-element-type-1"
-            [formGroup]="addApplicantProfileForm"
-            name="date"
-            [defaultValue]="applicantProfile?.date"
-            placeholder="Date"
-            label="Date"
-            [input]="addApplicantProfileForm.controls['date']"
-            type="number"
-            [submitted]="submitted"
-            [disabled]="hasProfile"
-            [styleObject]="dateStyle"
-            [range]="dateRange"
-          ></shared-custom-input-field>
-        </div>
+        <shared-custom-input-field
+          class="input-element-type-1"
+          [formGroup]="addApplicantProfileForm"
+          name="address"
+          [defaultValue]="applicantProfile?.address"
+          placeholder="Address"
+          label="Address"
+          [input]="addApplicantProfileForm.controls['address']"
+          type="text"
+          [submitted]="submitted"
+          [disabled]="hasProfile"
+          [styleObject]="styleObject"
+        ></shared-custom-input-field>
       </div>
+      <div class="sub-container">
+        <shared-custom-select
+          [valid]="addApplicantProfileForm.controls['month']?.status"
+          (onValueChange)="selectChanged($event, 'month')"
+          name="month"
+          label="Birth Date"
+          [defaultValue]="applicantProfile?.month"
+          [styleObject]="styleObject"
+          class="input-element-type-3"
+          placeholder="Month"
+          [options]="monthOptions"
+          [submitted]="submitted"
+          [disabled]="hasProfile"
+        ></shared-custom-select>
+
+        <shared-custom-input-field
+          class="input-element-type-3"
+          [formGroup]="addApplicantProfileForm"
+          name="year"
+          [defaultValue]="applicantProfile?.year"
+          placeholder="Year"
+          label="Year"
+          [input]="addApplicantProfileForm.controls['year']"
+          type="number"
+          [submitted]="submitted"
+          [disabled]="hasProfile"
+          [styleObject]="dateStyle"
+          [range]="yearRange"
+          [styleObject]="styleObject"
+        ></shared-custom-input-field>
+
+        <shared-custom-input-field
+          class="input-element-type-3"
+          [formGroup]="addApplicantProfileForm"
+          name="date"
+          [defaultValue]="applicantProfile?.date"
+          placeholder="Date"
+          label="Date"
+          [input]="addApplicantProfileForm.controls['date']"
+          type="number"
+          [submitted]="submitted"
+          [disabled]="hasProfile"
+          [styleObject]="styleObject"
+          [range]="dateRange"
+        ></shared-custom-input-field>
+      </div>
+
       <!-- <div *ngIf="!applicantProfile" style="justify-content: space-between;" class="sub-container">
             <shared-custom-file-input
                 class="input-element-type-2"
@@ -247,7 +261,7 @@
                 (onValueChange)="fileChanged($event, 'applicantPicture')"
             ></shared-custom-file-input>
         </div> -->
-      <div style="justify-content: space-between;" class="sub-container">
+      <!-- <div style="justify-content: space-between;" class="sub-container">
         <shared-custom-input-field
           class="input-element-type-2"
           [formGroup]="addApplicantProfileForm"
@@ -261,7 +275,7 @@
           [disabled]="hasProfile"
           [styleObject]="styleObject"
         ></shared-custom-input-field>
-      </div>
+      </div> -->
       <div class="sub-container">
         <shared-custom-select
           [valid]="addApplicantProfileForm.controls['RegionId']?.status"
@@ -318,10 +332,18 @@
         ></shared-textarea-field>
       </div>
       <div class="submit-container">
-        <div (click)="enableEdit($event)" *ngIf="hasProfile && applicantProfile" class="form__edit">
+        <div
+          (click)="enableEdit($event)"
+          *ngIf="hasProfile && applicantProfile"
+          class="form__edit"
+        >
           Edit <fa-icon class="form__edit-icon" [icon]="faEdit"></fa-icon>
         </div>
-        <div (click)="disableEdit()" *ngIf="!hasProfile && applicantProfile" class="form__edit" >
+        <div
+          (click)="disableEdit()"
+          *ngIf="!hasProfile && applicantProfile"
+          class="form__edit"
+        >
           Cancel
         </div>
         <!-- <input
@@ -332,13 +354,22 @@
           [disabled]="hasProfile"
           [value]="applicantProfile ? 'Save Profile' : 'Add Profile'"
         /> -->
-        <app-custom-submit-button *ngIf="!hasProfile" 
+        <app-custom-submit-button
+          *ngIf="!hasProfile"
           [text]="applicantProfile ? 'Save Profile' : 'Add Profile'"
           [loading]="loading"
         ></app-custom-submit-button>
-        
-        <app-custom-notification [show]="success" type="success" [callback]="!applicantProfile ? '/applicant/jobs' : ''"
-          [text]="applicantProfile ? 'Profile Editted Successfully' : 'Profile Submitted Successfully'">
+
+        <app-custom-notification
+          [show]="success"
+          type="success"
+          [callback]="!applicantProfile ? '/applicant/jobs' : ''"
+          [text]="
+            applicantProfile
+              ? 'Profile Editted Successfully'
+              : 'Profile Submitted Successfully'
+          "
+        >
         </app-custom-notification>
       </div>
     </div>
