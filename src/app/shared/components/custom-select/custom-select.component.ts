@@ -53,6 +53,7 @@ export class CustomSelectComponent implements OnInit, OnChanges {
         // console.log(curVal, this.label);
         // console.log(this.options);
         if (curVal) {
+          // console.log(this.options);
           this.currentValue = curVal;
           this.getValue(this.options);
         } else {

@@ -39,7 +39,9 @@ export class AuthLoginComponent implements OnInit {
   loggedIn: boolean;
   eyeIcon = faEyeSlash;
   passwordType: string = "password";
-  submitBtnStyle = {btn: {width: "100%", borderRadius: "5px", fontSize: "2.5rem"}}
+  submitBtnStyle = {
+    btn: { width: "100%", borderRadius: "5px", fontSize: "2.5rem" }
+  };
   login = false;
   socialError = "";
   emailSent = false;
@@ -148,7 +150,7 @@ export class AuthLoginComponent implements OnInit {
     this.authenticationService
       .getUserByEmail(this.f.email.value)
       .subscribe(res => {
-        console.log(res);
+        // console.log(res);
         this.loading = false;
         this.error = "";
         if (res.success) {
@@ -162,10 +164,9 @@ export class AuthLoginComponent implements OnInit {
             this.showOptions = true;
           }
         } else {
-          if(res.message.includes("connect") || res.message.includes("fail")) {
-            this.error = "Can Not Login"
-          }
-          else {
+          if (res.message.includes("connect") || res.message.includes("fail")) {
+            this.error = "Can Not Login";
+          } else {
             this.error = res.error || res.message;
           }
         }
@@ -185,7 +186,7 @@ export class AuthLoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data)
+          // console.log(data)
           if (data.success) {
             this.returnUrl =
               this.router.snapshot.queryParams["returnUrl"] ||
