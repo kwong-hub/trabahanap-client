@@ -4,12 +4,12 @@
   <mat-progress-bar *ngIf="routing" mode="indeterminate" class="progress" color="warn"></mat-progress-bar>
 
   <div class="content-container">
-    <div class="success" [class.active]="slideActive">
+    <!-- <div class="success" [class.active]="slideActive">
       <div class="success__body">
         <i style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
         <span class="text">Please, finish your profile</span>
       </div>
-    </div>
+    </div> -->
 
     <div class="sidebar" [class.sideBarActive]="sideBarActive">
       <h3 class="sidebar__header">Main</h3>
@@ -63,5 +63,10 @@
       <router-outlet></router-outlet>
     </div>
   </div>
+  
+  <app-custom-notification type="error" [show]="slideActive" 
+    text="Please, Finish Your Profile First"> 
+  </app-custom-notification>
+
   <shared-footer></shared-footer>
 </div>
