@@ -3,7 +3,8 @@ import { AdminService } from "@app/_services/admin.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import _ from "lodash";
 import { Time } from "@angular/common";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
+
 @Component({
   selector: "app-add-advertisement",
   templateUrl: "./add-advertisement.component.html",
@@ -34,15 +35,42 @@ export class AddAdvertisementComponent implements OnInit {
     endDate: Date
   };
   times = {
-    adsStart: "",
-    adsEnd: ""
+    adsStart: `00:00`,
+    adsEnd: `23:59`
   };
+  ads: any;
 
   constructor(
     private adminService: AdminService,
     private formBuilder: FormBuilder,
-    private router: Router
-  ) {}
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+
+    this.route.params.subscribe(
+      params => {
+        // if (params.adsId) {
+        //   this.adminService.getAdsById(params.adsId).subscribe(
+        //     success => {
+        //       this.ads = success.ads;
+        //       this.ads.applicationStartDate = this.ads.applicationStartDate.split(
+        //         "T"
+        //       )[0];
+        //       this.ads.applicationEndDate = this.ads.applicationEndDate.split(
+        //         "T"
+        //       )[0];
+        //       // console.log(this.ads.applicationStartDate);
+
+        //       this.ads.locationId = "";
+        //       this.populateFields();
+        //     },
+        //     err => console.log(err)
+        //   );
+        // }
+      },
+      err => console.log(err)
+    );
+  }
 
   ngOnInit() {
     this.addAdsForm = this.formBuilder.group({
@@ -52,6 +80,7 @@ export class AddAdvertisementComponent implements OnInit {
       image: ["", Validators.required],
       websiteURL: ["", Validators.required]
     });
+
   }
   dateChanged(value, name) {
     this.dates[`${name}`] = value;
@@ -97,7 +126,9 @@ export class AddAdvertisementComponent implements OnInit {
           this.AdsAdded = true;
           setTimeout(() => {
             this.AdsAdded = false;
-            this.router.navigate([`/admin/ads`]);
+            this.router.navigate([`../`], {
+              relativeTo: this.route
+            });
           }, 3500);
         }
       },

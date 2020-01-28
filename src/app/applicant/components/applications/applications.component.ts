@@ -31,6 +31,21 @@ export class ApplicationsComponent implements OnInit {
     "companyName",
     "action"
   ];
+  styleObject = {
+    inputContainer: {},
+    input: { fontSize: "2rem" },
+    inputHeader: { fontSize: "2rem", borderBottom: "1px solid #888" },
+    optionContainer: {
+      backgroundColor: "#555",
+      top: "3.3rem",
+      boxShadow: "0px 1px 2px #aaa"
+    },
+    option: {
+      fontSize: "2rem",
+      borderBottom: "1px solid #ddd",
+      backgroundColor: "#fff"
+    }
+  };
   searchForm: FormGroup;
 
   constructor(

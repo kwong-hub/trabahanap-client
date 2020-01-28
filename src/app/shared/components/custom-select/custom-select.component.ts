@@ -27,6 +27,7 @@ export class CustomSelectComponent implements OnInit, OnChanges {
   @Input() styleObject: {
     inputContainer: {};
     inputHeader: {};
+    label:{};
     optionContainer: {};
     option: { color: "blue" };
   };

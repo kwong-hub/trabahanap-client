@@ -13,7 +13,7 @@
     value="{{ default ? default : currentValue ? currentValue : placeholder }}"
     readonly
   />
-  <label class="custom-select__label" [for]="name">{{ label }}</label>
+  <label  [ngStyle]="styleObject?.label" class="custom-select__label" [for]="name">{{ label }}</label>
   <div
     [ngStyle]="styleObject?.optionContainer"
     class="custom-select__options-container"

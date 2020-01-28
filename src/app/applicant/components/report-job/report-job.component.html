@@ -27,12 +27,12 @@
           defalutValue=""
           label="Report Type"
           (onValueChange)="customValueChanged($event, 'reportType')"
-          [styleObject]="selectStyle"
           name="reportType"
           class="input-element-type-3"
           placeholder="--Select Report Category--"
           [options]="options"
           [submitted]="submitted"
+          [styleObject]="styleObject"
         >
         </shared-custom-select>
       </div>
@@ -41,7 +41,7 @@
         <shared-textarea-field
           [disabled]="false"
           defaultValue=""
-          class="input-element-type-2"
+          class="input-element-type-1"
           [formGroup]="reportForm"
           name="comment"
           placeholder="Comment"
@@ -49,6 +49,7 @@
           [input]="reportForm.controls['comment']"
           type="textarea"
           [submitted]="submitted"
+
         >
         </shared-textarea-field>
       </div>
