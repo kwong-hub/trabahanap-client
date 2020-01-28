@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { EmployerService } from "@app/_services/employer.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
@@ -61,6 +61,7 @@ export class LocationDetailComponent implements OnInit {
   editSuccess: boolean;
   modalImgSrc: string | ArrayBuffer;
   formImgSrc: any;
+  // @ViewChild("checkBox", { static: false }) checkbox: ElementRef<HTMLElement>;
 
   constructor(
     private employerService: EmployerService,
@@ -73,9 +74,10 @@ export class LocationDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.Route.snapshot.params.id;
-    console.log(this.id)
+    // console.log(this.id)
     this.getCountries();
     this.getRegions();
+    this.getCities();
 
     this.locationForm = this.formBuilder.group({
       locationName: [{ value: "", disabled: true }, Validators.required],
@@ -133,12 +135,13 @@ export class LocationDetailComponent implements OnInit {
   } // ngOnInit ends here
 
   updateInputs() {
+    this.getCitiesByRegionId(this.location.regionId);
     _.map(this.location, (value, key) => {
       if (this.locationForm.controls[key] && key !== "picture") {
         this.locationForm.controls[key].setValue(value);
       }
     });
-    this.getCitiesByRegionId(this.location.regionId);
+    // this.checkbox.nativeElement. = true;
   }
 
   get form() {
@@ -171,11 +174,26 @@ export class LocationDetailComponent implements OnInit {
     );
   }
 
+  getCities() {
+    this.locationService.getAllCities().subscribe(
+      response => {
+        const cities = response.cities;
+        this.cities = [];
+        // console.log(cities);
+        cities.map(city => {
+          this.cities.push({ name: city.cityName, value: city.id });
+        });
+      },
+      error => console.log(error)
+    );
+  }
+
   getCitiesByRegionId(regionId) {
     this.locationService.getAllRegionCities(regionId).subscribe(
       response => {
         const cities = response.cities;
         this.cities = [];
+        // console.log(cities);
         cities.map(city => {
           this.cities.push({ name: city.cityName, value: city.id });
         });
@@ -239,7 +257,7 @@ export class LocationDetailComponent implements OnInit {
       .editCompanyBranchPicture(this.imageData, this.id)
       .subscribe(
         data => {
-          console.log(data);
+          // console.log(data);
           this.formImgSrc = data.location.picture;
           this.uploading = false;
           this.showModal();
@@ -269,10 +287,10 @@ export class LocationDetailComponent implements OnInit {
       latitude: this.latitude,
       longitude: this.longitude
     };
-    console.log(newLocation);
+    // console.log(newLocation);
     this.employerService.editCompanyBranch(newLocation, this.id).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         this.loading = false;
         if (data.success) {
           this.editSuccess = true;

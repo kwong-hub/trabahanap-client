@@ -88,6 +88,7 @@ export class AddCompanyProfileComponent implements OnInit {
     // this.getCities();
     this.getRegions();
     this.getCountries();
+    this.getCities();
 
     this.inputType = this.authService.currentUserValue.company_profile
       ? "text"
@@ -191,7 +192,7 @@ export class AddCompanyProfileComponent implements OnInit {
 
     this.employerService.addCompanyProfileWithFile(this.formData).subscribe(
       response => {
-       // console.log(response);
+        // console.log(response);
         if (response.success) {
           this.profileAdded = true;
 
@@ -338,6 +339,20 @@ export class AddCompanyProfileComponent implements OnInit {
         this.addCompanyProfileForm.controls["countryId"].setValue(
           countries[0].id
         );
+      },
+      error => console.log(error)
+    );
+  }
+
+  getCities() {
+    this.locationService.getAllCities().subscribe(
+      response => {
+        const cities = response.cities;
+        this.cities = [];
+        // console.log(cities);
+        cities.map(city => {
+          this.cities.push({ name: city.cityName, value: city.id });
+        });
       },
       error => console.log(error)
     );
