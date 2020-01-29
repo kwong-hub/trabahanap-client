@@ -146,12 +146,13 @@
 
         <!-- Form submit button -->
         <div class="form__group">
-          <input
+          <!-- <input
             [class.disabled]="loading"
             type="submit"
             value="Register"
             class="form__submit th-btn th-btn--primary"
-          />
+          /> -->
+          <auth-custom-submit [styleObject]="submitStyle" text="Register" [loading]="loading"></auth-custom-submit>
         </div>
       </form>
     </div>

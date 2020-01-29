@@ -151,7 +151,6 @@ export class AddApplicantProfileComponent implements OnInit {
       this.hasProfile = true;
       this.inputType = "text";
       this.updateForm();
-      console.log(this.applicantProfile);
       this.disableEdit();
       this.getCitiesByRegionId(this.applicantProfile.RegionId);
       this.getRegions();
@@ -299,7 +298,7 @@ export class AddApplicantProfileComponent implements OnInit {
     this.loading = true;
 
     _.map(val, (value, key) => {
-      console.log(key,"=>", value)
+      // console.log(key,"=>", value)
       if (key != "cv" && key != "applicantPicture") {
         this.formData.append(key, value);
       }
@@ -309,7 +308,7 @@ export class AddApplicantProfileComponent implements OnInit {
       .subscribe(
         data => {
           this.loading = false;
-          console.log(data);
+          // console.log(data);
           if (data.success) {
             this.success = true;
             this.applicantProfile = data.applicantProfile;

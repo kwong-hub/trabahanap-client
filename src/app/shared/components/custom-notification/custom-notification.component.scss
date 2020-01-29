@@ -54,132 +54,132 @@ $error-color: #ff0000;
     }
   }
   
-  .notification.active {
-    animation-name: slideAndStay;
+.notification.active {
+  animation-name: slideAndStay;
+  animation-duration: 4.5s;
+
+  .checkmark {
+    position: absolute;
+    top: 1.65rem;
+    left: 0.675rem;
+    height: $check-height;
+    width: $check-width;
+    opacity: 0;
+    transform-origin: left top;
+    border-right: 3px solid $success-color;
+    border-top: 3px solid $success-color;
+    border-top-right-radius: 3px;
     animation-duration: 4.5s;
+    animation-timing-function: ease;
+    animation-name: checkmark;
+    animation-delay: .45s;
+    transform: scaleX(-1) rotate(135deg);
+  }
 
-    .checkmark {
-      position: absolute;
-      top: 1.65rem;
-      left: 0.675rem;
-      height: $check-height;
-      width: $check-width;
-      opacity: 0;
-      transform-origin: left top;
-      border-right: 3px solid $success-color;
-      border-top: 3px solid $success-color;
-      border-top-right-radius: 3px;
+  .timesmark {
+    animation-duration: 4.5s;
+    animation-timing-function: ease;
+    animation-name: cross-left;
+    animation-delay: .45s;
+    top: 0.7rem;
+    left: 1.3rem;
+    transform: rotate(135deg);
+    
+    &::before {
+      content: '';
+      transform: rotate(90deg);
       animation-duration: 4.5s;
       animation-timing-function: ease;
-      animation-name: checkmark;
-      animation-delay: .45s;
-      transform: scaleX(-1) rotate(135deg);
+      animation-name: cross-right;
+      animation-delay: .6s;
     }
-
-    .timesmark {
-      animation-duration: 4.5s;
-      animation-timing-function: ease;
-      animation-name: cross-left;
-      animation-delay: .45s;
-      top: 0.7rem;
-      left: 1.3rem;
-      transform: rotate(135deg);
-      
-      &::before {
-        content: '';
-        transform: rotate(90deg);
-        animation-duration: 4.5s;
-        animation-timing-function: ease;
-        animation-name: cross-right;
-        animation-delay: .6s;
-      }
-      
-      &, &::before {
-        position: absolute;
-        width: 3px;
-        height: 0;
-        background-color: $error-color;
-        display: inline-block;
-        opacity: 0;
-      }
+    
+    &, &::before {
+      position: absolute;
+      width: 3px;
+      height: 0;
+      background-color: $error-color;
+      display: inline-block;
+      opacity: 0;
     }
   }
-  
-  @keyframes slideAndStay {
-    0% {
-      transform: translate(-40%, 200%);
-      visibility: hidden;
-    }
-    10% {
+}
+
+@keyframes slideAndStay {
+  0% {
+    transform: translate(-40%, 200%);
+    visibility: hidden;
+  }
+  10% {
+    transform: translate(-40%, 0%);
+    opacity: 1;
+    visibility: visible;
+  }
+  85% {
       transform: translate(-40%, 0%);
       opacity: 1;
       visibility: visible;
     }
-    85% {
-        transform: translate(-40%, 0%);
-        opacity: 1;
-        visibility: visible;
-      }
-    100% {
-      transform: translate(-40%, 200%);
-      opacity: 0;
-      visibility: hidden;
-    }
+  100% {
+    transform: translate(-40%, 200%);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  2% {
+    height: 0;
+    width: $check-width;
+    opacity: 1;
+  }
+  5% {
+    height: $check-height;
+    width: $check-width;
+    opacity: 1;
+  }
+  100% {
+    height: $check-height;
+    width: $check-width;
+    opacity: 1;
+  }
+}
+
+@keyframes cross-left {
+  0% {
+    opacity: 0;
+    height: 0;
   }
 
-  @keyframes checkmark {
-    0% {
-      height: 0;
-      width: 0;
-      opacity: 1;
-    }
-    2% {
-      height: 0;
-      width: $check-width;
-      opacity: 1;
-    }
-    5% {
-      height: $check-height;
-      width: $check-width;
-      opacity: 1;
-    }
-    100% {
-      height: $check-height;
-      width: $check-width;
-      opacity: 1;
-    }
+  2% {
+    opacity: 1;
+    height: $check-height;
   }
 
-  @keyframes cross-left {
-    0% {
-      opacity: 0;
-      height: 0;
-    }
+  100% {
+    opacity: 1;
+    height: $check-height;
+  }
+}
 
-    2% {
-      opacity: 1;
-      height: $check-height;
-    }
-
-    100% {
-      opacity: 1;
-      height: $check-height;
-    }
+@keyframes cross-right {
+  0% {
+    opacity: 0;
+    height: 0;
   }
 
-  @keyframes cross-right {
-    0% {
-      opacity: 0;
-      height: 0;
-    }
-
-    2% {
-      opacity: 1;
-      height: $check-height;
-    }
-
-    100% {
-      opacity: 1;
-      height: $check-height;
-    }
+  2% {
+    opacity: 1;
+    height: $check-height;
   }
+
+  100% {
+    opacity: 1;
+    height: $check-height;
+  }
+}

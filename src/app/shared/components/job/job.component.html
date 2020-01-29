@@ -34,12 +34,12 @@
     </div>
   </div>
   <div class="job__right">
-    <button
+    <!-- <button
       [routerLink]="['details', Job.jobId]"
       class="btn-outline job__detail-button"
     >
       Details
-    </button>
+    </button> -->
     <div class="job__general-info">
       <div class="job__info job__info-applicants">
         2 Applicants have applied
@@ -47,9 +47,8 @@
       <div class="job__info job__info-vacancies">
         {{ Job.vacancies }} Vacancies
       </div>
-      <div *ngIf="Job.pwd" class="job__info job__info-pwd">
-        <i style="margin-right: .5rem" class="fab fa-accessible-icon"></i
-        >PwD-Friendly
+      <div  class="job__info job__info-pwd">
+        <img src="../../../../assets/img/pwd.jpeg" alt="" class="pwd-img"> PwD-Friendly
       </div>
     </div>
   </div>
