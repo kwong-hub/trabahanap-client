@@ -60,6 +60,11 @@ export class ApplicationsListComponent implements OnInit {
       applicantName: ["", Validators.nullValidator],
       jobtitle: ["", Validators.nullValidator]
     });
+    let elem = document.getElementsByClassName("overlay");
+    elem[0].addEventListener("click", () => {
+      this.filterHidden = true;
+     // console.log(this.filterHidden);
+    });
   }
 
   getServerData(page) {

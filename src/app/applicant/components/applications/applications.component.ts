@@ -57,7 +57,7 @@ export class ApplicationsComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         this.jobs = data.jobs.rows;
         this.pager = data.jobs.pager;
         // this.pager = s
@@ -67,9 +67,7 @@ export class ApplicationsComponent implements OnInit {
 
     let elem = document.getElementsByClassName("overlay");
     elem[0].addEventListener("click", () => {
-      // this.openActions = {};
       this.filterHidden = true;
-      console.log(this.filterHidden);
     });
 
     this.searchForm = this.formBuilder.group({
