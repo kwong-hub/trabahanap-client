@@ -5,8 +5,8 @@
     <div class="sub-modulte-container__jobs">
       <app-job-employer [Job]="job"></app-job-employer>
     </div>
-    <div class="applicant-detail__top">
-      <div class="applicnat-detail__image-container">
+    <div  class="applicant-detail__top">
+      <div *ngIf='applicant.applicantPicture' class="applicnat-detail__image-container">
         <img
           [src]="applicant?.applicantPicture"
           alt="Profile Picture"
@@ -53,11 +53,11 @@
         </p>
       </div>
     </div>
-    <div class="applicant-detail__bottom">
+    <div *ngIf='applicant.cv'  class="applicant-detail__bottom">
       <div class="applicant-detail__download">
         Download Applicant CV
         <a
-          [href]="applicant.cv"
+          [href]="applicant?.cv"
           target="_blank"
           class="applicant-detail__download-cv"
           ><i class="fas fa-download"></i

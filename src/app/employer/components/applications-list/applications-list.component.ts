@@ -30,9 +30,9 @@ export class ApplicationsListComponent implements OnInit {
   public page: any;
   searchForm: FormGroup;
   displayedColumns: string[] = [
-    "firstName",
-    "email",
     "jobtitle",
+    "firstName",
+    "email", 
     "applicationDate",
     "hired",
     "detail"
