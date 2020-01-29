@@ -73,7 +73,6 @@ export class JobsListComponent {
     elem[0].addEventListener("click", () => {
       this.openActions = {};
       this.filterHidden = true;
-      console.log(this.filterHidden);
     });
 
     document.addEventListener("click", () => {
@@ -95,7 +94,6 @@ export class JobsListComponent {
   deleteJob($event) {
     if ($event) {
       this.EmployerService.deleteEmployerJob(this.deletedId).subscribe(data => {
-        console.log(data, "this is deleted job");
         if (data.success) {
           this.jobs = this.jobs.filter(item => {
             if (item.id !== data.job.id) {

@@ -55,7 +55,7 @@ $error-color: #ff0000;
   }
   
 .notification.active {
-  animation-name: slideAndStay;
+  animation-name: popOut;
   animation-duration: 4.5s;
 
   .checkmark {
@@ -105,7 +105,7 @@ $error-color: #ff0000;
   }
 }
 
-@keyframes slideAndStay {
+@keyframes popOut {
   0% {
     transform: translate(-40%, 200%);
     visibility: hidden;

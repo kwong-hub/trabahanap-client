@@ -135,7 +135,6 @@ export class JobsListComponent implements OnInit {
     elem[0].addEventListener("click", () => {
       this.openActions = {};
       this.filterHidden = true;
-      console.log(this.filterHidden);
     });
 
     this.CITIES$ = this.citySearchTerms.pipe(
@@ -200,7 +199,6 @@ export class JobsListComponent implements OnInit {
             this.pager = this.resultJobs.pager;
             this.page = this.resultJobs.pager.currentPage + 1;
             if (this.pager.totalItems < 8) {
-              console.log("s");
               this.belowScroll = false;
               this.reachedPageEnd = true;
             } else {

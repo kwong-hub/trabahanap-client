@@ -49,9 +49,7 @@ export class CompaniesComponent implements OnInit {
   ngOnInit() {
     let elem = document.getElementsByClassName("overlay");
     elem[0].addEventListener("click", () => {
-      // this.openActions = {};
       this.filterHidden = true;
-      console.log(this.filterHidden);
     });
 
     this.searchForm = this.formBuilder.group({
@@ -62,7 +60,6 @@ export class CompaniesComponent implements OnInit {
 
     this.route.data.subscribe(
       data => {
-        console.log(data);
         this.pager = data.jobs.pager;
         this.jobs = data.jobs.rows;
       },
@@ -87,7 +84,6 @@ export class CompaniesComponent implements OnInit {
         this.page || 1
       )
       .subscribe(data => {
-        console.log(data);
         this.jobs = data.jobs.rows;
         this.pager = data.jobs.pager;
       });
