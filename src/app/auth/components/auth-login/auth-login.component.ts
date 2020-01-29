@@ -20,11 +20,11 @@ import { Role } from "@app/_models/Role";
 export class AuthLoginComponent implements OnInit {
   emailForm: FormGroup;
   passwordForm: FormGroup;
-  questionaryForm: FormGroup;
+  questionnaireForm: FormGroup;
   smsConfirmationForm: FormGroup;
   showEmailForm = true;
   showPasswordForm = false;
-  showQuestionaryForm = false;
+  showquestionnaireForm = false;
   showSmsConfirmationForm = false;
   showOptions = false;
   loading = false;
@@ -70,7 +70,7 @@ export class AuthLoginComponent implements OnInit {
     this.passwordForm = this.formBuilder.group({
       password: ["", Validators.required]
     });
-    this.questionaryForm = this.formBuilder.group({
+    this.questionnaireForm = this.formBuilder.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
       phoneNumber: [""]
@@ -132,8 +132,8 @@ export class AuthLoginComponent implements OnInit {
     return this.passwordForm.controls;
   }
 
-  get fQuestionary() {
-    return this.questionaryForm.controls;
+  get fQuestionnaire() {
+    return this.questionnaireForm.controls;
   }
 
   get fSMS() {
@@ -204,9 +204,9 @@ export class AuthLoginComponent implements OnInit {
       );
   }
 
-  onQuestionarySubmit() {
+  onQuestionnaireSubmit() {
     this.submitted = true;
-    if (this.questionaryForm.invalid) {
+    if (this.questionnaireForm.invalid) {
       return;
     }
     this.loading = true;
@@ -214,16 +214,16 @@ export class AuthLoginComponent implements OnInit {
     this.authenticationService
       .checkValidUser({
         email: this.lgUser.email,
-        firstName: this.fQuestionary.firstName.value,
-        lastName: this.fQuestionary.lastName.value,
-        phoneNumber: this.fQuestionary.phoneNumber.value
+        firstName: this.fQuestionnaire.firstName.value,
+        lastName: this.fQuestionnaire.lastName.value,
+        phoneNumber: this.fQuestionnaire.phoneNumber.value
       })
       .subscribe(res => {
         this.loading = false;
         this.error = "";
         if (res.success && res.user.valid) {
           this.submitted = false;
-          this.showQuestionaryForm = false;
+          this.showquestionnaireForm = false;
           this.route.navigate(["/auth/set-password"], {
             queryParams: { token: res.user.token }
           });
@@ -287,10 +287,10 @@ export class AuthLoginComponent implements OnInit {
       });
   }
 
-  toQuestionary() {
+  toQuestionnaire() {
     this.disable["question"] = true;
     this.showOptions = false;
-    this.showQuestionaryForm = true;
+    this.showquestionnaireForm = true;
   }
 
   backToSignIn() {
@@ -301,7 +301,7 @@ export class AuthLoginComponent implements OnInit {
 
   backToOptions() {
     this.showOptions = true;
-    this.showQuestionaryForm = false;
+    this.showquestionnaireForm = false;
     this.showSmsConfirmationForm = false;
     this.disable = {};
   }

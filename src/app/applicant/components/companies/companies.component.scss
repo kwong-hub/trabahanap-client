@@ -30,7 +30,9 @@ table {
   top: 6.5rem;
   z-index: 2;
   padding: 1.8rem 2rem;
-  margin-left: -9rem;
+
+  //padding-right: 2rem;
+  margin-left: -6rem;
   justify-content: space-between;
 
   &__header {
