@@ -56,9 +56,11 @@
             value="NEXT"
             class="form__submit th-btn th-btn--primary"
           /> -->
-          <auth-custom-submit [styleObject]="submitBtnStyle" [loading]="loading"
-          text="Next"
-        ></auth-custom-submit>
+          <auth-custom-submit
+            [styleObject]="submitBtnStyle"
+            [loading]="loading"
+            text="Next"
+          ></auth-custom-submit>
         </div>
         <div
           style="width: 100%; text-align: center; font-size: 1.6rem; margin: 2rem 0rem; font-weight: 700;"
@@ -195,9 +197,11 @@
             value="LOGIN"
             class="form__submit th-btn th-btn--primary"
           /> -->
-          <auth-custom-submit [styleObject]="submitBtnStyle" [loading]="loading"
+          <auth-custom-submit
+            [styleObject]="submitBtnStyle"
+            [loading]="loading"
             text="Login"
-        ></auth-custom-submit>
+          ></auth-custom-submit>
         </div>
         <!-- <div style="width: 100%; text-align: center; font-size: 1.6rem; margin: 2rem 0rem; font-weight: 700;" class="form_group">-- OR --</div>
                 <div style="text-align: center; display: flex; justify-content: center; flex-direction: column;" class="form__group">
@@ -209,7 +213,7 @@
   </div>
   <div
     class="form-container form-container__section_three"
-    [class.form-container__hide]="!showQuestionaryForm"
+    [class.form-container__hide]="!showquestionnaireForm"
   >
     <div (click)="backToOptions()" class="form-container__back">
       &#9668;Back
@@ -220,7 +224,7 @@
         alt=""
         class="header-logo"
       />
-      <h3 class="header-text">Questionary</h3>
+      <h3 class="header-text">Questionnaire</h3>
       <h5 class="header-text__sub">
         For security reasons you need to fill these questionaries.
       </h5>
@@ -230,13 +234,13 @@
       <form
         action="#"
         class="form"
-        [formGroup]="questionaryForm"
-        (ngSubmit)="onQuestionarySubmit()"
+        [formGroup]="questionnaireForm"
+        (ngSubmit)="onQuestionnaireSubmit()"
       >
         <div *ngIf="error" class="form__error">{{ error | uppercase }}</div>
         <div
           class="form__group"
-          [class.form__group__animate]="showQuestionaryForm"
+          [class.form__group__animate]="showquestionnaireForm"
         >
           <input
             type="text"
@@ -245,21 +249,21 @@
             class="form__input form__input--password"
             placeholder="First Name"
             [class.form__input--error]="
-              submitted && fQuestionary.firstName.errors
+              submitted && fQuestionnaire.firstName.errors
             "
             formControlName="firstName"
             [ngClass]="{
-              'is-invalid': submitted && fQuestionary.firstName.errors
+              'is-invalid': submitted && fQuestionnaire.firstName.errors
             }"
           />
           <label class="form__label" for="firstName">First Name</label>
           <div
-            *ngIf="submitted && fQuestionary.firstName.errors"
+            *ngIf="submitted && fQuestionnaire.firstName.errors"
             class="invalid-feedback"
           >
             <div
               class="invalid-feedback__message"
-              *ngIf="fQuestionary.firstName.errors.required"
+              *ngIf="fQuestionnaire.firstName.errors.required"
             >
               First Name is required
             </div>
@@ -268,7 +272,7 @@
 
         <div
           class="form__group"
-          [class.form__group__animate]="showQuestionaryForm"
+          [class.form__group__animate]="showquestionnaireForm"
         >
           <input
             type="text"
@@ -277,21 +281,21 @@
             class="form__input form__input--password"
             placeholder="Last Name"
             [class.form__input--error]="
-              submitted && fQuestionary.lastName.errors
+              submitted && fQuestionnaire.lastName.errors
             "
             formControlName="lastName"
             [ngClass]="{
-              'is-invalid': submitted && fQuestionary.lastName.errors
+              'is-invalid': submitted && fQuestionnaire.lastName.errors
             }"
           />
           <label class="form__label" for="lastName">Last Name</label>
           <div
-            *ngIf="submitted && fQuestionary.lastName.errors"
+            *ngIf="submitted && fQuestionnaire.lastName.errors"
             class="invalid-feedback"
           >
             <div
               class="invalid-feedback__message"
-              *ngIf="fQuestionary.lastName.errors.required"
+              *ngIf="fQuestionnaire.lastName.errors.required"
             >
               Last Name is required
             </div>
@@ -299,30 +303,34 @@
         </div>
         <div
           class="form__group"
-          [class.form__group__animate]="showQuestionaryForm"
+          [class.form__group__animate]="showquestionnaireForm"
         >
           <input
             type="number"
             name="phoneNumber"
             id="phoneNumber"
             class="form__input form__input--password"
-            placeholder="Phone Number"
+            [placeholder]="
+              lgUser.phoneNumber
+                ? '--------' + lgUser?.phoneNumber
+                : 'Phone Number'
+            "
             [class.form__input--error]="
-              submitted && fQuestionary.phoneNumber.errors
+              submitted && fQuestionnaire.phoneNumber.errors
             "
             formControlName="phoneNumber"
             [ngClass]="{
-              'is-invalid': submitted && fQuestionary.phoneNumber.errors
+              'is-invalid': submitted && fQuestionnaire.phoneNumber.errors
             }"
           />
           <label class="form__label" for="phoneNumber">Phone Number</label>
           <div
-            *ngIf="submitted && fQuestionary.phoneNumber.errors"
+            *ngIf="submitted && fQuestionnaire.phoneNumber.errors"
             class="invalid-feedback"
           >
             <div
               class="invalid-feedback__message"
-              *ngIf="fQuestionary.phoneNumber.errors.required"
+              *ngIf="fQuestionnaire.phoneNumber.errors.required"
             >
               Phone Number required
             </div>
@@ -331,7 +339,7 @@
 
         <div
           class="form__group"
-          [class.form__group__animate]="showQuestionaryForm"
+          [class.form__group__animate]="showquestionnaireForm"
         >
           <input
             [class.disabled]="loading"
@@ -462,11 +470,11 @@
         &bull;&bull;&bull;&bull;&bull;{{ lgUser?.phoneNumber }}
       </div> -->
       <div
-        (click)="toQuestionary()"
+        (click)="toQuestionnaire()"
         class="contact_method__option"
         [class.disable]="disable?.question"
       >
-        <span class="contact_method__arrow">&#8594;</span> Fill a Questionary
+        <span class="contact_method__arrow">&#8594;</span> Fill a Questionnaire
       </div>
     </div>
   </div>
