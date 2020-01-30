@@ -28,6 +28,9 @@ export class AuthRegisterComponent implements OnInit {
     feedbackContainer: {},
     feedbackMessage: { fontSize: "1.5rem" }
   };
+  defaultLimit ={max:"50",min:"0"};
+  numberRange={max:"16",min:"10"};
+  passwordLimit = {max:"24",min:"6"}
   submitStyle = { btn: {width: "100%", borderRadius: "5px"}}
   eyeIcon = faEyeSlash;
   error;
@@ -50,12 +53,12 @@ export class AuthRegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group(
       {
         firstName: ["", Validators.required],
-        lastName: ["", Validators.required],
+        lastName: ["",Validators.required],
         email: [
           "",
           Validators.compose([Validators.required, Validators.email])
         ],
-        phoneNumber: ["", Validators.required],
+        phoneNumber: ["", [Validators.required]],
         password: ["", [Validators.required, Validators.minLength(6)]],
         passwordConfirm: ["", Validators.required],
         recaptcha: ["", Validators.required]

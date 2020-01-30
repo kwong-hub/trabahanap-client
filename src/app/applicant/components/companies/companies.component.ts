@@ -92,7 +92,7 @@ export class CompaniesComponent implements OnInit {
   }
 
   getServerData(page) {
-    this.applicantService.getSavedJobs(page.pageIndex + 1).subscribe(
+    this.applicantService.getSavedJobs(page.pageIndex + 1,page.pageSize).subscribe(
       data => {
         if (data.success == true) {
           this.jobs = data.jobs.rows;

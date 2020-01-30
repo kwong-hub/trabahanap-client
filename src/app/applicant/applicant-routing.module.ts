@@ -20,6 +20,7 @@ import { ChangePasswordComponent } from "@app/shared/components/change-password/
 import { JobDetailResolverService } from "@app/_resolvers/job-detail-resolver.service";
 import { ReportJobComponent } from "./components/report-job/report-job.component";
 import { ApplicantProfileResolverService } from "@app/_resolvers/applicant-resolvers/applicant-profile-resolver.service";
+import { ApplicantDashboardResolverService } from '@app/_resolvers/applicant-resolvers/applicant-dashboard-resolver.service';
 
 const routes: Routes = [
   {
@@ -27,7 +28,7 @@ const routes: Routes = [
     component: ApplicantComponent,
     children: [
       { path: "", redirectTo: "home", pathMatch: "full" },
-      { path: "home", canActivate: [ApplicantGuard], component: HomeComponent },
+      { path: "home", canActivate: [ApplicantGuard], component: HomeComponent, resolve: { dashRes: ApplicantDashboardResolverService } },
       { path: "jobs", canActivate: [ApplicantGuard], component: JobsComponent },
       {
         path: "applications",

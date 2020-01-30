@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   constructor(private Route: ActivatedRoute) {
     this.Route.data.subscribe(res => {
       let data = res.dashRes;
+      console.log(data)
       if (data.success) {
         let stats = data.stats;
         this.dashboardItem1 = {

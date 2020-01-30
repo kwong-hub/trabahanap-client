@@ -84,6 +84,8 @@ export class IssueFormComponent implements OnInit {
       return;
     }
 
+    this.formData = new FormData();
+
     this.loading = true;
 
     let val = this.issueForm.value;
