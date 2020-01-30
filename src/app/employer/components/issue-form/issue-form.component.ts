@@ -99,9 +99,10 @@ export class IssueFormComponent implements OnInit {
 
     this.employerService.sendIssue(this.formData).subscribe(
       data => {
-        console.log(data);
+        
         if (data.success) {
           this.issueForm.reset();
+          this.formData=new FormData();
           this.issueSuccess = true;
           this.submitted = false;
           this.loading = false;

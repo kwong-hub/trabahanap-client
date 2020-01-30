@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { faEdit, faCamera, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { tileLayer, latLng, marker, icon, Point, LatLng } from "leaflet";
-import { Location } from "@angular/common";
-import { LocationService } from "@app/_services/location.service";
-import _ from "lodash";
-import { AdminService } from "@app/_services/admin.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { faEdit, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { tileLayer, latLng, marker, icon, Point, LatLng } from 'leaflet';
+import { Location } from '@angular/common';
+import { LocationService } from '@app/_services/location.service';
+import _ from 'lodash';
+import { AdminService } from '@app/_services/admin.service';
 
 @Component({
-  selector: "app-company-location-detail",
-  templateUrl: "./company-location-detail.component.html",
-  styleUrls: ["./company-location-detail.component.scss"]
+  selector: 'app-company-location-detail',
+  templateUrl: './company-location-detail.component.html',
+  styleUrls: ['./company-location-detail.component.scss']
 })
 export class CompanyLocationDetailComponent implements OnInit {
   location;
@@ -28,16 +28,16 @@ export class CompanyLocationDetailComponent implements OnInit {
   submitted = false;
   selectStyle = {
     inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   isModalVisible: boolean = false;
@@ -46,9 +46,9 @@ export class CompanyLocationDetailComponent implements OnInit {
   uploading: boolean = false;
   options = {
     layers: [
-      tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
-        attribution: "..."
+        attribution: '...'
       })
     ],
     zoom: 20,
@@ -89,13 +89,13 @@ export class CompanyLocationDetailComponent implements OnInit {
     console.log(this.location);
 
     this.locationForm = this.formBuilder.group({
-      locationName: [{ value: "", disabled: true }, Validators.required],
-      locationPhoneNumber: [{ value: "", disabled: true }, Validators.required],
-      email: [{ value: "", disabled: true }, Validators.required],
-      address: [{ value: "", disabled: true }],
-      cityId: [{ value: "", disabled: true }, Validators.required],
-      regionId: [{ value: "", disabled: true }, Validators.required],
-      countryId: [{ value: "", disabled: true }, Validators.required],
+      locationName: [{ value: '', disabled: true }, Validators.required],
+      locationPhoneNumber: [{ value: '', disabled: true }, Validators.required],
+      email: [{ value: '', disabled: true }, Validators.required],
+      address: [{ value: '', disabled: true }],
+      cityId: [{ value: '', disabled: true }, Validators.required],
+      regionId: [{ value: '', disabled: true }, Validators.required],
+      countryId: [{ value: '', disabled: true }, Validators.required],
       isHeadOffice: [false]
     });
 
@@ -109,25 +109,25 @@ export class CompanyLocationDetailComponent implements OnInit {
       icon: icon({
         iconSize: [25, 41],
         iconAnchor: [13, 41],
-        iconUrl: "assets/marker-icon.png",
-        shadowUrl: "assets/marker-shadow.png"
+        iconUrl: 'assets/marker-icon.png',
+        shadowUrl: 'assets/marker-shadow.png'
       }),
       draggable: true,
       autoPan: true,
       autoPanPadding: new Point(70, 70)
     });
-    this.marker.on("dragend", e => {
+    this.marker.on('dragend', e => {
       ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
     });
 
     this.pictureUpdate = this.formBuilder.group({
-      picture: ["picture"]
+      picture: ['picture']
     });
   } // ngOnInit ends here
 
   updateInputs() {
     _.map(this.location, (value, key) => {
-      if (this.locationForm.controls[key] && key !== "picture") {
+      if (this.locationForm.controls[key] && key !== 'picture') {
         this.locationForm.controls[key].setValue(value);
       }
     });
@@ -146,7 +146,7 @@ export class CompanyLocationDetailComponent implements OnInit {
           this.countries.push({ name: country.countryName, value: country.id });
         });
 
-        this.locationForm.controls["countryId"].setValue(countries[0].id);
+        this.locationForm.controls['countryId'].setValue(countries[0].id);
       },
       error => console.log(error)
     );
@@ -178,17 +178,17 @@ export class CompanyLocationDetailComponent implements OnInit {
   }
 
   selectChanged(value, name) {
-    if (name == "regionId") {
+    if (name == 'regionId') {
       this.getCitiesByRegionId(value);
     }
     this.locationForm.controls[name].setValue(value);
   }
 
   enableEdit() {
+    this.isDisabled = false;
     Object.keys(this.locationForm.controls).forEach(controlName => {
       this.locationForm.controls[controlName].enable();
     });
-    this.isDisabled = false;
   }
 
   showModal() {
@@ -223,23 +223,21 @@ export class CompanyLocationDetailComponent implements OnInit {
 
   onUpdatePicture() {
     this.uploading = true;
-    this.adminService
-      .editCompanyBranchPicture(this.imageData, this.id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.formImgSrc = data.location.picture;
-          this.uploading = false;
-          this.showModal();
-          this.editSuccess = true;
-          setTimeout(() => {
-            this.editSuccess = false;
-          }, 4000);
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    this.adminService.editCompanyBranchPicture(this.imageData, this.id).subscribe(
+      data => {
+        console.log(data);
+        this.formImgSrc = data.location.picture;
+        this.uploading = false;
+        this.showModal();
+        this.editSuccess = true;
+        setTimeout(() => {
+          this.editSuccess = false;
+        }, 4000);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   onSubmit() {

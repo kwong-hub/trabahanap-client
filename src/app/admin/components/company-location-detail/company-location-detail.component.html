@@ -1,9 +1,6 @@
 <div class="notification notification--success" [class.active]="editSuccess">
   <div class="notification__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
+    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
     <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
     <span class="text">Successfully editted company branch</span>
@@ -22,11 +19,7 @@
   </div>
   <div class="modal__body">
     <div class="image-preview" [class.loading]="uploading">
-      <img
-        [src]="modalImgSrc ? modalImgSrc : 'assets/img/building.png'"
-        alt=""
-        class="img"
-      />
+      <img [src]="modalImgSrc ? modalImgSrc : 'assets/img/building.png'" alt="" class="img" />
       <div class="progress"></div>
     </div>
 
@@ -63,35 +56,17 @@
 </div>
 
 <div *ngIf="location" class="container">
-  <form
-    class="form"
-    [formGroup]="locationForm"
-    enctype="multipart/form-data"
-    action="#"
-    (ngSubmit)="onSubmit()"
-  >
-    <div
-      *ngIf="isDisabled"
-      title="Edit Location"
-      (click)="enableEdit()"
-      class="form__icon"
-    >
+  <form class="form" [formGroup]="locationForm" enctype="multipart/form-data" action="#" (ngSubmit)="onSubmit()">
+    <div *ngIf="isDisabled" title="Edit Location" (click)="enableEdit()" class="form__icon">
       <fa-icon class="form__icon__edit" [icon]="faEdit"></fa-icon>
     </div>
 
     <div class="form__group--imageContainer">
-      <img
-        class="image"
-        [src]="formImgSrc ? formImgSrc : 'assets/img/building.png'"
-        alt="applicant-picture"
-      />
+      <img class="image" [src]="formImgSrc ? formImgSrc : 'assets/img/building.png'" alt="applicant-picture" />
       <!-- <img [src]="formImgSrc" alt="@location_Picture" class="image"> -->
       <div class="menu" (click)="showModal()">
         <span title="Edit Image" class="menu__item menu__item--change">
-          <fa-icon
-            style="color: rgba(0, 0, 0, 0.6)"
-            [icon]="faCamera"
-          ></fa-icon>
+          <fa-icon style="color: rgba(0, 0, 0, 0.6)" [icon]="faCamera"></fa-icon>
           <!-- Change -->
         </span>
         <!-- <span (click)="clicked()" class="menu__item menu__item--delete">
@@ -203,6 +178,7 @@
     <div class="form__group">
       <div class="checkbox">
         <input
+          [attr.disabled]="false"
           type="checkbox"
           formControlName="isHeadOffice"
           name="isHeadOffice"
@@ -232,12 +208,7 @@
   </form>
 
   <div class="map-container">
-    <div
-      style="height: 100%;"
-      leaflet
-      [leafletOptions]="options"
-      (leafletClick)="mapClicked($event)"
-    >
+    <div style="height: 100%;" leaflet [leafletOptions]="options" (leafletClick)="mapClicked($event)">
       <div [leafletLayer]="marker"></div>
     </div>
   </div>

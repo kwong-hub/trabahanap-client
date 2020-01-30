@@ -1,8 +1,5 @@
 <div class="footer-container">
-  <div
-    *ngIf="!authenticationService.currentUserValue"
-    class="footer footer__primary"
-  >
+  <div *ngIf="!authenticationService.currentUserValue" class="footer footer__primary">
     <div class="footer footer__logo-text">
       <img src="assets/img/th_footer_logo.png" alt="th-logo" class="ft-logo" />
       <!-- <p class="logo-text">Ang TrabaHanap ay isang job-hunting site na tutulong sa mga aplikanteng makahanap ng trabaho na malapit sa iyo.</p> -->
@@ -12,13 +9,27 @@
                 <div>Home</div>
                 <div>Jobs</div>
             </div> -->
-      <div class="">
-        <div class="">Terms & Conditions</div>
-        <div class="">Privacy Policy</div>
+      <div style="display: flex; flex-direction: column">
+        <a
+          routerLink="/legal"
+          title="Terms & Conditions"
+          style="color: #fff; text-decoration: none; font-size: 1.4rem; margin-bottom: .5rem"
+          >Terms & Conditions</a
+        >
+        <a
+          routerLink="/privacy"
+          title="Privacy Policy"
+          style="color: #fff; text-decoration: none; font-size: 1.4rem; margin-bottom: .5rem"
+          >Privacy Policy</a
+        >
       </div>
       <div class="">
-        <div>About us</div>
-        <div>Contact us</div>
+        <a
+          routerLink="/about"
+          title="Terms & Conditions"
+          style="color: #fff; text-decoration: none; font-size: 1.4rem; margin-bottom: .5rem"
+          >About Us</a
+        >
       </div>
     </div>
     <div class="footer footer__social">
@@ -26,10 +37,11 @@
     </div>
   </div>
   <div class="footer footer__secondary">
-    <div class="secondary-sub">2019 Trabahanap.com All Rigths Reserved.</div>
+    <div class="secondary-sub">{{ year }} Trabahanap.com All Rigths Reserved.</div>
     <div class="secondary-sub">
-      <a href="#" class="sub-link">Terms & Conditions</a> |
-      <a href="#" class="sub-link">Privacy Policy</a>
+      <a routerLink="/legal" title="Terms & Conditions" class="sub-link">Terms & Conditions</a>
+      |
+      <a routerLink="/privacy" title="Privacy Policy" class="sub-link">Privacy Policy</a>
     </div>
   </div>
 </div>

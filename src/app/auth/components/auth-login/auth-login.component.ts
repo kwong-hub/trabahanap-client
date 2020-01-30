@@ -1,49 +1,44 @@
-import { Component, OnInit } from "@angular/core";
-import { first } from "rxjs/operators";
-import {
-  AuthService,
-  FacebookLoginProvider,
-  SocialUser,
-  GoogleLoginProvider
-} from "angularx-social-login";
-import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
-import { Validators, FormBuilder, FormGroup } from "@angular/forms";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Role } from "@app/_models/Role";
+import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { AuthService, FacebookLoginProvider, SocialUser, GoogleLoginProvider } from 'angularx-social-login';
+import { faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Role } from '@app/_models/Role';
 
 @Component({
-  selector: "app-auth-login",
-  templateUrl: "./auth-login.component.html",
-  styleUrls: ["./auth-login.component.scss"]
+  selector: 'app-auth-login',
+  templateUrl: './auth-login.component.html',
+  styleUrls: ['./auth-login.component.scss']
 })
 export class AuthLoginComponent implements OnInit {
   emailForm: FormGroup;
   passwordForm: FormGroup;
-  questionaryForm: FormGroup;
+  questionnaireForm: FormGroup;
   smsConfirmationForm: FormGroup;
   showEmailForm = true;
   showPasswordForm = false;
-  showQuestionaryForm = false;
+  showquestionnaireForm = false;
   showSmsConfirmationForm = false;
   showOptions = false;
   loading = false;
   submitted = false;
   homeUrl: string;
-  error = "";
-  registerType = "applicant"; // who is to be registered: Employer or Applicant; default Applicant
+  error = '';
+  registerType = 'applicant'; // who is to be registered: Employer or Applicant; default Applicant
   registerSuccess: boolean;
   returnUrl: any;
   user: SocialUser;
   lgUser: any = {};
   loggedIn: boolean;
   eyeIcon = faEyeSlash;
-  passwordType: string = "password";
+  passwordType: string = 'password';
   submitBtnStyle = {
-    btn: { width: "100%", borderRadius: "5px", fontSize: "2.5rem" }
+    btn: { width: '100%', borderRadius: '5px', fontSize: '2.5rem' }
   };
   login = false;
-  socialError = "";
+  socialError = '';
   emailSent = false;
   messageSent = false;
 
@@ -57,69 +52,67 @@ export class AuthLoginComponent implements OnInit {
     private authService: AuthService
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.route.navigate([
-        `/${this.authenticationService.currentUserValue.role.toLowerCase()}`
-      ]);
+      this.route.navigate([`/${this.authenticationService.currentUserValue.role.toLowerCase()}`]);
     }
   }
 
   ngOnInit() {
     this.emailForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]]
     });
     this.passwordForm = this.formBuilder.group({
-      password: ["", Validators.required]
+      password: ['', Validators.required]
     });
-    this.questionaryForm = this.formBuilder.group({
-      firstName: ["", Validators.required],
-      lastName: ["", Validators.required],
-      phoneNumber: [""]
+    this.questionnaireForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phoneNumber: ['']
     });
     this.smsConfirmationForm = this.formBuilder.group({
-      passcode: ["", Validators.required]
+      passcode: ['', Validators.required]
     });
 
     this.authService.authState.subscribe(user => {
       if (user && user.authToken && this.login) {
+        if (!user.email) {
+          this.error = 'Single Sign On has failed, please sign in manually.';
+          return;
+        }
         if (user.facebook) {
-          this.authenticationService
-            .facebookLogin(user.authToken, user.id, user, "applicant")
-            .subscribe(
-              response => {
-                if (response.success) {
-                  this.authenticationService.saveSocialUser(response.user);
-                  this.navigateUser(response.user.role);
-                } else {
-                  this.socialError = response.error;
-                }
-              },
-              err => console.log(err)
-            );
+          this.authenticationService.facebookLogin(user.authToken, user.id, user, 'applicant').subscribe(
+            response => {
+              if (response.success) {
+                this.authenticationService.saveSocialUser(response.user);
+                this.navigateUser(response.user.role);
+              } else {
+                this.socialError = response.error;
+              }
+            },
+            err => console.log(err)
+          );
         } else {
-          this.authenticationService
-            .googleLogin(user.authToken, user.id, user, "applicant")
-            .subscribe(
-              response => {
-                if (response.success) {
-                  this.authenticationService.saveSocialUser(response.user);
-                  this.navigateUser(response.user.role);
-                } else {
-                  this.socialError = response.error;
-                }
-              },
-              err => console.log(err)
-            );
+          this.authenticationService.googleLogin(user.authToken, user.id, user, 'applicant').subscribe(
+            response => {
+              if (response.success) {
+                this.authenticationService.saveSocialUser(response.user);
+                this.navigateUser(response.user.role);
+              } else {
+                this.socialError = response.error;
+              }
+            },
+            err => console.log(err)
+          );
         }
       }
     });
   }
 
   togglePasswordType() {
-    if (this.passwordType === "password") {
-      this.passwordType = "text";
+    if (this.passwordType === 'password') {
+      this.passwordType = 'text';
       this.eyeIcon = faEye;
     } else {
-      this.passwordType = "password";
+      this.passwordType = 'password';
       this.eyeIcon = faEyeSlash;
     }
   }
@@ -132,8 +125,8 @@ export class AuthLoginComponent implements OnInit {
     return this.passwordForm.controls;
   }
 
-  get fQuestionary() {
-    return this.questionaryForm.controls;
+  get fQuestionnaire() {
+    return this.questionnaireForm.controls;
   }
 
   get fSMS() {
@@ -147,30 +140,28 @@ export class AuthLoginComponent implements OnInit {
     }
     this.loading = true;
 
-    this.authenticationService
-      .getUserByEmail(this.f.email.value)
-      .subscribe(res => {
-        // console.log(res);
-        this.loading = false;
-        this.error = "";
-        if (res.success) {
-          this.lgUser = res.user;
-          this.submitted = false;
-          if (this.lgUser.hasPassword) {
-            this.showEmailForm = false;
-            this.showPasswordForm = true;
-          } else {
-            this.showEmailForm = false;
-            this.showOptions = true;
-          }
+    this.authenticationService.getUserByEmail(this.f.email.value).subscribe(res => {
+      // console.log(res);
+      this.loading = false;
+      this.error = '';
+      if (res.success) {
+        this.lgUser = res.user;
+        this.submitted = false;
+        if (this.lgUser.hasPassword) {
+          this.showEmailForm = false;
+          this.showPasswordForm = true;
         } else {
-          if (res.message.includes("connect") || res.message.includes("fail")) {
-            this.error = "Can Not Login";
-          } else {
-            this.error = res.error || res.message;
-          }
+          this.showEmailForm = false;
+          this.showOptions = true;
         }
-      });
+      } else {
+        if (res.message.includes('connect') || res.message.includes('fail')) {
+          this.error = 'Can Not Login';
+        } else {
+          this.error = res.error || res.message;
+        }
+      }
+    });
   }
 
   onPasswordSubmit() {
@@ -188,9 +179,7 @@ export class AuthLoginComponent implements OnInit {
         data => {
           // console.log(data)
           if (data.success) {
-            this.returnUrl =
-              this.router.snapshot.queryParams["returnUrl"] ||
-              `/${data.user.role.toLowerCase()}`;
+            this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || `/${data.user.role.toLowerCase()}`;
             this.route.navigate([this.returnUrl]);
           } else {
             this.error = data.user;
@@ -204,9 +193,9 @@ export class AuthLoginComponent implements OnInit {
       );
   }
 
-  onQuestionarySubmit() {
+  onQuestionnaireSubmit() {
     this.submitted = true;
-    if (this.questionaryForm.invalid) {
+    if (this.questionnaireForm.invalid) {
       return;
     }
     this.loading = true;
@@ -214,43 +203,41 @@ export class AuthLoginComponent implements OnInit {
     this.authenticationService
       .checkValidUser({
         email: this.lgUser.email,
-        firstName: this.fQuestionary.firstName.value,
-        lastName: this.fQuestionary.lastName.value,
-        phoneNumber: this.fQuestionary.phoneNumber.value
+        firstName: this.fQuestionnaire.firstName.value,
+        lastName: this.fQuestionnaire.lastName.value,
+        phoneNumber: this.fQuestionnaire.phoneNumber.value
       })
       .subscribe(res => {
         this.loading = false;
-        this.error = "";
+        this.error = '';
         if (res.success && res.user.valid) {
           this.submitted = false;
-          this.showQuestionaryForm = false;
-          this.route.navigate(["/auth/set-password"], {
+          this.showquestionnaireForm = false;
+          this.route.navigate(['/auth/set-password'], {
             queryParams: { token: res.user.token }
           });
         } else {
-          this.error = "Invalid information try again.";
+          this.error = 'Invalid information try again.';
         }
       });
   }
 
   sendEmail() {
-    this.disable["email"] = true;
-    this.authenticationService
-      .resetPassword(this.lgUser.email)
-      .subscribe(res => {
-        if (res.success) {
-          this.emailSent = true;
-          setTimeout(() => {
-            this.emailSent = false;
-            this.route.navigate(["/"]);
-          }, 4000);
-        }
-      });
+    this.disable['email'] = true;
+    this.authenticationService.resetPassword(this.lgUser.email).subscribe(res => {
+      if (res.success) {
+        this.emailSent = true;
+        setTimeout(() => {
+          this.emailSent = false;
+          this.route.navigate(['/']);
+        }, 4000);
+      }
+    });
     // console.log(this.lgUser);
   }
 
   sendMessage() {
-    this.disable["message"] = true;
+    this.disable['message'] = true;
     this.authenticationService.sendMessage(this.lgUser.email).subscribe(res => {
       this.messageSent = true;
       setTimeout(() => {
@@ -275,22 +262,22 @@ export class AuthLoginComponent implements OnInit {
       .subscribe(res => {
         this.submitted = false;
         this.loading = false;
-        this.error = "";
+        this.error = '';
         if (res.success && res.user.valid) {
           this.showSmsConfirmationForm = false;
-          this.route.navigate(["/set-password"], {
+          this.route.navigate(['/set-password'], {
             queryParams: { token: res.user.token }
           });
         } else {
-          this.error = "Invalid passcode";
+          this.error = 'Invalid passcode';
         }
       });
   }
 
-  toQuestionary() {
-    this.disable["question"] = true;
+  toQuestionnaire() {
+    this.disable['question'] = true;
     this.showOptions = false;
-    this.showQuestionaryForm = true;
+    this.showquestionnaireForm = true;
   }
 
   backToSignIn() {
@@ -301,7 +288,7 @@ export class AuthLoginComponent implements OnInit {
 
   backToOptions() {
     this.showOptions = true;
-    this.showQuestionaryForm = false;
+    this.showquestionnaireForm = false;
     this.showSmsConfirmationForm = false;
     this.disable = {};
   }
@@ -322,9 +309,7 @@ export class AuthLoginComponent implements OnInit {
   }
 
   navigateUser(role) {
-    this.returnUrl = this.returnUrl
-      ? this.returnUrl
-      : `/${role.toLowerCase()}/home`;
+    this.returnUrl = this.returnUrl ? this.returnUrl : `/${role.toLowerCase()}/home`;
     switch (role) {
       case Role.applicant:
         this.route.navigate([this.returnUrl]);
@@ -342,7 +327,7 @@ export class AuthLoginComponent implements OnInit {
         this.route.navigate([this.returnUrl]);
         break;
       default:
-        this.route.navigate(["/"]);
+        this.route.navigate(['/']);
     }
   }
 }

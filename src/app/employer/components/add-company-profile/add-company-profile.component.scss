@@ -392,6 +392,15 @@
   overflow: hidden;
 }
 
+.invalid-feedback {
+  transform: translateY(-1rem);
+
+  &__message {
+    color: red;
+    font-size: 1.2rem;
+  }
+}
+
 @media only screen and (min-width: 500px) {
   .input-element-type {
     &-1 {

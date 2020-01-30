@@ -1,4 +1,4 @@
-<div *ngIf="applicant && (applicant.length != 0)" class="sub-module-container">
+<div *ngIf="applicant && applicant.length != 0" class="sub-module-container">
   <h3 class="sub-module-container__heading">Applicant Detail</h3>
 
   <div class="sub-module-container__container">
@@ -6,32 +6,24 @@
       <app-job-employer [Job]="job"></app-job-employer>
     </div>
     <div class="applicant-detail__top">
-      <div class="applicnat-detail__image-container">
-        <img
-          [src]="applicant?.applicantPicture"
-          alt="Profile Picture"
-          class="applicant-detail__image"
-        >
+      <div *ngIf="applicant.applicantPicture" class="applicnat-detail__image-container">
+        <img [src]="applicant?.applicantPicture" alt="Profile Picture" class="applicant-detail__image" />
       </div>
 
       <div class="applicant-detail__infos">
         <div class="applicant-detail__info-contain-1">
           <div class="applicant-detail__name">
-            {{ applicant?.user?.firstName + " " + applicant?.user?.lastName }}
+            {{ applicant?.user?.firstName + ' ' + applicant?.user?.lastName }}
           </div>
         </div>
         <div class="applicant-detail__info-contain-2">
           <!-- <div class="applicant-detail__email">EMAIL : {{applicant?.user?.email}}</div> -->
           <!-- <div class="applicant-detail__phone">PHONE NUMBER : {{applicant?.user?.phoneNumber}}</div> -->
-          <div class="applicant-detail__date-of-birth">
-            DATE OF BIRTH : {{ applicant?.dateOfBirth | date: "mediumDate" }}
+          <!-- <div class="applicant-detail__date-of-birth">
+            DATE OF BIRTH : {{ applicant?.dateOfBirth | date: 'mediumDate' }}
           </div>
-          <div class="applicant-detail__gender">
-            GENDER : {{ applicant?.gender }}
-          </div>
-          <div class="applicant-detail__gender">
-            Address : {{ applicant?.address }}
-          </div>
+          <div class="applicant-detail__gender">GENDER : {{ applicant?.gender }}</div>
+          <div class="applicant-detail__gender">Address : {{ applicant?.address }}</div> -->
         </div>
       </div>
       <div>
@@ -40,26 +32,26 @@
           [class.applicant-detail__bookmark--saved]="passFilter"
           class="applicant-detail__bookmark"
         >
-          {{ passFilter ? "Passed Filter" : "Pass Filter" }}
+          {{ passFilter ? 'Passed Filter' : 'Pass Filter' }}
           <i class="applicant-detail__bookmark-icon far fa-bookmark"></i>
         </button>
       </div>
     </div>
-    <div class="applicant-detail__middle">
+    <!-- <div class="applicant-detail__middle">
       <div class="applicant-detail__description">
         <div class="applicant-detail__description-header">Self Description</div>
         <p class="applicant-detail__description-content">
           {{ applicant.selfDescription }}
         </p>
       </div>
-    </div>
+    </div> -->
     <div class="applicant-detail__bottom">
       <div class="applicant-detail__download">
         Download Applicant CV
-        <a
-          [href]="applicant.cv"
-          target="_blank"
-          class="applicant-detail__download-cv"
+        <a *ngIf="!applicant?.cv" (click)="generatePdf()" class="applicant-detail__download-cv"
+          ><i class="fas fa-download"></i
+        ></a>
+        <a *ngIf="applicant?.cv" [href]="applicant.cv" target="_blank" class="applicant-detail__download-cv"
           ><i class="fas fa-download"></i
         ></a>
       </div>

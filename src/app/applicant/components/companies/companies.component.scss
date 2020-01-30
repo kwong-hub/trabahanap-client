@@ -24,18 +24,15 @@ table {
 .filter {
   display: flex;
   flex-direction: row;
-  //align-items: flex-end;
   width: 100%;
   margin: 0 auto;
   position: fixed;
   top: 6.5rem;
   z-index: 2;
-  // margin-left: 1.2rem;
-  // background-color: white;
   padding: 1.8rem 2rem;
 
   //padding-right: 2rem;
-  margin-left: -9rem;
+  margin-left: -6rem;
   justify-content: space-between;
 
   &__header {
@@ -45,9 +42,8 @@ table {
     cursor: pointer;
   }
   &__heading {
-    margin-left: 7rem;
     color: #888;
-    margin: 0 4rem;
+    margin: 0 5rem;
     font-size: 2rem;
     text-transform: uppercase;
   }
@@ -104,4 +100,8 @@ table {
 .overlay.active {
   z-index: 1;
   background-color: rgba(black, 0.5);
+}
+
+.paginator{
+  min-width: 20rem;
 }

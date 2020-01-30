@@ -275,11 +275,11 @@ export class AnonymousJobsListComponent implements OnInit {
 
         this.anonyService
           .advancedSearch(
-            val.query || "",
+            val.query || this.key || "",
             this.industryName || "",
             val.employmentType || "",
             val.SalaryRange || "",
-            this.cityName || "",
+            this.cityName || this.city || "",
             val.pwd ? 1 : 0,
             this.page
           )

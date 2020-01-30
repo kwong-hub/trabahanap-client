@@ -9,6 +9,10 @@ import { HttpClient } from "@angular/common/http";
 export class ApplicantService {
   constructor(private http: HttpClient) {}
 
+  fetchDashboardCounter(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/applicant/counters`);
+  }
+
   addApplicantProfileWithCV(applicantProfile): Observable<any> {
     return this.http.post<any>(
       `${environment.apiUrl}/applicant/profile`,
@@ -16,9 +20,9 @@ export class ApplicantService {
     );
   }
 
-  getJobApplications(page): Observable<any> {
+  getJobApplications(page,pageSize): Observable<any> {
     return this.http.get<any>(
-      `${environment.apiUrl}/applicant/jobs?page=${page}`
+      `${environment.apiUrl}/applicant/jobs?page=${page}&pageSize=${pageSize}`
     );
   }
 
@@ -26,9 +30,9 @@ export class ApplicantService {
     return this.http.get<any>(`${environment.apiUrl}/applicant/profile`);
   }
 
-  getSavedJobs(page): Observable<any> {
+  getSavedJobs(page,pageSize): Observable<any> {
     return this.http.get<any>(
-      `${environment.apiUrl}/applicant/jobs/saved?page=${page}`
+      `${environment.apiUrl}/applicant/jobs/saved?page=${page}&pageSize=${pageSize}`
     );
   }
 

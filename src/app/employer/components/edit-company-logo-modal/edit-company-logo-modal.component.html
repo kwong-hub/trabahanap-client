@@ -17,7 +17,7 @@
           label="New Company Logo"
           [input]="updateLogoForm.controls['companyLogo']"
           type="file"
-          [submitted]="submited"
+          [submitted]="false"
           [disabled]="false"
           [accept]="logoFileTypes"
           (onValueChange)="fileChanged($event, 'companyLogo')"

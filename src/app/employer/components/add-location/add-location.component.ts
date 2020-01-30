@@ -1,21 +1,18 @@
-import { LocationService } from "@app/_services/location.service";
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { EmployerService } from "@app/_services/employer.service";
-import { Router } from "@angular/router";
-import { first } from "rxjs/operators";
-import _ from "lodash";
-import { tileLayer, latLng, marker, Point, LatLng, icon } from "leaflet";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import {
-  faCheckCircle,
-  faTimesCircle
-} from "@fortawesome/free-solid-svg-icons";
+import { LocationService } from '@app/_services/location.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmployerService } from '@app/_services/employer.service';
+import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
+import _ from 'lodash';
+import { tileLayer, latLng, marker, Point, LatLng, icon } from 'leaflet';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "app-add-company-location",
-  templateUrl: "./add-location.component.html",
-  styleUrls: ["./add-location.component.scss"]
+  selector: 'app-add-company-location',
+  templateUrl: './add-location.component.html',
+  styleUrls: ['./add-location.component.scss']
 })
 export class AddLocationComponent implements OnInit {
   faCheckCircle = faCheckCircle;
@@ -27,16 +24,16 @@ export class AddLocationComponent implements OnInit {
   submitted: boolean;
   selectStyle = {
     inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   loading: boolean;
@@ -49,9 +46,9 @@ export class AddLocationComponent implements OnInit {
 
   options = {
     layers: [
-      tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
-        attribution: "..."
+        attribution: '...'
       })
     ],
     zoom: 20,
@@ -73,14 +70,14 @@ export class AddLocationComponent implements OnInit {
     this.getRegions();
     this.getCountries();
     this.locationForm = this.formBuilder.group({
-      locationName: ["", Validators.required],
-      locationPhoneNumber: ["", Validators.required],
-      email: ["", Validators.required],
-      address: ["", Validators.required],
-      picture: ["picture"],
-      cityId: ["", Validators.required],
-      regionId: ["", Validators.required],
-      countryId: ["", Validators.required],
+      locationName: ['', Validators.required],
+      locationPhoneNumber: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      address: ['', Validators.required],
+      picture: ['picture'],
+      cityId: ['', Validators.required],
+      regionId: ['', Validators.required],
+      countryId: ['', Validators.required],
       isHeadOffice: [false]
     });
 
@@ -94,15 +91,15 @@ export class AddLocationComponent implements OnInit {
             icon: icon({
               iconSize: [25, 41],
               iconAnchor: [13, 41],
-              iconUrl: "assets/marker-icon.png",
-              shadowUrl: "assets/marker-shadow.png"
+              iconUrl: 'assets/marker-icon.png',
+              shadowUrl: 'assets/marker-shadow.png'
             }),
             draggable: true,
             autoPan: true,
             autoPanPadding: new Point(70, 70)
           });
 
-          this.marker.on("dragend", e => {
+          this.marker.on('dragend', e => {
             ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
           });
           this.showMap = true;
@@ -123,7 +120,7 @@ export class AddLocationComponent implements OnInit {
         }
       );
     } else {
-      console.log("no geolocation");
+      console.log('no geolocation');
     }
   } //ngOnInit Ends...
 
@@ -152,7 +149,7 @@ export class AddLocationComponent implements OnInit {
           this.countries.push({ name: country.countryName, value: country.id });
         });
 
-        this.locationForm.controls["countryId"].setValue(countries[0].id);
+        this.locationForm.controls['countryId'].setValue(countries[0].id);
       },
       error => console.log(error)
     );
@@ -163,7 +160,7 @@ export class AddLocationComponent implements OnInit {
   }
 
   selectChanged(value, name) {
-    if (name == "regionId") {
+    if (name == 'regionId') {
       this.getCitiesByRegionId(value);
     }
     this.locationForm.controls[name].setValue(value);
@@ -198,7 +195,7 @@ export class AddLocationComponent implements OnInit {
 
     let val = this.locationForm.value;
     _.map(val, (value, key) => {
-      if (key != "picture") {
+      if (key != 'picture') {
         this.formData.append(key, value);
       }
     });
@@ -208,13 +205,10 @@ export class AddLocationComponent implements OnInit {
       console.log(this.locationError)
       return;
     }
-    this.formData.append("latitude", this.latitude);
-    this.formData.append("longitude", this.longitude);
+    this.formData.append('latitude', this.latitude);
+    this.formData.append('longitude', this.longitude);
     //@ts-ignore
-    this.formData.append(
-      "companyProfileId",
-      this.authenticationService.currentUserValue.companyProfileId
-    );
+    this.formData.append('companyProfileId', this.authenticationService.currentUserValue.companyProfileId);
 
     var names = [];
     //@ts-ignore

@@ -263,7 +263,7 @@ export class AddJobsComponent implements OnInit {
   }
 
   enableEdit() {
-    this.isEditMode = false;
+    this.isEditMode = true;
     this.descriptionOnly = true;
     _.map(this.job, (value, key) => {
       if (this.addJob.controls[key]) {

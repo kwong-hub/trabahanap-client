@@ -84,6 +84,8 @@ export class IssueFormComponent implements OnInit {
       return;
     }
 
+    this.formData = new FormData();
+
     this.loading = true;
 
     let val = this.issueForm.value;
@@ -100,7 +102,6 @@ export class IssueFormComponent implements OnInit {
 
     this.applicantService.sendIssue(this.formData).subscribe(
       data => {
-        console.log(data);
         if (data.success) {
           this.issueForm.reset();
           this.issueSuccess = true;

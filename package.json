@@ -31,6 +31,7 @@
     "ng-recaptcha": "^5.0.0",
     "ngx-doc-viewer": "^0.1.27",
     "ngx-image-cropper": "^2.0.1",
+    "pdfmake": "^0.1.63",
     "rxjs": "~6.5.4",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -55,5 +56,13 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "useTabs": false,
+    "tabWidth": 2,
+    "semi": true,
+    "bracketSpacing": true
   }
 }

@@ -1,3 +1,23 @@
+<<<<<<< HEAD
+=======
+<div class="success" [class.active]="profileEditted">
+  <div class="success__body">
+    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+    <!-- <fa-icon style="color: greenyellow; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+
+    <span class="text">Company Profile Updated Successfully</span>
+  </div>
+</div>
+
+<div class="success" [class.active]="profileAdded">
+  <div class="success__body">
+    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+    <!-- <fa-icon style="color: greenyellow; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+
+    <span class="text">Company Profile Added Successfully</span>
+  </div>
+</div>
+>>>>>>> 6a389bb8b2282f7e8b7dd78fe24be8ae12773ee4
 <div *ngIf="!showLicensePreview">
   <div class="employer-steps">
     <div class="employer-steps__step employer__first-step employer-steps__step--done">
@@ -34,6 +54,7 @@
     class="form" [formGroup]="addCompanyProfileForm" (ngSubmit)="this.companyProfile ? onEdit() : onSubmit()">
     <div class="form__title-container">
       <div *ngIf="companyProfile" class="company-logo-display">
+<<<<<<< HEAD
         <img *ngIf="!tempImg" class="company-logo-display__image" 
           [src]="companyProfile?.companyLogo ? companyProfile?.companyLogo : 'assets/img/building.png'" alt="company-logo" />
         
@@ -44,6 +65,15 @@
           <input type="file" name="" id="" class="picture-input"
              (change)="imageChanged($event)" />
           <fa-icon class="picture-icon" [icon]="faCamera"></fa-icon>
+=======
+        <img
+          class="company-logo-display__image"
+          [src]="companyProfile?.companyLogo ? companyProfile?.companyLogo : 'assets/img/building.png'"
+          alt="company-logo"
+        />
+        <div (click)="toggleLogoModal()" class="company-logo-display__edit">
+          <fa-icon [icon]="faEdit"></fa-icon>Edit
+>>>>>>> 6a389bb8b2282f7e8b7dd78fe24be8ae12773ee4
         </div>
       </div>
       <h4 *ngIf="!companyProfile" class="form__title">
@@ -53,9 +83,13 @@
     </div>
     <div class="add-company-profile">
       <div *ngIf="(submitted && addCompanyProfileForm.invalid) || serverErrors" class="form__error">
+<<<<<<< HEAD
         <p *ngFor="let err of formErrors">
           <fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ err }}
         </p>
+=======
+        <p *ngFor="let err of formErrors"><fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ err }}</p>
+>>>>>>> 6a389bb8b2282f7e8b7dd78fe24be8ae12773ee4
       </div>
       <div class="sub-container">
         <shared-custom-input-field class="input-element-type-2" [formGroup]="addCompanyProfileForm" name="companyName"
@@ -101,10 +135,17 @@
       <div style="padding: 1rem" *ngIf="companyProfile && companyProfile.businessLicense" class="sub-container">
         <div class="business-license-preview">
           Preview Your Business License
+<<<<<<< HEAD
           <a (click)="onLicensePreview($event)" class="business-license-preview__btn">Preview</a><a
             (click)="toggleBusinessLicense($event)" class="business-license-preview__btn">
             <fa-icon [icon]="faEdit"></fa-icon> Edit
           </a>
+=======
+          <a (click)="onLicensePreview($event)" class="business-license-preview__btn">Preview</a
+          ><a (click)="toggleBusinessLicense($event)" class="business-license-preview__btn"
+            ><fa-icon [icon]="faEdit"></fa-icon> Edit</a
+          >
+>>>>>>> 6a389bb8b2282f7e8b7dd78fe24be8ae12773ee4
         </div>
       </div>
       <div class="sub-container">
@@ -122,10 +163,18 @@
             </div>
           </div>
           <ul *ngIf="showIndustries && industries.length > 0" class="options">
+<<<<<<< HEAD
             <li (click)="
                 selectIndustry(industry.industryName);
                 industryInput.value = industry.industryName
               " class="options__list" *ngFor="let industry of industries">
+=======
+            <li
+              (click)="selectIndustry(industry.industryName); industryInput.value = industry.industryName"
+              class="options__list"
+              *ngFor="let industry of industries"
+            >
+>>>>>>> 6a389bb8b2282f7e8b7dd78fe24be8ae12773ee4
               {{ industry.industryName }}
             </li>
           </ul>
@@ -207,7 +256,20 @@
   &#10005;
 </div>
 
+<<<<<<< HEAD
 <app-edit-business-license-modal [isModalOpen]="isBusinessLicenseEditModalOpen"
   (closeModalEvent)="toggleBusinessLicense($event)"></app-edit-business-license-modal>
+=======
+<app-edit-company-logo-modal
+  [imageUrl]="companyProfile?.companyLogo ? companyProfile?.companyLogo : 'assets/img/building.png'"
+  [isModalOpen]="isLogoEditModalOpen"
+  (closeModalEvent)="toggleLogoModal()"
+></app-edit-company-logo-modal>
+
+<app-edit-business-license-modal
+  [isModalOpen]="isBusinessLicenseEditModalOpen"
+  (closeModalEvent)="toggleBusinessLicense($event)"
+></app-edit-business-license-modal>
+>>>>>>> 6a389bb8b2282f7e8b7dd78fe24be8ae12773ee4
 
 <shared-loader *ngIf="showLoader || showLicensePreview"></shared-loader>

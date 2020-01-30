@@ -69,6 +69,14 @@
       [dataSource]="applications"
       class="mat-elevation-z3"
     >
+
+    <ng-container matColumnDef="jobtitle">
+      <th mat-header-cell *matHeaderCellDef>Job Title</th>
+      <td mat-cell *matCellDef="let applications">
+        {{ applications.jobTitle }}
+      </td>
+      
+    </ng-container>
       <!-- Name Column -->
       <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
@@ -86,12 +94,7 @@
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="jobtitle">
-        <th mat-header-cell *matHeaderCellDef>Job Title</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.jobTitle }}
-        </td>
-      </ng-container>
+    
 
       <!-- Name Column -->
       <ng-container matColumnDef="applicationDate">

@@ -51,7 +51,7 @@
             label="Branch Phone Number"
             [input]="locationForm.controls['locationPhoneNumber']"
             [submitted]="submitted"
-            type="tel"
+            type="number"
             name="locationPhoneNumber"
             [formGroup]="locationForm"
           >
@@ -149,12 +149,6 @@
 
         <!-- Form submit button -->
         <div class="form__group">
-          <!-- <input
-            [class.disabled]="locationForm.invalid || loading"
-            type="submit"
-            value="Submit"
-            class="form__submit th-btn th-btn--primary"
-          /> -->
           <app-custom-submit-button class="form__submit" [styleObject]="{btn: {width: '100%', borderRadius: '5px'}}" 
             [loading]="loading" text="Submit" >
           </app-custom-submit-button>
@@ -170,13 +164,7 @@
   </div>
 
   <div class="map-container">
-    <div
-      *ngIf="showMap"
-      style="height: 100%;"
-      leaflet
-      [leafletOptions]="options"
-      (leafletClick)="mapClicked($event)"
-    >
+    <div *ngIf="showMap" style="height: 100%;" leaflet [leafletOptions]="options" (leafletClick)="mapClicked($event)">
       <div *ngIf="locationTracked" [leafletLayer]="marker"></div>
     </div>
   </div>

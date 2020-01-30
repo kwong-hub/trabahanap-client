@@ -27,6 +27,7 @@ export class AnonymousCustomInputFieldComponent implements OnInit {
   @Input() range: { min: ""; max: "" };
   @Input() limit: { min: ""; max: "" };
   errorMessage: string;
+  
   constructor() {}
 
   ngOnInit() {}

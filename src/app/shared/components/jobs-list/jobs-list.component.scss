@@ -46,6 +46,10 @@
   background-color: rgba(black, 0.5);
 }
 
+
+.filter.active{
+  background-color: #ddd;
+}
 .filter {
   display: flex;
   flex-direction: column;
@@ -57,7 +61,7 @@
   left: 0;
   z-index: 2;
   // margin-left: 1.2rem;
-  background-color: #ddd;
+  background-color: white;
   padding: 1rem;
 
   &__header {
@@ -65,6 +69,7 @@
     font-size: 2rem;
     text-transform: uppercase;
     cursor: pointer;
+    margin-top:0.5rem;
   }
 
   &__content {
