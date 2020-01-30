@@ -1,18 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  SimpleChanges,
-  OnChanges
-} from "@angular/core";
-import _ from "lodash";
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
+import _ from 'lodash';
 
 @Component({
-  selector: "shared-custom-select",
-  templateUrl: "./custom-select.component.html",
-  styleUrls: ["./custom-select.component.scss"]
+  selector: 'shared-custom-select',
+  templateUrl: './custom-select.component.html',
+  styleUrls: ['./custom-select.component.scss']
 })
 export class CustomSelectComponent implements OnInit, OnChanges {
   @Input() options: any[];
@@ -27,19 +19,19 @@ export class CustomSelectComponent implements OnInit, OnChanges {
   @Input() styleObject: {
     inputContainer: {};
     inputHeader: {};
-    label:{};
+    label: {};
     optionContainer: {};
-    option: { color: "blue" };
+    option: { color: 'blue' };
   };
   @Output() onValueChange = new EventEmitter();
 
-  currentValue = "";
+  currentValue = '';
   isOpen = false;
 
   constructor() {}
 
   ngOnInit() {
-    document.addEventListener("click", () => {
+    document.addEventListener('click', () => {
       this.isOpen = false;
     });
   }
@@ -48,9 +40,9 @@ export class CustomSelectComponent implements OnInit, OnChanges {
     let optionValue;
     for (let propName in changes) {
       let change = changes[propName];
-      if (propName == "defaultValue") {
+      if (propName == 'defaultValue') {
         let curVal = change.currentValue;
-        // console.log(curVal, this.label);
+        console.log(curVal, this.label);
         // console.log(this.options);
         if (curVal) {
           // console.log(this.options);
@@ -60,16 +52,18 @@ export class CustomSelectComponent implements OnInit, OnChanges {
           this.currentValue = null;
         }
       }
-      if (propName == "options") {
+      if (propName == 'options') {
         let curVal = change.currentValue;
         optionValue = curVal ? curVal : [];
         this.getValue(optionValue);
       }
     }
+
+    // console.log(this.currentValue);
   }
 
   getValue(options) {
-    var retrunVal = "";
+    var retrunVal = '';
     _.map(options, (value, key) => {
       if (value.value == this.defaultValue) {
         retrunVal = key;

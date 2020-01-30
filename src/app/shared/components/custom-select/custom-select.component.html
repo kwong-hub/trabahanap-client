@@ -13,11 +13,15 @@
     value="{{ default ? default : currentValue ? currentValue : placeholder }}"
     readonly
   />
-  <label  [ngStyle]="styleObject?.label" class="custom-select__label" [for]="name">{{ label }}</label>
+  <label [ngStyle]="styleObject?.label" class="custom-select__label" [for]="name">{{ label }}</label>
   <div
-    [ngStyle]="styleObject?.optionContainer"
-    class="custom-select__options-container"
+    *ngIf="submitted && (currentValue == null || currentValue == '')"
+    class="invalid-feedback"
+    [ngStyle]="styleObject?.feedbackContainer"
   >
+    <div class="invalid-feedback__message" [ngStyle]="styleObject?.feedbackMessage">{{ label }} is not valid</div>
+  </div>
+  <div [ngStyle]="styleObject?.optionContainer" class="custom-select__options-container">
     <div
       [ngStyle]="styleObject?.option"
       (click)="optionItemClicked($event, option)"
