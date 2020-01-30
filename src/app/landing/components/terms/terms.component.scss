@@ -1,0 +1,37 @@
+.an-home-container {
+  width: 95%;
+  margin: 10rem auto;
+}
+
+.legal {
+  &__heading {
+    color: #d21a26;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__paragraph {
+    font-size: 1.8rem;
+    color: #888;
+    margin: 2rem 0rem;
+    // text-transform: uppercase;
+    text-align: justify;
+  }
+
+  &__link {
+    color: #d21a26;
+    text-decoration: none;
+
+    &:active {
+      color: #d21a26;
+    }
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .an-home-container {
+    width: 80%;
+  }
+}

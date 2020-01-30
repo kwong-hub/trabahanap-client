@@ -1,9 +1,6 @@
 <div class="success" [class.active]="profileEditted">
   <div class="success__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
+    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
     <!-- <fa-icon style="color: greenyellow; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
     <span class="text">Company Profile Updated Successfully</span>
@@ -12,10 +9,7 @@
 
 <div class="success" [class.active]="profileAdded">
   <div class="success__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
+    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
     <!-- <fa-icon style="color: greenyellow; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
     <span class="text">Company Profile Added Successfully</span>
@@ -23,16 +17,12 @@
 </div>
 <div *ngIf="!showLicensePreview">
   <div class="employer-steps">
-    <div
-      class="employer-steps__step employer__first-step employer-steps__step--done"
-    >
+    <div class="employer-steps__step employer__first-step employer-steps__step--done">
       <fa-icon class="employer-steps__icon" [icon]="faUserPlus"></fa-icon>
       <div class="employer-steps__display-text"><h5>Register</h5></div>
     </div>
     <div class="employer-steps__middle"></div>
-    <div
-      class="employer-steps__step employer__second-step employer-steps__step--done"
-    >
+    <div class="employer-steps__step employer__second-step employer-steps__step--done">
       <fa-icon class="employer-steps__icon" [icon]="faUserCheck"></fa-icon>
       <div class="employer-steps__display-text"><h5>Verify Your Email</h5></div>
     </div>
@@ -48,10 +38,7 @@
       </div>
     </div>
     <div class="employer-steps__middle"></div>
-    <div
-      class="employer-steps__step employer__forth-step"
-      [class.employer-steps__step--current-state]="companyProfile"
-    >
+    <div class="employer-steps__step employer__forth-step" [class.employer-steps__step--current-state]="companyProfile">
       <fa-icon class="employer-steps__icon" [icon]="faCloudUploadAlt"></fa-icon>
       <div class="employer-steps__display-text"><h5>Post a Job</h5></div>
     </div>
@@ -69,11 +56,7 @@
       <div *ngIf="companyProfile" class="company-logo-display">
         <img
           class="company-logo-display__image"
-          [src]="
-            companyProfile?.companyLogo
-              ? companyProfile?.companyLogo
-              : 'assets/img/building.png'
-          "
+          [src]="companyProfile?.companyLogo ? companyProfile?.companyLogo : 'assets/img/building.png'"
           alt="company-logo"
         />
         <div (click)="toggleLogoModal()" class="company-logo-display__edit">
@@ -86,13 +69,8 @@
       <h4 *ngIf="companyProfile" class="form__title">Your Company's Profile</h4>
     </div>
     <div class="add-company-profile">
-      <div
-        *ngIf="(submitted && addCompanyProfileForm.invalid) || serverErrors"
-        class="form__error"
-      >
-        <p *ngFor="let err of formErrors">
-          <fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ err }}
-        </p>
+      <div *ngIf="(submitted && addCompanyProfileForm.invalid) || serverErrors" class="form__error">
+        <p *ngFor="let err of formErrors"><fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ err }}</p>
       </div>
       <div class="sub-container">
         <shared-custom-input-field
@@ -194,20 +172,11 @@
         ></shared-custom-file-input>
       </div>
 
-      <div
-        style="padding: 1rem"
-        *ngIf="companyProfile && companyProfile.businessLicense"
-        class="sub-container"
-      >
+      <div style="padding: 1rem" *ngIf="companyProfile && companyProfile.businessLicense" class="sub-container">
         <div class="business-license-preview">
           Preview Your Business License
-          <a
-            (click)="onLicensePreview($event)"
-            class="business-license-preview__btn"
-            >Preview</a
-          ><a
-            (click)="toggleBusinessLicense($event)"
-            class="business-license-preview__btn"
+          <a (click)="onLicensePreview($event)" class="business-license-preview__btn">Preview</a
+          ><a (click)="toggleBusinessLicense($event)" class="business-license-preview__btn"
             ><fa-icon [icon]="faEdit"></fa-icon> Edit</a
           >
         </div>
@@ -237,23 +206,14 @@
             class="form__input"
           />
           <label for="industry" class="form__label">Industry Type</label>
-          <div
-            *ngIf="submitted && form.industryType.errors"
-            class="invalid-feedback"
-          >
-            <div
-              class="invalid-feedback__message"
-              *ngIf="form.industryType.errors.required"
-            >
+          <div *ngIf="submitted && form.industryType.errors" class="invalid-feedback">
+            <div class="invalid-feedback__message" *ngIf="form.industryType.errors.required">
               Industry type is required
             </div>
           </div>
           <ul *ngIf="showIndustries && industries.length > 0" class="options">
             <li
-              (click)="
-                selectIndustry(industry.industryName);
-                industryInput.value = industry.industryName
-              "
+              (click)="selectIndustry(industry.industryName); industryInput.value = industry.industryName"
               class="options__list"
               *ngFor="let industry of industries"
             >
@@ -344,18 +304,10 @@
         ></shared-textarea-field>
       </div>
       <div class="submit-container">
-        <div
-          (click)="enableEdit($event)"
-          *ngIf="hasProfile && companyProfile"
-          class="form__edit"
-        >
+        <div (click)="enableEdit($event)" *ngIf="hasProfile && companyProfile" class="form__edit">
           Edit <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon>
         </div>
-        <div
-          (click)="disableEdit($event)"
-          *ngIf="!hasProfile && companyProfile"
-          class="form__edit"
-        >
+        <div (click)="disableEdit($event)" *ngIf="!hasProfile && companyProfile" class="form__edit">
           Cancel
           <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon>
         </div>
@@ -387,11 +339,7 @@
 </div>
 
 <app-edit-company-logo-modal
-  [imageUrl]="
-    companyProfile?.companyLogo
-      ? companyProfile?.companyLogo
-      : 'assets/img/building.png'
-  "
+  [imageUrl]="companyProfile?.companyLogo ? companyProfile?.companyLogo : 'assets/img/building.png'"
   [isModalOpen]="isLogoEditModalOpen"
   (closeModalEvent)="toggleLogoModal()"
 ></app-edit-company-logo-modal>

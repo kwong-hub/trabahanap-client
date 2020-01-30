@@ -1,13 +1,7 @@
 <div class="container">
-  <div
-    class="notification notification--success"
-    [class.active]="locationAdded"
-  >
+  <div class="notification notification--success" [class.active]="locationAdded">
     <div class="notification__body">
-      <i
-        style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-        class="far fa-check-circle"
-      ></i>
+      <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
       <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
       <span class="text">Successfully added a Company Branch</span>
@@ -16,10 +10,7 @@
 
   <div class="notification notification--error" [class.active]="locationError">
     <div class="notification__body">
-      <i
-        style="color: red; margin-right: 10px; font-size: 2rem; display: inline"
-        class="far fa-times-circle"
-      ></i>
+      <i style="color: red; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
       <!-- <fa-icon style="color: red; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faTimesCircle"></fa-icon> -->
 
       <span class="text">Find your location on the map</span>
@@ -28,10 +19,7 @@
 
   <div class="notification notification--error" [class.active]="imageError">
     <div class="notification__body">
-      <i
-        style="color: red; margin-right: 10px; font-size: 2rem; display: inline"
-        class="far fa-times-circle"
-      ></i>
+      <i style="color: red; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
       <!-- <fa-icon style="color: red; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faTimesCircle"></fa-icon> -->
 
       <span class="text">Please, Upload a location Picture</span>
@@ -89,7 +77,7 @@
             label="Branch Phone Number"
             [input]="locationForm.controls['locationPhoneNumber']"
             [submitted]="submitted"
-            type="tel"
+            type="number"
             name="locationPhoneNumber"
             [formGroup]="locationForm"
           >
@@ -187,25 +175,14 @@
 
         <!-- Form submit button -->
         <div class="form__group">
-          <input
-            [class.disabled]="locationForm.invalid || loading"
-            type="submit"
-            value="Submit"
-            class="form__submit th-btn th-btn--primary"
-          />
+          <input [class.disabled]="loading" type="submit" value="Submit" class="form__submit th-btn th-btn--primary" />
         </div>
       </form>
     </div>
   </div>
 
   <div class="map-container">
-    <div
-      *ngIf="showMap"
-      style="height: 100%;"
-      leaflet
-      [leafletOptions]="options"
-      (leafletClick)="mapClicked($event)"
-    >
+    <div *ngIf="showMap" style="height: 100%;" leaflet [leafletOptions]="options" (leafletClick)="mapClicked($event)">
       <div *ngIf="locationTracked" [leafletLayer]="marker"></div>
     </div>
   </div>
