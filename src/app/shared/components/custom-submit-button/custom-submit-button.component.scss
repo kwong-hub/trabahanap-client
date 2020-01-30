@@ -34,6 +34,14 @@
   }
 }
 
+.disabled {
+  background: white;
+  color: grey;
+  border: 2px solid grey;
+  cursor: progress;
+  pointer-events: none;
+}
+
 @keyframes spin {
   to {
     transform: translate(-50%, -50%) rotate(360deg);

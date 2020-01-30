@@ -16,7 +16,7 @@ import {
 })
 export class EmployerComponent implements OnInit {
   sideBarActive: boolean;
-  slideActive: boolean;
+  noProfile: boolean;
   noLocations: boolean;
   routing: boolean;
 
@@ -28,6 +28,12 @@ export class EmployerComponent implements OnInit {
       switch (true) {
         case event instanceof NavigationStart: {
           this.routing = true;
+    
+          if (!this.authenticationService.currentUserValue.company_profile.hasLocations) {
+            this.noLocations = true;
+            console.log(this.noLocations)
+            return false;
+          }
           window.scrollTo(0, 0);
           break;
         }
@@ -52,36 +58,15 @@ export class EmployerComponent implements OnInit {
   }
 
   toggleSidebar($event) {
+    this.noProfile = false;
+    this.noLocations = false;
     this.sideBarActive = $event;
     let currentUser = this.authenticationService.currentUserValue;
-
+    
     // @ts-ignore
     if (!currentUser.companyProfileId) {
-      this.slideActive = true;
-      setTimeout(() => {
-        this.slideActive = false;
-        this.noLocations = false;
-      }, 3100);
+      this.noProfile = true;
       return false;
     }
-
-    if (!currentUser.company_profile.hasLocations) {
-      this.noLocations = true;
-      setTimeout(() => {
-        this.slideActive = false;
-        this.noLocations = false;
-      }, 3100);
-      return false;
-    }
-
-    setTimeout(() => {
-      this.slideActive = false;
-      this.noLocations = false;
-    }, 3100);
-  }
-
-  hello($event) {
-    console.log("hello");
-    // this.tog
   }
 }

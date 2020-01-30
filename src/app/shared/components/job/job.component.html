@@ -47,7 +47,7 @@
       <div class="job__info job__info-vacancies">
         {{ Job.vacancies }} Vacancies
       </div>
-      <div  class="job__info job__info-pwd">
+      <div *ngIf="Job.pwd" class="job__info job__info-pwd">
         <img src="../../../../assets/img/pwd.jpeg" alt="" class="pwd-img"> PwD-Friendly
       </div>
     </div>

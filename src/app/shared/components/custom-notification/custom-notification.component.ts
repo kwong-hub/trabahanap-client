@@ -20,7 +20,7 @@ export class CustomNotificationComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.show.currentValue) {
+    if(changes.show && changes.show.currentValue) {
       setTimeout(() => {
         // this.show = false;
         if(!this.callback) {

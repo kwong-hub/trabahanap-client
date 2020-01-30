@@ -1,83 +1,49 @@
-<div class="success" [class.active]="profileEditted">
-  <div class="success__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
-    <!-- <fa-icon style="color: greenyellow; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-    <span class="text">Company Profile Updated Successfully</span>
-  </div>
-</div>
-
-<div class="success" [class.active]="profileAdded">
-  <div class="success__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
-    <!-- <fa-icon style="color: greenyellow; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-    <span class="text">Company Profile Added Successfully</span>
-  </div>
-</div>
 <div *ngIf="!showLicensePreview">
   <div class="employer-steps">
-    <div
-      class="employer-steps__step employer__first-step employer-steps__step--done"
-    >
+    <div class="employer-steps__step employer__first-step employer-steps__step--done">
       <fa-icon class="employer-steps__icon" [icon]="faUserPlus"></fa-icon>
-      <div class="employer-steps__display-text"><h5>Register</h5></div>
+      <div class="employer-steps__display-text">
+        <h5>Register</h5>
+      </div>
     </div>
     <div class="employer-steps__middle"></div>
-    <div
-      class="employer-steps__step employer__second-step employer-steps__step--done"
-    >
+    <div class="employer-steps__step employer__second-step employer-steps__step--done">
       <fa-icon class="employer-steps__icon" [icon]="faUserCheck"></fa-icon>
-      <div class="employer-steps__display-text"><h5>Verify Your Email</h5></div>
+      <div class="employer-steps__display-text">
+        <h5>Verify Your Email</h5>
+      </div>
     </div>
     <div class="employer-steps__middle"></div>
-    <div
-      class="employer-steps__step employer__third-step"
-      [class.employer-steps__step--done]="companyProfile"
-      [class.employer-steps__step--current-state]="!companyProfile"
-    >
+    <div class="employer-steps__step employer__third-step" [class.employer-steps__step--done]="companyProfile"
+      [class.employer-steps__step--current-state]="!companyProfile">
       <fa-icon class="employer-steps__icon" [icon]="faIdCard"></fa-icon>
       <div class="employer-steps__display-text">
         <h5>Add Company Profile</h5>
       </div>
     </div>
     <div class="employer-steps__middle"></div>
-    <div
-      class="employer-steps__step employer__forth-step"
-      [class.employer-steps__step--current-state]="companyProfile"
-    >
+    <div class="employer-steps__step employer__forth-step" [class.employer-steps__step--current-state]="companyProfile">
       <fa-icon class="employer-steps__icon" [icon]="faCloudUploadAlt"></fa-icon>
-      <div class="employer-steps__display-text"><h5>Post a Job</h5></div>
+      <div class="employer-steps__display-text">
+        <h5>Post a Job</h5>
+      </div>
     </div>
   </div>
 
-  <form
-    autocomplete="off"
-    style="border: 1px solid #aaa; padding: 1rem 0rem; border-radius: 1rem;"
-    action="#"
-    class="form"
-    [formGroup]="addCompanyProfileForm"
-    (ngSubmit)="this.companyProfile ? onEdit() : onSubmit()"
-  >
+  <form autocomplete="off" style="border: 1px solid #aaa; padding: 1rem 0rem; border-radius: 1rem;" action="#"
+    class="form" [formGroup]="addCompanyProfileForm" (ngSubmit)="this.companyProfile ? onEdit() : onSubmit()">
     <div class="form__title-container">
       <div *ngIf="companyProfile" class="company-logo-display">
-        <img
-          class="company-logo-display__image"
-          [src]="
-            companyProfile?.companyLogo
-              ? companyProfile?.companyLogo
-              : 'assets/img/building.png'
-          "
-          alt="company-logo"
-        />
-        <div (click)="toggleLogoModal()" class="company-logo-display__edit">
-          <fa-icon [icon]="faEdit"></fa-icon>Edit
+        <img *ngIf="!tempImg" class="company-logo-display__image" 
+          [src]="companyProfile?.companyLogo ? companyProfile?.companyLogo : 'assets/img/building.png'" alt="company-logo" />
+        
+        <img *ngIf="tempImg" class="company-logo-display__image"
+          [src]="tempImg" alt="new-picture" />
+
+        <div title="Change Logo" *ngIf="!hasProfile" class="company-logo-display__edit">
+          <input type="file" name="" id="" class="picture-input"
+             (change)="imageChanged($event)" />
+          <fa-icon class="picture-icon" [icon]="faCamera"></fa-icon>
         </div>
       </div>
       <h4 *ngIf="!companyProfile" class="form__title">
@@ -86,177 +52,80 @@
       <h4 *ngIf="companyProfile" class="form__title">Your Company's Profile</h4>
     </div>
     <div class="add-company-profile">
-      <div
-        *ngIf="(submitted && addCompanyProfileForm.invalid) || serverErrors"
-        class="form__error"
-      >
+      <div *ngIf="(submitted && addCompanyProfileForm.invalid) || serverErrors" class="form__error">
         <p *ngFor="let err of formErrors">
           <fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ err }}
         </p>
       </div>
       <div class="sub-container">
-        <shared-custom-input-field
-          class="input-element-type-2"
-          [formGroup]="addCompanyProfileForm"
-          name="companyName"
-          [defaultValue]="companyProfile?.companyName"
-          placeholder="Enter Company Name"
-          label="Company Name"
-          [input]="addCompanyProfileForm.controls['companyName']"
-          type="text"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-input-field>
+        <shared-custom-input-field class="input-element-type-2" [formGroup]="addCompanyProfileForm" name="companyName"
+          [defaultValue]="companyProfile?.companyName" placeholder="Enter Company Name" label="Company Name"
+          [input]="addCompanyProfileForm.controls['companyName']" type="text" [submitted]="submitted"
+          [disabled]="hasProfile"></shared-custom-input-field>
       </div>
       <div class="sub-container">
-        <shared-custom-input-field
-          class="input-element-type-1"
-          [formGroup]="addCompanyProfileForm"
-          name="contactPerson"
-          [defaultValue]="companyProfile?.contactPerson"
-          placeholder="Contact Person"
-          label="Company Person"
-          [input]="addCompanyProfileForm.controls['contactPerson']"
-          type="text"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-input-field>
-        <shared-custom-input-field
-          class="input-element-type-1"
-          [formGroup]="addCompanyProfileForm"
-          name="contactNumber"
-          [defaultValue]="companyProfile?.contactNumber"
-          placeholder="Contact number"
-          label="Contact number"
-          [input]="addCompanyProfileForm.controls['contactNumber']"
-          type="number"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-input-field>
+        <shared-custom-input-field class="input-element-type-1" [formGroup]="addCompanyProfileForm" name="contactPerson"
+          [defaultValue]="companyProfile?.contactPerson" placeholder="Contact Person" label="Company Person"
+          [input]="addCompanyProfileForm.controls['contactPerson']" type="text" [submitted]="submitted"
+          [disabled]="hasProfile"></shared-custom-input-field>
+        <shared-custom-input-field class="input-element-type-1" [formGroup]="addCompanyProfileForm" name="contactNumber"
+          [defaultValue]="companyProfile?.contactNumber" placeholder="Contact Phone Number" label="Phone number"
+          [input]="addCompanyProfileForm.controls['contactNumber']" type="tel" [submitted]="submitted"
+          [disabled]="hasProfile"></shared-custom-input-field>
       </div>
 
       <div class="sub-container">
-        <shared-custom-input-field
-          class="input-element-type-1"
-          [formGroup]="addCompanyProfileForm"
-          name="websiteURL"
-          [defaultValue]="companyProfile?.websiteURL"
-          placeholder="Website URL"
-          label="Website URL"
-          [input]="addCompanyProfileForm.controls['websiteURL']"
-          type="text"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-input-field>
-        <shared-custom-input-field
-          class="input-element-type-1"
-          [formGroup]="addCompanyProfileForm"
-          name="companyAddress"
-          [defaultValue]="companyProfile?.companyAddress"
-          placeholder="Company address"
-          label="Company address"
-          [input]="addCompanyProfileForm.controls['companyAddress']"
-          type="text"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-input-field>
+        <shared-custom-input-field class="input-element-type-1" [formGroup]="addCompanyProfileForm" name="websiteURL"
+          [defaultValue]="companyProfile?.websiteURL" placeholder="Website URL" label="Website URL"
+          [input]="addCompanyProfileForm.controls['websiteURL']" type="text" [submitted]="submitted"
+          [disabled]="hasProfile"></shared-custom-input-field>
+        <shared-custom-input-field class="input-element-type-1" [formGroup]="addCompanyProfileForm"
+          name="companyAddress" [defaultValue]="companyProfile?.companyAddress" placeholder="Company address"
+          label="Company address" [input]="addCompanyProfileForm.controls['companyAddress']" type="text"
+          [submitted]="submitted" [disabled]="hasProfile"></shared-custom-input-field>
       </div>
       <div style="justify-content: space-between;" class="sub-container">
-        <shared-custom-file-input
-          *ngIf="!(companyProfile && companyProfile?.companyLogo)"
-          class="input-element-type-1"
-          [formGroup]="addCompanyProfileForm"
-          name="companyLogo"
-          [defaultValue]="companyProfile?.companyLogo"
-          placeholder="Company Logo"
-          label="Company Logo"
-          [input]="addCompanyProfileForm.controls['companyLogo']"
-          [type]="inputType"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-          [accept]="logoFileTypes"
-          (onValueChange)="fileChanged($event, 'companyLogo')"
-        ></shared-custom-file-input>
-        <shared-custom-file-input
-          *ngIf="!(companyProfile && companyProfile?.businessLicense)"
-          class="input-element-type-1"
-          [formGroup]="addCompanyProfileForm"
-          name="businessLicense"
-          [defaultValue]="companyProfile?.businessLicense"
-          placeholder="Business License"
-          label="Business License"
-          [input]="addCompanyProfileForm.controls['businessLicense']"
-          [type]="inputType"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-          [accept]="licenseFileTypes"
-          (onValueChange)="fileChanged($event, 'businessLicense')"
-        ></shared-custom-file-input>
+        <shared-custom-file-input *ngIf="!(companyProfile && companyProfile?.companyLogo)" class="input-element-type-1"
+          [formGroup]="addCompanyProfileForm" name="companyLogo" [defaultValue]="companyProfile?.companyLogo"
+          placeholder="Company Logo" label="Company Logo" [input]="addCompanyProfileForm.controls['companyLogo']"
+          [type]="inputType" [submitted]="submitted" [disabled]="hasProfile" [accept]="logoFileTypes"
+          (onValueChange)="fileChanged($event, 'companyLogo')"></shared-custom-file-input>
+        <shared-custom-file-input *ngIf="!(companyProfile && companyProfile?.businessLicense)"
+          class="input-element-type-1" [formGroup]="addCompanyProfileForm" name="businessLicense"
+          [defaultValue]="companyProfile?.businessLicense" placeholder="Business License" label="Business License"
+          [input]="addCompanyProfileForm.controls['businessLicense']" [type]="inputType" [submitted]="submitted"
+          [disabled]="hasProfile" [accept]="licenseFileTypes" (onValueChange)="fileChanged($event, 'businessLicense')">
+        </shared-custom-file-input>
       </div>
 
-      <div
-        style="padding: 1rem"
-        *ngIf="companyProfile && companyProfile.businessLicense"
-        class="sub-container"
-      >
+      <div style="padding: 1rem" *ngIf="companyProfile && companyProfile.businessLicense" class="sub-container">
         <div class="business-license-preview">
           Preview Your Business License
-          <a
-            (click)="onLicensePreview($event)"
-            class="business-license-preview__btn"
-            >Preview</a
-          ><a
-            (click)="toggleBusinessLicense($event)"
-            class="business-license-preview__btn"
-            ><fa-icon [icon]="faEdit"></fa-icon> Edit</a
-          >
+          <a (click)="onLicensePreview($event)" class="business-license-preview__btn">Preview</a><a
+            (click)="toggleBusinessLicense($event)" class="business-license-preview__btn">
+            <fa-icon [icon]="faEdit"></fa-icon> Edit
+          </a>
         </div>
       </div>
       <div class="sub-container">
-        <shared-custom-input-field
-          class="input-element-type-4"
-          [formGroup]="addCompanyProfileForm"
-          name="zipcode"
-          [defaultValue]="companyProfile?.zipcode"
-          placeholder="Zip Code"
-          label="Zip Code"
-          [input]="addCompanyProfileForm.controls['zipcode']"
-          type="number"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-input-field>
+        <shared-custom-input-field class="input-element-type-4" [formGroup]="addCompanyProfileForm" name="zipcode"
+          [defaultValue]="companyProfile?.zipcode" placeholder="Zip Code" label="Zip Code" [range]="{min: '', max: '99999'}"
+          [input]="addCompanyProfileForm.controls['zipcode']" type="number" [submitted]="submitted"
+          [disabled]="hasProfile"></shared-custom-input-field>
         <div class="form__group">
-          <input
-            id="industry"
-            placeholder="Industry Type"
-            formControlName="industryType"
-            name="industryType"
-            #industryInput
-            (keyup)="fetchIndustries(industryInput.value)"
-            type="text"
-            class="form__input"
-          />
+          <input id="industry" placeholder="Industry Type" formControlName="industryType" name="industryType"
+            #industryInput (keyup)="fetchIndustries(industryInput.value)" type="text" class="form__input" />
           <label for="industry" class="form__label">Industry Type</label>
-          <div
-            *ngIf="submitted && form.industryType.errors"
-            class="invalid-feedback"
-          >
-            <div
-              class="invalid-feedback__message"
-              *ngIf="form.industryType.errors.required"
-            >
+          <div *ngIf="submitted && form.industryType.errors" class="invalid-feedback">
+            <div class="invalid-feedback__message" *ngIf="form.industryType.errors.required">
               Industry type is required
             </div>
           </div>
           <ul *ngIf="showIndustries && industries.length > 0" class="options">
-            <li
-              (click)="
+            <li (click)="
                 selectIndustry(industry.industryName);
                 industryInput.value = industry.industryName
-              "
-              class="options__list"
-              *ngFor="let industry of industries"
-            >
+              " class="options__list" *ngFor="let industry of industries">
               {{ industry.industryName }}
             </li>
           </ul>
@@ -273,132 +142,72 @@
                 [submitted]="submitted"
                 [disabled]="hasProfile"
             ></shared-custom-input-field> -->
-        <shared-custom-input-field
-          class="input-element-type-4"
-          [formGroup]="addCompanyProfileForm"
-          name="businessLicenseNumber"
-          [defaultValue]="companyProfile?.businessLicenseNumber"
-          placeholder="Business License Number"
-          label="Business License Number"
-          [input]="addCompanyProfileForm.controls['businessLicenseNumber']"
-          type="number"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-input-field>
+        <shared-custom-input-field class="input-element-type-4" [formGroup]="addCompanyProfileForm"
+          name="businessLicenseNumber" [defaultValue]="companyProfile?.businessLicenseNumber"
+          placeholder="Business License Number" label="Business License Number"
+          [input]="addCompanyProfileForm.controls['businessLicenseNumber']" type="number" [submitted]="submitted"
+          [disabled]="hasProfile"></shared-custom-input-field>
       </div>
       <div class="sub-container">
-        <shared-custom-select
-          [valid]="addCompanyProfileForm.controls['RegionId']?.status"
-          (onValueChange)="selectChanged($event, 'countryId')"
-          name="countryId"
-          [defaultValue]="1"
-          label="Country"
-          [styleObject]="styleObject"
-          class="input-element-type-3"
-          placeholder="Select Country"
-          [options]="countries"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-select>
+        <shared-custom-select [valid]="addCompanyProfileForm.controls['RegionId']?.status"
+          (onValueChange)="selectChanged($event, 'countryId')" name="countryId" [defaultValue]="1" label="Country"
+          [styleObject]="styleObject" class="input-element-type-3" placeholder="Select Country" [options]="countries"
+          [submitted]="submitted" [disabled]="hasProfile"></shared-custom-select>
 
-        <shared-custom-select
-          [valid]="addCompanyProfileForm.controls['RegionId']?.status"
-          (onValueChange)="selectChanged($event, 'regionId')"
-          name="regionId"
-          label="Region"
-          [defaultValue]="+companyProfile?.regionId"
-          [styleObject]="styleObject"
-          class="input-element-type-3"
-          placeholder="Select Region"
-          [options]="regions"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-select>
+        <shared-custom-select [valid]="addCompanyProfileForm.controls['RegionId']?.status"
+          (onValueChange)="selectChanged($event, 'regionId')" name="regionId" label="Region"
+          [defaultValue]="+companyProfile?.regionId" [styleObject]="styleObject" class="input-element-type-3"
+          placeholder="Select Region" [options]="regions" [submitted]="submitted" [disabled]="hasProfile">
+        </shared-custom-select>
 
-        <shared-custom-select
-          [valid]="addCompanyProfileForm.controls['CityId']?.status"
-          (onValueChange)="selectChanged($event, 'cityId')"
-          name="cityId"
-          label="City"
-          [defaultValue]="+companyProfile?.cityId"
-          [styleObject]="styleObject"
-          class="input-element-type-3"
-          placeholder="Select City"
-          [options]="cities"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-        ></shared-custom-select>
+        <shared-custom-select [valid]="addCompanyProfileForm.controls['CityId']?.status"
+          (onValueChange)="selectChanged($event, 'cityId')" name="cityId" label="City"
+          [defaultValue]="+companyProfile?.cityId" [styleObject]="styleObject" class="input-element-type-3"
+          placeholder="Select City" [options]="cities" [submitted]="submitted" [disabled]="hasProfile">
+        </shared-custom-select>
       </div>
       <div class="sub-container">
-        <shared-textarea-field
-          [disabled]="hasProfile"
-          class="input-element-type-2"
-          [formGroup]="addCompanyProfileForm"
-          name="companyDescription"
-          [defaultValue]="companyProfile?.companyDescription"
-          placeholder="Company description"
-          label="Company description"
-          [input]="addCompanyProfileForm.controls['companyDescription']"
-          type="textarea"
-          [submitted]="submitted"
-        ></shared-textarea-field>
+        <shared-textarea-field [disabled]="hasProfile" class="input-element-type-2" [formGroup]="addCompanyProfileForm"
+          name="companyDescription" [defaultValue]="companyProfile?.companyDescription"
+          placeholder="Company description" label="Company description"
+          [input]="addCompanyProfileForm.controls['companyDescription']" type="textarea" [submitted]="submitted">
+        </shared-textarea-field>
       </div>
       <div class="submit-container">
-        <div
-          (click)="enableEdit($event)"
-          *ngIf="hasProfile && companyProfile"
-          class="form__edit"
-        >
+        <div (click)="enableEdit($event)" *ngIf="hasProfile && companyProfile" class="form__edit">
           Edit <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon>
         </div>
-        <div
-          (click)="disableEdit($event)"
-          *ngIf="!hasProfile && companyProfile"
-          class="form__edit"
-        >
+        <div (click)="disableEdit($event)" *ngIf="!hasProfile && companyProfile" class="form__edit">
           Cancel
           <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon>
         </div>
-        <input
+        <!-- <input
           type="submit"
           class="form__submit th-btn th-btn--primary"
           [class.form__submit--inactive]="hasProfile"
           *ngIf="!hasProfile"
           [disabled]="hasProfile"
           [value]="companyProfile ? 'Save Profile' : 'Add Profile'"
-        />
+        /> -->
+        <app-custom-submit-button class="form__submit" [styleObject]="submitStyle" *ngIf="!hasProfile"
+          [loading]="loading" callback="/employer/branches/add"
+          [text]="companyProfile ? 'Save Profile' : 'Add Profile'">
+        </app-custom-submit-button>
       </div>
     </div>
   </form>
+  <app-custom-notification [show]="success" type="success" [callback]="!hasProfile ? '/employer/branches/add' : ''"
+    [text]="hasProfile ? 'Company Profile Editted Successfully' : 'Company Profile Added Successfully'">
+  </app-custom-notification>
 </div>
-<ngx-doc-viewer
-  [url]="companyProfile?.businessLicense"
-  viewer="google"
-  *ngIf="showLicensePreview"
-  style="position: fixed;top:6rem;left:0;right: 0;bottom:0;z-index:11000;"
-></ngx-doc-viewer>
-<div
-  style="z-index:11001;"
-  [style.display]="showLicensePreview ? 'block' : 'none'"
-  (click)="onLicensePreview($event)"
-  class="business-license-preview__close"
->
+<ngx-doc-viewer [url]="companyProfile?.businessLicense" viewer="google" *ngIf="showLicensePreview"
+  style="position: fixed;top:6rem;left:0;right: 0;bottom:0;z-index:11000;"></ngx-doc-viewer>
+<div style="z-index:11001;" [style.display]="showLicensePreview ? 'block' : 'none'" (click)="onLicensePreview($event)"
+  class="business-license-preview__close">
   &#10005;
 </div>
 
-<app-edit-company-logo-modal
-  [imageUrl]="
-    companyProfile?.companyLogo
-      ? companyProfile?.companyLogo
-      : 'assets/img/building.png'
-  "
-  [isModalOpen]="isLogoEditModalOpen"
-  (closeModalEvent)="toggleLogoModal()"
-></app-edit-company-logo-modal>
-
-<app-edit-business-license-modal
-  [isModalOpen]="isBusinessLicenseEditModalOpen"
-  (closeModalEvent)="toggleBusinessLicense($event)"
-></app-edit-business-license-modal>
+<app-edit-business-license-modal [isModalOpen]="isBusinessLicenseEditModalOpen"
+  (closeModalEvent)="toggleBusinessLicense($event)"></app-edit-business-license-modal>
 
 <shared-loader *ngIf="showLoader || showLicensePreview"></shared-loader>

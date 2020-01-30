@@ -10,7 +10,7 @@ import {
   faCloudUploadAlt,
   faUserCheck,
   faEyeDropper,
-  faEdit
+  faEdit, faCamera
 } from "@fortawesome/free-solid-svg-icons";
 import { Router } from "@angular/router";
 
@@ -29,6 +29,7 @@ export class AddCompanyProfileComponent implements OnInit {
   addCompanyProfileForm: FormGroup;
   submitted = false;
 
+  faCamera = faCamera;
   faCheck = faCheck;
   faUserPlus = faUserPlus;
   faIdCard = faIdCard;
@@ -40,20 +41,10 @@ export class AddCompanyProfileComponent implements OnInit {
   cities = null;
   regions = null;
   countries = null;
-  styleObject = {
-    inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
-    optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
-    },
-    option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
-    }
-  };
+  styleObject = { inputContainer: {}, inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    optionContainer: { backgroundColor: "#555", top: "3.3rem", boxShadow: "0px 1px 2px #aaa" },
+    option: { fontSize: "1.5rem", borderBottom: "1px solid #ddd", backgroundColor: "#fff" }};
+  submitStyle={ btn: {width: "100%"} };
   formErrors = ["Some form elements are not valid."];
   serverErrors = false;
   hasProfile = false;
@@ -62,18 +53,17 @@ export class AddCompanyProfileComponent implements OnInit {
   logoFileTypes = ".png,.jpg,.jpeg";
   licenseFileTypes = ".pdf,.doc,.docx";
   formData = new FormData();
-  profileAdded: boolean;
   showLicensePreview = false;
 
   isLogoEditModalOpen = false;
   isBusinessLicenseEditModalOpen = false;
-  showLoader = false;
-  profileEditted: boolean;
+  loading: boolean;
   INDUSTRIES$: Observable<any>;
   private industrySearchTerms = new Subject<string>();
   showIndustries: boolean;
   industries: any = [];
-  // industryName;
+  success: boolean;
+  tempImg;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -95,7 +85,7 @@ export class AddCompanyProfileComponent implements OnInit {
       : "file";
 
     this.addCompanyProfileForm = this.formBuilder.group({
-      zipcode: ["", Validators.required],
+      zipcode: ["", [Validators.required, Validators.maxLength(5)]],
       companyName: ["", Validators.required],
       contactPerson: ["", Validators.required],
       contactNumber: ["", Validators.required],
@@ -175,118 +165,16 @@ export class AddCompanyProfileComponent implements OnInit {
     console.log(this.form);
   }
 
-  onSubmit() {
-    this.submitted = true;
-    if (this.addCompanyProfileForm.invalid) {
-      return;
-    }
-
-    this.showLoader = true;
-
-    var val = this.addCompanyProfileForm.value;
-    _.map(val, (value, key) => {
-      if (key != "companyLogo" && key != "businessLicense") {
-        this.formData.append(key, value);
-      }
-    });
-
-    this.employerService.addCompanyProfileWithFile(this.formData).subscribe(
-      response => {
-        // console.log(response);
-        if (response.success) {
-          this.profileAdded = true;
-
-          setTimeout(() => {
-            this.profileAdded = false;
-            this.router.navigate(["/employer/branches/add"]);
-            this.authService.updateCurrentUser(response.companyProfile);
-            // this.updateInputes();
-          }, 3000);
-        }
-
-        if (
-          response.validationError &&
-          typeof response.validationError == "object"
-        ) {
-          this.formErrors = this.formErrors.slice(1);
-          _.map(response.validationError, (value, key) => {
-            this.formErrors.push(value);
-          });
-          return (this.serverErrors = true);
-        }
-        if (response.validationError) {
-          this.formErrors[0] = response.validationError;
-        }
-
-        this.showLoader = false;
-      },
-      error => {
-        console.log(error);
-        this.showLoader = false;
-      }
-    );
-  }
-
-  onEdit() {
-    this.submitted = true;
-    if (this.addCompanyProfileForm.invalid) {
-      return;
-    }
-
-    this.showLoader = true;
-
-    var val = this.addCompanyProfileForm.value;
-
-    this.employerService
-      .editCompanyProfile(
-        {
-          ...val,
-          id: this.companyProfile.id,
-          CityId: val.cityId,
-          RegionId: val.regionId,
-          CountryId: val.countryId
-        },
-        this.companyProfile.id
-      )
-      .subscribe(
-        response => {
-          if (response.success) {
-            this.profileEditted = true;
-
-            setTimeout(() => {
-              this.profileEditted = false;
-              this.router.navigate(["/employer/branches"]);
-              this.authService.updateCurrentUser(response.companyProfile);
-              this.updateInputes();
-            }, 3000);
-          }
-
-          if (
-            response.validationError &&
-            typeof response.validationError == "object"
-          ) {
-            this.submitted = false;
-            this.formErrors = this.formErrors.slice(1);
-            _.map(response.validationError, (value, key) => {
-              this.formErrors.push(value);
-            });
-            return (this.serverErrors = true);
-          }
-          if (response.validationError) {
-            this.formErrors[0] = response.validationError;
-            this.submitted = false;
-          }
-          if (response.message) {
-            this.formErrors[0] = "something is wrong try again letter.";
-            this.submitted = false;
-          }
-          this.showLoader = false;
-        },
-        error => {
-          this.showLoader = false;
-          console.log(error);
-        }
-      );
+  imageChanged(event) {
+    this.formData = new FormData();
+    let val = event.target.files[0] ? event.target.files[0] : null;
+    let reader = new FileReader();
+    reader.onload = (e: Event) => {
+      // console.log(e.target, "target")
+      this.tempImg = reader.result;
+    };
+    reader.readAsDataURL(val);
+    this.formData.append('companyLogo', val, val.name)
   }
 
   selectChanged(value, name) {
@@ -397,4 +285,109 @@ export class AddCompanyProfileComponent implements OnInit {
   editLogoChanged(event) {
     console.log(event);
   }
+
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.addCompanyProfileForm.invalid) {
+      return;
+    }
+    this.success = false;
+    this.loading = true;
+
+    var val = this.addCompanyProfileForm.value;
+    _.map(val, (value, key) => {
+      if (key != "companyLogo" && key != "businessLicense") {
+        this.formData.append(key, value);
+      }
+    });
+
+    this.employerService.addCompanyProfileWithFile(this.formData).subscribe(
+      response => {
+        // console.log(response);
+        this.loading = false;
+        if (response.success) {
+          this.success = true;
+          this.authService.updateCurrentUser(response.companyProfile);
+        }
+
+        else if (response.validationError && typeof response.validationError == "object") {
+          this.formErrors = this.formErrors.slice(1);
+          _.map(response.validationError, (value, key) => {
+            this.formErrors.push(value);
+          });
+          return (this.serverErrors = true);
+        }
+        else if (response.validationError) {
+          this.formErrors[0] = response.validationError;
+        }
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+      }
+    );
+  }
+
+  onEdit() {
+    this.submitted = true;
+    if (this.addCompanyProfileForm.invalid) {
+      return;
+    }
+
+    this.success = false;
+    this.loading = true;
+
+    let val = this.addCompanyProfileForm.value;
+    _.map(val, (value, key) => {
+      if (key != "companyLogo" && key != "businessLicense") {
+        this.formData.append(key, value);
+      }
+    });
+
+    //@ts-ignore
+    // for (var pair of this.formData.entries()) {
+    //   console.log(pair[0], pair[1], )
+    // }
+
+    this.employerService
+      .editCompanyProfile(this.formData, this.companyProfile.id).subscribe(
+        response => {
+          // console.log(response);
+          this.loading = false;
+          if (response.success) {
+            this.success = true;
+            this.authService.updateCurrentUser(response.companyProfile);
+            this.updateInputes();
+            this.formData = new FormData();
+          }
+
+          if (
+            response.validationError &&
+            typeof response.validationError == "object"
+          ) {
+            this.submitted = false;
+            this.formErrors = this.formErrors.slice(1);
+            _.map(response.validationError, (value, key) => {
+              this.formErrors.push(value);
+            });
+            return (this.serverErrors = true);
+          }
+          if (response.validationError) {
+            this.formErrors[0] = response.validationError;
+            this.submitted = false;
+          }
+          if (response.message) {
+            this.formErrors[0] = "something is wrong try again letter.";
+            this.submitted = false;
+          }
+          this.loading = false;
+        },
+        error => {
+          this.loading = false;
+          console.log(error);
+        }
+      );
+  }
+
 }

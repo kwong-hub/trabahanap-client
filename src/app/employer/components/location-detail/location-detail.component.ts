@@ -18,7 +18,6 @@ export class LocationDetailComponent implements OnInit {
   marker: any;
   editable: boolean = false;
   locationForm: any;
-  isDisabled: boolean = true;
   countries = [];
   regions = [];
   cities = [];
@@ -27,22 +26,12 @@ export class LocationDetailComponent implements OnInit {
   faTimes = faTimes;
   submitted = false;
   selectStyle = {
-    inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
-    optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
-    },
-    option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
-    }
-  };
+    inputContainer: {}, inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    optionContainer: { backgroundColor: "#555", top: "3.3rem", boxShadow: "0px 1px 2px #aaa" },
+    option: { fontSize: "1.5rem", borderBottom: "1px solid #ddd", backgroundColor: "#fff" }};
   isModalVisible: boolean = false;
   pictureUpdate: FormGroup;
-  imageData = new FormData();
+  formData = new FormData();
   uploading: boolean = false;
   options = {
     layers: [
@@ -59,8 +48,7 @@ export class LocationDetailComponent implements OnInit {
   id: string;
   loading: boolean;
   editSuccess: boolean;
-  modalImgSrc: string | ArrayBuffer;
-  formImgSrc: any;
+  tempImg: string | ArrayBuffer;
   // @ViewChild("checkBox", { static: false }) checkbox: ElementRef<HTMLElement>;
 
   constructor(
@@ -70,65 +58,51 @@ export class LocationDetailComponent implements OnInit {
     private Route: ActivatedRoute,
     private router: Router,
     private _location: Location
-  ) {}
+  ) {
+    this.Route.data.subscribe(res => {
+      let data = res.data;
+      if(data.success) {
+        this.location = data.location;
+      }
+      else {
+        this._location.back();
+      }
+    })
+  }
 
   ngOnInit() {
     this.id = this.Route.snapshot.params.id;
     // console.log(this.id)
+
+    this.locationForm = this.formBuilder.group({
+      picture: [""],
+      locationName: ["", Validators.required],
+      locationPhoneNumber: ["", Validators.required],
+      email: ["", Validators.required],
+      address: [""],
+      cityId: ["", Validators.required],
+      regionId: ["", Validators.required],
+      countryId: ["", Validators.required],
+      isHeadOffice: [false]
+    });
+
+    this.updateInputs();
+    
     this.getCountries();
     this.getRegions();
     this.getCities();
 
-    this.locationForm = this.formBuilder.group({
-      locationName: [{ value: "", disabled: true }, Validators.required],
-      locationPhoneNumber: [{ value: "", disabled: true }, Validators.required],
-      email: [{ value: "", disabled: true }, Validators.required],
-      address: [{ value: "", disabled: true }],
-      cityId: [{ value: "", disabled: true }, Validators.required],
-      regionId: [{ value: "", disabled: true }, Validators.required],
-      countryId: [{ value: "", disabled: true }, Validators.required],
-      isHeadOffice: [false]
+    ({ latitude: this.latitude, longitude: this.longitude } = this.location);
+    this.options.center = latLng(this.latitude, this.longitude);
+    this.marker = marker([this.latitude, this.longitude], {
+      icon: icon({
+        iconSize: [25, 41], iconAnchor: [13, 41],
+        iconUrl: "assets/marker-icon.png", shadowUrl: "assets/marker-shadow.png"
+      }),
+      draggable: true, autoPan: true, autoPanPadding: new Point(70, 70)
     });
-
-    this.employerService.getCompanyLocationById(this.id).subscribe(
-      data => {
-        if (data.success) {
-          // console.log(data.location);
-          this.location = data.location;
-          this.modalImgSrc = data.location.picture;
-          this.formImgSrc = data.location.picture;
-          // let {latitude, longitude} = this.location;
-          this.updateInputs();
-          ({
-            latitude: this.latitude,
-            longitude: this.longitude
-          } = data.location);
-          this.options.center = latLng(this.latitude, this.longitude);
-          this.marker = marker([this.latitude, this.longitude], {
-            icon: icon({
-              iconSize: [25, 41],
-              iconAnchor: [13, 41],
-              iconUrl: "assets/marker-icon.png",
-              shadowUrl: "assets/marker-shadow.png"
-            }),
-            draggable: true,
-            autoPan: true,
-            autoPanPadding: new Point(70, 70)
-          });
-          this.marker.on("dragend", e => {
-            ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
-          });
-        } else {
-          console.log(data);
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
-    this.pictureUpdate = this.formBuilder.group({
-      picture: ["picture"]
+    this.marker.on("dragend", e => {
+      ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
     });
 
     // console.log(this.form)
@@ -209,20 +183,6 @@ export class LocationDetailComponent implements OnInit {
     this.locationForm.controls[name].setValue(value);
   }
 
-  enableEdit() {
-    Object.keys(this.locationForm.controls).forEach(controlName => {
-      this.locationForm.controls[controlName].enable();
-    });
-    this.isDisabled = false;
-  }
-
-  showModal() {
-    if (this.isModalVisible) {
-      this.modalImgSrc = this.location.picture;
-    }
-    this.isModalVisible = !this.isModalVisible;
-  }
-
   goBack() {
     this._location.back();
   }
@@ -233,71 +193,46 @@ export class LocationDetailComponent implements OnInit {
     ({ lat: this.latitude, lng: this.longitude } = e.latlng);
   }
 
-  fileChanged(value, name) {
-    this.imageData.delete(name); // to reset the imageData
-
+  imageChanged(event) {
+    this.formData = new FormData();
+    let val = event.target.files[0] ? event.target.files[0] : null;
     let reader = new FileReader();
     reader.onload = (e: Event) => {
       // console.log(e.target, "target")
-      this.modalImgSrc = reader.result;
+      this.tempImg = reader.result;
     };
-    reader.readAsDataURL(value);
-
-    this.imageData.append(name, value, value.name);
-
-    //@ts-ignore
-    // for (var pair of this.imageData.entries()) {
-    //   console.log(pair[0], pair[1], "after update")
-    // }
-  }
-
-  onUpdatePicture() {
-    this.uploading = true;
-    this.employerService
-      .editCompanyBranchPicture(this.imageData, this.id)
-      .subscribe(
-        data => {
-          // console.log(data);
-          this.formImgSrc = data.location.picture;
-          this.uploading = false;
-          this.showModal();
-          this.editSuccess = true;
-          setTimeout(() => {
-            this.editSuccess = false;
-          }, 4000);
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    reader.readAsDataURL(val);
+    this.formData.append('picture', val, val.name)
   }
 
   onSubmit() {
-    //@ts-ignore
-    // for (var pair of this.formData.entries()) {
-    //   console.log(pair[0], pair[1])
-    // }
     this.submitted = true;
     if (this.locationForm.invalid) {
       return;
     }
     this.loading = true;
-    let newLocation = {
-      ...this.locationForm.value,
-      latitude: this.latitude,
-      longitude: this.longitude
-    };
+    this.editSuccess = false;
+
+    let newLocation = {...this.locationForm.value, latitude: this.latitude, longitude: this.longitude };
     // console.log(newLocation);
-    this.employerService.editCompanyBranch(newLocation, this.id).subscribe(
+
+    _.map(newLocation, (value, key) => {
+      if (key != "picture") {
+        this.formData.append(key, value);
+      }
+    });
+    
+    //@ts-ignore
+    // for (var pair of this.formData.entries()) {
+    //   console.log(pair[0], pair[1])
+    // }
+
+    this.employerService.editCompanyBranch(this.formData, this.id).subscribe(
       data => {
-        // console.log(data);
+        console.log(data);
         this.loading = false;
         if (data.success) {
           this.editSuccess = true;
-          setTimeout(() => {
-            this.editSuccess = false;
-            this.goBack();
-          }, 3000);
         } else {
         }
       },

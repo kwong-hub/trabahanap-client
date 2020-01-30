@@ -1,5 +1,5 @@
 <div *ngIf="!showCVPreview">
-  <!-- <div class="employer-steps">
+  <div class="employer-steps">
     <div
       class="employer-steps__step employer__first-step employer-steps__step--done"
     >
@@ -30,7 +30,7 @@
       <fa-icon class="employer-steps__icon" [icon]="faCloudUploadAlt"></fa-icon>
       <div class="employer-steps__display-text"><h5>Apply</h5></div>
     </div>
-  </div> -->
+  </div>
   <form
     action="#"
     class="form"
@@ -324,7 +324,7 @@
           [formGroup]="addApplicantProfileForm"
           name="selfDescription"
           [defaultValue]="applicantProfile?.selfDescription"
-          placeholder="Description Yourself"
+          placeholder="Describe Yourself"
           label="Describe Yourself"
           [input]="addApplicantProfileForm.controls['selfDescription']"
           type="textarea"

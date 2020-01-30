@@ -33,6 +33,7 @@ import { FilteredCandidatesResolverService } from "@app/_resolvers/employer-reso
 import { CompanyApplicationsResolverService } from "@app/_resolvers/employer-resolvers/company-applications-resolver.service";
 import { CompanyLocationResolverService } from "@app/_resolvers/employer-resolvers/company-location-resolver.service";
 import { CompanyStaffResolverService } from "@app/_resolvers/employer-resolvers/company-staff-resolver.service";
+import { LocationDetailResolverService } from '@app/_resolvers/employer-resolvers/location-detail-resolver.service';
 
 const routes: Routes = [
   {
@@ -173,7 +174,8 @@ const routes: Routes = [
         path: "branches/:id",
         canActivate: [EmployerGuard],
         component: LocationDetailComponent,
-        data: { name: "Edit Location Detail" }
+        data: { name: "Edit Location Detail" },
+        resolve: { data: LocationDetailResolverService}
       }
     ]
   }

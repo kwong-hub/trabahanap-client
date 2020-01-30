@@ -25,6 +25,7 @@ export class CustomInputFieldComponent implements OnInit {
     feedbackMessage: {};
   };
   @Input() range: { min: ""; max: "" };
+  @Input() limit: { min: ""; max: "" };
   errorMessage: string;
 
   constructor() {}

@@ -9,7 +9,8 @@ export class CustomSubmitButtonComponent implements OnInit {
   @Input() text: string = "Save";
   @Input() styleObject: { btn: {} };
   @Input() loading: boolean = false;
-
+  @Input() disabled: boolean = false;
+  
   constructor() {}
 
   ngOnInit() {}
