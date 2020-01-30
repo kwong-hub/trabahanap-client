@@ -22,6 +22,8 @@ export class CustomSelectComponent implements OnInit, OnChanges {
     label: {};
     optionContainer: {};
     option: { color: 'blue' };
+    feedbackContainer: {};
+    feedbackMessage: {};
   };
   @Output() onValueChange = new EventEmitter();
 

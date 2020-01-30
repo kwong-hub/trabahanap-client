@@ -49,19 +49,19 @@
     </div>
 
     <div class="form__group">
-      <shared-custom-select [disabled]="isDisabled" [defaultValue]="1"
+      <shared-custom-select [defaultValue]="1"
         [valid]="locationForm.controls['countryId']?.status" (onValueChange)="selectChanged($event, 'countryId')"
         name="countryId" [styleObject]="selectStyle" class="input-element-type-3" placeholder="Select Country"
         [options]="countries" [submitted]="submitted">
       </shared-custom-select>
 
-      <shared-custom-select [disabled]="isDisabled" [defaultValue]="+location?.regionId"
+      <shared-custom-select [defaultValue]="+location?.regionId"
         [valid]="locationForm.controls['regionId']?.status" (onValueChange)="selectChanged($event, 'regionId')"
         name="regionId" [styleObject]="selectStyle" class="input-element-type-3" placeholder="Select Region"
         [options]="regions" [submitted]="submitted">
       </shared-custom-select>
 
-      <shared-custom-select [disabled]="isDisabled" [defaultValue]="+location?.cityId"
+      <shared-custom-select [defaultValue]="+location?.cityId"
         [valid]="locationForm.controls['cityId']?.status" (onValueChange)="selectChanged($event, 'cityId')"
         name="cityId" [styleObject]="selectStyle" class="input-element-type-3" placeholder="Select City"
         [options]="cities" [submitted]="submitted">
