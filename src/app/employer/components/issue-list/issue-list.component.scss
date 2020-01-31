@@ -63,8 +63,8 @@
   &__close {
     position: absolute;
     display: none;
-    top: 10rem;
-    right: 6rem;
+    top: 9rem;
+    right: 2rem;
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
@@ -90,7 +90,7 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 70%;
+  width: 80%;
   border-radius: 10px;
   transform: translate(-50%, 150%);
   opacity: 0;
@@ -173,55 +173,10 @@
   z-index: 4000;
 }
 
-.notification {
-  position: fixed;
-  font-size: 1.8rem;
-  top: 8rem;
-  right: 0;
-  padding: 2.5rem 2rem;
-  background-color: rgba(white, 0.9);
-  border: 1px solid rgba(black, 0.2);
-  border-right: none;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  box-shadow: 1px 1px 0.5rem rgba(0, 0, 0, 0.5);
-  z-index: 9999999999;
-  cursor: pointer;
-  transform: translateX(105%);
-
-  &--success {
-    border-left: 3px solid #e1a223;
-  }
-
-  &--delete {
-    border-left: 3px solid tomato;
-  }
-}
-
-.notification.active {
-  animation-name: slideAndStay;
-  animation-duration: 2s;
-  animation-iteration-count: 2;
-  animation-direction: alternate;
-}
-
-@keyframes slideAndStay {
-  0% {
-    transform: translateX(105%);
-  }
-  20% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
-
 .issues {
   display: flex;
   flex: 2;
   flex-direction: column;
-  margin-left: 3rem;
 
   &__header {
     margin-bottom: 1.5rem;
@@ -235,7 +190,7 @@
   display: flex;
   flex-direction: column;
   border: 1px solid #e0e0e0;
-  border-left: 3px solid tomato;
+  border-left: 3px solid #ce2127;
   border-radius: 5px;
 
   &:not(:last-child) {
@@ -294,11 +249,11 @@
 
       .icon {
         font-size: 2rem;
-        color: #888;
+        color: #425A7B;
 
         &--reply {
           position: relative;
-          color: #555;
+          color: #425A7B;
 
           &::after {
             font-family: "Font Awesome 5 Free";
@@ -318,7 +273,18 @@
         }
 
         &--delete {
-          color: tomato;
+          color: #ce2127;
+        }
+
+        &--progress {
+          display: inline-block;
+          width: 2rem;
+          height: 2rem;
+          border-radius: 50%;
+          border: 2px solid #aaa;
+          border-top-color: #aa111d;
+          border-right-color: #aa111d;
+          animation: spin-delete 1s cubic-bezier(0.29, 0.65, 0.38, 0.72) infinite;
         }
       }
 
@@ -353,6 +319,7 @@
 
       .issues {
         flex: 5;
+        margin-left: 3rem;
 
         &__list {
           overflow-y: auto;
@@ -379,5 +346,11 @@
     .fab {
       display: none;
     }
+  }
+}
+
+@keyframes spin-delete {
+  to {
+    transform: rotate(360deg);
   }
 }

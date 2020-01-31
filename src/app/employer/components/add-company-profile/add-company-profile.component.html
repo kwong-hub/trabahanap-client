@@ -190,8 +190,7 @@
           [value]="companyProfile ? 'Save Profile' : 'Add Profile'"
         /> -->
         <app-custom-submit-button class="form__submit" [styleObject]="submitStyle" *ngIf="!hasProfile"
-          [loading]="loading" callback="/employer/branches/add"
-          [text]="companyProfile ? 'Save Profile' : 'Add Profile'">
+          [loading]="loading" [text]="companyProfile ? 'Save Profile' : 'Add Profile'">
         </app-custom-submit-button>
       </div>
     </div>

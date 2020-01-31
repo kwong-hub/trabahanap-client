@@ -49,7 +49,7 @@ export class IssueListComponent implements OnInit {
   };
   loading: boolean;
   issueSuccess: boolean;
-  deleting: boolean;
+  deleting: string;
   isModalVisible: boolean = false;
   selectedIssue: any;
   detailModal: boolean = false;
@@ -104,21 +104,19 @@ export class IssueListComponent implements OnInit {
   }
 
   deleteIssue(id) {
-    this.deleting = true;
+    this.deleting = id;
+    this.deleteSuccess = false;
     this.employerService.deleteIssue(id).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           this.deleteSuccess = true;
-          this.deleting = false;
+          this.deleting = '';
           this.issues = this.issues.filter(iss => {
             if (iss.id !== id) {
               return iss;
             }
           });
-          setTimeout(() => {
-            this.deleteSuccess = false;
-          }, 4500);
         }
       },
       error => {

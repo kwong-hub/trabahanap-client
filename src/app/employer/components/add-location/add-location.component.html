@@ -51,7 +51,7 @@
             label="Branch Phone Number"
             [input]="locationForm.controls['locationPhoneNumber']"
             [submitted]="submitted"
-            type="number"
+            type="tel"
             name="locationPhoneNumber"
             [formGroup]="locationForm"
           >
@@ -139,6 +139,7 @@
               name="isHeadOffice"
               id="headOffice"
               class="checkbox__input"
+              [checked]="!hasLocations"
             />
             <label for="headOffice" class="checkbox__label">
               <div class="checkbox__button"></div>

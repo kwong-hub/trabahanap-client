@@ -1,78 +1,35 @@
-<form
-  action="#"
-  method="POST"
-  class="form"
-  enctype="multipart/form-data"
-  [formGroup]="issueForm"
->
+<form action="#" method="POST" class="form" enctype="multipart/form-data" [formGroup]="issueForm">
   <div class="form__group">
-    <shared-custom-input-field
-      defaultValue=""
-      placeholder="Reason"
-      label="Reason"
-      [input]="issueForm.controls['issueReason']"
-      [submitted]="submitted"
-      type="text"
-      name="issueReason"
-      [formGroup]="issueForm"
-    >
+    <shared-custom-input-field defaultValue="" placeholder="Reason" label="Reason"
+      [input]="issueForm.controls['issueReason']" [submitted]="submitted" type="text" name="issueReason"
+      [formGroup]="issueForm">
     </shared-custom-input-field>
   </div>
 
   <div class="form__group">
-    <shared-custom-select
-      defalutValue=""
-      label="Issue Type"
-      (onValueChange)="selectChanged($event, 'issueType')"
-      [styleObject]="selectStyle"
-      name="issueType"
-      class="input-element-type-3"
-      placeholder="--Select Issue Type--"
-      [options]="options"
-      [submitted]="submitted"
-    >
+    <shared-custom-select defalutValue="" label="Issue Type" (onValueChange)="selectChanged($event, 'issueType')"
+      [styleObject]="selectStyle" name="issueType" class="input-element-type-3" placeholder="--Select Issue Type--"
+      [options]="options" [submitted]="submitted">
     </shared-custom-select>
   </div>
 
   <div class="form__group">
-    <shared-custom-file-input
-      placeholder="Upload Screenshot"
-      defaultValue=""
-      label="Upload Screenshot"
-      [input]="issueForm.controls['picture']"
-      [submitted]="submitted"
-      type="file"
-      accept=".png,.jpg,.jpeg"
-      name="picture"
-      [formGroup]="issueForm"
-      (onValueChange)="fileChanged($event, 'picture')"
-    >
+    <shared-custom-file-input placeholder="Upload Screenshot" defaultValue="" label="Upload Screenshot"
+      [input]="issueForm.controls['picture']" [submitted]="submitted" type="file" accept=".png,.jpg,.jpeg"
+      name="picture" [formGroup]="issueForm" (onValueChange)="fileChanged($event, 'picture')">
     </shared-custom-file-input>
   </div>
 
   <div class="form__group">
-    <shared-textarea-field
-      [disabled]="false"
-      defaultValue=""
-      class="input-element-type-2"
-      [formGroup]="issueForm"
-      name="issueDescription"
-      placeholder="Explain Issue"
-      label="Explain Issue"
-      [input]="issueForm.controls['issueDescription']"
-      type="textarea"
-      [submitted]="submitted"
-    >
+    <shared-textarea-field [disabled]="false" defaultValue="" class="input-element-type-2" [formGroup]="issueForm"
+      name="issueDescription" placeholder="Explain Issue" label="Explain Issue"
+      [input]="issueForm.controls['issueDescription']" type="textarea" [submitted]="submitted">
     </shared-textarea-field>
   </div>
 
   <div class="form__group form__group--double">
-    <input
-      type="submit"
-      (click)="onSubmit()"
-      [class.progress]="loading"
-      value="Submit"
-      class="submit th-btn th-btn--primary"
-    />
+    <!-- <input type="submit" (click)="onSubmit()" [class.progress]="loading" value="Submit"
+      class="submit th-btn th-btn--primary" /> -->
+    <app-custom-submit-button (click)="onSubmit()" [loading]="loading" text="Submit"></app-custom-submit-button>
   </div>
 </form>
