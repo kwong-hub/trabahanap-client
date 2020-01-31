@@ -94,8 +94,8 @@
               [formGroup]="addJob"
               name="vacancies"
               [defaultValue]="job?.vacancies"
-              placeholder="Vacancies"
-              label="Vacancies"
+              placeholder="Number of Vacancies"
+              label="Number of Vacancies"
               [input]="addJob.controls['vacancies']"
               type="number"
               [submitted]="submitted"
@@ -137,7 +137,7 @@
               name="applicationStartDate"
               [defaultValue]="job ? job.applicationStartDate : ''"
               placeholder="Application Start Date"
-              label="Applicant Start Date"
+              label="Application Start Date"
               (onValueChange)="
                 customValueChanged($event, 'applicationStartDate')
               "
@@ -149,7 +149,7 @@
               class="input-element-type-1 job__custom-select"
               [formGroup]="addJob"
               name="applicationEndDate"
-              [defaultValue]="job ? job.applicationEndDate : ''"
+              [defaultValue]="job ? job.applicationEndDate : defaultDate1"
               placeholder="Application End Date"
               label="Application End Date"
               (onValueChange)="customValueChanged($event, 'applicationEndDate')"
@@ -170,7 +170,7 @@
               type="text"
               [submitted]="submitted"
               [disabled]="!isEditMode && job"
-              [limit] ="bigLimit"
+              [limit] ="defaultLimit"
             ></shared-custom-input-field>
           </div>
           <div style="margin-bottom: 2rem;" class="sub-container">

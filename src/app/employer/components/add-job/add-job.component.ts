@@ -41,6 +41,9 @@ export class AddJobComponent implements OnInit {
     { name: "Post Graduate Study", value: "Post Graduate Study" }
   ];
 
+ 
+  
+
   // location = [
   //   {name: 'High School', value: 'Highschool'},
   //   {name: 'College', value: 'College'},
@@ -77,6 +80,9 @@ export class AddJobComponent implements OnInit {
   previousJobs: any = [];
   jobAdded: boolean;
   jobEditted: boolean;
+  currentDate= new Date();
+
+  defaultDate1="";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -85,6 +91,8 @@ export class AddJobComponent implements OnInit {
     private router: Router,
     private jobService: JobService
   ) {
+    this.currentDate.setDate(this.currentDate.getDate()+1);
+    this.defaultDate1 = `${this.currentDate.getFullYear()}-${this.currentDate.getMonth()+1}-${this.currentDate. getDate()}`
     this.route.params.subscribe(
       params => {
         if (params.id) {

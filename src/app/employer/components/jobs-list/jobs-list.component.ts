@@ -6,7 +6,8 @@ import {
   faPenFancy,
   faTrashAlt,
   faBan,
-  faInbox
+  faPause,
+  faInbox,faCheckCircle,faTimesCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { ActivatedRoute, Router } from "@angular/router";
 import { JobService } from "@app/_services/jobs.service";
@@ -36,6 +37,9 @@ export class JobsListComponent {
   faEllipsisV = faEllipsisV;
   faPenFancy = faPenFancy;
   faTrashAlt = faTrashAlt;
+  faCheckCircle = faCheckCircle;
+  faTimesCircle = faTimesCircle;
+  faPause = faPause;
   faInbox = faInbox;
   faBan = faBan;
   filterHidden = true;
@@ -46,12 +50,17 @@ export class JobsListComponent {
     "industry",
     "education",
     "salaryRange",
+    "appEnd",
+    "status",
     "edit"
   ];
   searchForm: FormGroup;
 
   filtered: boolean = false;
-  isLogoEditModalOpen = false;
+  isConfirmSuspend = false;
+  isConfirmDelete = false;
+  confirmHeader = 'Suspend a Job';
+  confirmBody = 'Are you sure you want to suspend this job?'
   deletedId: any;
   constructor(
     private JobsService: JobService,
@@ -68,7 +77,7 @@ export class JobsListComponent {
       industry: ["", Validators.nullValidator],
       position: ["", Validators.nullValidator]
     });
-
+    console.log(this.jobs)
     let elem = document.getElementsByClassName("overlay");
     elem[0].addEventListener("click", () => {
       this.openActions = {};
@@ -105,8 +114,38 @@ export class JobsListComponent {
       });
     }
   }
-  toggleJob($event) {
-    this.isLogoEditModalOpen = !this.isLogoEditModalOpen;
+
+  suspendJobs($event) {
+    if($event){
+      this.EmployerService.suspendJob(this.deletedId).subscribe(
+        data => {
+         
+         this.jobs.forEach(job => {
+            if (job.id === $event) {
+              console.log($event)
+              job.suspended = !job.suspended;
+             
+              //this.openActions[comp.id] = null;
+            }
+          });
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+
+  }
+  toggleSuspend($event) {
+    // console.log($event,'toggle')
+    this.isConfirmSuspend = !this.isConfirmSuspend;
+    this.deletedId = $event;
+  }
+
+  toggleDelete($event) {
+    // console.log($event,'toggle')
+    this.confirmBody=""
+    this.isConfirmDelete = !this.isConfirmDelete;
     this.deletedId = $event;
   }
 

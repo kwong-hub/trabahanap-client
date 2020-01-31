@@ -52,6 +52,13 @@ export class EmployerService {
     );
   }
 
+  suspendJob(id): Observable<any> {
+    return this.http.put<any>(
+      `${environment.apiUrl}/employer/jobs/cancel/${id}`,
+      {}
+    );
+  }
+
   addCompanyBranch(companyLocation): Observable<any> {
     return this.http.post<any>(
       `${environment.apiUrl}/employer/location`,

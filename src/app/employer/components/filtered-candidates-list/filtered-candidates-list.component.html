@@ -73,7 +73,7 @@
   </div>
 </div>
 
-<h3 class="not_Found" *ngIf="jobs && jobs.length == 0">
+<h3 class="not_Found" *ngIf="!jobs || jobs?.length == 0">
   You don't have any filtered jobs yet.
 </h3>
 

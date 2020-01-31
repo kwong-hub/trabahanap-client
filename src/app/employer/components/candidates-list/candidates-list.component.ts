@@ -49,7 +49,6 @@ export class CandidatesListComponent implements OnInit {
       industry: ["", Validators.nullValidator],
       position: ["", Validators.nullValidator]
     });
-
     let elem = document.getElementsByClassName("overlay");
     elem[0].addEventListener("click", () => {
       this.openActions = {};
