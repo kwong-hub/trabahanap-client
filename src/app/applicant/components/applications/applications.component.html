@@ -13,13 +13,7 @@
         <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
       </div>
       <div class="filter__content" [class.filter__hide]="filterHidden">
-        <form
-          action="#"
-          (ngSubmit)="filterJobs()"
-          class="form"
-          [formGroup]="searchForm"
-          autocomplete="off"
-        >
+        <form action="#" (ngSubmit)="filterJobs()" class="form" [formGroup]="searchForm" autocomplete="off">
           <div class="sub-container">
             <shared-custom-input-field
               class="input-element-type-2"
@@ -72,70 +66,39 @@
             </shared-custom-input-field>
           </div>
           <div class="form__group--btn">
-            <input
-              type="submit"
-              value="Search"
-              class="form__submit th-btn th-btn--primary"
-            />
+            <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
           </div>
         </form>
       </div>
     </div>
 
-    <table
-      *ngIf="jobs.length > 0"
-      mat-table
-      [dataSource]="jobs"
-      class="mat-elevation-z3"
-    >
-      <!-- Name Column -->
+    <table *ngIf="jobs.length > 0" mat-table [dataSource]="jobs" class="mat-elevation-z3">
       <ng-container matColumnDef="companyLogo">
         <th mat-header-cell *matHeaderCellDef>Company logo</th>
         <td mat-cell *matCellDef="let job">
           <img
             style="margin: 0.5rem 0; height: 5rem;"
-            [src]="
-              job.companyLogo ? job.companyLogo : 'assets/img/building.png'
-            "
+            [src]="job.companyLogo ? job.companyLogo : 'assets/img/building.png'"
             alt=""
             class="logo"
           />
         </td>
       </ng-container>
 
-      <!-- Name Column -->
       <ng-container matColumnDef="jobName">
         <th mat-header-cell *matHeaderCellDef>Job title</th>
         <td mat-cell *matCellDef="let job">{{ job.jobTitle }}</td>
       </ng-container>
 
-      <!-- Phone Number Column -->
       <ng-container matColumnDef="companyName">
         <th mat-header-cell *matHeaderCellDef>Company Name</th>
         <td mat-cell *matCellDef="let job">{{ job.companyName }}</td>
       </ng-container>
 
-      <!-- Actions Column -->
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let job">
-          <!-- <button mat-button [matMenuTriggerFor]="menu">
-                            <fa-icon [icon]="faEllipsisV"></fa-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button [routerLink]="['/applicant/jobs/details', job.id]" mat-menu-item>
-                                <fa-icon class="menu-icon" [icon]="faEdit"></fa-icon> Edit
-                            </button>
-                            <button mat-menu-item (click)="confirmDelete(job.id)">
-                                <fa-icon class="menu-icon" [icon]="faTimes"></fa-icon> Delete
-                            </button>
-                        </mat-menu> -->
-
-          <a
-            [routerLink]="['/applicant/applications/details', job.id]"
-            class="btn-outline"
-            >View</a
-          >
+          <a [routerLink]="['/applicant/applications/details', job.id]" class="btn-outline">View</a>
         </td>
       </ng-container>
 

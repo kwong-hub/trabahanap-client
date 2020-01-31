@@ -7,13 +7,7 @@
         <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
       </div>
       <div class="filter__content" [class.filter__hide]="filterHidden">
-        <form
-          action="#"
-          (ngSubmit)="filterApplications()"
-          class="form"
-          [formGroup]="searchForm"
-          autocomplete="off"
-        >
+        <form action="#" (ngSubmit)="filterApplications()" class="form" [formGroup]="searchForm" autocomplete="off">
           <div class="sub-container">
             <shared-custom-input-field
               class="input-element-type-2"
@@ -55,11 +49,7 @@
                         </div> -->
 
           <div class="form__group--btn">
-            <input
-              type="submit"
-              value="Search"
-              class="form__submit th-btn th-btn--primary"
-            />
+            <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
           </div>
         </form>
       </div>
@@ -71,38 +61,41 @@
       [dataSource]="applications"
       class="mat-elevation-z3"
     >
-
-    <ng-container matColumnDef="jobtitle">
-      <th mat-header-cell *matHeaderCellDef>Job Title</th>
-      <td mat-cell *matCellDef="let applications">
-        {{ applications.jobTitle }}
-      </td>
-      
-    </ng-container>
+      <ng-container matColumnDef="picture">
+        <th mat-header-cell *matHeaderCellDef>Picture</th>
+        <td mat-cell *matCellDef="let applications">
+          <img style="max-width: 6rem" [src]="applications.applicantPicture" alt="picture" />
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="jobtitle">
+        <th mat-header-cell *matHeaderCellDef>Job Title</th>
+        <td mat-cell *matCellDef="let applications">
+          {{ applications.jobTitle }}
+        </td>
+      </ng-container>
       <!-- Name Column -->
       <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
         <td mat-cell *matCellDef="let applications">
-          {{ applications.firstName + " " + applications.lastName }}
+          {{ applications.firstName + ' ' + applications.lastName }}
         </td>
       </ng-container>
 
       <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Applicant Email</th>
+      <ng-container matColumnDef="vacancies">
+        <th mat-header-cell *matHeaderCellDef>No. Vacancies</th>
         <td mat-cell *matCellDef="let applications">
-          {{ applications.email }}
+          {{ applications.vacancies }}
         </td>
       </ng-container>
 
       <!-- Name Column -->
-    
 
       <!-- Name Column -->
       <ng-container matColumnDef="applicationDate">
         <th mat-header-cell *matHeaderCellDef>Applied Date</th>
         <td mat-cell *matCellDef="let applications">
-          {{ applications.applicationDate | date: "longDate" }}
+          {{ applications.applicationDate | date: 'longDate' }}
         </td>
       </ng-container>
 
@@ -110,10 +103,7 @@
         <th mat-header-cell *matHeaderCellDef>Hired</th>
         <td mat-cell *matCellDef="let applications">
           <div *ngIf="applications.hired" class="tag tag--verified">
-            <fa-icon
-              class="tag--verified--icon"
-              [icon]="faCheckCircle"
-            ></fa-icon>
+            <fa-icon class="tag--verified--icon" [icon]="faCheckCircle"></fa-icon>
           </div>
           <div *ngIf="!applications.hired" class="tag tag--unverified"></div>
         </td>

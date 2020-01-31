@@ -91,11 +91,11 @@ export class LandingJobDetailComponent implements OnInit {
     }
   } // ngOnInit ends here
 
-  apply() {
+  apply(jobId) {
     let auth = this.authService.currentUserValue;
     if (auth === null) {
       this.router.navigate(["/auth/login"], {
-        queryParams: { returnUrl: `/applicant/${this.router.url}` }
+        queryParams: { returnUrl: `/applicant/jobs/details/${jobId}` }
       });
       return false; // to prevent reload
     }

@@ -1,122 +1,62 @@
-<div class="staffs">
-  <form
-    action="#"
-    class="form"
-    [formGroup]="addStaffer"
-    (ngSubmit)="onSubmit()"
-  >
-    <div class="sub-container">
-      <h3 class="form__header">Add A New Staff</h3>
-    </div>
-    <div class="sub-container">
-      <shared-custom-input-field
-        class="input-element-type-2"
-        [formGroup]="addStaffer"
-        name="email"
-        defaultValue=""
-        placeholder="Enter Email"
-        label="Email"
-        [input]="(addStaffer?.controls)['email']"
-        type="text"
-        [submitted]="submitted"
-        [disabled]="false"
-        [limit] ="defaultLimit"
-      ></shared-custom-input-field>
-    </div>
-    <div class="sub-container">
-      <shared-custom-input-field
-        class="input-element-type-1"
-        [formGroup]="addStaffer"
-        name="firstName"
-        defaultValue=""
-        placeholder="First Name"
-        label="First Name"
-        [input]="(addStaffer?.controls)['firstName']"
-        type="text"
-        [submitted]="submitted"
-        [disabled]="false"
-        [limit] ="defaultLimit"
+<div class="container">
+  <div (click)="toggleFormModal()" class="fab">
+    <button class="fab__button">
+      <fa-icon class="fab__icon" [icon]="faPlus"></fa-icon>
+    </button>
+  </div>
 
-      ></shared-custom-input-field>
-      <shared-custom-input-field
-        class="input-element-type-1"
-        [formGroup]="addStaffer"
-        name="lastName"
-        defaultValue=""
-        placeholder="Last Name"
-        label="Last Name"
-        [input]="(addStaffer?.controls)['lastName']"
-        type="text"
-        [submitted]="submitted"
-        [disabled]="false"
-        [limit] ="defaultLimit"
-      ></shared-custom-input-field>
+  <div class="container__body">
+    <div class="desktop-form">
+        <h3 class="form__header">Add A New Staff</h3>
+        <app-add-staffer-form (staffAdded)="addStaffToArray($event)"></app-add-staffer-form>
     </div>
-    <div class="sub-container">
-      <shared-custom-input-field
-        class="input-element-type-2"
-        [formGroup]="addStaffer"
-        name="phoneNumber"
-        defaultValue=""
-        placeholder="Phone Number"
-        label="Phone Number"
-        [input]="(addStaffer?.controls)['phoneNumber']"
-        type="tel"
-        [submitted]="submitted"
-        [disabled]="false"
-        [limit] ="numberRange"
-      ></shared-custom-input-field>
-    </div>
-    <div class="sub-container">
-      <button type="submit" class="th-btn th-btn--primary form__submit-btn">
-        Add Staff
-      </button>
-    </div>
-  </form>
 
-  <div class="previous-staffs__container">
-    <div class="previous-staffs__header">Your Staff</div>
-    <div class="previous-staffs__staffs">
-      <div *ngIf="previousStaffs?.length > 0">
-        <div
-          *ngFor="let staff of previousStaffs"
-          class="previous-staffs__staff"
-        >
-          <div class="previous-staffs__staff__name">
-            Name: {{ staff.firstName + " " + staff.lastName }}
-          </div>
-          <div class="previous-staffs__staff__email">
-            Email: {{ staff.email }}
-          </div>
-          <div class="previous-staffs__staff__phone">
-            Phone: {{ staff.phoneNumber }}
+    <h3 class="staffs noStaff" *ngIf="previousStaffs?.length == 0">No Staff Yet</h3>
+    <div *ngIf="previousStaffs?.length !== 0" class="staffs">
+      <div class="staffs__header">
+        Your Current Staff
+      </div>
+
+      <div class="staffs__list">
+        <div *ngFor="let staff of previousStaffs" class="staff">
+          <p class="type">{{ staff.firstName +" "+ staff.lastName }}</p>
+
+          <div class="staff__body">
+            <div class="staff__left">
+              <p class="detail">{{ staff.email }}</p>
+              <p class="detail">{{ staff.phoneNumber }}</p>
+            </div>
+
+            <div class="staff__right">
+              <p class="date">{{ staff.createdAt | date: "longDate" }}</p>
+              <div *ngIf="staff.emailVerified" class="status-group">
+                <fa-icon class="icon" style="color: #33c024" [icon]="faCheck"></fa-icon> <span class="text">Active</span>
+              </div>
+              <div *ngIf="!staff.emailVerified" class="status-group">
+                <fa-icon class="icon" style="color: #e1a223" [icon]="faExclamation"></fa-icon> <span class="text">Not Yet Active</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <h3 *ngIf="previousStaffs?.length == 0">No Staff Yet</h3>
     </div>
   </div>
-</div>
 
-<div class="notification notification--added" [class.active]="stafferAdded">
-  <div class="notification__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
-    <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-    <span class="text">You have successfully added a staff.</span>
+  <div class="overlay" [class.active]="isModalVisible">
+    <div (click)="toggleFormModal()" class="overlay__close">
+      <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
+    </div>
   </div>
-</div>
-<div class="notification notification--error" [class.active]="stafferError">
-  <div class="notification__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
-    <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
-    <span class="text">Failed to add staff.</span>
+  <div class="modal" [class.active]="isModalVisible">
+    <div class="modal__header">
+      <h2 class="text">Add a new staff</h2>
+    </div>
+    <div class="modal__body">
+      <app-add-staffer-form (staffAdded)="addStaffToArray($event)"></app-add-staffer-form>
+    </div>
   </div>
+
+  <app-custom-notification [show]="stafferAdded || stafferError" [type]="stafferAdded ? 'success' : 'error'"
+    [text]="stafferAdded ? 'New Staff Added Successfully' : 'Adding Staff Failed'"></app-custom-notification>
 </div>

@@ -83,6 +83,7 @@ export class AddJobComponent implements OnInit {
   currentDate= new Date();
 
   defaultDate1="";
+  loading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -172,34 +173,40 @@ export class AddJobComponent implements OnInit {
     if (this.addJob.invalid) {
       return;
     }
+    
+    this.loading = true;
+    this.jobEditted = false;
+    this.jobAdded = false;
 
     var val = this.addJob.value;
 
     if (this.job) {
       this.employerService.editEmployerJob(this.job.id, val).subscribe(
         success => {
-          this.jobEditted = true;
-          setTimeout(() => {
-            this.jobEditted = false;
-            this.router.navigate(["../"], { relativeTo: this.route });
-          }, 3000);
+          this.loading = false;
+          if(success.success) {
+            this.jobEditted = true;
+          }
         },
-        err => console.log(err)
+        err => {
+          console.log(err);
+          this.loading = false;
+        }
       );
       return;
     }
 
     this.employerService.addEmployerJob({ ...val }).subscribe(
       success => {
+        this.loading = false;
         if (success.success) {
           this.jobAdded = true;
-          setTimeout(() => {
-            this.jobAdded = false;
-            this.router.navigate(["../"], { relativeTo: this.route });
-          }, 3000);
         }
       },
-      err => console.log(err)
+      err => {
+        console.log(err);
+        this.loading = false;
+      }
     );
   }
 

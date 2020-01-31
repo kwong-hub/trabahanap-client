@@ -1,23 +1,25 @@
-import { Component, OnInit } from "@angular/core";
-import { JobService } from "@app/_services/jobs.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { JobService } from '@app/_services/jobs.service';
+import { ActivatedRoute, Router } from '@angular/router';
 // import { Route, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "app-job-candidates",
-  templateUrl: "./job-candidates.component.html",
-  styleUrls: ["./job-candidates.component.scss"]
+  selector: 'app-job-candidates',
+  templateUrl: './job-candidates.component.html',
+  styleUrls: ['./job-candidates.component.scss']
 })
 export class JobCandidatesComponent implements OnInit {
   job: any;
-
+  pager = {
+    pageSize: 5,
+    totalItems: 0,
+    totalPages: 0,
+    currentPage: 0
+  };
+  displayedColumns: string[] = ['picture', 'name', 'gender', 'applicationDate', 'detail'];
   applicants: any[] = [];
 
-  constructor(
-    private jobService: JobService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  constructor(private jobService: JobService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -31,10 +33,11 @@ export class JobCandidatesComponent implements OnInit {
             },
             err => console.log(err)
           );
-          this.jobService.getJobApplications(success.id).subscribe(
+          this.jobService.getJobApplications(success.id, this.pager.currentPage + 1, this.pager.pageSize).subscribe(
             success => {
               if (success.success) {
-                this.applicants = success.applicants;
+                this.applicants = success.applicants.rows;
+                this.pager = success.applicants.pager;
               }
             },
             err => console.log(err)
@@ -46,9 +49,19 @@ export class JobCandidatesComponent implements OnInit {
   }
 
   showApplicantDetail(applicant, job) {
-    this.router.navigate(
-      [`../../../candidates/job/${job.id}/applicant/${applicant.id}`],
-      { relativeTo: this.route }
+    console.log('Hello');
+    this.router.navigate([`../../../candidates/job/${job.id}/applicant/${applicant.id}`], { relativeTo: this.route });
+  }
+
+  getServerData(page) {
+    this.jobService.getJobApplications(this.job.id, page.pageIndex + 1, page.pageSize).subscribe(
+      success => {
+        if (success.success) {
+          this.applicants = success.applicants.rows;
+          this.pager = success.applicants.pager;
+        }
+      },
+      err => console.log(err)
     );
   }
 }

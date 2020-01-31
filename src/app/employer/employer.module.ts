@@ -1,10 +1,10 @@
-import { EmployerService } from "./../_services/employer.service";
-import { EmployerComponent } from "./employer.component";
-import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { JwtInterceptor } from "@app/_helpers/jwt.intercepter";
-import { LeafletModule } from "@asymmetrik/ngx-leaflet";
+import { EmployerService } from './../_services/employer.service';
+import { EmployerComponent } from './employer.component';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '@app/_helpers/jwt.intercepter';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { EmployerRoutingModule } from "./employer-routing.module";
 import { HomeComponent } from "./components/home/home.component";
@@ -60,6 +60,7 @@ import { CompanyLocationResolverService } from "@app/_resolvers/employer-resolve
 import { CompanyStaffResolverService } from "@app/_resolvers/employer-resolvers/company-staff-resolver.service";
 import { IssueDetailResolverService } from "@app/_resolvers/applicant-resolvers/issue-detail-resolver.service";
 import { IndustryAndLocationResolverService } from "@app/_services/industry-and-location-resolver.service";
+import { AddStafferFormComponent } from './components/add-staffer-form/add-staffer-form.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { IndustryAndLocationResolverService } from "@app/_services/industry-and-
     AddStafferComponent,
     IssueFormComponent,
     IssueListComponent,
-    ApplicationsListComponent
+    ApplicationsListComponent,
+    AddStafferFormComponent
   ],
   imports: [
     // BrowserAnimationsModule,

@@ -63,8 +63,8 @@
   &__close {
     position: absolute;
     display: none;
-    top: 10rem;
-    right: 6rem;
+    top: 9rem;
+    right: 2rem;
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
@@ -90,7 +90,7 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 70%;
+  width: 80%;
   border-radius: 10px;
   transform: translate(-50%, 150%);
   opacity: 0;
@@ -177,7 +177,6 @@
   display: flex;
   flex: 2;
   flex-direction: column;
-  margin-left: 3rem;
 
   &__header {
     margin-bottom: 1.5rem;
@@ -191,7 +190,7 @@
   display: flex;
   flex-direction: column;
   border: 1px solid #e0e0e0;
-  border-left: 3px solid tomato;
+  border-left: 3px solid #ce2127;
   border-radius: 5px;
 
   &:not(:last-child) {
@@ -274,7 +273,7 @@
         }
 
         &--delete {
-          color: tomato;
+          color: #ce2127;
         }
 
         &--progress {
@@ -322,6 +321,7 @@
         flex: 5;
         overflow-y: auto;
         max-height: 50rem;
+        margin-left: 3rem;
 
         &__list {
           overflow-y: auto;

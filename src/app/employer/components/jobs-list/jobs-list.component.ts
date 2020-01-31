@@ -28,7 +28,7 @@ export interface PeriodicElement {
   styleUrls: ["./jobs-list.component.scss"]
 })
 export class JobsListComponent {
-  @Input() jobs: Job[];
+  @Input() jobs: any;
   @Input() pager: any;
   public page: any;
   shouldLoad: boolean = true;
@@ -122,7 +122,7 @@ export class JobsListComponent {
          
          this.jobs.forEach(job => {
             if (job.id === $event) {
-              console.log($event)
+              // console.log($event)
               job.suspended = !job.suspended;
              
               //this.openActions[comp.id] = null;
