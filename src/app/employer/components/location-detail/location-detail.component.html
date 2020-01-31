@@ -10,61 +10,57 @@
 <div *ngIf="location" class="container">
   <form class="form" [formGroup]="locationForm" enctype="multipart/form-data" action="#" (ngSubmit)="onSubmit()">
     <div class="form__group--imageContainer">
-      <img *ngIf="!tempImg" class="image" [src]="location?.picture ? location?.picture : 'assets/img/building.png'" 
+      <img *ngIf="!tempImg" class="image" [src]="location?.picture ? location?.picture : 'assets/img/building.png'"
         alt="location-picture" />
-      <img *ngIf="tempImg" class="image" [src]="tempImg" 
-        alt="location-picture" />
+      <img *ngIf="tempImg" class="image" [src]="tempImg" alt="location-picture" />
 
       <div class="menu">
-        <input type="file" name="" id="" class="picture-input"
-             (change)="imageChanged($event)" />
+        <input type="file" name="" id="" class="picture-input" (change)="imageChanged($event)" />
         <span title="Edit Image" class="menu__item menu__item--change">
           <fa-icon style="color: rgba(0, 0, 0, 0.6)" [icon]="faCamera"></fa-icon>
         </span>
       </div>
     </div>
     <div class="form__group">
-      <shared-custom-input-field class="input-element-type-2 form__input-location" [formGroup]="locationForm"
-        name="locationName" [defaultValue]="location.locationName" placeholder="Enter location name"
-        label="Location name" [input]="locationForm.controls['locationName']" type="text" [submitted]="submitted">
+      <shared-custom-input-field [limit]="nameLimit" class="input-element-type-2 form__input-location"
+        [formGroup]="locationForm" name="locationName" [defaultValue]="location.locationName"
+        placeholder="Enter location name" label="Location name" [input]="locationForm.controls['locationName']"
+        type="text" [submitted]="submitted">
       </shared-custom-input-field>
 
-      <shared-custom-input-field class="input-element-type-2 form__input-location" [formGroup]="locationForm"
-        name="locationPhoneNumber" [defaultValue]="location.locationPhoneNumber"
+      <shared-custom-input-field [limit]="numberRange" class="input-element-type-2 form__input-location"
+        [formGroup]="locationForm" name="locationPhoneNumber" [defaultValue]="location.locationPhoneNumber"
         placeholder="Enter location Phone number" label="Location phone number"
-        [input]="locationForm.controls['locationPhoneNumber']" type="text" [submitted]="submitted">
+        [input]="locationForm.controls['locationPhoneNumber']" type="tel" [submitted]="submitted">
       </shared-custom-input-field>
     </div>
 
     <div class="form__group">
-      <shared-custom-input-field class="input-element-type-2 form__input-location" [formGroup]="locationForm"
-        name="email" [defaultValue]="location.email" placeholder="Enter Contact Email" label="Contact Email"
-        [input]="locationForm.controls['email']" type="email" [submitted]="submitted">
+      <shared-custom-input-field [limit]="nameLimit" class="input-element-type-2 form__input-location"
+        [formGroup]="locationForm" name="email" [defaultValue]="location.email" placeholder="Enter Contact Email"
+        label="Contact Email" [input]="locationForm.controls['email']" type="email" [submitted]="submitted">
       </shared-custom-input-field>
 
-      <shared-custom-input-field class="input-element-type-2 form__input-location" [formGroup]="locationForm"
+      <shared-custom-input-field  [limit] ="nameLimit" class="input-element-type-2 form__input-location" [formGroup]="locationForm"
         name="address" [defaultValue]="location.address" placeholder="Enter location address" label="Location address"
         [input]="locationForm.controls['address']" type="text" [submitted]="submitted">
       </shared-custom-input-field>
     </div>
 
     <div class="form__group">
-      <shared-custom-select [defaultValue]="1"
-        [valid]="locationForm.controls['countryId']?.status" (onValueChange)="selectChanged($event, 'countryId')"
-        name="countryId" [styleObject]="selectStyle" class="input-element-type-3" placeholder="Select Country"
-        [options]="countries" [submitted]="submitted">
+      <shared-custom-select [defaultValue]="1" [valid]="locationForm.controls['countryId']?.status"
+        (onValueChange)="selectChanged($event, 'countryId')" name="countryId" [styleObject]="selectStyle"
+        class="input-element-type-3" placeholder="Select Country" [options]="countries" [submitted]="submitted">
       </shared-custom-select>
 
-      <shared-custom-select [defaultValue]="+location?.regionId"
-        [valid]="locationForm.controls['regionId']?.status" (onValueChange)="selectChanged($event, 'regionId')"
-        name="regionId" [styleObject]="selectStyle" class="input-element-type-3" placeholder="Select Region"
-        [options]="regions" [submitted]="submitted">
+      <shared-custom-select [defaultValue]="+location?.regionId" [valid]="locationForm.controls['regionId']?.status"
+        (onValueChange)="selectChanged($event, 'regionId')" name="regionId" [styleObject]="selectStyle"
+        class="input-element-type-3" placeholder="Select Region" [options]="regions" [submitted]="submitted">
       </shared-custom-select>
 
-      <shared-custom-select [defaultValue]="+location?.cityId"
-        [valid]="locationForm.controls['cityId']?.status" (onValueChange)="selectChanged($event, 'cityId')"
-        name="cityId" [styleObject]="selectStyle" class="input-element-type-3" placeholder="Select City"
-        [options]="cities" [submitted]="submitted">
+      <shared-custom-select [defaultValue]="+location?.cityId" [valid]="locationForm.controls['cityId']?.status"
+        (onValueChange)="selectChanged($event, 'cityId')" name="cityId" [styleObject]="selectStyle"
+        class="input-element-type-3" placeholder="Select City" [options]="cities" [submitted]="submitted">
       </shared-custom-select>
     </div>
 
@@ -88,7 +84,7 @@
         class="form__submit th-btn th-btn--primary" /> -->
       <app-custom-submit-button [loading]="loading" [disabled]="locationForm.invalid"
         [styleObject]="{btn: {borderRadius: '5px', minWidth: '12rem'}}" text="Submit">
-    </app-custom-submit-button>
+      </app-custom-submit-button>
     </div>
   </form>
 
@@ -98,7 +94,6 @@
     </div>
   </div>
 
-  <app-custom-notification [show]="editSuccess" type="success" callback="goBack"
-    text="Location Editted Successfully">
-</app-custom-notification>
+  <app-custom-notification [show]="editSuccess" type="success" callback="goBack" text="Location Editted Successfully">
+  </app-custom-notification>
 </div>

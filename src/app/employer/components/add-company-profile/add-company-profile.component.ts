@@ -64,7 +64,9 @@ export class AddCompanyProfileComponent implements OnInit {
   industries: any = [];
   success: boolean;
   tempImg;
-
+  defaultLimit ={max:"35",min:"0"};
+  numberRange={max:"16",min:"10"};
+  bigLimit = {max:"100",min:"6"}
   constructor(
     private formBuilder: FormBuilder,
     private employerService: EmployerService,

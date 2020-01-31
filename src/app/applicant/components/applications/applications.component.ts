@@ -47,7 +47,7 @@ export class ApplicationsComponent implements OnInit {
     }
   };
   searchForm: FormGroup;
-
+  defaultLimit ={max:"35",min:"0"};
   constructor(
     private applicantService: ApplicantService,
     private formBuilder: FormBuilder,

@@ -55,6 +55,7 @@
               type="text"
               [submitted]="submitted"
               [disabled]="!isEditMode && job"
+              [limit] ="defaultLimit"
             ></shared-custom-input-field>
           </div>
           <div class="sub-container">
@@ -169,6 +170,7 @@
               type="text"
               [submitted]="submitted"
               [disabled]="!isEditMode && job"
+              [limit] ="bigLimit"
             ></shared-custom-input-field>
           </div>
           <div style="margin-bottom: 2rem;" class="sub-container">

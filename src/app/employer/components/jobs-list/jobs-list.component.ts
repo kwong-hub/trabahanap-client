@@ -40,7 +40,7 @@ export class JobsListComponent {
   faBan = faBan;
   filterHidden = true;
   openActions = {};
-
+  defaultLimit ={max:"50",min:"0"};
   displayedColumns: string[] = [
     "jobTitle",
     "industry",

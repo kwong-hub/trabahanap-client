@@ -85,6 +85,7 @@
         [input]="locationForm.controls['locationName']"
         type="text"
         [submitted]="submitted"
+        [limit] ="defaultLimit"
       >
       </shared-custom-input-field>
 
@@ -96,8 +97,9 @@
         placeholder="Enter location Phone number"
         label="Location phone number"
         [input]="locationForm.controls['locationPhoneNumber']"
-        type="text"
+        type="tel"
         [submitted]="submitted"
+        [limit] ="defaultLimit"
       >
       </shared-custom-input-field>
     </div>
@@ -113,6 +115,7 @@
         [input]="locationForm.controls['email']"
         type="email"
         [submitted]="submitted"
+        [limit] ="defaultLimit"
       >
       </shared-custom-input-field>
 
@@ -126,6 +129,7 @@
         [input]="locationForm.controls['address']"
         type="text"
         [submitted]="submitted"
+        [limit] ="defaultLimit"
       >
       </shared-custom-input-field>
     </div>

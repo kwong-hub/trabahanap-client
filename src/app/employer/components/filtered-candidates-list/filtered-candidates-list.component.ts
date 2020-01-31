@@ -31,6 +31,7 @@ export class FilteredCandidatesListComponent implements OnInit {
 
   filterHidden: boolean = true;
   filtered: boolean = false;
+  defaultLimit ={max:"50",min:"0"};
   openActions: {};
 
   constructor(

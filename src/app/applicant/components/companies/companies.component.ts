@@ -39,7 +39,7 @@ export class CompaniesComponent implements OnInit {
   faSlidersH = faSlidersH;
   public pager: any;
   public page: 1;
-
+  defaultLimit ={max:"35",min:"0"};
   constructor(
     private applicantService: ApplicantService,
     private formBuilder: FormBuilder,

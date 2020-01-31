@@ -34,7 +34,7 @@ export class CandidatesListComponent implements OnInit {
   filterHidden: boolean = true;
   filtered: boolean = false;
   openActions: {};
-
+  defaultLimit ={max:"50",min:"0"};
   constructor(
     private JobsService: JobService,
     private EmployerService: EmployerService,

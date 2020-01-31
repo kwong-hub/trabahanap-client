@@ -49,7 +49,7 @@ export class IssueFormComponent implements OnInit {
     { name: "Website Issue", value: "Website Issue" },
     { name: "Others", value: "Others" }
   ];
-
+  defaultLimit ={max:"50",min:"0"};
   constructor(
     private formBuilder: FormBuilder,
     public employerService: EmployerService,

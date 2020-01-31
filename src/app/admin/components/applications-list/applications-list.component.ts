@@ -42,6 +42,7 @@ export class ApplicationsListComponent implements OnInit {
   filterHidden: boolean = true;
   filtered: boolean = false;
   openActions: {};
+  defaultLimit ={max:"50",min:"0"};
   constructor(
     private adminService: AdminService,
     private formBuilder: FormBuilder,

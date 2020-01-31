@@ -70,6 +70,9 @@ export class AddJobComponent implements OnInit {
       backgroundColor: "#fff"
     }
   };
+  defaultLimit ={max:"30",min:"0"};
+  numberRange={max:"16",min:"10"};
+  bigLimit = {max:"100",min:"6"}
   job: any;
   previousJobs: any = [];
   jobAdded: boolean;

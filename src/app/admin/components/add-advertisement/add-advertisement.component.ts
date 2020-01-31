@@ -38,6 +38,7 @@ export class AddAdvertisementComponent implements OnInit {
     adsStart: `00:00`,
     adsEnd: `23:59`
   };
+  defaultLimit ={max:"50",min:"0"};
   ads: any;
 
   constructor(

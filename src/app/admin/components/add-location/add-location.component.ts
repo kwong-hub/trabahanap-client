@@ -54,7 +54,8 @@ export class AddLocationComponent implements OnInit {
   locationError: boolean;
   imageError: boolean;
   cities: any;
-
+  defaultLimit ={max:"35",min:"0"};
+  bigLimit = {max:"100",min:"6"}
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,

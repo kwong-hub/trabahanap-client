@@ -54,6 +54,7 @@
               [input]="addJob.controls['jobTitle']"
               type="text"
               [submitted]="submitted"
+              [limit] ="defaultLimit"
               [disabled]="!isEditMode && job"
             ></shared-custom-input-field>
           </div>
@@ -169,6 +170,7 @@
               type="text"
               [submitted]="submitted"
               [disabled]="!isEditMode && job"
+              [limit] ="defaultLimit"
             ></shared-custom-input-field>
           </div>
           <div style="margin-bottom: 2rem;" class="sub-container">
@@ -225,7 +227,7 @@
               *ngIf="isEditMode && job"
               class="form__edit"
             >
-              Cancle
+              Cancel
               <fa-icon class="form__edit-icon" [icon]="faEyeDropper"></fa-icon>
             </div>
             <input

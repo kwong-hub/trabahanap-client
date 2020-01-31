@@ -91,7 +91,7 @@ export class AllJobsComponent implements OnInit {
   ];
   isLogoEditModalOpen: boolean = false;
   deletedId: any;
-
+  defaultLimit ={max:"50",min:"0"};
   constructor(
     private adminService: AdminService,
     private anonyService: AnonymousService,

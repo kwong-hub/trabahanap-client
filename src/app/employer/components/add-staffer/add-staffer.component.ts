@@ -15,6 +15,8 @@ export class AddStafferComponent implements OnInit {
   stafferAdded = false;
   stafferError = false;
   previousStaffs = [];
+  defaultLimit ={max:"30",min:"0"};
+  numberRange={max:"16",min:"10"};
 
   constructor(
     private formBuilder: FormBuilder,

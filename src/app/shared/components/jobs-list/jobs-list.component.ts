@@ -57,6 +57,7 @@ export class JobsListComponent implements OnInit {
     { name: "60,001-80,000", value: "60001-80000" },
     { name: ">80,000", value: ">80000" }
   ];
+  defaultLimit ={max:"50",min:"0"};
   educationAttainment = [];
   key = "";
   city = "";

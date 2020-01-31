@@ -21,7 +21,6 @@ export class CandidateApplicantDetailComponent implements OnInit {
   applicantId: string = '';
   job: any;
   pdfMake = pdfMake;
-
   constructor(
     private route: ActivatedRoute,
     private employerService: EmployerService,
