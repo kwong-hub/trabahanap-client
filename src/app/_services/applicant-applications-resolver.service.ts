@@ -18,7 +18,7 @@ export class ApplicantApplicationsResolverService implements Resolve<any> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Observable<never> {
-    return this.applicantService.getJobApplications(1).pipe(
+    return this.applicantService.getJobApplications(1,5).pipe(
       catchError(error => {
         return EMPTY;
       }),

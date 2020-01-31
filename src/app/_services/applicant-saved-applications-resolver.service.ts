@@ -18,11 +18,12 @@ export class ApplicantSavedApplicationsResolverService {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Observable<never> {
-    return this.applicantService.getSavedJobs(1).pipe(
+    return this.applicantService.getSavedJobs(1,5).pipe(
       catchError(error => {
         return EMPTY;
       }),
       mergeMap(value => {
+        console.log(value)
         if (value.success && value.jobs) {
           return of(value.jobs);
         }

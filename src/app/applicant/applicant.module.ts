@@ -37,7 +37,7 @@ import { IssueDetailResolverService } from '@app/_resolvers/applicant-resolvers/
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ApplicantProfileResolverService } from '@app/_resolvers/applicant-resolvers/applicant-profile-resolver.service';
 import { ErrorInterceptor } from '@app/_helpers/error.intercepter';
-import { PipesModule } from '@app/pipes/pipes.module';
+import { ApplicantDashboardResolverService } from '@app/_resolvers/applicant-resolvers/applicant-dashboard-resolver.service';
 
 @NgModule({
   declarations: [
@@ -78,7 +78,8 @@ import { PipesModule } from '@app/pipes/pipes.module';
     JobDetailResolverService,
     ApplicantSavedApplicationsResolverService,
     IssueDetailResolverService,
-    ApplicantProfileResolverService
+    ApplicantProfileResolverService,
+    ApplicantDashboardResolverService
   ]
 })
 export class ApplicantModule {}

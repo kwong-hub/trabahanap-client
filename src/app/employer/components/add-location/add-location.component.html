@@ -1,30 +1,4 @@
 <div class="container">
-  <div class="notification notification--success" [class.active]="locationAdded">
-    <div class="notification__body">
-      <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
-      <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-      <span class="text">Successfully added a Company Branch</span>
-    </div>
-  </div>
-
-  <div class="notification notification--error" [class.active]="locationError">
-    <div class="notification__body">
-      <i style="color: red; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
-      <!-- <fa-icon style="color: red; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faTimesCircle"></fa-icon> -->
-
-      <span class="text">Find your location on the map</span>
-    </div>
-  </div>
-
-  <div class="notification notification--error" [class.active]="imageError">
-    <div class="notification__body">
-      <i style="color: red; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
-      <!-- <fa-icon style="color: red; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faTimesCircle"></fa-icon> -->
-
-      <span class="text">Please, Upload a location Picture</span>
-    </div>
-  </div>
 
   <div class="form-container">
     <div class="form-container__header">
@@ -112,7 +86,7 @@
           </shared-custom-file-input>
 
           <shared-custom-select
-            style="margin-bottom: 1.2rem"
+            style="margin-bottom: -.5rem"
             defaultValue="Philippines"
             label="Country"
             [valid]="locationForm.controls['countryId']?.status"
@@ -175,9 +149,17 @@
 
         <!-- Form submit button -->
         <div class="form__group">
-          <input [class.disabled]="loading" type="submit" value="Submit" class="form__submit th-btn th-btn--primary" />
+          <app-custom-submit-button class="form__submit" [styleObject]="{btn: {width: '100%', borderRadius: '5px'}}" 
+            [loading]="loading" text="Submit" >
+          </app-custom-submit-button>
         </div>
       </form>
+      <app-custom-notification [show]="locationAdded" type="success"
+        text="Company Location Added Successfully" callback="/employer/branches">
+      </app-custom-notification>
+      <app-custom-notification [show]="locationError" type="error"
+        text="Find Your Location On the Map">
+      </app-custom-notification>
     </div>
   </div>
 

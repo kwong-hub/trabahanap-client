@@ -118,7 +118,7 @@ export class ApplicationsComponent implements OnInit {
           this.pager = data.jobs.pager;
         });
     } else {
-      this.applicantService.getJobApplications(page.pageIndex + 1).subscribe(
+      this.applicantService.getJobApplications(page.pageIndex + 1,page.pageSize).subscribe(
         success => {
           if (success.success == true) {
             this.jobs = success.jobs.rows;

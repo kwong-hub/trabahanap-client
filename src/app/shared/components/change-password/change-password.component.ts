@@ -26,8 +26,8 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit() {
     this.passwordForm = this.formBuilder.group(
       {
-        currentPassword: ["", [Validators.required, Validators.min(6)]],
-        newPassword: ["", [Validators.required, Validators.min(6)]],
+        currentPassword: ["", [Validators.required, Validators.min(6),Validators.maxLength(24)]],
+        newPassword: ["", [Validators.required, Validators.min(6),Validators.maxLength(24)]],
         confirmPassword: ["", [Validators.required, Validators.min(6)]]
       },
       {
@@ -48,11 +48,9 @@ export class ChangePasswordComponent implements OnInit {
       return;
     }
     this.loading = true;
-    console.log();
     this.authService.changePassword(this.f.currentPassword.value, 
       this.f.newPassword.value, this.f.confirmPassword.value).subscribe(
           data => {
-            console.log(data);
             this.loading = false;
             this.submitted = false;
             if (data.success) {

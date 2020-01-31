@@ -4,20 +4,6 @@
   <mat-progress-bar *ngIf="routing" color="warn" class="progress" mode="indeterminate"></mat-progress-bar>
 
   <div class="content-container">
-    <div class="success" [class.active]="slideActive">
-      <div class="success__body">
-        <i style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
-        <span class="text">Please, finish your company profile</span>
-      </div>
-    </div>
-
-    <div class="success" [class.active]="noLocations">
-      <div class="success__body">
-        <i style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
-        <span class="text">Please, add your company's location</span>
-      </div>
-    </div>
-
     <div class="sidebar" [class.sideBarActive]="sideBarActive">
       <h3 class="sidebar__header">Main</h3>
       <div class="sidebar__list">
@@ -56,7 +42,7 @@
         <a
           routerLink="filtered_candidates"
           routerLinkActive="active"
-          title="Screened Candidates"
+          title="Filtered"
           (click)="toggleSidebar(false)"
           [routerLinkActiveOptions]="{ exact: false }"
           class="sidebar__list-item"
@@ -148,6 +134,11 @@
     <div class="content">
       <router-outlet></router-outlet>
     </div>
+    <app-custom-notification
+      [show]="noLocations || noProfile"
+      type="error"
+      [text]="noLocations ? 'Please, add a location to your company' : 'Please, finish your company profile'"
+    ></app-custom-notification>
   </div>
   <shared-footer></shared-footer>
 </div>

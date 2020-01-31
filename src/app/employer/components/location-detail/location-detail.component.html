@@ -1,215 +1,77 @@
-<div class="notification notification--success" [class.active]="editSuccess">
+<!-- <div class="notification notification--success" [class.active]="editSuccess">
   <div class="notification__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
-    <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+    <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon>
 
     <span class="text">Successfully editted company branch</span>
   </div>
-</div>
-
-<div *ngIf="location" class="overlay" [class.active]="isModalVisible">
-  <div (click)="showModal()" class="overlay__close">
-    <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
-  </div>
-</div>
-
-<div *ngIf="location" class="modal" [class.active]="isModalVisible">
-  <div class="modal__header">
-    <h2 class="text">Change the location picture</h2>
-  </div>
-  <div class="modal__body">
-    <div class="image-preview" [class.loading]="uploading">
-      <img
-        [src]="modalImgSrc ? modalImgSrc : 'assets/img/building.png'"
-        alt=""
-        class="img"
-      />
-      <div class="progress"></div>
-    </div>
-
-    <form
-      class="modal__form"
-      (ngSubmit)="onUpdatePicture()"
-      [formGroup]="pictureUpdate"
-      method="POST"
-      action="#"
-      enctype="multipart/form-data"
-    >
-      <shared-custom-file-input
-        placeholder="Location Picture"
-        defaultValue=""
-        label="Location Picture"
-        [input]="pictureUpdate.controls['picture']"
-        [submitted]="submitted"
-        type="file"
-        name="picture"
-        [formGroup]="pictureUpdate"
-        accept=".png,.jpg,.jpeg"
-        (onValueChange)="fileChanged($event, 'picture')"
-      >
-      </shared-custom-file-input>
-
-      <input
-        [class.disabled]="uploading"
-        type="submit"
-        value="Submit"
-        class="modal__form-submit th-btn th-btn--primary"
-      />
-    </form>
-  </div>
-</div>
+</div> -->
 
 <div *ngIf="location" class="container">
-  <form
-    class="form"
-    [formGroup]="locationForm"
-    enctype="multipart/form-data"
-    action="#"
-    (ngSubmit)="onSubmit()"
-  >
-    <div
-      *ngIf="isDisabled"
-      title="Edit Location"
-      (click)="enableEdit()"
-      class="form__icon"
-    >
-      <fa-icon class="form__icon__edit" [icon]="faEdit"></fa-icon>
-    </div>
-
+  <form class="form" [formGroup]="locationForm" enctype="multipart/form-data" action="#" (ngSubmit)="onSubmit()">
     <div class="form__group--imageContainer">
-      <img
-        class="image"
-        [src]="formImgSrc ? formImgSrc : 'assets/img/building.png'"
-        alt="applicant-picture"
-      />
-      <!-- <img [src]="formImgSrc" alt="@location_Picture" class="image"> -->
-      <div class="menu" (click)="showModal()">
+      <img *ngIf="!tempImg" class="image" [src]="location?.picture ? location?.picture : 'assets/img/building.png'" 
+        alt="location-picture" />
+      <img *ngIf="tempImg" class="image" [src]="tempImg" 
+        alt="location-picture" />
+
+      <div class="menu">
+        <input type="file" name="" id="" class="picture-input"
+             (change)="imageChanged($event)" />
         <span title="Edit Image" class="menu__item menu__item--change">
-          <fa-icon
-            style="color: rgba(0, 0, 0, 0.6)"
-            [icon]="faCamera"
-          ></fa-icon>
-          <!-- Change -->
+          <fa-icon style="color: rgba(0, 0, 0, 0.6)" [icon]="faCamera"></fa-icon>
         </span>
-        <!-- <span (click)="clicked()" class="menu__item menu__item--delete">
-                    Delete
-                </span> -->
       </div>
     </div>
     <div class="form__group">
-      <shared-custom-input-field
-        class="input-element-type-2 form__input-location"
-        [formGroup]="locationForm"
-        name="locationName"
-        [defaultValue]="location.locationName"
-        placeholder="Enter location name"
-        label="Location name"
-        [input]="locationForm.controls['locationName']"
-        type="text"
-        [submitted]="submitted"
-      >
+      <shared-custom-input-field class="input-element-type-2 form__input-location" [formGroup]="locationForm"
+        name="locationName" [defaultValue]="location.locationName" placeholder="Enter location name"
+        label="Location name" [input]="locationForm.controls['locationName']" type="text" [submitted]="submitted">
       </shared-custom-input-field>
 
-      <shared-custom-input-field
-        class="input-element-type-2 form__input-location"
-        [formGroup]="locationForm"
-        name="locationPhoneNumber"
-        [defaultValue]="location.locationPhoneNumber"
-        placeholder="Enter location Phone number"
-        label="Location phone number"
-        [input]="locationForm.controls['locationPhoneNumber']"
-        type="text"
-        [submitted]="submitted"
-      >
+      <shared-custom-input-field class="input-element-type-2 form__input-location" [formGroup]="locationForm"
+        name="locationPhoneNumber" [defaultValue]="location.locationPhoneNumber"
+        placeholder="Enter location Phone number" label="Location phone number"
+        [input]="locationForm.controls['locationPhoneNumber']" type="text" [submitted]="submitted">
       </shared-custom-input-field>
     </div>
 
     <div class="form__group">
-      <shared-custom-input-field
-        class="input-element-type-2 form__input-location"
-        [formGroup]="locationForm"
-        name="email"
-        [defaultValue]="location.email"
-        placeholder="Enter Contact Email"
-        label="Contact Email"
-        [input]="locationForm.controls['email']"
-        type="email"
-        [submitted]="submitted"
-      >
+      <shared-custom-input-field class="input-element-type-2 form__input-location" [formGroup]="locationForm"
+        name="email" [defaultValue]="location.email" placeholder="Enter Contact Email" label="Contact Email"
+        [input]="locationForm.controls['email']" type="email" [submitted]="submitted">
       </shared-custom-input-field>
 
-      <shared-custom-input-field
-        class="input-element-type-2 form__input-location"
-        [formGroup]="locationForm"
-        name="address"
-        [defaultValue]="location.address"
-        placeholder="Enter location address"
-        label="Location address"
-        [input]="locationForm.controls['address']"
-        type="text"
-        [submitted]="submitted"
-      >
+      <shared-custom-input-field class="input-element-type-2 form__input-location" [formGroup]="locationForm"
+        name="address" [defaultValue]="location.address" placeholder="Enter location address" label="Location address"
+        [input]="locationForm.controls['address']" type="text" [submitted]="submitted">
       </shared-custom-input-field>
     </div>
 
     <div class="form__group">
-      <shared-custom-select
-        [disabled]="isDisabled"
-        [defaultValue]="1"
-        [valid]="locationForm.controls['countryId']?.status"
-        (onValueChange)="selectChanged($event, 'countryId')"
-        name="countryId"
-        [styleObject]="selectStyle"
-        class="input-element-type-3"
-        placeholder="Select Country"
-        [options]="countries"
-        [submitted]="submitted"
-      >
+      <shared-custom-select [defaultValue]="1"
+        [valid]="locationForm.controls['countryId']?.status" (onValueChange)="selectChanged($event, 'countryId')"
+        name="countryId" [styleObject]="selectStyle" class="input-element-type-3" placeholder="Select Country"
+        [options]="countries" [submitted]="submitted">
       </shared-custom-select>
 
-      <shared-custom-select
-        [disabled]="isDisabled"
-        [defaultValue]="+location?.regionId"
-        [valid]="locationForm.controls['regionId']?.status"
-        (onValueChange)="selectChanged($event, 'regionId')"
-        name="regionId"
-        [styleObject]="selectStyle"
-        class="input-element-type-3"
-        placeholder="Select Region"
-        [options]="regions"
-        [submitted]="submitted"
-      >
+      <shared-custom-select [defaultValue]="+location?.regionId"
+        [valid]="locationForm.controls['regionId']?.status" (onValueChange)="selectChanged($event, 'regionId')"
+        name="regionId" [styleObject]="selectStyle" class="input-element-type-3" placeholder="Select Region"
+        [options]="regions" [submitted]="submitted">
       </shared-custom-select>
 
-      <shared-custom-select
-        [disabled]="isDisabled"
-        [defaultValue]="+location?.cityId"
-        [valid]="locationForm.controls['cityId']?.status"
-        (onValueChange)="selectChanged($event, 'cityId')"
-        name="cityId"
-        [styleObject]="selectStyle"
-        class="input-element-type-3"
-        placeholder="Select City"
-        [options]="cities"
-        [submitted]="submitted"
-      >
+      <shared-custom-select [defaultValue]="+location?.cityId"
+        [valid]="locationForm.controls['cityId']?.status" (onValueChange)="selectChanged($event, 'cityId')"
+        name="cityId" [styleObject]="selectStyle" class="input-element-type-3" placeholder="Select City"
+        [options]="cities" [submitted]="submitted">
       </shared-custom-select>
     </div>
 
     <div class="form__group">
       <div class="checkbox">
-        <input
-          [attr.disabled]="true"
-          type="checkbox"
-          formControlName="isHeadOffice"
-          name="isHeadOffice"
-          id="headOffice"
-          class="checkbox__input"
-          [(ngModel)]="location.isHeadOffice"
-        />
+        <input type="checkbox" formControlName="isHeadOffice" name="isHeadOffice" id="headOffice"
+          class="checkbox__input" [(ngModel)]="location.isHeadOffice" />
         <label for="headOffice" class="checkbox__label">
           <div class="checkbox__button"></div>
           <span class="checkbox__text">Head office?</span>
@@ -222,23 +84,21 @@
         Back
       </button>
 
-      <input
-        [class.disabled]="isDisabled || loading"
-        type="submit"
-        value="Submit"
-        class="form__submit th-btn th-btn--primary"
-      />
+      <!-- <input [class.disabled]="locationForm.invalid || loading" type="submit" value="Submit"
+        class="form__submit th-btn th-btn--primary" /> -->
+      <app-custom-submit-button [loading]="loading" [disabled]="locationForm.invalid"
+        [styleObject]="{btn: {borderRadius: '5px', minWidth: '12rem'}}" text="Submit">
+    </app-custom-submit-button>
     </div>
   </form>
 
   <div class="map-container">
-    <div
-      style="height: 100%;"
-      leaflet
-      [leafletOptions]="options"
-      (leafletClick)="mapClicked($event)"
-    >
+    <div style="height: 100%;" leaflet [leafletOptions]="options" (leafletClick)="mapClicked($event)">
       <div [leafletLayer]="marker"></div>
     </div>
   </div>
+
+  <app-custom-notification [show]="editSuccess" type="success" callback="goBack"
+    text="Location Editted Successfully">
+</app-custom-notification>
 </div>

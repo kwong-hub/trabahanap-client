@@ -57,7 +57,6 @@ export class AddLocationComponent implements OnInit {
   locationAdded: boolean;
   error;
   locationError: boolean;
-  imageError: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -188,6 +187,8 @@ export class AddLocationComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.locationError = false;
+    this.locationAdded = false;
     if (this.locationForm.invalid) {
       return;
     }
@@ -201,9 +202,7 @@ export class AddLocationComponent implements OnInit {
 
     if (!this.latitude) {
       this.locationError = true;
-      setTimeout(() => {
-        this.locationError = false;
-      }, 3500);
+      console.log(this.locationError)
       return;
     }
     this.formData.append('latitude', this.latitude);
@@ -214,18 +213,9 @@ export class AddLocationComponent implements OnInit {
     var names = [];
     //@ts-ignore
     for (var pair of this.formData.entries()) {
-      // console.log(pair[0], pair[1])
+      console.log(pair[0], pair[1])
       names.push(pair[0]);
     }
-    // console.log(names, "names")
-
-    // if(!names.includes('picture')) {
-    //   this.imageError = true;
-    //   setTimeout(() => {
-    //     this.imageError = false;
-    //   }, 3000);
-    //   return;
-    // }
 
     this.loading = true;
     this.employerService
@@ -246,11 +236,6 @@ export class AddLocationComponent implements OnInit {
 
               this.authenticationService.updateCurrentUser(user);
             }
-
-            setTimeout(() => {
-              this.locationAdded = false;
-              this.router.navigate(['/employer/branches']);
-            }, 2000);
           } else {
             this.loading = false;
             //console.log(data, "error");
