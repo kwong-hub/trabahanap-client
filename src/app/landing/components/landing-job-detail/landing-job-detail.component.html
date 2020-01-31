@@ -85,7 +85,7 @@
       {{ bookmarked ? "SAVED" : "SAVE JOB" }}
     </button>
 
-    <button *ngIf="!job.applied" (click)="apply()" class="apply th-btn th-btn--primary">
+    <button *ngIf="!job.applied" (click)="apply(job.id)" class="apply th-btn th-btn--primary">
       MAG-APPLY
     </button>
     <!-- If already applied, show this button -->

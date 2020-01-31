@@ -29,15 +29,17 @@ export class EmployerComponent implements OnInit {
         case event instanceof NavigationStart: {
           this.routing = true;
     
-          if (!this.authenticationService.currentUserValue.company_profile.hasLocations) {
+          if (this.authenticationService.currentUserValue && !this.authenticationService.currentUserValue.company_profile.hasLocations) {
             this.noLocations = true;
             console.log(this.noLocations)
             return false;
           }
-          window.scrollTo(0, 0);
           break;
         }
-        case event instanceof NavigationEnd:
+        case event instanceof NavigationEnd: {
+          window.scrollTo(0, 0);
+          // break;
+        }
         case event instanceof NavigationCancel:
         case event instanceof NavigationError: {
           this.routing = false;
