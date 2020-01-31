@@ -1,20 +1,16 @@
-import { JobService } from "@app/_services/jobs.service";
+import { JobService } from '@app/_services/jobs.service';
 
-import { Component, OnInit, Input } from "@angular/core";
-import {
-  faUsers,
-  faPenFancy,
-  faSlidersH
-} from "@fortawesome/free-solid-svg-icons";
-import { Router, ActivatedRoute } from "@angular/router";
-import { count } from "rxjs/operators";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { EmployerService } from "@app/_services/employer.service";
+import { Component, OnInit, Input } from '@angular/core';
+import { faUsers, faPenFancy, faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { Router, ActivatedRoute } from '@angular/router';
+import { count } from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EmployerService } from '@app/_services/employer.service';
 
 @Component({
-  selector: "app-candidates-list",
-  templateUrl: "./candidates-list.component.html",
-  styleUrls: ["./candidates-list.component.scss"]
+  selector: 'app-candidates-list',
+  templateUrl: './candidates-list.component.html',
+  styleUrls: ['./candidates-list.component.scss']
 })
 export class CandidatesListComponent implements OnInit {
   panelOpenState = false;
@@ -22,12 +18,7 @@ export class CandidatesListComponent implements OnInit {
   faUsers = faUsers;
   faPenFancy = faPenFancy;
   faSlidersH = faSlidersH;
-  displayedColumns: string[] = [
-    "jobTitle",
-    "position",
-    "noOfApplicants",
-    "detail"
-  ];
+  displayedColumns: string[] = ['jobTitle', 'noOfPositions', 'postedDate', 'endDate', 'noOfApplicants', 'detail'];
   public page: any;
   @Input() pager: any;
   searchForm: FormGroup;
@@ -45,16 +36,16 @@ export class CandidatesListComponent implements OnInit {
 
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
-      jobTitle: ["", Validators.nullValidator],
-      industry: ["", Validators.nullValidator],
-      position: ["", Validators.nullValidator]
+      jobTitle: ['', Validators.nullValidator],
+      industry: ['', Validators.nullValidator],
+      position: ['', Validators.nullValidator]
     });
 
-    let elem = document.getElementsByClassName("overlay");
-    elem[0].addEventListener("click", () => {
+    let elem = document.getElementsByClassName('overlay');
+    elem[0].addEventListener('click', () => {
       this.openActions = {};
       this.filterHidden = true;
-     // console.log(this.filterHidden);
+      // console.log(this.filterHidden);
     });
   }
 
@@ -70,10 +61,7 @@ export class CandidatesListComponent implements OnInit {
 
   getServerData(page) {
     if (!this.filtered) {
-      this.JobsService.getJobWithApplications(
-        page.pageIndex + 1,
-        page.pageSize
-      ).subscribe(
+      this.JobsService.getJobWithApplications(page.pageIndex + 1, page.pageSize).subscribe(
         success => {
           if (success.success == true) {
             this.jobs = success.applications.rows;
@@ -85,19 +73,19 @@ export class CandidatesListComponent implements OnInit {
       );
     } else {
       var val = this.searchForm.value;
-      this.EmployerService.getFilterJobsApplications(val.jobTitle, val.industry, val.position, page.pageIndex + 1,page.pageSize)
-        .subscribe(
-          data => {
-            //console.log(data);
-            if (data.success == true) {
-              this.jobs = data.applications.rows;
-              this.pager = data.applications.pager;
-            }
-
-          }
-        )
-
-
+      this.EmployerService.getFilterJobsApplications(
+        val.jobTitle,
+        val.industry,
+        val.position,
+        page.pageIndex + 1,
+        page.pageSize
+      ).subscribe(data => {
+        //console.log(data);
+        if (data.success == true) {
+          this.jobs = data.applications.rows;
+          this.pager = data.applications.pager;
+        }
+      });
     }
   }
 
@@ -110,13 +98,16 @@ export class CandidatesListComponent implements OnInit {
     var val = this.searchForm.value;
     //console.log(val);
     this.filterHidden = true;
-    this.EmployerService.getFilterJobsApplications(val.jobTitle, val.industry, val.position, this.page || 1,8)
-      .subscribe(
-        data => {
-          this.jobs = data.applications.rows;
-          this.pager = data.applications.pager;
-        }
-      )
+    this.EmployerService.getFilterJobsApplications(
+      val.jobTitle,
+      val.industry,
+      val.position,
+      this.page || 1,
+      8
+    ).subscribe(data => {
+      this.jobs = data.applications.rows;
+      this.pager = data.applications.pager;
+    });
 
     this.filtered = true;
   }

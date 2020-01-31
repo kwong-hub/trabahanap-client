@@ -32,7 +32,7 @@
 
   &__right {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: row;
     width: 100%;
     margin: 1.5rem 0rem;
   }
@@ -78,7 +78,7 @@
     position: relative;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 0;
       right: 0;
@@ -177,9 +177,8 @@
 
   &__general-info {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 0.5rem 1.5rem;
     margin-top: 1rem;
     flex-wrap: wrap;
@@ -199,7 +198,7 @@
 
   .pwd-img {
     width: 3rem;
-    margin-right: .8rem;
+    margin-right: 0.8rem;
   }
 }
 

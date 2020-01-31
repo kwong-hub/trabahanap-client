@@ -8,7 +8,8 @@
           <span class="job__company-name">{{ Job.companyName }}</span>
           <span class="job__company-verified">
             <i class="fas fa-check-circle job__company-verified-icon"></i>
-            Verified</span>
+            Verified</span
+          >
         </div>
         <!-- <div>
                     <span class="job__location"><i class="fas fa-map-marker-alt job__location-icon"></i> Location Name</span>
@@ -23,9 +24,7 @@
 
     <div class="job__left--bottom">
       <div>
-        <span class="job__tag"
-          ><i class="job__tag-icon fa fa-tag"></i> Tags</span
-        >
+        <span class="job__tag"><i class="job__tag-icon fa fa-tag"></i> Tags</span>
       </div>
       <div class="job__tag-elements">
         <div class="job__tag-element">{{ Job.employmentType }}</div>
@@ -44,19 +43,24 @@
       <div class="job__info job__info-applicants">
         2 Applicants have applied
       </div>
-      <div class="job__info job__info-vacancies">
-        {{ Job.vacancies }} Vacancies
+      <div class="job__info job__info-vacancies">{{ Job.vacancies }} Vacancies</div>
+      <div class="job__info job__info-pwd">
+        <img src="../../../../assets/img/pwd.jpeg" alt="" class="pwd-img" /> PwD-Friendly
       </div>
-      <div  class="job__info job__info-pwd">
-        <img src="../../../../assets/img/pwd.jpeg" alt="" class="pwd-img"> PwD-Friendly
-      </div>
+    </div>
+    <div class="job__general-info">
+      <div class="job__info job__info-applicants">Posted {{ Job.applicationStartDate | dateAgo }}</div>
+      <div class="job__info job__info-applicants">Ends at {{ Job.applicationEndDate | date }}</div>
     </div>
   </div>
   <div>
-    <button *ngIf="!(userRole === 'EMPLOYER' || userRole === 'ADMIN')"
-      (click)="bookmarkJob($event)" [class.job__bookmark--saved]="bookmarked"
-      class="job__bookmark">
-        {{ bookmarked ? "SAVED" : "SAVE JOB" }}
+    <button
+      *ngIf="!(userRole === 'EMPLOYER' || userRole === 'ADMIN')"
+      (click)="bookmarkJob($event)"
+      [class.job__bookmark--saved]="bookmarked"
+      class="job__bookmark"
+    >
+      {{ bookmarked ? 'SAVED' : 'SAVE JOB' }}
       <i *ngIf="booking !== Job.jobId" class="job__bookmark-icon far fa-bookmark"></i>
       <div *ngIf="booking === Job.jobId" class="job__bookmark-icon--progress"></div>
     </button>

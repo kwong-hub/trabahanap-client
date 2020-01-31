@@ -1,10 +1,11 @@
-// .main-container{
-
-// }
+.job {
+  min-width: 60rem;
+}
 
 .job-detail {
   &__container {
     width: 100%;
+    min-width: 60rem;
     height: 25rem;
     padding: 2rem;
     background-color: #fff;
@@ -47,11 +48,33 @@
     font-size: 1.3rem;
     color: #888;
     text-transform: uppercase;
+
+    &--picture {
+      min-width: 8rem;
+    }
+
+    &--name {
+      min-width: 13rem;
+    }
+
+    &--gender {
+      min-width: 8rem;
+    }
+
+    &--date-of-birth {
+      min-width: 10rem;
+    }
+
+    &--detail {
+      min-width: 10rem;
+      text-align: center;
+    }
   }
 }
 
 .candidate {
   width: 100%;
+  min-width: 60rem;
   // height: 2rem;
   border: 1px solid #ccc;
   padding: 1rem;
@@ -66,13 +89,13 @@
     font-weight: 700;
     margin-bottom: 0px;
     text-transform: capitalize;
-    width: 25%;
+    min-width: 13rem;
   }
 
   &__detail {
     border: 1px solid #42597b;
     border-radius: 2rem;
-    padding: 0.5rem 3.5rem;
+    padding: 0.5rem 2rem;
     background-color: #fff;
     text-transform: uppercase;
     color: #42597b;
@@ -85,8 +108,21 @@
     }
   }
 
-  &__email {
+  &__gender {
     font-size: 1.5rem;
     color: #555;
+    min-width: 8rem;
+  }
+
+  &__date-of-birth {
+    font-size: 1.5rem;
+    color: #555;
+    min-width: 10rem;
+    text-align: center;
+  }
+
+  &__image {
+    min-width: 5rem;
+    width: 5rem;
   }
 }

@@ -7,8 +7,7 @@
         <div style="margin-top: 1rem;">
           <span class="job__company-name">{{ Job.companyName }}</span>
           <span class="job__company-verified"
-            ><i class="fas fa-check-circle job__company-verified-icon"></i>
-            Verified</span
+            ><i class="fas fa-check-circle job__company-verified-icon"></i> Verified</span
           >
         </div>
         <!-- <div>
@@ -24,9 +23,7 @@
 
     <div class="job__left--bottom">
       <div>
-        <span class="job__tag"
-          ><i class="job__tag-icon fa fa-tag"></i> Tags</span
-        >
+        <span class="job__tag"><i class="job__tag-icon fa fa-tag"></i> Tags</span>
       </div>
       <div class="job__tag-elements">
         <div class="job__tag-element">{{ Job.employmentType }}</div>
@@ -45,12 +42,14 @@
       <div class="job__info job__info-applicants">
         2 Applicants have applied
       </div>
-      <div class="job__info job__info-vacancies">
-        {{ Job.vacancies }} Vacancies
-      </div>
+      <div class="job__info job__info-vacancies">{{ Job.vacancies }} Vacancies</div>
       <div *ngIf="Job.pwd" class="job__info job__info-pwd">
-        <img src="../../../../assets/img/pwd.jpeg" alt="" class="pwd-img"> PwD-Friendly
+        <img src="../../../../assets/img/pwd.jpeg" alt="" class="pwd-img" /> PwD-Friendly
       </div>
+    </div>
+    <div class="job__general-info">
+      <div class="job__info job__info-applicants">Posted {{ Job.applicationStartDate | dateAgo }}</div>
+      <div class="job__info job__info-applicants">Ends at {{ Job.applicationEndDate | date }}</div>
     </div>
   </div>
   <div>
@@ -60,7 +59,7 @@
       [class.job__bookmark--saved]="bookmarked"
       class="job__bookmark"
     >
-      {{ bookmarked ? "SAVED" : "SAVE JOB" }}
+      {{ bookmarked ? 'SAVED' : 'SAVE JOB' }}
       <i class="job__bookmark-icon far fa-bookmark"></i>
     </button>
   </div>

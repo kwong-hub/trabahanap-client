@@ -1,34 +1,19 @@
 <div class="main-container">
-  <employer-header
-    [isChecked]="sideBarActive"
-    (signout)="logout()"
-    (toggleBox)="toggleSidebar($event)"
-  >
+  <employer-header [isChecked]="sideBarActive" (signout)="logout()" (toggleBox)="toggleSidebar($event)">
   </employer-header>
-  <mat-progress-bar
-    *ngIf="routing"
-    color="warn"
-    class="progress"
-    mode="indeterminate"
-  ></mat-progress-bar>
+  <mat-progress-bar *ngIf="routing" color="warn" class="progress" mode="indeterminate"></mat-progress-bar>
 
   <div class="content-container">
     <div class="success" [class.active]="slideActive">
       <div class="success__body">
-        <i
-          style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline"
-          class="far fa-times-circle"
-        ></i>
+        <i style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
         <span class="text">Please, finish your company profile</span>
       </div>
     </div>
 
     <div class="success" [class.active]="noLocations">
       <div class="success__body">
-        <i
-          style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline"
-          class="far fa-times-circle"
-        ></i>
+        <i style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
         <span class="text">Please, add your company's location</span>
       </div>
     </div>
@@ -71,13 +56,13 @@
         <a
           routerLink="filtered_candidates"
           routerLinkActive="active"
-          title="Filtered"
+          title="Screened Candidates"
           (click)="toggleSidebar(false)"
           [routerLinkActiveOptions]="{ exact: false }"
           class="sidebar__list-item"
         >
           <i class="icons fas fa-filter"></i>
-          <span class="names">Filtered Candidates</span>
+          <span class="names">Screened Candidates</span>
         </a>
 
         <a
@@ -121,10 +106,7 @@
         </a>
 
         <a
-          *ngIf="
-            authenticationService.currentUserValue &&
-            authenticationService.currentUserValue.role == 'EMPLOYER'
-          "
+          *ngIf="authenticationService.currentUserValue && authenticationService.currentUserValue.role == 'EMPLOYER'"
           routerLink="staff"
           routerLinkActive="active"
           title="Staff"
