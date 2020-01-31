@@ -28,8 +28,9 @@ export class AuthRegisterComponent implements OnInit {
     feedbackContainer: {},
     feedbackMessage: { fontSize: "1.5rem" }
   };
-  defaultLimit ={max:"50",min:"0"};
-  numberRange={max:"16",min:"10"};
+  defaultLimit ={max:"30",min:"0"};
+  emailLimit={max:"50",min:"0"}
+  numberRange={max:"20",min:"10"};
   passwordLimit = {max:"24",min:"6"}
   submitStyle = { btn: {width: "100%", borderRadius: "5px"}}
   eyeIcon = faEyeSlash;

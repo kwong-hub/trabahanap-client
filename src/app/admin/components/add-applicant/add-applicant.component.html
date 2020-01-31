@@ -132,7 +132,7 @@
             type="address"
             name="address"
             [formGroup]="addApplicantForm"
-            [limit] ="defaultLimit"
+            [limit] ="bigLimit"
           >
           </shared-custom-input-field>
 
@@ -145,7 +145,7 @@
             type="tel"
             name="phoneNumber"
             [formGroup]="addApplicantForm"
-            [limit] ="defaultLimit"
+            [limit] ="numberRange"
           >
           </shared-custom-input-field>
         </div>

@@ -97,7 +97,7 @@ export class AddApplicantProfileComponent implements OnInit {
     feedbackContainer: {},
     feedbackMessage: {}
   };
-  formErrors = ["Some form elements are not valid."];
+  formErrors = ["Please fill in all the required inputs."];
   cvFileTypes = ".pdf,.doc,.docx";
   profilePictureFileTypes = ".png, .jpg, jpeg";
   inputType: string = "file";
@@ -114,7 +114,7 @@ export class AddApplicantProfileComponent implements OnInit {
   loading: boolean;
   success: boolean;
   defaultLimit ={max:"35",min:"0"};
-  numberRange={max:"16",min:"10"};
+  numberRange={max:"20",min:"10"};
   bigLimit = {max:"100",min:"6"}
   constructor(
     private formBuilder: FormBuilder,

@@ -45,7 +45,7 @@ export class AddCompanyProfileComponent implements OnInit {
     optionContainer: { backgroundColor: "#555", top: "3.3rem", boxShadow: "0px 1px 2px #aaa" },
     option: { fontSize: "1.5rem", borderBottom: "1px solid #ddd", backgroundColor: "#fff" }};
   submitStyle={ btn: {width: "100%"} };
-  formErrors = ["Some form elements are not valid."];
+  formErrors = ["Please fill in all the required inputs."];
   serverErrors = false;
   hasProfile = false;
   companyProfile: any;
@@ -65,7 +65,7 @@ export class AddCompanyProfileComponent implements OnInit {
   success: boolean;
   tempImg;
   defaultLimit ={max:"35",min:"0"};
-  numberRange={max:"16",min:"10"};
+  numberRange={max:"20",min:"10"};
   bigLimit = {max:"100",min:"6"}
   constructor(
     private formBuilder: FormBuilder,

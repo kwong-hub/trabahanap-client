@@ -71,7 +71,7 @@ export class AddJobComponent implements OnInit {
     }
   };
   defaultLimit ={max:"30",min:"0"};
-  numberRange={max:"16",min:"10"};
+  numberRange={max:"20",min:"10"};
   bigLimit = {max:"100",min:"6"}
   job: any;
   previousJobs: any = [];

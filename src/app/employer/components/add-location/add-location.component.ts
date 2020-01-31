@@ -58,7 +58,7 @@ export class AddLocationComponent implements OnInit {
   error;
   locationError: boolean;
   defaultLimit ={max:"35",min:"0"};
-  numberRange={max:"16",min:"10"};
+  numberRange={max:"20",min:"10"};
   constructor(
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
