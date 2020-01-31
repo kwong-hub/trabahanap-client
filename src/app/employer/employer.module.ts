@@ -1,10 +1,10 @@
-import { EmployerService } from "./../_services/employer.service";
-import { EmployerComponent } from "./employer.component";
-import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { JwtInterceptor } from "@app/_helpers/jwt.intercepter";
-import { LeafletModule } from "@asymmetrik/ngx-leaflet";
+import { EmployerService } from './../_services/employer.service';
+import { EmployerComponent } from './employer.component';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '@app/_helpers/jwt.intercepter';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { EmployerRoutingModule } from "./employer-routing.module";
 import { HomeComponent } from "./components/home/home.component";

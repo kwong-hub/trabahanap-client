@@ -31,6 +31,7 @@ import { PrivacyComponent } from './components/privacy/privacy.component';
 import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { RouterModule } from '@angular/router';
+import { PipesModule } from '@app/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     LeafletModule,
     MatProgressBarModule,
-    MatButtonModule
+    MatButtonModule,
+    PipesModule
   ],
   providers: [JobDetailResolverService, SimpleJobSearchResolveService, JobService, AnonymousService]
 })

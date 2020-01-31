@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "app-candidates",
-  templateUrl: "./candidates.component.html",
-  styleUrls: ["./candidates.component.scss"]
+  selector: 'app-candidates',
+  templateUrl: './candidates.component.html',
+  styleUrls: ['./candidates.component.scss']
 })
 export class CandidatesComponent implements OnInit {
   pager: any;
@@ -16,6 +16,7 @@ export class CandidatesComponent implements OnInit {
       if (candidates.success) {
         this.rows = candidates.applications.rows;
         this.pager = candidates.applications.pager;
+        console.log(this.rows);
       }
     });
   }
