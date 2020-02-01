@@ -1,16 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { AdminService } from "@app/_services/admin.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import _ from "lodash";
-import { LocationService } from "@app/_services/location.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { tileLayer, latLng, marker, icon, Point, LatLng } from "leaflet";
-import { Location } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '@app/_services/admin.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import _ from 'lodash';
+import { LocationService } from '@app/_services/location.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { tileLayer, latLng, marker, icon, Point, LatLng } from 'leaflet';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: "app-add-location",
-  templateUrl: "./add-location.component.html",
-  styleUrls: ["./add-location.component.scss"]
+  selector: 'app-add-location',
+  templateUrl: './add-location.component.html',
+  styleUrls: ['./add-location.component.scss']
 })
 export class AddLocationComponent implements OnInit {
   companyId;
@@ -20,16 +20,16 @@ export class AddLocationComponent implements OnInit {
   submitted: boolean;
   selectStyle = {
     inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   loading: boolean;
@@ -41,9 +41,9 @@ export class AddLocationComponent implements OnInit {
   formData = new FormData();
   options = {
     layers: [
-      tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
-        attribution: "..."
+        attribution: '...'
       })
     ],
     zoom: 20,
@@ -54,8 +54,8 @@ export class AddLocationComponent implements OnInit {
   locationError: boolean;
   imageError: boolean;
   cities: any;
-  defaultLimit ={max:"35",min:"0"};
-  bigLimit = {max:"100",min:"6"}
+  defaultLimit = { max: '35', min: '0' };
+  bigLimit = { max: '100', min: '6' };
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,
@@ -70,14 +70,14 @@ export class AddLocationComponent implements OnInit {
     this.getCountries();
 
     this.locationForm = this.formBuilder.group({
-      locationName: ["", Validators.required],
-      locationPhoneNumber: ["", Validators.required],
-      email: ["", Validators.required],
-      address: ["", Validators.required],
-      picture: ["picture"],
-      cityId: ["", Validators.required],
-      regionId: ["", Validators.required],
-      countryId: ["", Validators.required],
+      locationName: ['', Validators.required],
+      locationPhoneNumber: ['', Validators.required],
+      email: ['', Validators.required],
+      address: ['', Validators.required],
+      picture: ['picture'],
+      cityId: ['', Validators.required],
+      regionId: ['', Validators.required],
+      countryId: ['', Validators.required],
       isHeadOffice: [false]
     });
 
@@ -85,15 +85,15 @@ export class AddLocationComponent implements OnInit {
       icon: icon({
         iconSize: [25, 41],
         iconAnchor: [13, 41],
-        iconUrl: "assets/marker-icon.png",
-        shadowUrl: "assets/marker-shadow.png"
+        iconUrl: 'assets/marker-icon.png',
+        shadowUrl: 'assets/marker-shadow.png'
       }),
       draggable: true,
       autoPan: true,
       autoPanPadding: new Point(70, 70)
     });
 
-    this.marker.on("dragend", e => {
+    this.marker.on('dragend', e => {
       ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
     });
     this.showMap = true;
@@ -119,7 +119,7 @@ export class AddLocationComponent implements OnInit {
           this.countries.push({ name: country.countryName, value: country.id });
         });
 
-        this.locationForm.controls["countryId"].setValue(countries[0].id);
+        this.locationForm.controls['countryId'].setValue(countries[0].id);
       },
       error => console.log(error)
     );
@@ -130,7 +130,7 @@ export class AddLocationComponent implements OnInit {
   }
 
   selectChanged(value, name) {
-    if (name == "regionId") {
+    if (name == 'regionId') {
       this.getCitiesByRegionId(value);
     }
     this.locationForm.controls[name].setValue(value);
@@ -163,7 +163,7 @@ export class AddLocationComponent implements OnInit {
 
     let val = this.locationForm.value;
     _.map(val, (value, key) => {
-      if (key != "picture") {
+      if (key != 'picture') {
         this.formData.append(key, value);
       }
     });
@@ -175,10 +175,10 @@ export class AddLocationComponent implements OnInit {
       }, 3500);
       return;
     }
-    this.formData.append("latitude", this.latitude);
-    this.formData.append("longitude", this.longitude);
+    this.formData.append('latitude', this.latitude);
+    this.formData.append('longitude', this.longitude);
     //@ts-ignore
-    this.formData.append("companyProfileId", this.companyId);
+    this.formData.append('companyProfileId', this.companyId);
 
     var names = [];
     //@ts-ignore
@@ -192,7 +192,7 @@ export class AddLocationComponent implements OnInit {
 
     this.adminService.addCompanyLocation(this.formData).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           this.loading = false;
           this.submitted = false;

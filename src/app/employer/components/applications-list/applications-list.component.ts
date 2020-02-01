@@ -32,7 +32,7 @@ export class ApplicationsListComponent implements OnInit {
   displayedColumns: string[] = ['picture', 'jobtitle', 'firstName', 'vacancies', 'applicationDate', 'hired', 'detail'];
   filterHidden: boolean = true;
   filtered: boolean = false;
-  defaultLimit ={max:"50",min:"0"};
+  defaultLimit = { max: '50', min: '0' };
   constructor(
     private employerService: EmployerService,
     private Route: ActivatedRoute,
@@ -43,7 +43,7 @@ export class ApplicationsListComponent implements OnInit {
     this.Route.data.subscribe(res => {
       let data = res.data;
       if (data.success) {
-        console.log(data);
+        // console.log(data);
         this.pager = data.applications.pager;
         this.applications = data.applications.rows;
         // console.log(this.applications);

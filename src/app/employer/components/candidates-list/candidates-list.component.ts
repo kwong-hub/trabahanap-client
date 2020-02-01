@@ -25,7 +25,7 @@ export class CandidatesListComponent implements OnInit {
   filterHidden: boolean = true;
   filtered: boolean = false;
   openActions: {};
-  defaultLimit ={max:"50",min:"0"};
+  defaultLimit = { max: '50', min: '0' };
   constructor(
     private JobsService: JobService,
     private EmployerService: EmployerService,
@@ -50,7 +50,7 @@ export class CandidatesListComponent implements OnInit {
   }
 
   updateExpansionState(jobId) {
-    console.log(jobId);
+    // console.log(jobId);
   }
 
   showCadidates(application) {

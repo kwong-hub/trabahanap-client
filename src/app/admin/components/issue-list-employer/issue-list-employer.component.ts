@@ -1,21 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { AdminService } from "@app/_services/admin.service";
-import { faReply, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '@app/_services/admin.service';
+import { faReply, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "app-issue-list-employer",
-  templateUrl: "./issue-list-employer.component.html",
-  styleUrls: ["./issue-list-employer.component.scss"]
+  selector: 'app-issue-list-employer',
+  templateUrl: './issue-list-employer.component.html',
+  styleUrls: ['./issue-list-employer.component.scss']
 })
 export class IssueListEmployerComponent implements OnInit {
   issues: any = [];
-  displayedColumns: string[] = [
-    "logo",
-    "issueReason",
-    "issueType",
-    "name",
-    "action"
-  ];
+  displayedColumns: string[] = ['logo', 'issueReason', 'issueType', 'name', 'action'];
   faReply = faReply;
   faTimes = faTimes;
   selectedIssue: any;
@@ -27,7 +21,7 @@ export class IssueListEmployerComponent implements OnInit {
   ngOnInit() {
     this.adminService.getAllEmployerIssues().subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           this.issues = data.issues;
         }

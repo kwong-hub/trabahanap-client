@@ -1,18 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import {
-  Router,
-  Event,
-  NavigationStart,
-  NavigationEnd,
-  NavigationCancel,
-  NavigationError
-} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 
 @Component({
-  selector: "app-employer",
-  templateUrl: "./employer.component.html",
-  styleUrls: ["./employer.component.scss"]
+  selector: 'app-employer',
+  templateUrl: './employer.component.html',
+  styleUrls: ['./employer.component.scss']
 })
 export class EmployerComponent implements OnInit {
   sideBarActive: boolean;
@@ -20,18 +13,18 @@ export class EmployerComponent implements OnInit {
   noLocations: boolean;
   routing: boolean;
 
-  constructor(
-    public authenticationService: AuthenticationService,
-    private router: Router
-  ) {
+  constructor(public authenticationService: AuthenticationService, private router: Router) {
     this.router.events.subscribe((event: Event) => {
       switch (true) {
         case event instanceof NavigationStart: {
           this.routing = true;
-    
-          if (this.authenticationService.currentUserValue && !this.authenticationService.currentUserValue.company_profile.hasLocations) {
+
+          if (
+            this.authenticationService.currentUserValue &&
+            !this.authenticationService.currentUserValue.company_profile.hasLocations
+          ) {
             this.noLocations = true;
-            console.log(this.noLocations)
+            // console.log(this.noLocations)
             return false;
           }
           break;
@@ -56,7 +49,7 @@ export class EmployerComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(["/"]);
+    this.router.navigate(['/']);
   }
 
   toggleSidebar($event) {
@@ -64,7 +57,7 @@ export class EmployerComponent implements OnInit {
     this.noLocations = false;
     this.sideBarActive = $event;
     let currentUser = this.authenticationService.currentUserValue;
-    
+
     // @ts-ignore
     if (!currentUser.companyProfileId) {
       this.noProfile = true;

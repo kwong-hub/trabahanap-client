@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { AdminService } from "@app/_services/admin.service";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { Location } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AdminService } from '@app/_services/admin.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: "app-issue-detail-container",
-  templateUrl: "./issue-detail-container.component.html",
-  styleUrls: ["./issue-detail-container.component.scss"]
+  selector: 'app-issue-detail-container',
+  templateUrl: './issue-detail-container.component.html',
+  styleUrls: ['./issue-detail-container.component.scss']
 })
 export class IssueDetailContainerComponent implements OnInit {
   issue: any;
@@ -27,14 +27,14 @@ export class IssueDetailContainerComponent implements OnInit {
       if (data.success) {
         this.issue = data.issue;
       } else {
-        console.log(data);
+        // console.log(data);
       }
     });
   }
 
   ngOnInit() {
     this.replyIssue = this.formBuilder.group({
-      issueResponse: ["", Validators.required]
+      issueResponse: ['', Validators.required]
     });
   }
 
@@ -54,25 +54,23 @@ export class IssueDetailContainerComponent implements OnInit {
       return;
     }
 
-    this.adminService
-      .addIssueResponse({ ...this.replyIssue.value, issueId: this.issue.id })
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.successReply = true;
-            this.issue = {
-              ...this.issue,
-              issueResponseId: data.issueResponse.id,
-              issue_response: {
-                issueResponse: data.issueResponse.issueResponse
-              }
-            };
-            setTimeout(() => {
-              this.successReply = false;
-            }, 4500);
-          }
-        },
-        err => console.log(err)
-      );
+    this.adminService.addIssueResponse({ ...this.replyIssue.value, issueId: this.issue.id }).subscribe(
+      data => {
+        if (data.success) {
+          this.successReply = true;
+          this.issue = {
+            ...this.issue,
+            issueResponseId: data.issueResponse.id,
+            issue_response: {
+              issueResponse: data.issueResponse.issueResponse
+            }
+          };
+          setTimeout(() => {
+            this.successReply = false;
+          }, 4500);
+        }
+      },
+      err => console.log(err)
+    );
   }
 }
