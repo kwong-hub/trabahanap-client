@@ -24,7 +24,7 @@
       <div class="details-left__body">
         <div class="location">
           <fa-icon style="color: #71171C; font-size: 2rem; margin-right: .8rem;" [icon]="faMapMarkerAlt"></fa-icon>
-          <span>LAGUNA, REGION4CALABARZON</span>
+          <span class="text">{{ job.location.city.cityName +", "+ job.location.region.regionName }}</span>
         </div>
         <div class="overflow__gradient">
           <p class="description">

@@ -48,13 +48,14 @@ export class AddJobComponent implements OnInit {
   //   {name: 'Degree', value: 'Deploma'}
   // ]
   employmentType = [
-    { name: 'Part Time', value: 'PARTTIME' },
-    { name: 'Full Time', value: 'FULLTIME' },
-    { name: 'Project Based', value: 'PROJECTBASED' },
+    { name: 'All', value: '' },
+    { name: 'Part Time', value: 'Part-Time' },
+    { name: 'Full Time', value: 'Full-Time' },
+    { name: 'Project Based', value: 'Project-Based' },
     { name: 'Permanent', value: 'PERMANENT' },
     { name: 'Temporary', value: 'TEMPORARY' },
     { name: 'Internship/OJT', value: 'INTERNSHIP/OJT' },
-    { name: 'Freelance', value: 'FREELANCE' }
+    { name: 'Freelance', value: 'Freelance' }
   ];
   styleObject = {
     inputContainer: {},
