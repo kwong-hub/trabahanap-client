@@ -1,17 +1,17 @@
-import { AdminService } from "@app/_services/admin.service";
-import { OtherService } from "./../../../_services/other.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
-import { faEyeDropper, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
-import { JobService } from "@app/_services/jobs.service";
-import { EmployerService } from "@app/_services/employer.service";
-import { Location } from "@angular/common";
+import { AdminService } from '@app/_services/admin.service';
+import { OtherService } from './../../../_services/other.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { faEyeDropper, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { JobService } from '@app/_services/jobs.service';
+import { EmployerService } from '@app/_services/employer.service';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: "app-add-employer-job",
-  templateUrl: "./add-employer-job.component.html",
-  styleUrls: ["./add-employer-job.component.scss"]
+  selector: 'app-add-employer-job',
+  templateUrl: './add-employer-job.component.html',
+  styleUrls: ['./add-employer-job.component.scss']
 })
 export class AddEmployerJobComponent implements OnInit {
   companyId = null;
@@ -25,19 +25,19 @@ export class AddEmployerJobComponent implements OnInit {
   locations = [];
   industries = [];
   salaryRange = [
-    { name: "<500", value: "<500" },
-    { name: "500-100", value: "500-1000" },
-    { name: "1000-5000", value: "1000-5000" },
-    { name: "5000-10000", value: "5000-10000" },
-    { name: ">10000", value: ">10000" }
+    { name: '<500', value: '<500' },
+    { name: '500-100', value: '500-1000' },
+    { name: '1000-5000', value: '1000-5000' },
+    { name: '5000-10000', value: '5000-10000' },
+    { name: '>10000', value: '>10000' }
   ];
   educationAttainment = [
-    { name: "High School Undergraduate", value: "High School Undergraduate" },
-    { name: "High School Diploma", value: "High School Diploma" },
-    { name: "Vocational School", value: "Vocational School" },
-    { name: "College Undergraduate", value: "College Undergraduate" },
-    { name: "College Graduate", value: "College Graduate" },
-    { name: "Post Graduate Study", value: "Post Graduate Study" }
+    { name: 'High School Undergraduate', value: 'High School Undergraduate' },
+    { name: 'High School Diploma', value: 'High School Diploma' },
+    { name: 'Vocational School', value: 'Vocational School' },
+    { name: 'College Undergraduate', value: 'College Undergraduate' },
+    { name: 'College Graduate', value: 'College Graduate' },
+    { name: 'Post Graduate Study', value: 'Post Graduate Study' }
   ];
 
   // location = [
@@ -47,30 +47,36 @@ export class AddEmployerJobComponent implements OnInit {
   //   {name: 'Degree', value: 'Deploma'}
   // ]
   employmentType = [
-    { name: "PART TIME", value: "PARTTIME" },
-    { name: "FULL TIME", value: "FULLTIME" }
+    { name: 'All', value: '' },
+    { name: 'Part Time', value: 'Part-Time' },
+    { name: 'Full Time', value: 'Full-Time' },
+    { name: 'Project Based', value: 'Project-Based' },
+    { name: 'Permanent', value: 'PERMANENT' },
+    { name: 'Temporary', value: 'TEMPORARY' },
+    { name: 'Internship/OJT', value: 'INTERNSHIP/OJT' },
+    { name: 'Freelance', value: 'Freelance' }
   ];
   styleObject = {
     inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   job: any;
   previousJobs: any = [];
   jobAdded: boolean;
   jobEditted: boolean;
-  defaultLimit ={max:"30",min:"0"};
-  numberRange={max:"16",min:"10"};
-  bigLimit = {max:"100",min:"6"}
+  defaultLimit = { max: '30', min: '0' };
+  numberRange = { max: '16', min: '10' };
+  bigLimit = { max: '100', min: '6' };
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -87,36 +93,34 @@ export class AddEmployerJobComponent implements OnInit {
         if (res.id && res.userId) {
           this.companyId = res.id;
           this.userId = res.userId;
-          this.employerService
-            .getCompanyLocationsForAdmin(this.companyId)
-            .subscribe(
-              success => {
-                if (success.success && success.locations) {
-                  this.fillLocations(success.locations);
-                }
-              },
-              error => console.log(error)
-            );
+          this.employerService.getCompanyLocationsForAdmin(this.companyId).subscribe(
+            success => {
+              if (success.success && success.locations) {
+                this.fillLocations(success.locations);
+              }
+            },
+            error => console.log(error)
+          );
         } else {
-          this.router.navigateByUrl("/admin/employers");
+          this.router.navigateByUrl('/admin/employers');
         }
       },
       err => console.log(err)
     );
 
     this.addJob = this.formBuilder.group({
-      jobTitle: ["", Validators.required],
-      jobDescription: ["", Validators.required],
-      industry: ["", Validators.required],
-      position: ["", Validators.required],
-      educationAttainment: ["", Validators.required],
-      salaryRange: ["", Validators.required],
-      employmentType: ["", Validators.required],
-      vacancies: ["", Validators.required],
-      additionalQualifications: ["", Validators.required],
-      applicationStartDate: ["", Validators.required],
-      applicationEndDate: ["", Validators.required],
-      locationId: ["", Validators.required]
+      jobTitle: ['', Validators.required],
+      jobDescription: ['', Validators.required],
+      industry: ['', Validators.required],
+      position: ['', Validators.required],
+      educationAttainment: ['', Validators.required],
+      salaryRange: ['', Validators.required],
+      employmentType: ['', Validators.required],
+      vacancies: ['', Validators.required],
+      additionalQualifications: ['', Validators.required],
+      applicationStartDate: ['', Validators.required],
+      applicationEndDate: ['', Validators.required],
+      locationId: ['', Validators.required]
     });
 
     this.otherService.getAllIndustries().subscribe(
@@ -165,13 +169,13 @@ export class AddEmployerJobComponent implements OnInit {
   checkValidOnValueChange() {
     this.invalidFields = [];
     var specialInputs = [
-      { value: "applicationEndDate", name: "Application End Date" },
-      { value: "applicationStartDate", name: "Application Start Date" },
-      { value: "educationAttainment", name: "Education Attainment" },
-      { value: "employmentType", name: "Employment Type" },
-      { value: "locationId", name: "Location" },
-      { value: "salaryRange", name: "Salary Range" },
-      { value: "industry", name: "Industry" }
+      { value: 'applicationEndDate', name: 'Application End Date' },
+      { value: 'applicationStartDate', name: 'Application Start Date' },
+      { value: 'educationAttainment', name: 'Education Attainment' },
+      { value: 'employmentType', name: 'Employment Type' },
+      { value: 'locationId', name: 'Location' },
+      { value: 'salaryRange', name: 'Salary Range' },
+      { value: 'industry', name: 'Industry' }
     ];
     specialInputs.map(sp => {
       if (this.addJob.controls[sp.value].invalid) {
