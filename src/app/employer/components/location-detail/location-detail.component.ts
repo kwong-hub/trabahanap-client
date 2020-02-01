@@ -49,6 +49,9 @@ export class LocationDetailComponent implements OnInit {
   loading: boolean;
   editSuccess: boolean;
   tempImg: string | ArrayBuffer;
+  defaultLimit ={max:"50",min:"0"};
+  nameLimit ={max:"35",min:"0"};
+  numberRange ={max:'16',min:'10'};
   // @ViewChild("checkBox", { static: false }) checkbox: ElementRef<HTMLElement>;
 
   constructor(

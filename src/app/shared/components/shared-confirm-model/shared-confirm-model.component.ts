@@ -28,6 +28,7 @@ export class SharedConfirmModelComponent implements OnInit {
 
   confirm() {
     this.confirmed.emit(this.data);
+    this.closeModal();
   }
 
   closeModal() {

@@ -68,7 +68,9 @@ export class AddEmployerJobComponent implements OnInit {
   previousJobs: any = [];
   jobAdded: boolean;
   jobEditted: boolean;
-
+  defaultLimit ={max:"30",min:"0"};
+  numberRange={max:"16",min:"10"};
+  bigLimit = {max:"100",min:"6"}
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,

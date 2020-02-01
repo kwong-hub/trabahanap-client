@@ -43,7 +43,7 @@ export class CompanyListComponent implements OnInit {
   filterHidden = true;
   filtered = false;
   reachedMaxFeatured = false;
-
+  defaultLimit ={max:"50",min:"0"};
   constructor(
     private otherService: OtherService,
     private adminService: AdminService,

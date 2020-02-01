@@ -61,7 +61,7 @@ export class CompanyLocationDetailComponent implements OnInit {
   editSuccess: boolean;
   modalImgSrc: string | ArrayBuffer;
   formImgSrc: any;
-
+  defaultLimit ={max:"50",min:"0"};
   constructor(
     private formBuilder: FormBuilder,
     private Route: ActivatedRoute,

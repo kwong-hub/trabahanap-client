@@ -51,7 +51,7 @@ export class IssueFormComponent implements OnInit {
     { name: "Others", value: "Others" }
   ];
   role: string;
-
+  defaultLimit ={max:"50",min:"0"};
   constructor(
     private formBuilder: FormBuilder,
     public employerService: EmployerService,

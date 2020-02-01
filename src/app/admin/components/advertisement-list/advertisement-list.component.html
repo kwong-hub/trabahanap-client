@@ -2,13 +2,13 @@
   
 
   <div class="overlay" [class.active]="!filterHidden"></div>
-  <div class="fab" title="Add new applicant">
+  <div class="fab" title="Add new Advertisement">
     <button routerLink="add" class="fab__button">
       <fa-icon [icon]="faPlus"></fa-icon>
     </button>
   </div>
   <div class="sub-module-container__container job">
-    <h3 class="sub-module-container__heading">Advertsiemet</h3>
+    <h3 class="sub-module-container__heading">Advertisement</h3>
     <h3 *ngIf="ads && ads.length == 0">
       <div class="not_Found">
         <span> No ads posted yet </span>

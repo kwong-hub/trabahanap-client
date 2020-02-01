@@ -26,6 +26,7 @@
             type="text"
             name="locationName"
             [formGroup]="locationForm"
+            [limit] ="defaultLimit"
           >
           </shared-custom-input-field>
         </div>
@@ -40,6 +41,7 @@
             type="email"
             name="email"
             [formGroup]="locationForm"
+            [limit] ="defaultLimit"
           >
           </shared-custom-input-field>
         </div>
@@ -51,9 +53,10 @@
             label="Branch Phone Number"
             [input]="locationForm.controls['locationPhoneNumber']"
             [submitted]="submitted"
-            type="number"
+            type="tel"
             name="locationPhoneNumber"
             [formGroup]="locationForm"
+            [limit] ="numberRange"
           >
           </shared-custom-input-field>
 
@@ -66,6 +69,7 @@
             type="address"
             name="address"
             [formGroup]="locationForm"
+            [limit] ="defaultLimit"
           >
           </shared-custom-input-field>
         </div>
@@ -139,6 +143,7 @@
               name="isHeadOffice"
               id="headOffice"
               class="checkbox__input"
+              [checked]="!hasLocations"
             />
             <label for="headOffice" class="checkbox__label">
               <div class="checkbox__button"></div>

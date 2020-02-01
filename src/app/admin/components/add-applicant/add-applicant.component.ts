@@ -38,7 +38,9 @@ export class AddApplicantComponent implements OnInit {
   submitted;
   formData = new FormData();
   applicantAdded: boolean;
-
+  defaultLimit ={max:"35",min:"0"};
+  numberRange={max:"20",min:"10"};
+  bigLimit = {max:"100",min:"6"}
   constructor(
     private adminService: AdminService,
     private formBuilder: FormBuilder,

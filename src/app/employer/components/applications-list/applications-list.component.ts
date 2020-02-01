@@ -32,6 +32,7 @@ export class ApplicationsListComponent implements OnInit {
   displayedColumns: string[] = ['picture', 'jobtitle', 'firstName', 'vacancies', 'applicationDate', 'hired', 'detail'];
   filterHidden: boolean = true;
   filtered: boolean = false;
+  defaultLimit ={max:"50",min:"0"};
   constructor(
     private employerService: EmployerService,
     private Route: ActivatedRoute,

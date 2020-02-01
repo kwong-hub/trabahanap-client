@@ -22,7 +22,6 @@ export class IssueFormComponent implements OnInit {
   submitted: boolean;
   loading: boolean;
   formData = new FormData();
-  issueSuccess: boolean;
   selectStyle = {
     inputContainer: {},
     inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
@@ -49,7 +48,7 @@ export class IssueFormComponent implements OnInit {
     { name: "Website Issue", value: "Website Issue" },
     { name: "Others", value: "Others" }
   ];
-
+  defaultLimit ={max:"50",min:"0"};
   constructor(
     private formBuilder: FormBuilder,
     public employerService: EmployerService,
@@ -80,6 +79,7 @@ export class IssueFormComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.issueForm.invalid) {
+      console.log(this.issueForm)
       return;
     }
 
@@ -99,19 +99,13 @@ export class IssueFormComponent implements OnInit {
 
     this.employerService.sendIssue(this.formData).subscribe(
       data => {
+        this.loading = false;
+        this.submitted = false;
         
         if (data.success) {
           this.issueForm.reset();
-          this.formData=new FormData();
-          this.issueSuccess = true;
-          this.submitted = false;
-          this.loading = false;
+          this.formData = new FormData();
           this.issueAdded.emit(data.issue);
-          setTimeout(() => {
-            this.issueSuccess = false;
-          }, 4000);
-        } else {
-          this.loading = false;
         }
       },
       error => {

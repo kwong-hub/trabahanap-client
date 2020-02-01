@@ -204,3 +204,22 @@ th.mat-sort-header-sorted {
   border: 2px solid #ccc;
   box-shadow: 0 10px 55px rgba(255, 255, 255, 0.1);
 }
+
+.tag {
+  display: inline-block;
+  font-size: 2rem;
+  // font-weight: 700;
+
+  &:not(:first-child) {
+    margin: 0 0.5rem;
+  }
+  &--verified {
+    color: rgba(green, 0.7);
+  }
+
+  &--unverified {
+    color: rgb(179, 7, 7);
+    font-size: 1.8rem;
+  }
+}
+

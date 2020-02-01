@@ -41,6 +41,9 @@ export class AddJobComponent implements OnInit {
     { name: "Post Graduate Study", value: "Post Graduate Study" }
   ];
 
+ 
+  
+
   // location = [
   //   {name: 'High School', value: 'Highschool'},
   //   {name: 'College', value: 'College'},
@@ -70,10 +73,17 @@ export class AddJobComponent implements OnInit {
       backgroundColor: "#fff"
     }
   };
+  defaultLimit ={max:"30",min:"0"};
+  numberRange={max:"20",min:"10"};
+  bigLimit = {max:"100",min:"6"}
   job: any;
   previousJobs: any = [];
   jobAdded: boolean;
   jobEditted: boolean;
+  currentDate= new Date();
+
+  defaultDate1="";
+  loading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -82,6 +92,8 @@ export class AddJobComponent implements OnInit {
     private router: Router,
     private jobService: JobService
   ) {
+    this.currentDate.setDate(this.currentDate.getDate()+1);
+    this.defaultDate1 = `${this.currentDate.getFullYear()}-${this.currentDate.getMonth()+1}-${this.currentDate. getDate()}`
     this.route.params.subscribe(
       params => {
         if (params.id) {
@@ -161,34 +173,40 @@ export class AddJobComponent implements OnInit {
     if (this.addJob.invalid) {
       return;
     }
+    
+    this.loading = true;
+    this.jobEditted = false;
+    this.jobAdded = false;
 
     var val = this.addJob.value;
 
     if (this.job) {
       this.employerService.editEmployerJob(this.job.id, val).subscribe(
         success => {
-          this.jobEditted = true;
-          setTimeout(() => {
-            this.jobEditted = false;
-            this.router.navigate(["../"], { relativeTo: this.route });
-          }, 3000);
+          this.loading = false;
+          if(success.success) {
+            this.jobEditted = true;
+          }
         },
-        err => console.log(err)
+        err => {
+          console.log(err);
+          this.loading = false;
+        }
       );
       return;
     }
 
     this.employerService.addEmployerJob({ ...val }).subscribe(
       success => {
+        this.loading = false;
         if (success.success) {
           this.jobAdded = true;
-          setTimeout(() => {
-            this.jobAdded = false;
-            this.router.navigate(["../"], { relativeTo: this.route });
-          }, 3000);
         }
       },
-      err => console.log(err)
+      err => {
+        console.log(err);
+        this.loading = false;
+      }
     );
   }
 

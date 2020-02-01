@@ -105,9 +105,10 @@ export class ReportIssueComponent implements OnInit {
 
   deleteIssue(id) {
     this.deleting = id;
+    this.deleteSuccess = false;
     this.applicantService.deleteIssue(id).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           this.deleteSuccess = true;
           this.deleting = '';
@@ -116,9 +117,6 @@ export class ReportIssueComponent implements OnInit {
               return iss;
             }
           });
-          setTimeout(() => {
-            this.deleteSuccess = false;
-          }, 4500);
         }
       },
       error => {

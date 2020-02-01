@@ -2,7 +2,6 @@ import { LocationService } from '@app/_services/location.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployerService } from '@app/_services/employer.service';
-import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import _ from 'lodash';
 import { tileLayer, latLng, marker, Point, LatLng, icon } from 'leaflet';
@@ -22,20 +21,24 @@ export class AddLocationComponent implements OnInit {
   countries = [];
   locationForm: FormGroup;
   submitted: boolean;
+  // selectStyle = {
+  //   inputContainer: {},
+  //   inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
+  //   optionContainer: {
+  //     backgroundColor: '#555',
+  //     top: '3.3rem',
+  //     boxShadow: '0px 1px 2px #aaa'
+  //   },
+  //   option: {
+  //     fontSize: '1.5rem',
+  //     borderBottom: '1px solid #ddd',
+  //     backgroundColor: '#fff'
+  //   }
+  // };
   selectStyle = {
-    inputContainer: {},
-    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
-    optionContainer: {
-      backgroundColor: '#555',
-      top: '3.3rem',
-      boxShadow: '0px 1px 2px #aaa'
-    },
-    option: {
-      fontSize: '1.5rem',
-      borderBottom: '1px solid #ddd',
-      backgroundColor: '#fff'
-    }
-  };
+    inputContainer: {}, inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    optionContainer: { backgroundColor: "#555", top: "3.3rem", boxShadow: "0px 1px 2px #aaa" },
+    option: { fontSize: "1.5rem", borderBottom: "1px solid #ddd", backgroundColor: "#fff" }};
   loading: boolean;
   locationTracked: boolean = false;
   showMap: boolean = false;
@@ -57,14 +60,18 @@ export class AddLocationComponent implements OnInit {
   locationAdded: boolean;
   error;
   locationError: boolean;
+  defaultLimit ={max:"35",min:"0"};
+  numberRange={max:"20",min:"10"};
+  hasLocations: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
     private authenticationService: AuthenticationService,
     private locationService: LocationService,
-    private router: Router
-  ) {}
+  ) {
+    this.hasLocations = this.authenticationService.currentUserValue.company_profile.hasLocations;
+  }
 
   ngOnInit() {
     this.getRegions();
