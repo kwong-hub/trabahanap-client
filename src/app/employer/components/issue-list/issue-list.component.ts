@@ -1,32 +1,28 @@
-import { Component, OnInit } from "@angular/core";
-import { Validators, FormBuilder } from "@angular/forms";
-import { EmployerService } from "@app/_services/employer.service";
-import {
-  faPaperPlane,
-  faEnvelope,
-  faTimes
-} from "@fortawesome/free-solid-svg-icons";
-import { Location } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormBuilder } from '@angular/forms';
+import { EmployerService } from '@app/_services/employer.service';
+import { faPaperPlane, faEnvelope, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: "app-issue-list",
-  templateUrl: "./issue-list.component.html",
-  styleUrls: ["./issue-list.component.scss"]
+  selector: 'app-issue-list',
+  templateUrl: './issue-list.component.html',
+  styleUrls: ['./issue-list.component.scss']
 })
 export class IssueListComponent implements OnInit {
   issues;
   submitted;
   issueForm;
   options = [
-    { name: "Credit Issue", value: "Credit Issue" },
-    { name: "Job Post Issue", value: "Job Post Issue" },
-    { name: "Marketing", value: "Marketing" },
-    { name: "Partnership", value: "Partnership" },
-    { name: "Payment Issue", value: "Payment Issue" },
-    { name: "Sales and Ads", value: "Sales and Ads" },
-    { name: "Technical Issue", value: "Technical Issue" },
-    { name: "Website Issue", value: "Website Issue" },
-    { name: "Others", value: "Others" }
+    { name: 'Credit Issue', value: 'Credit Issue' },
+    { name: 'Job Post Issue', value: 'Job Post Issue' },
+    { name: 'Marketing', value: 'Marketing' },
+    { name: 'Partnership', value: 'Partnership' },
+    { name: 'Payment Issue', value: 'Payment Issue' },
+    { name: 'Sales and Ads', value: 'Sales and Ads' },
+    { name: 'Technical Issue', value: 'Technical Issue' },
+    { name: 'Website Issue', value: 'Website Issue' },
+    { name: 'Others', value: 'Others' }
   ];
   faTimes = faTimes;
   faEnvelope = faEnvelope;
@@ -35,16 +31,16 @@ export class IssueListComponent implements OnInit {
 
   selectStyle = {
     inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   loading: boolean;
@@ -66,7 +62,6 @@ export class IssueListComponent implements OnInit {
       data => {
         if (data.success) {
           this.issues = data.issues;
-          // console.log(this.issues[0]);
         }
       },
       error => {
@@ -75,9 +70,9 @@ export class IssueListComponent implements OnInit {
     );
 
     this.issueForm = this.formBuilder.group({
-      issueReason: ["", Validators.required],
-      issueType: ["", Validators.required],
-      issueDescription: ["", Validators.required]
+      issueReason: ['', Validators.required],
+      issueType: ['', Validators.required],
+      issueDescription: ['', Validators.required]
     });
   }
 
@@ -108,7 +103,6 @@ export class IssueListComponent implements OnInit {
     this.deleteSuccess = false;
     this.employerService.deleteIssue(id).subscribe(
       data => {
-        // console.log(data);
         if (data.success) {
           this.deleteSuccess = true;
           this.deleting = '';
@@ -127,7 +121,7 @@ export class IssueListComponent implements OnInit {
 
   addIssueToArray(issue) {
     this.isModalVisible = false;
-    this.issues.unshift({ ...issue, issueResponseId: "" });
+    this.issues.unshift({ ...issue, issueResponseId: '' });
     this.issueSuccess = true;
     setTimeout(() => {
       this.issueSuccess = false;

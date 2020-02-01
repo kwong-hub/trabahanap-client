@@ -1,21 +1,19 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { environment } from "@environments/environment";
-import { User } from "@app/_models/User";
-import { ThrowStmt } from "@angular/compiler";
+import { environment } from '@environments/environment';
+import { User } from '@app/_models/User';
+import { ThrowStmt } from '@angular/compiler';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   public currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<any>(
-      JSON.parse(localStorage.getItem("currentUser"))
-    );
+    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -25,7 +23,7 @@ export class AuthenticationService {
 
   public set currentUserValue(value) {
     this.currentUserSubject.next(value); // this will make sure to tell every subscriber about the change.
-    localStorage.setItem("currentUser", JSON.stringify(value));
+    localStorage.setItem('currentUser', JSON.stringify(value));
   }
 
   login(email: string, password: string) {
@@ -33,12 +31,11 @@ export class AuthenticationService {
       .post<any>(`${environment.apiUrl}/auth/login`, { email, password })
       .pipe(
         map(data => {
-          // console.log(data);
           // login successful if there's a jwt token in the response
           if (data.success) {
             if (data.user.token) {
               // store user details and jwt token in local storage to keep user logged in between page refreshes
-              localStorage.setItem("currentUser", JSON.stringify(data.user));
+              localStorage.setItem('currentUser', JSON.stringify(data.user));
               this.currentUserSubject.next(data.user);
             }
           }
@@ -51,17 +48,17 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     this.currentUserSubject.next(null);
-    localStorage.removeItem("currentUser");
+    localStorage.removeItem('currentUser');
   }
 
   updateCurrentUser(user) {
     user.token = this.currentUserValue.token;
-    localStorage.setItem("currentUser", JSON.stringify(user));
+    localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
 
   saveSocialUser(user) {
-    localStorage.setItem("currentUser", JSON.stringify(user));
+    localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
 
@@ -89,11 +86,7 @@ export class AuthenticationService {
     });
   }
 
-  changePassword(
-    currentPassword,
-    newPassword,
-    confirmPassword
-  ): Observable<any> {
+  changePassword(currentPassword, newPassword, confirmPassword): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/auth/change_password`, {
       currentPassword,
       newPassword,
@@ -118,9 +111,6 @@ export class AuthenticationService {
   }
 
   confirmPasscode(obj): Observable<any> {
-    return this.http.post<any>(
-      `${environment.apiUrl}/confirm_sms_passcode`,
-      obj
-    );
+    return this.http.post<any>(`${environment.apiUrl}/confirm_sms_passcode`, obj);
   }
 }

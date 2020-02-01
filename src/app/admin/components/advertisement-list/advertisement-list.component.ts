@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   faPlus,
   faEllipsisV,
@@ -8,15 +8,15 @@ import {
   faSlidersH,
   faCheckCircle,
   faTimesCircle
-} from "@fortawesome/free-solid-svg-icons";
-import { FormGroup, FormBuilder } from "@angular/forms";
-import { AdminService } from "@app/_services/admin.service";
-import { ActivatedRoute } from "@angular/router";
+} from '@fortawesome/free-solid-svg-icons';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { AdminService } from '@app/_services/admin.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "app-advertisement-list",
-  templateUrl: "./advertisement-list.component.html",
-  styleUrls: ["./advertisement-list.component.scss"]
+  selector: 'app-advertisement-list',
+  templateUrl: './advertisement-list.component.html',
+  styleUrls: ['./advertisement-list.component.scss']
 })
 export class AdvertisementListComponent implements OnInit {
   faPlus = faPlus;
@@ -28,23 +28,13 @@ export class AdvertisementListComponent implements OnInit {
   faCheckCircle = faCheckCircle;
   faTimesCircle = faTimesCircle;
   ads = [];
-  displayedColumns: string[] = [
-    "title",
-    "image",
-    "adsStart",
-    "adsEnd",
-    "status",
-    "action"
-  ];
+  displayedColumns: string[] = ['title', 'image', 'adsStart', 'adsEnd', 'status', 'action'];
   public pager: any;
   public page: any;
   searchForm: FormGroup;
   filterHidden = true;
   filtered = false;
-  constructor(
-    private adminService: AdminService,
-    private Route: ActivatedRoute
-  ) {
+  constructor(private adminService: AdminService, private Route: ActivatedRoute) {
     this.Route.data.subscribe(res => {
       let data = res.data;
       if (data.success) {
@@ -55,12 +45,11 @@ export class AdvertisementListComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   activateAds(id) {
     this.adminService.deactivateAds(id).subscribe(
       data => {
-        // console.log(data)
         this.ads.forEach(ads => {
           if (ads.id === id) {
             ads.active = !ads.active;
@@ -75,7 +64,6 @@ export class AdvertisementListComponent implements OnInit {
   }
 
   getServerData(page) {
-
     this.adminService.getAllAds(page.pageIndex + 1, page.pageSize).subscribe(
       success => {
         if (success.success == true) {
@@ -87,5 +75,4 @@ export class AdvertisementListComponent implements OnInit {
       err => console.log(err)
     );
   }
-
 }

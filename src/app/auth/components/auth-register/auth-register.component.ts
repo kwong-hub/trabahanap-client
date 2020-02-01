@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { Role } from "@app/_models/Role";
-import { first } from "rxjs/operators";
-import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
-import { MustMatch } from "@app/_helpers/must-match.validator";
-import { Validators, FormBuilder, FormGroup } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
-import { RegistrationService } from "@app/_services/registration.service";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
+import { Component, OnInit } from '@angular/core';
+import { Role } from '@app/_models/Role';
+import { first } from 'rxjs/operators';
+import { faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { MustMatch } from '@app/_helpers/must-match.validator';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { RegistrationService } from '@app/_services/registration.service';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
 
 @Component({
-  selector: "app-auth-register",
-  templateUrl: "./auth-register.component.html",
-  styleUrls: ["./auth-register.component.scss"]
+  selector: 'app-auth-register',
+  templateUrl: './auth-register.component.html',
+  styleUrls: ['./auth-register.component.scss']
 })
 export class AuthRegisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -20,19 +20,19 @@ export class AuthRegisterComponent implements OnInit {
   recaptchaResponse: string;
   empRegister: boolean = false;
   registerSuccess: boolean;
-  passwordType = "password";
+  passwordType = 'password';
   styleObject = {
     inputContainer: {},
-    input: { fontSize: "2.2rem" },
-    label: { fontSize: "1.5rem" },
+    input: { fontSize: '2.2rem' },
+    label: { fontSize: '1.5rem' },
     feedbackContainer: {},
-    feedbackMessage: { fontSize: "1.5rem" }
+    feedbackMessage: { fontSize: '1.5rem' }
   };
-  defaultLimit ={max:"30",min:"0"};
-  emailLimit={max:"50",min:"0"}
-  numberRange={max:"20",min:"10"};
-  passwordLimit = {max:"24",min:"6"}
-  submitStyle = { btn: {width: "100%", borderRadius: "5px"}}
+  defaultLimit = { max: '30', min: '0' };
+  emailLimit = { max: '50', min: '0' };
+  numberRange = { max: '20', min: '10' };
+  passwordLimit = { max: '24', min: '6' };
+  submitStyle = { btn: { width: '100%', borderRadius: '5px' } };
   eyeIcon = faEyeSlash;
   error;
 
@@ -46,34 +46,31 @@ export class AuthRegisterComponent implements OnInit {
     // redirect to home if already logged in
 
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(["/"]);
+      this.router.navigate(['/']);
     }
   }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group(
       {
-        firstName: ["", Validators.required],
-        lastName: ["",Validators.required],
-        email: [
-          "",
-          Validators.compose([Validators.required, Validators.email])
-        ],
-        phoneNumber: ["", [Validators.required]],
-        password: ["", [Validators.required, Validators.minLength(6)]],
-        passwordConfirm: ["", Validators.required],
-        recaptcha: ["", Validators.required]
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', Validators.compose([Validators.required, Validators.email])],
+        phoneNumber: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        passwordConfirm: ['', Validators.required],
+        recaptcha: ['', Validators.required]
       },
       {
-        validator: MustMatch("password", "passwordConfirm")
+        validator: MustMatch('password', 'passwordConfirm')
       }
     );
 
     let params = this.route.snapshot.queryParams;
 
-    if (params["as"] === "emp") {
+    if (params['as'] === 'emp') {
       this.empRegister = true;
-    } else if (params["as"] === "app") {
+    } else if (params['as'] === 'app') {
       this.empRegister = false;
     }
   } // ngOnInit ends here
@@ -85,7 +82,6 @@ export class AuthRegisterComponent implements OnInit {
 
   resolved(captchaResponse: string) {
     this.recaptchaResponse = captchaResponse;
-    // console.log(this.recaptchaResponse);
   }
 
   change() {
@@ -97,11 +93,11 @@ export class AuthRegisterComponent implements OnInit {
   }
 
   togglePasswordType() {
-    if (this.passwordType === "password") {
-      this.passwordType = "text";
+    if (this.passwordType === 'password') {
+      this.passwordType = 'text';
       this.eyeIcon = faEye;
     } else {
-      this.passwordType = "password";
+      this.passwordType = 'password';
       this.eyeIcon = faEyeSlash;
     }
   }
@@ -116,12 +112,11 @@ export class AuthRegisterComponent implements OnInit {
     this.loading = true;
     if (this.empRegister) {
       // Register as Employer
-      // console.log("Registering as Employer");
       this.registrationService
         .registerEmployer({
           ...this.registerForm.value,
           username: this.registerForm.value.firstName,
-          gender: "Male"
+          gender: 'Male'
         })
         .pipe(first())
         .subscribe(
@@ -133,7 +128,7 @@ export class AuthRegisterComponent implements OnInit {
                 registred: true,
                 email: this.registerForm.value.email
               };
-              this.router.navigate(["/auth/register/success"]);
+              this.router.navigate(['/auth/register/success']);
             }
 
             //@ts-ignore
@@ -155,7 +150,6 @@ export class AuthRegisterComponent implements OnInit {
             // //@ts-ignore
             //   this.error.recaptcha = data.recaptchaError;
             // //@ts-ignore
-            // console.log(data.validationError);
             // }
           },
           error => {
@@ -175,13 +169,12 @@ export class AuthRegisterComponent implements OnInit {
             //@ts-ignore
 
             if (data.success) {
-              // console.log(data);
               this.registrationService.userData = {
                 role: Role.applicant,
                 registred: true,
                 email: this.registerForm.value.email
               };
-              this.router.navigate(["/auth/register/success"]);
+              this.router.navigate(['/auth/register/success']);
             }
 
             //@ts-ignore
@@ -198,13 +191,11 @@ export class AuthRegisterComponent implements OnInit {
               this.error = data.error;
               this.loading = false;
             }
-            // console.log(data);
             //@ts-ignore
             // else if(data.recaptchaError) {
             // //@ts-ignore
             //   this.error.recaptcha = data.recaptchaError;
             // //@ts-ignore
-            // console.log(data.validationError);
             // }
           },
           error => {

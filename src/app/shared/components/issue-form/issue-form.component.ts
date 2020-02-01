@@ -1,24 +1,18 @@
-import {
-  Component,
-  OnInit,
-  HostBinding,
-  Output,
-  EventEmitter
-} from "@angular/core";
-import { Validators, FormBuilder } from "@angular/forms";
-import { EmployerService } from "@app/_services/employer.service";
-import _ from "lodash";
-import { Location } from "@angular/common";
-import { ApplicantService } from "@app/_services/applicant.service";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
+import { Component, OnInit, HostBinding, Output, EventEmitter } from '@angular/core';
+import { Validators, FormBuilder } from '@angular/forms';
+import { EmployerService } from '@app/_services/employer.service';
+import _ from 'lodash';
+import { Location } from '@angular/common';
+import { ApplicantService } from '@app/_services/applicant.service';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
 
 @Component({
-  selector: "app-issue-form",
-  templateUrl: "./issue-form.component.html",
-  styleUrls: ["./issue-form.component.scss"]
+  selector: 'app-issue-form',
+  templateUrl: './issue-form.component.html',
+  styleUrls: ['./issue-form.component.scss']
 })
 export class IssueFormComponent implements OnInit {
-  @HostBinding("attr.class") cssClass = "form";
+  @HostBinding('attr.class') cssClass = 'form';
   @Output() issueAdded = new EventEmitter();
   issueForm: any;
   submitted: boolean;
@@ -27,31 +21,31 @@ export class IssueFormComponent implements OnInit {
   issueSuccess: boolean;
   selectStyle = {
     inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   options = [
-    { name: "Job Post Issue", value: "Job Post Issue" },
-    { name: "Marketing", value: "Marketing" },
-    { name: "Partnership", value: "Partnership" },
-    { name: "Payment Issue", value: "Payment Issue" },
-    { name: "Report an Error", value: "Report an Error" },
-    { name: "Sales and Ads", value: "Sales and Ads" },
-    { name: "Technical Issue", value: "Technical Issue" },
-    { name: "Website Issue", value: "Website Issue" },
-    { name: "Others", value: "Others" }
+    { name: 'Job Post Issue', value: 'Job Post Issue' },
+    { name: 'Marketing', value: 'Marketing' },
+    { name: 'Partnership', value: 'Partnership' },
+    { name: 'Payment Issue', value: 'Payment Issue' },
+    { name: 'Report an Error', value: 'Report an Error' },
+    { name: 'Sales and Ads', value: 'Sales and Ads' },
+    { name: 'Technical Issue', value: 'Technical Issue' },
+    { name: 'Website Issue', value: 'Website Issue' },
+    { name: 'Others', value: 'Others' }
   ];
   role: string;
-  defaultLimit ={max:"50",min:"0"};
+  defaultLimit = { max: '50', min: '0' };
   constructor(
     private formBuilder: FormBuilder,
     public employerService: EmployerService,
@@ -62,10 +56,10 @@ export class IssueFormComponent implements OnInit {
 
   ngOnInit() {
     this.issueForm = this.formBuilder.group({
-      issueReason: ["", Validators.required],
-      issueType: ["", Validators.required],
-      picture: [""],
-      issueDescription: ["", Validators.required]
+      issueReason: ['', Validators.required],
+      issueType: ['', Validators.required],
+      picture: [''],
+      issueDescription: ['', Validators.required]
     });
     this.role = this.authService.currentUserValue.role.toLowerCase();
   }
@@ -92,20 +86,18 @@ export class IssueFormComponent implements OnInit {
 
     let val = this.issueForm.value;
     _.map(val, (value, key) => {
-      if (key != "picture") {
+      if (key != 'picture') {
         this.formData.append(key, value);
       }
     });
 
     //@ts-ignore
     for (var pair of this.formData.entries()) {
-      // console.log(pair[0], pair[1])
     }
 
-    if (this.role === "employer") {
+    if (this.role === 'employer') {
       this.employerService.sendIssue(this.formData).subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.issueForm.reset();
             this.issueSuccess = true;
@@ -124,10 +116,9 @@ export class IssueFormComponent implements OnInit {
           this.loading = false;
         }
       );
-    } else if (this.role === "applicant") {
+    } else if (this.role === 'applicant') {
       this.applicantService.sendIssue(this.formData).subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.issueForm.reset();
             this.issueSuccess = true;

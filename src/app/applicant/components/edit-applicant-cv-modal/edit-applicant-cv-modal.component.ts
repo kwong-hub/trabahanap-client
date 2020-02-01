@@ -1,18 +1,18 @@
-import { ApplicantService } from "@app/_services/applicant.service";
-import { Component, OnInit, EventEmitter, Output, Input } from "@angular/core";
-import { Validators, FormBuilder, FormGroup } from "@angular/forms";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { Router } from "@angular/router";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { ApplicantService } from '@app/_services/applicant.service';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { Router } from '@angular/router';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "app-edit-applicant-cv-modal",
-  templateUrl: "./edit-applicant-cv-modal.component.html",
-  styleUrls: ["./edit-applicant-cv-modal.component.scss"]
+  selector: 'app-edit-applicant-cv-modal',
+  templateUrl: './edit-applicant-cv-modal.component.html',
+  styleUrls: ['./edit-applicant-cv-modal.component.scss']
 })
 export class EditApplicantCvModalComponent implements OnInit {
   faTimes = faTimes;
-  CVFileTypes = ".pdf,.doc,.docx";
+  CVFileTypes = '.pdf,.doc,.docx';
 
   updateCVForm: FormGroup;
   formData = new FormData();
@@ -33,7 +33,7 @@ export class EditApplicantCvModalComponent implements OnInit {
 
   ngOnInit() {
     this.updateCVForm = this.formBuilder.group({
-      cv: ["", Validators.required]
+      cv: ['', Validators.required]
     });
   }
 
@@ -43,8 +43,8 @@ export class EditApplicantCvModalComponent implements OnInit {
 
   closeModal() {
     this.closeModalEvent.emit(false);
-    this.updateCVForm.controls["cv"].setValue("");
-    this.formData.delete("cv");
+    this.updateCVForm.controls['cv'].setValue('');
+    this.formData.delete('cv');
   }
 
   onSubmit() {
@@ -56,7 +56,6 @@ export class EditApplicantCvModalComponent implements OnInit {
     this.applicantService.changeApplicantCV(this.formData).subscribe(
       success => {
         if ((success.success, success.applicantProfile)) {
-          // console.log(success);
           this.applicantChanged.emit(success.applicantProfile);
           this.showEditLoader = false;
           this.closeModal();

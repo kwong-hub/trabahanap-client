@@ -20,7 +20,6 @@ export class AnonymousJobComponent implements OnInit {
 
   ngOnInit() {
     this.bookmarked = this.isBookMarked;
-    // console.log(this.Job, "job");
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
   }

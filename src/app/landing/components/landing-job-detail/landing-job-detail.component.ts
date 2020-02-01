@@ -1,22 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import {
-  faCheckCircle,
-  faMapMarkerAlt,
-  faTag,
-  faExternalLinkAlt
-} from "@fortawesome/free-solid-svg-icons";
-import { tileLayer, latLng, marker, icon, Point } from "leaflet";
-import { Router, ActivatedRoute } from "@angular/router";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { ApplicantService } from "@app/_services/applicant.service";
-import { JobService } from "@app/_services/jobs.service";
-import { Role } from "@app/_models/Role";
-import { Location } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { faCheckCircle, faMapMarkerAlt, faTag, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { tileLayer, latLng, marker, icon, Point } from 'leaflet';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { ApplicantService } from '@app/_services/applicant.service';
+import { JobService } from '@app/_services/jobs.service';
+import { Role } from '@app/_models/Role';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: "app-landing-job-detail",
-  templateUrl: "./landing-job-detail.component.html",
-  styleUrls: ["./landing-job-detail.component.scss"]
+  selector: 'app-landing-job-detail',
+  templateUrl: './landing-job-detail.component.html',
+  styleUrls: ['./landing-job-detail.component.scss']
 })
 export class LandingJobDetailComponent implements OnInit {
   job;
@@ -27,13 +22,13 @@ export class LandingJobDetailComponent implements OnInit {
   showModal: boolean;
   options = {
     layers: [
-      tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
-        attribution: "..."
+        attribution: '...'
       })
     ],
     zoom: 20,
-    center: latLng(14.6042, 120.9822),
+    center: latLng(14.6042, 120.9822)
   };
   marker;
   applicant: boolean = false;
@@ -51,13 +46,11 @@ export class LandingJobDetailComponent implements OnInit {
     private _location: Location
   ) {
     let currentUser = this.authService.currentUserValue;
-    currentUser ? (this.userRole = currentUser.role) : (this.userRole = "");
-    // console.log(this.userRole, "userRole")
+    currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
     this.applicant = currentUser && currentUser.role === Role.applicant;
 
     this.Route.data.subscribe(res => {
       let data = res.data;
-      // console.log(res)
       if (data.success) {
         this.job = data.job;
       } else {
@@ -66,13 +59,11 @@ export class LandingJobDetailComponent implements OnInit {
     });
 
     // give a margin to the container only in anonymous view
-    this.lower = !this.router.url.includes("applicant");
-    // console.log(this.router.url)
+    this.lower = !this.router.url.includes('applicant');
   }
 
   ngOnInit() {
     // let id = this.Route.snapshot.params.id;
-    // console.log("id");
     this.bookmarked = this.job.saved;
     if (this.job.location) {
       let { latitude, longitude } = this.job.location;
@@ -81,8 +72,8 @@ export class LandingJobDetailComponent implements OnInit {
         icon: icon({
           iconSize: [25, 41],
           iconAnchor: [13, 41],
-          iconUrl: "assets/marker-icon.png",
-          shadowUrl: "assets/marker-shadow.png"
+          iconUrl: 'assets/marker-icon.png',
+          shadowUrl: 'assets/marker-shadow.png'
         }),
         draggable: false,
         autoPan: true,
@@ -94,14 +85,13 @@ export class LandingJobDetailComponent implements OnInit {
   apply(jobId) {
     let auth = this.authService.currentUserValue;
     if (auth === null) {
-      this.router.navigate(["/auth/login"], {
+      this.router.navigate(['/auth/login'], {
         queryParams: { returnUrl: `/applicant/jobs/details/${jobId}` }
       });
       return false; // to prevent reload
     }
     this.applicantService.applyToJob(this.job.id).subscribe(
       data => {
-        //console.log(data);
         if (data.success) {
           this.modal();
         }
@@ -116,24 +106,22 @@ export class LandingJobDetailComponent implements OnInit {
     this.showModal = true;
     setTimeout(() => {
       this.showModal = false;
-      this.router.navigate(["applicant/applications"]);
+      this.router.navigate(['applicant/applications']);
     }, 2500);
   }
   bookmarkJob(jobId) {
     let auth = this.authService.currentUserValue;
 
     if (auth === null) {
-      this.router.navigate(["/auth/login"], {
+      this.router.navigate(['/auth/login'], {
         queryParams: { returnUrl: `/applicant/jobs/details/${jobId}` }
       });
       return false; // to prevent reload
     } else if (!auth.hasFinishedProfile) {
-      console.error("has not finished profile");
       return false;
     } else if (auth.role === Role.applicant) {
       this.jobService.toggleSaveJob(jobId).subscribe(
         data => {
-          // console.log(data);
           if (data.success) {
             this.bookmarked = !this.bookmarked;
           }

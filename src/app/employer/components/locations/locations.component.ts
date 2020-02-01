@@ -5,9 +5,9 @@ import { faPlus, faEllipsisV, faEdit, faTimes } from '@fortawesome/free-solid-sv
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: "app-locations",
-  templateUrl: "./locations.component.html",
-  styleUrls: ["./locations.component.scss"]
+  selector: 'app-locations',
+  templateUrl: './locations.component.html',
+  styleUrls: ['./locations.component.scss']
 })
 export class LocationsComponent implements OnInit {
   faPlus = faPlus;
@@ -16,16 +16,10 @@ export class LocationsComponent implements OnInit {
   faTimes = faTimes;
   locations: Array<object>;
   noLocation: boolean = true;
-  displayedColumns: string[] = [
-    "picture",
-    "name",
-    "address",
-    "phoneNumber",
-    "action"
-  ];
+  displayedColumns: string[] = ['picture', 'name', 'address', 'phoneNumber', 'action'];
   confirm: boolean;
 
-  constructor(private Route: ActivatedRoute, private router:Router) {
+  constructor(private Route: ActivatedRoute, private router: Router) {
     this.Route.data.subscribe(res => {
       let locations = res.data;
       if (locations.success) {
@@ -54,13 +48,9 @@ export class LocationsComponent implements OnInit {
     this.confirm = true;
   }
 
-  deleteLocation(id) {
-    console.log(id);
-  }
+  deleteLocation(id) {}
 
-  editLocation($event){
-  
-    this.router.navigate([`../branches/${$event}`],{relativeTo: this.Route});
+  editLocation($event) {
+    this.router.navigate([`../branches/${$event}`], { relativeTo: this.Route });
   }
-
 }

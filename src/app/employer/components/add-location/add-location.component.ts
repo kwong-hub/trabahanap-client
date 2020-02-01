@@ -36,9 +36,11 @@ export class AddLocationComponent implements OnInit {
   //   }
   // };
   selectStyle = {
-    inputContainer: {}, inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
-    optionContainer: { backgroundColor: "#555", top: "3.3rem", boxShadow: "0px 1px 2px #aaa" },
-    option: { fontSize: "1.5rem", borderBottom: "1px solid #ddd", backgroundColor: "#fff" }};
+    inputContainer: {},
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
+    optionContainer: { backgroundColor: '#555', top: '3.3rem', boxShadow: '0px 1px 2px #aaa' },
+    option: { fontSize: '1.5rem', borderBottom: '1px solid #ddd', backgroundColor: '#fff' }
+  };
   loading: boolean;
   locationTracked: boolean = false;
   showMap: boolean = false;
@@ -60,15 +62,15 @@ export class AddLocationComponent implements OnInit {
   locationAdded: boolean;
   error;
   locationError: boolean;
-  defaultLimit ={max:"35",min:"0"};
-  numberRange={max:"20",min:"10"};
+  defaultLimit = { max: '35', min: '0' };
+  numberRange = { max: '20', min: '10' };
   hasLocations: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
     private authenticationService: AuthenticationService,
-    private locationService: LocationService,
+    private locationService: LocationService
   ) {
     this.hasLocations = this.authenticationService.currentUserValue.company_profile.hasLocations;
   }
@@ -122,12 +124,10 @@ export class AddLocationComponent implements OnInit {
             latitude: 14.6042,
             longitude: 120.9822
           });
-          // console.log(this.showMap, "map else")
           console.log(err);
         }
       );
     } else {
-      console.log('no geolocation');
     }
   } //ngOnInit Ends...
 
@@ -209,7 +209,6 @@ export class AddLocationComponent implements OnInit {
 
     if (!this.latitude) {
       this.locationError = true;
-      console.log(this.locationError)
       return;
     }
     this.formData.append('latitude', this.latitude);
@@ -220,7 +219,6 @@ export class AddLocationComponent implements OnInit {
     var names = [];
     //@ts-ignore
     for (var pair of this.formData.entries()) {
-      console.log(pair[0], pair[1])
       names.push(pair[0]);
     }
 
@@ -245,7 +243,6 @@ export class AddLocationComponent implements OnInit {
             }
           } else {
             this.loading = false;
-            //console.log(data, "error");
             this.error = data.validationError;
           }
         },

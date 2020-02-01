@@ -1,7 +1,7 @@
-import { AdminService } from "@app/_services/admin.service";
-import { LocationService } from "./../../../_services/location.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
+import { AdminService } from '@app/_services/admin.service';
+import { LocationService } from './../../../_services/location.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import {
   faCheck,
   faUserPlus,
@@ -11,15 +11,15 @@ import {
   faEyeDropper,
   faEdit,
   faTimes
-} from "@fortawesome/free-solid-svg-icons";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
-import { Location } from "@angular/common";
-import _ from "lodash";
+} from '@fortawesome/free-solid-svg-icons';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Location } from '@angular/common';
+import _ from 'lodash';
 
 @Component({
-  selector: "app-add-employer",
-  templateUrl: "./add-employer.component.html",
-  styleUrls: ["./add-employer.component.scss"]
+  selector: 'app-add-employer',
+  templateUrl: './add-employer.component.html',
+  styleUrls: ['./add-employer.component.scss']
 })
 export class AddEmployerComponent implements OnInit {
   addEmployer: FormGroup;
@@ -40,25 +40,25 @@ export class AddEmployerComponent implements OnInit {
 
   styleObject = {
     inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
-  formErrors = ["Some form elements are not valid."];
+  formErrors = ['Some form elements are not valid.'];
   serverErrors = false;
   hasProfile = false;
   companyProfile: any;
   inputType: string;
-  logoFileTypes = ".png,.jpg,.jpeg";
-  licenseFileTypes = ".pdf,.doc,.docx";
+  logoFileTypes = '.png,.jpg,.jpeg';
+  licenseFileTypes = '.pdf,.doc,.docx';
   formData = new FormData();
   profileAdded: boolean;
   showLicensePreview = false;
@@ -69,9 +69,9 @@ export class AddEmployerComponent implements OnInit {
   isBusinessLicenseEditModalOpen = false;
   showLoader = false;
   profileEditted: boolean;
-  defaultLimit ={max:"30",min:"0"};
-  numberRange={max:"16",min:"10"};
-  bigLimit = {max:"100",min:"6"}
+  defaultLimit = { max: '30', min: '0' };
+  numberRange = { max: '16', min: '10' };
+  bigLimit = { max: '100', min: '6' };
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -84,12 +84,7 @@ export class AddEmployerComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(
       success => {
-        if (
-          success.data &&
-          success.data.regions &&
-          success.data.industries &&
-          success.data.countries
-        ) {
+        if (success.data && success.data.regions && success.data.industries && success.data.countries) {
           const data = success.data;
           this.fillRegions(success.data.regions);
           this.fillCountries(success.data.countries);
@@ -101,31 +96,31 @@ export class AddEmployerComponent implements OnInit {
     );
 
     this.addEmployer = this.formBuilder.group({
-      firstName: ["", Validators.required],
-      lastName: ["", Validators.required],
-      email: ["", Validators.email],
-      phoneNumber: ["", Validators.required],
-      zipcode: ["", Validators.required],
-      companyName: ["", Validators.required],
-      contactPerson: ["", Validators.required],
-      contactNumber: ["", Validators.required],
-      websiteURL: ["", Validators.required],
-      industryType: ["", Validators.required],
-      companyDescription: ["", Validators.required],
-      businessLicense: ["", Validators.required],
-      businessLicenseNumber: ["", Validators.required],
-      companyLogo: ["", Validators.required],
-      companyAddress: ["", Validators.required],
-      cityId: ["", Validators.required],
-      regionId: ["", Validators.required],
-      countryId: ["", Validators.required]
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.email],
+      phoneNumber: ['', Validators.required],
+      zipcode: ['', Validators.required],
+      companyName: ['', Validators.required],
+      contactPerson: ['', Validators.required],
+      contactNumber: ['', Validators.required],
+      websiteURL: ['', Validators.required],
+      industryType: ['', Validators.required],
+      companyDescription: ['', Validators.required],
+      businessLicense: ['', Validators.required],
+      businessLicenseNumber: ['', Validators.required],
+      companyLogo: ['', Validators.required],
+      companyAddress: ['', Validators.required],
+      cityId: ['', Validators.required],
+      regionId: ['', Validators.required],
+      countryId: ['', Validators.required]
     });
   }
 
   selectChanged(value, name) {
-    if (name == "regionId") {
+    if (name == 'regionId') {
       this.getCitiesByRegionId(value);
-      this.addEmployer.controls["cityId"].setValue(null);
+      this.addEmployer.controls['cityId'].setValue(null);
     }
     this.addEmployer.controls[name].setValue(value);
   }
@@ -144,14 +139,13 @@ export class AddEmployerComponent implements OnInit {
 
     var val = this.addEmployer.value;
     _.map(val, (value, key) => {
-      if (key != "companyLogo" && key != "businessLicense") {
+      if (key != 'companyLogo' && key != 'businessLicense') {
         this.formData.append(key, value);
       }
     });
 
     this.adminService.addEmployer(this.formData).subscribe(
       success => {
-        //console.log(success)
         if (success.success) {
           this.employerAdded = true;
           setTimeout(() => {
@@ -169,13 +163,13 @@ export class AddEmployerComponent implements OnInit {
       },
       err => {
         this.showLoader = this.submitted = false;
-        console.log("from error", err);
+        console.log(err);
       }
     );
   }
 
   cancle(event) {
-    this.router.navigateByUrl("/admin/employers");
+    this.router.navigateByUrl('/admin/employers');
   }
 
   fillIndustries(industries) {

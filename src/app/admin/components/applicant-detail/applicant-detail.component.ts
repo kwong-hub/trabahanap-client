@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { AdminService } from "@app/_services/admin.service";
-import { Route } from "@angular/compiler/src/core";
-import { ActivatedRoute } from "@angular/router";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '@app/_services/admin.service';
+import { Route } from '@angular/compiler/src/core';
+import { ActivatedRoute } from '@angular/router';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "app-applicant-detail",
-  templateUrl: "./applicant-detail.component.html",
-  styleUrls: ["./applicant-detail.component.scss"]
+  selector: 'app-applicant-detail',
+  templateUrl: './applicant-detail.component.html',
+  styleUrls: ['./applicant-detail.component.scss']
 })
 export class ApplicantDetailComponent implements OnInit {
   id;
@@ -15,21 +15,16 @@ export class ApplicantDetailComponent implements OnInit {
   loading: boolean;
   faCheckCircle = faCheckCircle;
 
-  constructor(
-    private adminService: AdminService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private adminService: AdminService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.params.id;
     this.adminService.getApplicantById(this.id).subscribe(
       data => {
-        //console.log(data)
         if (data.success) {
           this.applicant = data.applicant;
           //this.applicant['active'] = data.applicant.user.active;
         }
-        //console.log(this.applicant);
       },
       error => {
         console.log(error);

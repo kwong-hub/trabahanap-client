@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "app-issue-details",
-  templateUrl: "./issue-details.component.html",
-  styleUrls: ["./issue-details.component.scss"]
+  selector: 'app-issue-details',
+  templateUrl: './issue-details.component.html',
+  styleUrls: ['./issue-details.component.scss']
 })
 export class IssueDetailsComponent implements OnInit {
   issue: any;
@@ -18,7 +18,6 @@ export class IssueDetailsComponent implements OnInit {
       if (data.success) {
         this.issue = data.issue;
       } else {
-        console.log(data);
       }
     });
   }
