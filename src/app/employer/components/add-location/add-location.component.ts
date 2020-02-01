@@ -124,12 +124,10 @@ export class AddLocationComponent implements OnInit {
             latitude: 14.6042,
             longitude: 120.9822
           });
-          // console.log(this.showMap, "map else")
           console.log(err);
         }
       );
     } else {
-      // console.log('no geolocation');
     }
   } //ngOnInit Ends...
 
@@ -211,7 +209,6 @@ export class AddLocationComponent implements OnInit {
 
     if (!this.latitude) {
       this.locationError = true;
-      // console.log(this.locationError);
       return;
     }
     this.formData.append('latitude', this.latitude);
@@ -222,7 +219,6 @@ export class AddLocationComponent implements OnInit {
     var names = [];
     //@ts-ignore
     for (var pair of this.formData.entries()) {
-      // console.log(pair[0], pair[1]);
       names.push(pair[0]);
     }
 
@@ -247,7 +243,6 @@ export class AddLocationComponent implements OnInit {
             }
           } else {
             this.loading = false;
-            //console.log(data, "error");
             this.error = data.validationError;
           }
         },

@@ -93,13 +93,11 @@ export class IssueFormComponent implements OnInit {
 
     //@ts-ignore
     for (var pair of this.formData.entries()) {
-      // console.log(pair[0], pair[1])
     }
 
     if (this.role === 'employer') {
       this.employerService.sendIssue(this.formData).subscribe(
         data => {
-          // console.log(data);
           if (data.success) {
             this.issueForm.reset();
             this.issueSuccess = true;
@@ -121,7 +119,6 @@ export class IssueFormComponent implements OnInit {
     } else if (this.role === 'applicant') {
       this.applicantService.sendIssue(this.formData).subscribe(
         data => {
-          // console.log(data);
           if (data.success) {
             this.issueForm.reset();
             this.issueSuccess = true;

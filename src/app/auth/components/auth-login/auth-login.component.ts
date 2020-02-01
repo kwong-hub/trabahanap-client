@@ -153,7 +153,6 @@ export class AuthLoginComponent implements OnInit {
     this.loading = true;
 
     this.authenticationService.getUserByEmail(this.f.email.value).subscribe(res => {
-      // console.log(res);
       this.loading = false;
       this.error = '';
       if (res.success) {
@@ -182,14 +181,11 @@ export class AuthLoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-
-    // console.log(this.lgUser.email, this.fPassword.password.value);
     this.authenticationService
       .login(this.lgUser.email, this.fPassword.password.value)
       .pipe(first())
       .subscribe(
         data => {
-          // console.log(data)
           if (data.success) {
             this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || `/${data.user.role.toLowerCase()}`;
             this.route.navigate([this.returnUrl]);
@@ -246,7 +242,6 @@ export class AuthLoginComponent implements OnInit {
         // }, 4000);
       }
     });
-    // console.log(this.lgUser);
   }
 
   getUserByEmail(email) {
@@ -337,7 +332,6 @@ export class AuthLoginComponent implements OnInit {
 
   signInWithGoogle() {
     this.login = true;
-    // console.log('from google login');
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 

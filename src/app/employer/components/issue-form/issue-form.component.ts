@@ -69,7 +69,6 @@ export class IssueFormComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.issueForm.invalid) {
-      // console.log(this.issueForm)
       return;
     }
 
@@ -84,7 +83,6 @@ export class IssueFormComponent implements OnInit {
 
     //@ts-ignore
     for (var pair of this.formData.entries()) {
-      // console.log(pair[0], pair[1])
     }
 
     this.employerService.sendIssue(this.formData).subscribe(

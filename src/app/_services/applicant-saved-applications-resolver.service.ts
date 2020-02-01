@@ -16,7 +16,6 @@ export class ApplicantSavedApplicationsResolverService {
         return EMPTY;
       }),
       mergeMap(value => {
-        // console.log(value)
         if (value.success && value.jobs) {
           return of(value.jobs);
         }

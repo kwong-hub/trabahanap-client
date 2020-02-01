@@ -27,11 +27,9 @@ export class AddStafferComponent implements OnInit {
   constructor(private Route: ActivatedRoute) {
     this.Route.data.subscribe(res => {
       let data = res.data;
-      // console.log(data)
       if (data.success) {
         this.previousStaffs = data.staffs;
       } else {
-        // console.log(data)
       }
     });
   }

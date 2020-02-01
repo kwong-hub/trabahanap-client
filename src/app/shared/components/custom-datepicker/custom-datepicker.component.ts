@@ -78,7 +78,6 @@ export class CustomDatepickerComponent implements OnInit {
           const [year, month, day] = defaultValue.split('-');
           this.updateInput(year, month, day);
         }
-        // console.log(year, month, day);
       }
     }
   }

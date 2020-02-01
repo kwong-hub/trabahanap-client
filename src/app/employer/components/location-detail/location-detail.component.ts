@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { EmployerService } from "@app/_services/employer.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Location } from "@angular/common";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { marker, icon, Point, tileLayer, latLng, LatLng } from "leaflet";
-import { faEdit, faCamera, faTimes } from "@fortawesome/free-solid-svg-icons";
-import _ from "lodash";
-import { LocationService } from "@app/_services/location.service";
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { EmployerService } from '@app/_services/employer.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { marker, icon, Point, tileLayer, latLng, LatLng } from 'leaflet';
+import { faEdit, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons';
+import _ from 'lodash';
+import { LocationService } from '@app/_services/location.service';
 
 @Component({
-  selector: "app-location-detail",
-  templateUrl: "./location-detail.component.html",
-  styleUrls: ["./location-detail.component.scss"]
+  selector: 'app-location-detail',
+  templateUrl: './location-detail.component.html',
+  styleUrls: ['./location-detail.component.scss']
 })
 export class LocationDetailComponent implements OnInit {
   location: any;
@@ -26,18 +26,20 @@ export class LocationDetailComponent implements OnInit {
   faTimes = faTimes;
   submitted = false;
   selectStyle = {
-    inputContainer: {}, inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
-    optionContainer: { backgroundColor: "#555", top: "3.3rem", boxShadow: "0px 1px 2px #aaa" },
-    option: { fontSize: "1.5rem", borderBottom: "1px solid #ddd", backgroundColor: "#fff" }};
+    inputContainer: {},
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
+    optionContainer: { backgroundColor: '#555', top: '3.3rem', boxShadow: '0px 1px 2px #aaa' },
+    option: { fontSize: '1.5rem', borderBottom: '1px solid #ddd', backgroundColor: '#fff' }
+  };
   isModalVisible: boolean = false;
   pictureUpdate: FormGroup;
   formData = new FormData();
   uploading: boolean = false;
   options = {
     layers: [
-      tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
-        attribution: "..."
+        attribution: '...'
       })
     ],
     zoom: 20,
@@ -49,9 +51,9 @@ export class LocationDetailComponent implements OnInit {
   loading: boolean;
   editSuccess: boolean;
   tempImg: string | ArrayBuffer;
-  defaultLimit ={max:"50",min:"0"};
-  nameLimit ={max:"35",min:"0"};
-  numberRange ={max:'16',min:'10'};
+  defaultLimit = { max: '50', min: '0' };
+  nameLimit = { max: '35', min: '0' };
+  numberRange = { max: '16', min: '10' };
   // @ViewChild("checkBox", { static: false }) checkbox: ElementRef<HTMLElement>;
 
   constructor(
@@ -64,33 +66,31 @@ export class LocationDetailComponent implements OnInit {
   ) {
     this.Route.data.subscribe(res => {
       let data = res.data;
-      if(data.success) {
+      if (data.success) {
         this.location = data.location;
-      }
-      else {
+      } else {
         this._location.back();
       }
-    })
+    });
   }
 
   ngOnInit() {
     this.id = this.Route.snapshot.params.id;
-    // console.log(this.id)
 
     this.locationForm = this.formBuilder.group({
-      picture: [""],
-      locationName: ["", Validators.required],
-      locationPhoneNumber: ["", Validators.required],
-      email: ["", Validators.required],
-      address: [""],
-      cityId: ["", Validators.required],
-      regionId: ["", Validators.required],
-      countryId: ["", Validators.required],
+      picture: [''],
+      locationName: ['', Validators.required],
+      locationPhoneNumber: ['', Validators.required],
+      email: ['', Validators.required],
+      address: [''],
+      cityId: ['', Validators.required],
+      regionId: ['', Validators.required],
+      countryId: ['', Validators.required],
       isHeadOffice: [false]
     });
 
     this.updateInputs();
-    
+
     this.getCountries();
     this.getRegions();
     this.getCities();
@@ -99,22 +99,24 @@ export class LocationDetailComponent implements OnInit {
     this.options.center = latLng(this.latitude, this.longitude);
     this.marker = marker([this.latitude, this.longitude], {
       icon: icon({
-        iconSize: [25, 41], iconAnchor: [13, 41],
-        iconUrl: "assets/marker-icon.png", shadowUrl: "assets/marker-shadow.png"
+        iconSize: [25, 41],
+        iconAnchor: [13, 41],
+        iconUrl: 'assets/marker-icon.png',
+        shadowUrl: 'assets/marker-shadow.png'
       }),
-      draggable: true, autoPan: true, autoPanPadding: new Point(70, 70)
+      draggable: true,
+      autoPan: true,
+      autoPanPadding: new Point(70, 70)
     });
-    this.marker.on("dragend", e => {
+    this.marker.on('dragend', e => {
       ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
     });
-
-    // console.log(this.form)
   } // ngOnInit ends here
 
   updateInputs() {
     this.getCitiesByRegionId(this.location.regionId);
     _.map(this.location, (value, key) => {
-      if (this.locationForm.controls[key] && key !== "picture") {
+      if (this.locationForm.controls[key] && key !== 'picture') {
         this.locationForm.controls[key].setValue(value);
       }
     });
@@ -133,7 +135,7 @@ export class LocationDetailComponent implements OnInit {
           this.countries.push({ name: country.countryName, value: country.id });
         });
 
-        this.locationForm.controls["countryId"].setValue(countries[0].id);
+        this.locationForm.controls['countryId'].setValue(countries[0].id);
       },
       error => console.log(error)
     );
@@ -156,7 +158,6 @@ export class LocationDetailComponent implements OnInit {
       response => {
         const cities = response.cities;
         this.cities = [];
-        // console.log(cities);
         cities.map(city => {
           this.cities.push({ name: city.cityName, value: city.id });
         });
@@ -170,7 +171,6 @@ export class LocationDetailComponent implements OnInit {
       response => {
         const cities = response.cities;
         this.cities = [];
-        // console.log(cities);
         cities.map(city => {
           this.cities.push({ name: city.cityName, value: city.id });
         });
@@ -180,7 +180,7 @@ export class LocationDetailComponent implements OnInit {
   }
 
   selectChanged(value, name) {
-    if (name == "regionId") {
+    if (name == 'regionId') {
       this.getCitiesByRegionId(value);
     }
     this.locationForm.controls[name].setValue(value);
@@ -201,11 +201,10 @@ export class LocationDetailComponent implements OnInit {
     let val = event.target.files[0] ? event.target.files[0] : null;
     let reader = new FileReader();
     reader.onload = (e: Event) => {
-      // console.log(e.target, "target")
       this.tempImg = reader.result;
     };
     reader.readAsDataURL(val);
-    this.formData.append('picture', val, val.name)
+    this.formData.append('picture', val, val.name);
   }
 
   onSubmit() {
@@ -216,23 +215,20 @@ export class LocationDetailComponent implements OnInit {
     this.loading = true;
     this.editSuccess = false;
 
-    let newLocation = {...this.locationForm.value, latitude: this.latitude, longitude: this.longitude };
-    // console.log(newLocation);
+    let newLocation = { ...this.locationForm.value, latitude: this.latitude, longitude: this.longitude };
 
     _.map(newLocation, (value, key) => {
-      if (key != "picture") {
+      if (key != 'picture') {
         this.formData.append(key, value);
       }
     });
-    
+
     //@ts-ignore
     // for (var pair of this.formData.entries()) {
-    //   console.log(pair[0], pair[1])
     // }
 
     this.employerService.editCompanyBranch(this.formData, this.id).subscribe(
       data => {
-        console.log(data);
         this.loading = false;
         if (data.success) {
           this.editSuccess = true;

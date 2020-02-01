@@ -51,7 +51,6 @@ export class JobsListComponent implements OnInit {
     });
     this.adminService.getAllJobs(1, this.pager ? this.pager.pageSize : 3, this.companyId).subscribe(
       data => {
-        //console.log(data)
         if (data.success) {
           this.jobs = data.jobs.rows;
           this.pager = data.jobs.pager;
@@ -64,9 +63,7 @@ export class JobsListComponent implements OnInit {
     );
   }
 
-  deleteJob($event) {
-    // console.log($event);
-  }
+  deleteJob($event) {}
 
   editJob($event) {
     this.stateService.data = $event;

@@ -50,7 +50,6 @@ export class ApplicationsListComponent implements OnInit {
         this.applications = data.applications.rows;
         this.pager = data.applications.pager;
       } else {
-        // console.log(data);
       }
     });
   }
@@ -67,7 +66,6 @@ export class ApplicationsListComponent implements OnInit {
     elem[0].addEventListener('click', () => {
       this.openActions = {};
       this.filterHidden = true;
-      // console.log(this.filterHidden);
     });
 
     // this.adminService.getAllApplications(1).subscribe(
@@ -76,7 +74,6 @@ export class ApplicationsListComponent implements OnInit {
     //     if(data.success){
     //       this.applications = data.applications.rows;
     //       this.pager = data.applications.pager;
-    //       //console.log(this.applications);
     //     }
     //   },
     //   error => {
@@ -102,7 +99,6 @@ export class ApplicationsListComponent implements OnInit {
       this.adminService
         .getFilterApplications(val.applicantName, val.jobtitle, val.companyName, page.pageIndex + 1, page.pageSize)
         .subscribe(data => {
-          //console.log(data);
           this.applications = data.applications.rows;
           this.pager = data.applications.pager;
         });
@@ -116,12 +112,10 @@ export class ApplicationsListComponent implements OnInit {
 
   filterApplications() {
     var val = this.searchForm.value;
-    //console.log(val);
     this.filterHidden = true;
     this.adminService
       .getFilterApplications(val.applicantName, val.jobtitle, val.companyName, this.page || 1, 8)
       .subscribe(data => {
-        //console.log(data);
         this.applications = data.applications.rows;
         this.pager = data.applications.pager;
       });

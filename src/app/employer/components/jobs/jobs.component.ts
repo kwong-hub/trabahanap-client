@@ -21,7 +21,6 @@ export class JobsComponent implements OnInit {
         if (company.success) {
           this.authService.updateCurrentUser(company.employer);
         } else {
-          // console.log(company);
         }
 
         if (jobs.success) {
@@ -36,7 +35,6 @@ export class JobsComponent implements OnInit {
     this.authService.currentUserSubject.subscribe(userValue => {
       if (userValue) {
         this.companyProfile = userValue.company_profile;
-        // console.log(this.companyProfile.verified, 'user');
       }
     });
   }

@@ -48,9 +48,7 @@ export class LocationsComponent implements OnInit {
     this.confirm = true;
   }
 
-  deleteLocation(id) {
-    // console.log(id);
-  }
+  deleteLocation(id) {}
 
   editLocation($event) {
     this.router.navigate([`../branches/${$event}`], { relativeTo: this.Route });

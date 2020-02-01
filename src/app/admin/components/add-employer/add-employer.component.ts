@@ -146,7 +146,6 @@ export class AddEmployerComponent implements OnInit {
 
     this.adminService.addEmployer(this.formData).subscribe(
       success => {
-        //console.log(success)
         if (success.success) {
           this.employerAdded = true;
           setTimeout(() => {

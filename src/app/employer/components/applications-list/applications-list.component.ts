@@ -43,10 +43,8 @@ export class ApplicationsListComponent implements OnInit {
     this.Route.data.subscribe(res => {
       let data = res.data;
       if (data.success) {
-        // console.log(data);
         this.pager = data.applications.pager;
         this.applications = data.applications.rows;
-        // console.log(this.applications);
       }
     });
   }
@@ -59,7 +57,6 @@ export class ApplicationsListComponent implements OnInit {
     let elem = document.getElementsByClassName('overlay');
     elem[0].addEventListener('click', () => {
       this.filterHidden = true;
-      // console.log(this.filterHidden);
     });
   }
 
@@ -80,7 +77,6 @@ export class ApplicationsListComponent implements OnInit {
       this.employerService
         .getFilterApplications(val.applicantName, val.jobtitle, page.pageIndex + 1, page.pageSize)
         .subscribe(data => {
-          //console.log(data);
           this.applications = data.applications.rows;
           this.pager = data.applications.pager;
         });
@@ -100,10 +96,8 @@ export class ApplicationsListComponent implements OnInit {
 
   filterApplications() {
     var val = this.searchForm.value;
-    //console.log(val);
     this.filterHidden = true;
     this.employerService.getFilterApplications(val.applicantName, val.jobtitle, this.page || 1, 8).subscribe(data => {
-      //console.log(data);
       this.applications = data.applications.rows;
       this.pager = data.applications.pager;
     });

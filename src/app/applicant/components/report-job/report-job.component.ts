@@ -74,7 +74,6 @@ export class ReportJobComponent implements OnInit {
       success => {
         this.submitted = false;
         this.loading = false;
-        // console.log(success);
         if (success.success) {
           this.jobAdded = true;
           setTimeout(() => {

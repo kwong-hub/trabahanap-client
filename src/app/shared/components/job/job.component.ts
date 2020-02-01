@@ -21,7 +21,6 @@ export class JobComponent implements OnInit {
 
   ngOnInit() {
     this.bookmarked = this.isBookMarked;
-    // console.log(this.Job, "job");
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
   }
@@ -33,13 +32,11 @@ export class JobComponent implements OnInit {
       this.router.navigate(['/login'], { queryParams: { returnUrl: `/applicant/jobs/details/${this.Job.jobId}` } });
       return false; // to prevent reload
     } else if (!auth.hasFinishedProfile) {
-      // console.error('has not finished profile');
       return false;
     } else {
       this.booking = this.Job.jobId;
       this.jobsService.toggleSaveJob(this.Job.jobId).subscribe(
         data => {
-          // console.log(data);
           this.booking = '';
           if (data.success) {
             this.bookmarked = !this.bookmarked;

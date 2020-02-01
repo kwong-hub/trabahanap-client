@@ -17,11 +17,9 @@ export class ReportJobDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, public adminService: AdminService) {
     this.route.data.subscribe(res => {
       let data = res.data;
-      // console.log(res.data);
       if (data.success) {
         this.report = data.report;
       } else {
-        // console.log(data);
       }
     });
   }
@@ -31,7 +29,6 @@ export class ReportJobDetailComponent implements OnInit {
     this.loading = true;
     this.adminService.checkedReport(id).subscribe(
       data => {
-        // console.log(data);
         this.loading = false;
         if (data.success) {
           this.report = { ...this.report, checked: !this.report.checked };

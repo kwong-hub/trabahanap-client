@@ -25,7 +25,6 @@ export class CompanyDetailComponent implements OnInit {
           this.company = data.employers.company;
           this.users = data.employers.user;
         }
-        // console.log(this.company);
       },
       error => {
         console.log(error);

@@ -1,5 +1,5 @@
-import { Component, Input } from "@angular/core";
-import { Job } from "@app/_models/Job";
+import { Component, Input } from '@angular/core';
+import { Job } from '@app/_models/Job';
 import {
   faSlidersH,
   faEllipsisV,
@@ -7,13 +7,15 @@ import {
   faTrashAlt,
   faBan,
   faPause,
-  faInbox,faCheckCircle,faTimesCircle
-} from "@fortawesome/free-solid-svg-icons";
-import { ActivatedRoute, Router } from "@angular/router";
-import { JobService } from "@app/_services/jobs.service";
-import { StateService } from "@app/_services/state.service";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { EmployerService } from "@app/_services/employer.service";
+  faInbox,
+  faCheckCircle,
+  faTimesCircle
+} from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JobService } from '@app/_services/jobs.service';
+import { StateService } from '@app/_services/state.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EmployerService } from '@app/_services/employer.service';
 
 export interface PeriodicElement {
   name: string;
@@ -23,9 +25,9 @@ export interface PeriodicElement {
 }
 
 @Component({
-  selector: "app-jobs-list",
-  templateUrl: "./jobs-list.component.html",
-  styleUrls: ["./jobs-list.component.scss"]
+  selector: 'app-jobs-list',
+  templateUrl: './jobs-list.component.html',
+  styleUrls: ['./jobs-list.component.scss']
 })
 export class JobsListComponent {
   @Input() jobs: any;
@@ -44,23 +46,15 @@ export class JobsListComponent {
   faBan = faBan;
   filterHidden = true;
   openActions = {};
-  defaultLimit ={max:"50",min:"0"};
-  displayedColumns: string[] = [
-    "jobTitle",
-    "industry",
-    "education",
-    "salaryRange",
-    "appEnd",
-    "status",
-    "edit"
-  ];
+  defaultLimit = { max: '50', min: '0' };
+  displayedColumns: string[] = ['jobTitle', 'industry', 'education', 'salaryRange', 'appEnd', 'status', 'edit'];
   searchForm: FormGroup;
 
   filtered: boolean = false;
   isConfirmSuspend = false;
   isConfirmDelete = false;
   confirmHeader = 'Suspend a Job';
-  confirmBody = 'Are you sure you want to suspend this job?'
+  confirmBody = 'Are you sure you want to suspend this job?';
   deletedId: any;
   constructor(
     private JobsService: JobService,
@@ -73,18 +67,17 @@ export class JobsListComponent {
 
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
-      jobTitle: ["", Validators.nullValidator],
-      industry: ["", Validators.nullValidator],
-      position: ["", Validators.nullValidator]
+      jobTitle: ['', Validators.nullValidator],
+      industry: ['', Validators.nullValidator],
+      position: ['', Validators.nullValidator]
     });
-    console.log(this.jobs)
-    let elem = document.getElementsByClassName("overlay");
-    elem[0].addEventListener("click", () => {
+    let elem = document.getElementsByClassName('overlay');
+    elem[0].addEventListener('click', () => {
       this.openActions = {};
       this.filterHidden = true;
     });
 
-    document.addEventListener("click", () => {
+    document.addEventListener('click', () => {
       this.openActions = {};
     });
 
@@ -116,15 +109,13 @@ export class JobsListComponent {
   }
 
   suspendJobs($event) {
-    if($event){
+    if ($event) {
       this.EmployerService.suspendJob(this.deletedId).subscribe(
         data => {
-         
-         this.jobs.forEach(job => {
+          this.jobs.forEach(job => {
             if (job.id === $event) {
-              // console.log($event)
               job.suspended = !job.suspended;
-             
+
               //this.openActions[comp.id] = null;
             }
           });
@@ -134,31 +125,26 @@ export class JobsListComponent {
         }
       );
     }
-
   }
   toggleSuspend($event) {
-    // console.log($event,'toggle')
     this.isConfirmSuspend = !this.isConfirmSuspend;
     this.deletedId = $event;
   }
 
   toggleDelete($event) {
-    // console.log($event,'toggle')
-    this.confirmBody=""
+    this.confirmBody = '';
     this.isConfirmDelete = !this.isConfirmDelete;
     this.deletedId = $event;
   }
 
   editJob($event) {
     this.stateService.data = $event;
-    this.router.navigate([`../jobs/${$event.id}`],{relativeTo: this.route});
-
+    this.router.navigate([`../jobs/${$event.id}`], { relativeTo: this.route });
   }
 
   candidatesJob($event) {
     this.stateService.data = $event;
-    this.router.navigate([`../candidates/job/${$event}`],{relativeTo: this.route});
-
+    this.router.navigate([`../candidates/job/${$event}`], { relativeTo: this.route });
   }
 
   toggleActions($evnet, id) {
@@ -167,10 +153,7 @@ export class JobsListComponent {
   }
 
   getServerData(page) {
-    this.JobsService.getCompanyJobs(
-      page.pageIndex + 1,
-      page.pageSize
-    ).subscribe(
+    this.JobsService.getCompanyJobs(page.pageIndex + 1, page.pageSize).subscribe(
       success => {
         if (success.success == true) {
           this.jobs = success.jobs.rows;
@@ -189,13 +172,10 @@ export class JobsListComponent {
   filterJobsApplications() {
     var val = this.searchForm.value;
     this.filterHidden = true;
-    this.EmployerService.getJobsFilter(val.jobTitle, val.industry, val.position, this.page || 1,8)
-      .subscribe(
-        data => {
-          this.jobs = data.applications.rows;
-          this.pager = data.applications.pager;
-        }
-      )
+    this.EmployerService.getJobsFilter(val.jobTitle, val.industry, val.position, this.page || 1, 8).subscribe(data => {
+      this.jobs = data.applications.rows;
+      this.pager = data.applications.pager;
+    });
 
     this.filtered = true;
   }

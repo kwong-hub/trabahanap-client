@@ -24,7 +24,6 @@ export class EmployerComponent implements OnInit {
             !this.authenticationService.currentUserValue.company_profile.hasLocations
           ) {
             this.noLocations = true;
-            // console.log(this.noLocations)
             return false;
           }
           break;

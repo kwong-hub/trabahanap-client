@@ -183,16 +183,13 @@ export class AddLocationComponent implements OnInit {
     var names = [];
     //@ts-ignore
     for (var pair of this.formData.entries()) {
-      // console.log(pair[0], pair[1])
       names.push(pair[0]);
     }
-    // console.log(names, "names")
 
     this.loading = true;
 
     this.adminService.addCompanyLocation(this.formData).subscribe(
       data => {
-        // console.log(data);
         if (data.success) {
           this.loading = false;
           this.submitted = false;

@@ -38,7 +38,6 @@ export class AdminStaffListComponent implements OnInit {
   constructor(private adminService: AdminService, private route: ActivatedRoute) {
     this.route.data.subscribe(res => {
       let data = res.data;
-      // console.log(res);
       if (data.success) {
         this.staffs = data.staffs.rows;
         this.pager = data.staffs.pager;
@@ -62,10 +61,8 @@ export class AdminStaffListComponent implements OnInit {
   }
 
   activateUser(id) {
-    // console.log(id);
     this.adminService.deactivateAdminStaff(id).subscribe(
       data => {
-        // console.log(data);
         this.staffs.forEach(staffs => {
           if (staffs.id === id) {
             staffs.active = !staffs.active;

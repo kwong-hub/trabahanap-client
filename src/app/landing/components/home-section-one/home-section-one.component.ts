@@ -1,23 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { Observable, Subject } from "rxjs";
-import { AnonymousService } from "@app/_services/anonymous.service";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import {
-  faMapMarker,
-  faMapMarkerAlt,
-  faSearch
-} from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { AnonymousService } from '@app/_services/anonymous.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { faMapMarker, faMapMarkerAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "landing-home-section-one",
-  templateUrl: "./home-section-one.component.html",
-  styleUrls: ["./home-section-one.component.scss"]
+  selector: 'landing-home-section-one',
+  templateUrl: './home-section-one.component.html',
+  styleUrls: ['./home-section-one.component.scss']
 })
 export class HomeSectionOneComponent implements OnInit {
-  key = "";
+  key = '';
   cities = [];
-  cityName = "";
+  cityName = '';
   faMarker = faMapMarkerAlt;
   faSearch = faSearch;
   CITIES$: Observable<any>;
@@ -27,7 +23,7 @@ export class HomeSectionOneComponent implements OnInit {
   constructor(private router: Router, private anonyService: AnonymousService) {}
 
   ngOnInit() {
-    document.addEventListener("click", () => {
+    document.addEventListener('click', () => {
       this.showOptions = false;
     });
 
@@ -44,17 +40,15 @@ export class HomeSectionOneComponent implements OnInit {
   }
 
   fetchCities(term: string): void {
-    if (term === "") {
+    if (term === '') {
       this.cities = [];
       return;
     }
 
     this.citySearchTerms.next(term);
     this.CITIES$.subscribe(data => {
-      //console.log(data)
       this.cities = data.cities;
       this.showOptions = true;
-      //console.log(data);
     });
   }
 

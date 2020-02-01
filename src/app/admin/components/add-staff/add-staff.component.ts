@@ -41,7 +41,6 @@ export class AddStaffComponent implements OnInit {
     const values = this.addStaffer.value;
     this.adminServices.addStaff(values, this.companyId).subscribe(
       success => {
-        // console.log(success);
         if (success.success) {
           this.stafferAdded = true;
           this.resetForm();

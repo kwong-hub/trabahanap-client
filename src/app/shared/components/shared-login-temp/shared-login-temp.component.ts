@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { SocialUser } from "angularx-social-login";
-import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { first } from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SocialUser } from 'angularx-social-login';
+import { faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
-  selector: "app-shared-login-temp",
-  templateUrl: "./shared-login-temp.component.html",
-  styleUrls: ["./shared-login-temp.component.scss"]
+  selector: 'app-shared-login-temp',
+  templateUrl: './shared-login-temp.component.html',
+  styleUrls: ['./shared-login-temp.component.scss']
 })
 export class SharedLoginTempComponent implements OnInit {
   emailForm: FormGroup;
@@ -24,18 +24,18 @@ export class SharedLoginTempComponent implements OnInit {
   loading = false;
   submitted = false;
   homeUrl: string;
-  error = "";
-  registerType = "applicant"; // who is to be registered: Employer or Applicant; default Applicant
+  error = '';
+  registerType = 'applicant'; // who is to be registered: Employer or Applicant; default Applicant
   registerSuccess: boolean;
   returnUrl: any;
   user: SocialUser;
   lgUser: any;
   loggedIn: boolean;
   eyeIcon = faEyeSlash;
-  passwordType: string = "password";
+  passwordType: string = 'password';
 
   login = false;
-  socialError = "";
+  socialError = '';
   emailSent = false;
   messageSent = false;
 
@@ -48,35 +48,33 @@ export class SharedLoginTempComponent implements OnInit {
     private router: ActivatedRoute
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.route.navigate([
-        `/${this.authenticationService.currentUserValue.role.toLowerCase()}`
-      ]);
+      this.route.navigate([`/${this.authenticationService.currentUserValue.role.toLowerCase()}`]);
     }
   }
 
   ngOnInit() {
     this.emailForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]]
     });
     this.passwordForm = this.formBuilder.group({
-      password: ["", Validators.required]
+      password: ['', Validators.required]
     });
     this.questionaryForm = this.formBuilder.group({
-      firstName: ["", Validators.required],
-      lastName: ["", Validators.required],
-      phoneNumber: [""]
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phoneNumber: ['']
     });
     this.smsConfirmationForm = this.formBuilder.group({
-      passcode: ["", Validators.required]
+      passcode: ['', Validators.required]
     });
   }
 
   togglePasswordType() {
-    if (this.passwordType === "password") {
-      this.passwordType = "text";
+    if (this.passwordType === 'password') {
+      this.passwordType = 'text';
       this.eyeIcon = faEye;
     } else {
-      this.passwordType = "password";
+      this.passwordType = 'password';
       this.eyeIcon = faEyeSlash;
     }
   }
@@ -104,26 +102,23 @@ export class SharedLoginTempComponent implements OnInit {
     }
     this.loading = true;
 
-    this.authenticationService
-      .getUserByEmail(this.f.email.value)
-      .subscribe(res => {
-        // console.log(res);
-        this.loading = false;
-        this.error = "";
-        if (res.success) {
-          this.lgUser = res.user;
-          this.submitted = false;
-          if (this.lgUser.hasPassword) {
-            this.showEmailForm = false;
-            this.showPasswordForm = true;
-          } else {
-            this.showEmailForm = false;
-            this.showOptions = true;
-          }
+    this.authenticationService.getUserByEmail(this.f.email.value).subscribe(res => {
+      this.loading = false;
+      this.error = '';
+      if (res.success) {
+        this.lgUser = res.user;
+        this.submitted = false;
+        if (this.lgUser.hasPassword) {
+          this.showEmailForm = false;
+          this.showPasswordForm = true;
         } else {
-          this.error = res.error || res.message;
+          this.showEmailForm = false;
+          this.showOptions = true;
         }
-      });
+      } else {
+        this.error = res.error || res.message;
+      }
+    });
   }
 
   onPasswordSubmit() {
@@ -133,17 +128,13 @@ export class SharedLoginTempComponent implements OnInit {
     }
     this.loading = true;
 
-    // console.log(this.lgUser.email, this.fPassword.password.value);
     this.authenticationService
       .login(this.lgUser.email, this.fPassword.password.value)
       .pipe(first())
       .subscribe(
         data => {
-          // console.log(data)
           if (data.success) {
-            this.returnUrl =
-              this.router.snapshot.queryParams["returnUrl"] ||
-              `/${data.user.role.toLowerCase()}`;
+            this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || `/${data.user.role.toLowerCase()}`;
             this.route.navigate([this.returnUrl]);
           } else {
             this.error = data.error;
@@ -173,37 +164,34 @@ export class SharedLoginTempComponent implements OnInit {
       })
       .subscribe(res => {
         this.loading = false;
-        this.error = "";
+        this.error = '';
         if (res.success && res.user.valid) {
           this.submitted = false;
           this.showQuestionaryForm = false;
-          this.route.navigate(["/set-password"], {
+          this.route.navigate(['/set-password'], {
             queryParams: { token: res.user.token }
           });
         } else {
-          this.error = "Invalid information try again.";
+          this.error = 'Invalid information try again.';
         }
       });
   }
 
   sendEmail() {
-    this.disable["email"] = true;
-    this.authenticationService
-      .resetPassword(this.lgUser.email)
-      .subscribe(res => {
-        if (res.success) {
-          this.emailSent = true;
-          setTimeout(() => {
-            this.emailSent = false;
-            this.route.navigate(["/"]);
-          }, 4000);
-        }
-      });
-    // console.log(this.lgUser);
+    this.disable['email'] = true;
+    this.authenticationService.resetPassword(this.lgUser.email).subscribe(res => {
+      if (res.success) {
+        this.emailSent = true;
+        setTimeout(() => {
+          this.emailSent = false;
+          this.route.navigate(['/']);
+        }, 4000);
+      }
+    });
   }
 
   sendMessage() {
-    this.disable["message"] = true;
+    this.disable['message'] = true;
     this.authenticationService.sendMessage(this.lgUser.email).subscribe(res => {
       this.messageSent = true;
       setTimeout(() => {
@@ -228,20 +216,20 @@ export class SharedLoginTempComponent implements OnInit {
       .subscribe(res => {
         this.submitted = false;
         this.loading = false;
-        this.error = "";
+        this.error = '';
         if (res.success && res.user.valid) {
           this.showSmsConfirmationForm = false;
-          this.route.navigate(["/set-password"], {
+          this.route.navigate(['/set-password'], {
             queryParams: { token: res.user.token }
           });
         } else {
-          this.error = "Invalid passcode";
+          this.error = 'Invalid passcode';
         }
       });
   }
 
   toQuestionary() {
-    this.disable["question"] = true;
+    this.disable['question'] = true;
     this.showOptions = false;
     this.showQuestionaryForm = true;
   }

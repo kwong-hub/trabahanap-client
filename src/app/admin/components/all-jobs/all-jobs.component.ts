@@ -91,12 +91,10 @@ export class AllJobsComponent implements OnInit {
   ) {
     this.route.data.subscribe(res => {
       let data = res.data;
-      // console.log(data);
       if (data.success) {
         this.jobs = data.jobs.rows;
         this.pager = data.jobs.pager;
       } else {
-        // console.log(data);
       }
     });
   }
@@ -129,7 +127,6 @@ export class AllJobsComponent implements OnInit {
     // this.JobService.getAllJobs(1)
     //   .subscribe(
     //     data => {
-    //       console.log(data)
     //       if (data.success) {
     //         this.jobs = data.jobs.rows;
     //         this.pager = data.jobs.pager;
@@ -175,7 +172,6 @@ export class AllJobsComponent implements OnInit {
           page.pageSize
         )
         .subscribe(data => {
-          //console.log(data);
           this.jobs = data.jobs.rows;
           this.pager = data.jobs.pager;
         });
@@ -210,10 +206,8 @@ export class AllJobsComponent implements OnInit {
 
     this.industrySearchTerms.next(term);
     this.INDUSTRIES$.subscribe(data => {
-      //console.log(data)
       this.industries = data.industries;
       this.showOptionsIndustry = true;
-      //console.log(data);
     });
   }
   selectIndustry(industryName) {
@@ -243,7 +237,6 @@ export class AllJobsComponent implements OnInit {
         8
       )
       .subscribe(data => {
-        // console.log(data);
         this.jobs = data.jobs.rows;
         this.pager = data.jobs.pager;
       });

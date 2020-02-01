@@ -59,7 +59,6 @@ export class AddAdvertisementComponent implements OnInit {
         //       this.ads.applicationEndDate = this.ads.applicationEndDate.split(
         //         "T"
         //       )[0];
-        //       // console.log(this.ads.applicationStartDate);
         //       this.ads.locationId = "";
         //       this.populateFields();
         //     },
@@ -88,7 +87,6 @@ export class AddAdvertisementComponent implements OnInit {
     this.times[`${name}`] = value;
     let values = this.addAdsForm.controls[`${name}`].value + value;
     this.addAdsForm.controls[`${name}`].setValue(values);
-    // console.log(this.addAdsForm.controls[`${name}`].value)
   }
   fileChanged(value, name) {
     this.formData.append(name, value, value.name);
@@ -107,7 +105,6 @@ export class AddAdvertisementComponent implements OnInit {
     this.addAdsForm.controls['adsEnd'].setValue(end);
     let val = this.addAdsForm.value;
 
-    // console.log(val,'val')
     _.map(val, (value, key) => {
       if (key != 'image') {
         this.formData.append(key, value);
@@ -117,7 +114,6 @@ export class AddAdvertisementComponent implements OnInit {
     this.adminService.addAdvertisement(this.formData).subscribe(
       data => {
         this.loading = false;
-        // console.log(data);
         if (data.success) {
           this.AdsAdded = true;
           setTimeout(() => {

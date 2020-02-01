@@ -27,7 +27,6 @@ export class IssueDetailContainerComponent implements OnInit {
       if (data.success) {
         this.issue = data.issue;
       } else {
-        // console.log(data);
       }
     });
   }
