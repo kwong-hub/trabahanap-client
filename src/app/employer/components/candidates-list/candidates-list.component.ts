@@ -25,7 +25,7 @@ export class CandidatesListComponent implements OnInit {
   filterHidden: boolean = true;
   filtered: boolean = false;
   openActions: {};
-  defaultLimit ={max:"50",min:"0"};
+  defaultLimit = { max: '50', min: '0' };
   constructor(
     private JobsService: JobService,
     private EmployerService: EmployerService,
@@ -46,13 +46,10 @@ export class CandidatesListComponent implements OnInit {
     elem[0].addEventListener('click', () => {
       this.openActions = {};
       this.filterHidden = true;
-      // console.log(this.filterHidden);
     });
   }
 
-  updateExpansionState(jobId) {
-    console.log(jobId);
-  }
+  updateExpansionState(jobId) {}
 
   showCadidates(application) {
     this.router.navigate([`../candidates/job/${application.jobId}`], {
@@ -82,7 +79,6 @@ export class CandidatesListComponent implements OnInit {
         page.pageIndex + 1,
         page.pageSize
       ).subscribe(data => {
-        //console.log(data);
         if (data.success == true) {
           this.jobs = data.applications.rows;
           this.pager = data.applications.pager;
@@ -98,7 +94,6 @@ export class CandidatesListComponent implements OnInit {
 
   filterJobsApplications() {
     var val = this.searchForm.value;
-    //console.log(val);
     this.filterHidden = true;
     this.EmployerService.getFilterJobsApplications(
       val.jobTitle,

@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { AdminService } from "@app/_services/admin.service";
-import { ActivatedRoute } from "@angular/router";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '@app/_services/admin.service';
+import { ActivatedRoute } from '@angular/router';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "app-company-detail",
-  templateUrl: "./company-detail.component.html",
-  styleUrls: ["./company-detail.component.scss"]
+  selector: 'app-company-detail',
+  templateUrl: './company-detail.component.html',
+  styleUrls: ['./company-detail.component.scss']
 })
 export class CompanyDetailComponent implements OnInit {
   users = [];
@@ -15,10 +15,7 @@ export class CompanyDetailComponent implements OnInit {
   faCheckCircle = faCheckCircle;
   loading: boolean;
 
-  constructor(
-    private adminService: AdminService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private adminService: AdminService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.params.id;
@@ -28,7 +25,6 @@ export class CompanyDetailComponent implements OnInit {
           this.company = data.employers.company;
           this.users = data.employers.user;
         }
-        console.log(this.company);
       },
       error => {
         console.log(error);

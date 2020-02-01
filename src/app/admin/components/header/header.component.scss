@@ -12,19 +12,28 @@
   width: 100%;
   z-index: 9999;
 
-  &__logo {
+  .img-holder {
+    display: inline-block;
     position: absolute;
     top: 0rem;
     left: 8rem;
-    width: 8rem;
+    width: 9rem;
+    height: 8.5rem;
     border-bottom-right-radius: 1.5rem;
     border-bottom-left-radius: 1.5rem;
     box-shadow: 0 2px 5px rgba(black, 0.5);
+    background-color: white;
     transition: all 0.1s;
-
+  
     &:hover {
-      box-shadow: 0 2px 1.2rem rgba(black, 0.8);
+      box-shadow: 0 2px 1.2rem rgba(black, 0.5);
     }
+  }
+
+  &__logo {
+    width: 8rem;
+    display: block;
+    margin: .2rem auto;
   }
 }
 

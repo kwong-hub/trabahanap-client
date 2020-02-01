@@ -62,6 +62,7 @@
             name=""
             id=""
             class="picture-input"
+            accept="image/x-png,image/jpeg,image/jpg"
             [(ngModel)]="selectedImage"
             formControlName="applicantPicture"
             (change)="imageChanged($event)"
@@ -250,37 +251,6 @@
         ></shared-custom-input-field>
       </div>
 
-      <!-- <div *ngIf="!applicantProfile" style="justify-content: space-between;" class="sub-container">
-            <shared-custom-file-input
-                class="input-element-type-2"
-                [formGroup]="addApplicantProfileForm" 
-                name="applicantPicture" 
-                
-                placeholder='Upload Profile Picture' 
-                label="Upload Profile Picture" 
-                [input]="addApplicantProfileForm.controls['applicantPicture']"  
-                [type]="inputType"
-                [submitted]="submitted"
-                [disabled]="hasProfile"
-                [accept]="profilePictureFileTypes"
-                (onValueChange)="fileChanged($event, 'applicantPicture')"
-            ></shared-custom-file-input>
-        </div> -->
-      <!-- <div style="justify-content: space-between;" class="sub-container">
-        <shared-custom-input-field
-          class="input-element-type-2"
-          [formGroup]="addApplicantProfileForm"
-          name="address"
-          [defaultValue]="applicantProfile?.address"
-          placeholder="Address"
-          label="Address"
-          [input]="addApplicantProfileForm.controls['address']"
-          type="text"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-          [styleObject]="styleObject"
-        ></shared-custom-input-field>
-      </div> -->
       <div class="sub-container">
         <shared-custom-select
           [valid]="addApplicantProfileForm.controls['RegionId']?.status"

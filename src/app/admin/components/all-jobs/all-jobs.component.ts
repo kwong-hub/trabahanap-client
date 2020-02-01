@@ -1,24 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { Job } from "@app/_models/Job";
-import { JobService } from "@app/_services/jobs.service";
-import { AdminService } from "@app/_services/admin.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { StateService } from "@app/_services/state.service";
-import {
-  faSlidersH,
-  faEdit,
-  faEllipsisV,
-  faTrashAlt
-} from "@fortawesome/free-solid-svg-icons";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
-import { Observable, Subject } from "rxjs";
-import { AnonymousService } from "@app/_services/anonymous.service";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { Job } from '@app/_models/Job';
+import { JobService } from '@app/_services/jobs.service';
+import { AdminService } from '@app/_services/admin.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StateService } from '@app/_services/state.service';
+import { faSlidersH, faEdit, faEllipsisV, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Observable, Subject } from 'rxjs';
+import { AnonymousService } from '@app/_services/anonymous.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: "app-all-jobs",
-  templateUrl: "./all-jobs.component.html",
-  styleUrls: ["./all-jobs.component.scss"]
+  selector: 'app-all-jobs',
+  templateUrl: './all-jobs.component.html',
+  styleUrls: ['./all-jobs.component.scss']
 })
 export class AllJobsComponent implements OnInit {
   public jobs: Job[];
@@ -37,41 +32,41 @@ export class AllJobsComponent implements OnInit {
   salaryRangeName;
   industries = [];
   SalaryRange = [
-    { name: "All", value: "" },
-    { name: "Below 18,000", value: "<18000" },
-    { name: "18,000-25,000", value: "18000-25000" },
-    { name: "25,001-40,000", value: "25001-40000" },
-    { name: "40,001-60,000", value: "40001-60000" },
-    { name: "60,001-80,000", value: "60001-80000" },
-    { name: ">80,000", value: ">80000" }
+    { name: 'All', value: '' },
+    { name: 'Below 18,000', value: '<18000' },
+    { name: '18,000-25,000', value: '18000-25000' },
+    { name: '25,001-40,000', value: '25001-40000' },
+    { name: '40,001-60,000', value: '40001-60000' },
+    { name: '60,001-80,000', value: '60001-80000' },
+    { name: '>80,000', value: '>80000' }
   ];
 
-  cityName = "";
-  industryName = "";
+  cityName = '';
+  industryName = '';
 
   employmentType = [
-    { name: "All", value: "" },
-    { name: "Part Time", value: "PARTTIME" },
-    { name: "Full Time", value: "FULLTIME" },
-    { name: "Project Based", value: "PROJECTBASED" },
-    { name: "Permanent", value: "PERMANENT" },
-    { name: "Temporary", value: "TEMPORARY" },
-    { name: "Internship/OJT", value: "INTERNSHIP/OJT" },
-    { name: "Freelance", value: "FREELANCE" }
+    { name: 'All', value: '' },
+    { name: 'Part Time', value: 'PARTTIME' },
+    { name: 'Full Time', value: 'FULLTIME' },
+    { name: 'Project Based', value: 'PROJECTBASED' },
+    { name: 'Permanent', value: 'PERMANENT' },
+    { name: 'Temporary', value: 'TEMPORARY' },
+    { name: 'Internship/OJT', value: 'INTERNSHIP/OJT' },
+    { name: 'Freelance', value: 'FREELANCE' }
   ];
 
   styleObject = {
     inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", border: "1px solid #888" },
+    inputHeader: { fontSize: '1.5rem', border: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   CITIES$: Observable<any>;
@@ -82,16 +77,10 @@ export class AllJobsComponent implements OnInit {
   showOptions: boolean;
   showOptionsIndustry: boolean;
 
-  displayedColumns: string[] = [
-    "jobTitle",
-    "industry",
-    "education",
-    "salaryRange",
-    "action"
-  ];
+  displayedColumns: string[] = ['jobTitle', 'industry', 'education', 'salaryRange', 'action'];
   isLogoEditModalOpen: boolean = false;
   deletedId: any;
-  defaultLimit ={max:"50",min:"0"};
+  defaultLimit = { max: '50', min: '0' };
   constructor(
     private adminService: AdminService,
     private anonyService: AnonymousService,
@@ -102,26 +91,24 @@ export class AllJobsComponent implements OnInit {
   ) {
     this.route.data.subscribe(res => {
       let data = res.data;
-      // console.log(data);
       if (data.success) {
         this.jobs = data.jobs.rows;
         this.pager = data.jobs.pager;
       } else {
-        console.log(data);
       }
     });
   }
 
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
-      query: ["", Validators.nullValidator],
-      industry: ["", Validators.nullValidator],
-      employmentType: ["", Validators.nullValidator],
-      SalaryRange: ["", Validators.nullValidator]
+      query: ['', Validators.nullValidator],
+      industry: ['', Validators.nullValidator],
+      employmentType: ['', Validators.nullValidator],
+      SalaryRange: ['', Validators.nullValidator]
     });
 
-    let elem = document.getElementsByClassName("overlay");
-    elem[0].addEventListener("click", () => {
+    let elem = document.getElementsByClassName('overlay');
+    elem[0].addEventListener('click', () => {
       // this.openActions = {};
       this.filterHidden = true;
     });
@@ -140,7 +127,6 @@ export class AllJobsComponent implements OnInit {
     // this.JobService.getAllJobs(1)
     //   .subscribe(
     //     data => {
-    //       console.log(data)
     //       if (data.success) {
     //         this.jobs = data.jobs.rows;
     //         this.pager = data.jobs.pager;
@@ -180,17 +166,17 @@ export class AllJobsComponent implements OnInit {
         .getFilterJobs(
           val.query,
           this.industryName,
-          val.employmentType || "",
-          val.salaryRange || "",
-          page.pageIndex + 1,page.pageSize
+          val.employmentType || '',
+          val.salaryRange || '',
+          page.pageIndex + 1,
+          page.pageSize
         )
         .subscribe(data => {
-          //console.log(data);
           this.jobs = data.jobs.rows;
           this.pager = data.jobs.pager;
         });
     } else {
-      this.adminService.getJobs(page.pageIndex + 1,page.pageSize).subscribe(
+      this.adminService.getJobs(page.pageIndex + 1, page.pageSize).subscribe(
         success => {
           if (success.success == true) {
             this.jobs = success.jobs.rows;
@@ -210,21 +196,18 @@ export class AllJobsComponent implements OnInit {
     this.router.navigate([`../employers/jobs/${companyProfileId}/add/${id}`], {
       relativeTo: this.route
     });
-
   }
 
   fetchIndustries(term: string): void {
-    if (term === "") {
+    if (term === '') {
       this.industries = [];
       return;
     }
 
     this.industrySearchTerms.next(term);
     this.INDUSTRIES$.subscribe(data => {
-      //console.log(data)
       this.industries = data.industries;
       this.showOptionsIndustry = true;
-      //console.log(data);
     });
   }
   selectIndustry(industryName) {
@@ -244,15 +227,19 @@ export class AllJobsComponent implements OnInit {
   filterJobs() {
     var val = this.searchForm.value;
     this.filterHidden = true;
-    this.adminService.getFilterJobs(val.query, this.industryName || '', val.employmentType || '', val.SalaryRange || '', this.page || 1,8)
-      .subscribe(
-        data => {
-         // console.log(data);
-          this.jobs = data.jobs.rows;
-          this.pager = data.jobs.pager;
-        }
+    this.adminService
+      .getFilterJobs(
+        val.query,
+        this.industryName || '',
+        val.employmentType || '',
+        val.SalaryRange || '',
+        this.page || 1,
+        8
       )
- 
+      .subscribe(data => {
+        this.jobs = data.jobs.rows;
+        this.pager = data.jobs.pager;
+      });
 
     this.filtered = true;
   }

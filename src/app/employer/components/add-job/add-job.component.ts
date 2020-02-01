@@ -1,19 +1,19 @@
-import { LocationService } from "./../../../_services/location.service";
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { EmployerService } from "@app/_services/employer.service";
-import { faCheck, faEyeDropper } from "@fortawesome/free-solid-svg-icons";
-import { StateService } from "@app/_services/state.service";
-import _ from "lodash";
-import { JobService } from "@app/_services/jobs.service";
-import { OtherService } from "@app/_services/other.service";
+import { LocationService } from './../../../_services/location.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { EmployerService } from '@app/_services/employer.service';
+import { faCheck, faEyeDropper } from '@fortawesome/free-solid-svg-icons';
+import { StateService } from '@app/_services/state.service';
+import _ from 'lodash';
+import { JobService } from '@app/_services/jobs.service';
+import { OtherService } from '@app/_services/other.service';
 
 @Component({
-  selector: "employer-add-job",
-  templateUrl: "./add-job.component.html",
-  styleUrls: ["./add-job.component.scss"]
+  selector: 'employer-add-job',
+  templateUrl: './add-job.component.html',
+  styleUrls: ['./add-job.component.scss']
 })
 export class AddJobComponent implements OnInit {
   faCheck = faCheck;
@@ -25,24 +25,21 @@ export class AddJobComponent implements OnInit {
   locations = [];
   industries = [];
   salaryRange = [
-    { name: "Below 18,000", value: "<18000" },
-    { name: "18,000-25,000", value: "18000-25000" },
-    { name: "25,001-40,000", value: "25001-40000" },
-    { name: "40,001-60,000", value: "40001-60000" },
-    { name: "60,001-80,000", value: "60001-80000" },
-    { name: ">80,000", value: ">80000" }
+    { name: 'Below 18,000', value: '<18000' },
+    { name: '18,000-25,000', value: '18000-25000' },
+    { name: '25,001-40,000', value: '25001-40000' },
+    { name: '40,001-60,000', value: '40001-60000' },
+    { name: '60,001-80,000', value: '60001-80000' },
+    { name: '>80,000', value: '>80000' }
   ];
   educationAttainment = [
-    { name: "High School Undergraduate", value: "High School Undergraduate" },
-    { name: "High School Diploma", value: "High School Diploma" },
-    { name: "Vocational School", value: "Vocational School" },
-    { name: "College Undergraduate", value: "College Undergraduate" },
-    { name: "College Graduate", value: "College Graduate" },
-    { name: "Post Graduate Study", value: "Post Graduate Study" }
+    { name: 'High School Undergraduate', value: 'High School Undergraduate' },
+    { name: 'High School Diploma', value: 'High School Diploma' },
+    { name: 'Vocational School', value: 'Vocational School' },
+    { name: 'College Undergraduate', value: 'College Undergraduate' },
+    { name: 'College Graduate', value: 'College Graduate' },
+    { name: 'Post Graduate Study', value: 'Post Graduate Study' }
   ];
-
- 
-  
 
   // location = [
   //   {name: 'High School', value: 'Highschool'},
@@ -51,38 +48,38 @@ export class AddJobComponent implements OnInit {
   //   {name: 'Degree', value: 'Deploma'}
   // ]
   employmentType = [
-    { name: "Part Time", value: "PARTTIME" },
-    { name: "Full Time", value: "FULLTIME" },
-    { name: "Project Based", value: "PROJECTBASED" },
-    { name: "Permanent", value: "PERMANENT" },
-    { name: "Temporary", value: "TEMPORARY" },
-    { name: "Internship/OJT", value: "INTERNSHIP/OJT" },
-    { name: "Freelance", value: "FREELANCE" }
+    { name: 'Part Time', value: 'PARTTIME' },
+    { name: 'Full Time', value: 'FULLTIME' },
+    { name: 'Project Based', value: 'PROJECTBASED' },
+    { name: 'Permanent', value: 'PERMANENT' },
+    { name: 'Temporary', value: 'TEMPORARY' },
+    { name: 'Internship/OJT', value: 'INTERNSHIP/OJT' },
+    { name: 'Freelance', value: 'FREELANCE' }
   ];
   styleObject = {
     inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
-  defaultLimit ={max:"30",min:"0"};
-  numberRange={max:"20",min:"10"};
-  bigLimit = {max:"100",min:"6"}
+  defaultLimit = { max: '30', min: '0' };
+  numberRange = { max: '20', min: '10' };
+  bigLimit = { max: '100', min: '6' };
   job: any;
   previousJobs: any = [];
   jobAdded: boolean;
   jobEditted: boolean;
-  currentDate= new Date();
+  currentDate = new Date();
 
-  defaultDate1="";
+  defaultDate1 = '';
   loading: boolean;
 
   constructor(
@@ -92,21 +89,17 @@ export class AddJobComponent implements OnInit {
     private router: Router,
     private jobService: JobService
   ) {
-    this.currentDate.setDate(this.currentDate.getDate()+1);
-    this.defaultDate1 = `${this.currentDate.getFullYear()}-${this.currentDate.getMonth()+1}-${this.currentDate. getDate()}`
+    this.currentDate.setDate(this.currentDate.getDate() + 1);
+    this.defaultDate1 = `${this.currentDate.getFullYear()}-${this.currentDate.getMonth() +
+      1}-${this.currentDate.getDate()}`;
     this.route.params.subscribe(
       params => {
         if (params.id) {
           this.jobService.getJobById(params.id).subscribe(
             success => {
               this.job = success.job;
-              this.job.applicationStartDate = this.job.applicationStartDate.split(
-                "T"
-              )[0];
-              this.job.applicationEndDate = this.job.applicationEndDate.split(
-                "T"
-              )[0];
-              // console.log(this.job.applicationStartDate);
+              this.job.applicationStartDate = this.job.applicationStartDate.split('T')[0];
+              this.job.applicationEndDate = this.job.applicationEndDate.split('T')[0];
               this.populateFields();
             },
             err => console.log(err)
@@ -140,22 +133,19 @@ export class AddJobComponent implements OnInit {
     );
 
     this.addJob = this.formBuilder.group({
-      jobTitle: ["", Validators.required],
-      jobDescription: [
-        "",
-        Validators.compose([Validators.required, Validators.maxLength(1500)])
-      ],
-      industry: ["", Validators.required],
+      jobTitle: ['', Validators.required],
+      jobDescription: ['', Validators.compose([Validators.required, Validators.maxLength(1500)])],
+      industry: ['', Validators.required],
       pwd: [false],
-      position: [""],
-      educationAttainment: ["", Validators.required],
-      salaryRange: ["", Validators.required],
-      employmentType: ["", Validators.required],
-      vacancies: ["", Validators.required],
-      additionalQualifications: [""],
-      applicationStartDate: ["", Validators.required],
-      applicationEndDate: ["", Validators.required],
-      locationId: ["", Validators.required]
+      position: [''],
+      educationAttainment: ['', Validators.required],
+      salaryRange: ['', Validators.required],
+      employmentType: ['', Validators.required],
+      vacancies: ['', Validators.required],
+      additionalQualifications: [''],
+      applicationStartDate: ['', Validators.required],
+      applicationEndDate: ['', Validators.required],
+      locationId: ['', Validators.required]
     });
   }
 
@@ -169,11 +159,11 @@ export class AddJobComponent implements OnInit {
     }
     this.submitted = true;
     this.checkValidOnValueChange();
-    // console.log(this.addJob.invalid);
+
     if (this.addJob.invalid) {
       return;
     }
-    
+
     this.loading = true;
     this.jobEditted = false;
     this.jobAdded = false;
@@ -184,7 +174,7 @@ export class AddJobComponent implements OnInit {
       this.employerService.editEmployerJob(this.job.id, val).subscribe(
         success => {
           this.loading = false;
-          if(success.success) {
+          if (success.success) {
             this.jobEditted = true;
           }
         },
@@ -223,9 +213,7 @@ export class AddJobComponent implements OnInit {
 
   populateFields() {
     _.map(this.job, (value, key) => {
-      this.addJob.controls[key]
-        ? this.addJob.controls[key].setValue(value)
-        : null;
+      this.addJob.controls[key] ? this.addJob.controls[key].setValue(value) : null;
     });
 
     this.disableEdit();
@@ -234,13 +222,13 @@ export class AddJobComponent implements OnInit {
   checkValidOnValueChange() {
     this.invalidFields = [];
     var specialInputs = [
-      { value: "applicationEndDate", name: "Application End Date" },
-      { value: "applicationStartDate", name: "Application Start Date" },
-      { value: "educationAttainment", name: "Education Attainment" },
-      { value: "employmentType", name: "Employment Type" },
-      { value: "locationId", name: "Location" },
-      { value: "salaryRange", name: "Salary Range" },
-      { value: "industry", name: "Industry" }
+      { value: 'applicationEndDate', name: 'Application End Date' },
+      { value: 'applicationStartDate', name: 'Application Start Date' },
+      { value: 'educationAttainment', name: 'Education Attainment' },
+      { value: 'employmentType', name: 'Employment Type' },
+      { value: 'locationId', name: 'Location' },
+      { value: 'salaryRange', name: 'Salary Range' },
+      { value: 'industry', name: 'Industry' }
     ];
     specialInputs.map(sp => {
       if (this.addJob.controls[sp.value].invalid) {

@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "app-auth-password-reset",
-  templateUrl: "./auth-password-reset.component.html",
-  styleUrls: ["./auth-password-reset.component.scss"]
+  selector: 'app-auth-password-reset',
+  templateUrl: './auth-password-reset.component.html',
+  styleUrls: ['./auth-password-reset.component.scss']
 })
 export class AuthPasswordResetComponent implements OnInit {
   faLock = faLock;
@@ -17,14 +17,11 @@ export class AuthPasswordResetComponent implements OnInit {
   error: any;
   success: any;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthenticationService
-  ) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthenticationService) {}
 
   ngOnInit() {
     this.resetForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -42,7 +39,6 @@ export class AuthPasswordResetComponent implements OnInit {
     this.loading = true;
     this.authService.resetPassword(this.f.email.value).subscribe(
       data => {
-        // console.log(data)
         this.loading = false;
         if (data.success) {
           this.success = data.response;

@@ -34,7 +34,6 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
         if (this.applicantId) {
           this.employerService.getApplicant(this.applicantId).subscribe(
             success => {
-              //console.log(success)
               if (success.applicant) {
                 this.applicant = success.applicant;
                 this.employerService.getIsHired(this.applicantId, this.jobId).subscribe(data => {
@@ -51,10 +50,8 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
   }
 
   hireApplicant() {
-    //console.log(this.jobId,this.applicantId)
     this.jobService.hireJobApplication({ jobId: this.jobId, applicantId: this.applicantId }).subscribe(
       success => {
-        // console.log(success)
         this.hired = !this.hired;
       },
       err => console.log(err)

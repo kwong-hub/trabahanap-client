@@ -1,19 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { Location } from "@angular/common";
-import { _ } from "lodash";
-import { ApplicantService } from "@app/_services/applicant.service";
-import {
-  faTimes,
-  faEnvelope,
-  faPaperPlane
-} from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+import { _ } from 'lodash';
+import { ApplicantService } from '@app/_services/applicant.service';
+import { faTimes, faEnvelope, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 // import { trigger, state, transition, style, animate } from '@angular/animations';
 
 @Component({
-  selector: "app-report-issue",
-  templateUrl: "./report-issue.component.html",
-  styleUrls: ["./report-issue.component.scss"]
+  selector: 'app-report-issue',
+  templateUrl: './report-issue.component.html',
+  styleUrls: ['./report-issue.component.scss']
   // animations: [
   //   trigger('removing', [
   //     state('deleted', style({
@@ -35,16 +31,16 @@ export class ReportIssueComponent implements OnInit {
 
   selectStyle = {
     inputContainer: {},
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   loading: boolean;
@@ -66,7 +62,6 @@ export class ReportIssueComponent implements OnInit {
       data => {
         if (data.success) {
           this.issues = data.issues;
-          // console.log(this.issues);
         }
       },
       error => {
@@ -75,9 +70,9 @@ export class ReportIssueComponent implements OnInit {
     );
 
     this.issueForm = this.formBuilder.group({
-      issueReason: ["", Validators.required],
-      issueType: ["", Validators.required],
-      issueDescription: ["", Validators.required]
+      issueReason: ['', Validators.required],
+      issueType: ['', Validators.required],
+      issueDescription: ['', Validators.required]
     });
   }
 
@@ -108,7 +103,6 @@ export class ReportIssueComponent implements OnInit {
     this.deleteSuccess = false;
     this.applicantService.deleteIssue(id).subscribe(
       data => {
-        // console.log(data);
         if (data.success) {
           this.deleteSuccess = true;
           this.deleting = '';
@@ -127,7 +121,7 @@ export class ReportIssueComponent implements OnInit {
 
   addIssueToArray(issue) {
     this.isModalVisible = false;
-    this.issues.unshift({ ...issue, issueResponseId: "" });
+    this.issues.unshift({ ...issue, issueResponseId: '' });
     this.issueSuccess = true;
     setTimeout(() => {
       this.issueSuccess = false;

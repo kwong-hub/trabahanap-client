@@ -61,7 +61,7 @@ export class CompanyLocationDetailComponent implements OnInit {
   editSuccess: boolean;
   modalImgSrc: string | ArrayBuffer;
   formImgSrc: any;
-  defaultLimit ={max:"50",min:"0"};
+  defaultLimit = { max: '50', min: '0' };
   constructor(
     private formBuilder: FormBuilder,
     private Route: ActivatedRoute,
@@ -70,7 +70,6 @@ export class CompanyLocationDetailComponent implements OnInit {
     private adminService: AdminService
   ) {
     this.Route.data.subscribe(res => {
-      // console.log(res);
       let location = res.location;
       if (location.success) {
         this.location = location.location;
@@ -86,8 +85,6 @@ export class CompanyLocationDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.location);
-
     this.locationForm = this.formBuilder.group({
       locationName: [{ value: '', disabled: true }, Validators.required],
       locationPhoneNumber: [{ value: '', disabled: true }, Validators.required],
@@ -213,7 +210,6 @@ export class CompanyLocationDetailComponent implements OnInit {
 
     let reader = new FileReader();
     reader.onload = (e: Event) => {
-      // console.log(e.target, "target")
       this.modalImgSrc = reader.result;
     };
     reader.readAsDataURL(value);
@@ -225,7 +221,6 @@ export class CompanyLocationDetailComponent implements OnInit {
     this.uploading = true;
     this.adminService.editCompanyBranchPicture(this.imageData, this.id).subscribe(
       data => {
-        console.log(data);
         this.formImgSrc = data.location.picture;
         this.uploading = false;
         this.showModal();
@@ -251,10 +246,8 @@ export class CompanyLocationDetailComponent implements OnInit {
       latitude: this.latitude,
       longitude: this.longitude
     };
-    console.log(newLocation);
     this.adminService.editCompanyBranch(newLocation, this.id).subscribe(
       data => {
-        console.log(data);
         this.loading = false;
         if (data.success) {
           this.editSuccess = true;

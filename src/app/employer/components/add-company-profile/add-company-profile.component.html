@@ -52,7 +52,8 @@
         <img *ngIf="tempImg" class="company-logo-display__image" [src]="tempImg" alt="new-picture" />
 
         <div title="Change Logo" *ngIf="!hasProfile" class="company-logo-display__edit">
-          <input type="file" name="" id="" class="picture-input" (change)="imageChanged($event)" />
+          <input type="file" name="" id="" class="picture-input" 
+           accept="image/x-png,image/jpg,image/jpeg" (change)="imageChanged($event)" />
           <fa-icon class="picture-icon" [icon]="faCamera"></fa-icon>
         </div>
       </div>
@@ -139,7 +140,7 @@
       </div>
       <div style="justify-content: space-between;" class="sub-container">
         <shared-custom-file-input
-          *ngIf="!(companyProfile && companyProfile?.companyLogo)"
+          *ngIf="!(companyProfile)"
           class="input-element-type-1"
           [formGroup]="addCompanyProfileForm"
           name="companyLogo"

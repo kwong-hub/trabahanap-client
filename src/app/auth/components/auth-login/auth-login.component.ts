@@ -72,6 +72,18 @@ export class AuthLoginComponent implements OnInit {
       passcode: ['', Validators.required]
     });
 
+    this.router.queryParams.subscribe(
+      res => {
+        let questionnaire = res.questionnaire;
+        let email = res.email;
+        if (questionnaire == 'true' && email) {
+          this.showEmailForm = false;
+          this.getUserByEmail(email);
+        }
+      },
+      err => console.log(err)
+    );
+
     this.authService.authState.subscribe(user => {
       if (user && user.authToken && this.login) {
         if (!user.email) {
@@ -141,7 +153,6 @@ export class AuthLoginComponent implements OnInit {
     this.loading = true;
 
     this.authenticationService.getUserByEmail(this.f.email.value).subscribe(res => {
-      // console.log(res);
       this.loading = false;
       this.error = '';
       if (res.success) {
@@ -170,14 +181,11 @@ export class AuthLoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-
-    // console.log(this.lgUser.email, this.fPassword.password.value);
     this.authenticationService
       .login(this.lgUser.email, this.fPassword.password.value)
       .pipe(first())
       .subscribe(
         data => {
-          // console.log(data)
           if (data.success) {
             this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || `/${data.user.role.toLowerCase()}`;
             this.route.navigate([this.returnUrl]);
@@ -227,13 +235,37 @@ export class AuthLoginComponent implements OnInit {
     this.authenticationService.resetPassword(this.lgUser.email).subscribe(res => {
       if (res.success) {
         this.emailSent = true;
-        setTimeout(() => {
-          this.emailSent = false;
-          this.route.navigate(['/']);
-        }, 4000);
+        this.route.navigate(['/auth/password-email'], { queryParams: { email: this.lgUser.email } });
+        // setTimeout(() => {
+        //   this.emailSent = false;
+
+        // }, 4000);
       }
     });
-    // console.log(this.lgUser);
+  }
+
+  getUserByEmail(email) {
+    this.authenticationService.getUserByEmail(email).subscribe(res => {
+      if (res.success) {
+        this.lgUser = res.user;
+        this.submitted = false;
+        if (this.lgUser.hasPassword) {
+          this.showEmailForm = false;
+          this.showPasswordForm = true;
+        } else {
+          this.showEmailForm = false;
+          this.showquestionnaireForm = true;
+        }
+      } else {
+        this.showEmailForm = true;
+        this.showquestionnaireForm = false;
+        if (res.message.includes('connect') || res.message.includes('fail')) {
+          this.error = 'Can Not Login';
+        } else {
+          this.error = res.error || res.message;
+        }
+      }
+    });
   }
 
   sendMessage() {
@@ -300,7 +332,6 @@ export class AuthLoginComponent implements OnInit {
 
   signInWithGoogle() {
     this.login = true;
-    // console.log('from google login');
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 

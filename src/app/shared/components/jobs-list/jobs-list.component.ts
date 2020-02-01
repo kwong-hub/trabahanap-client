@@ -1,35 +1,21 @@
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { Job } from "../../../_models/Job";
-import { JobService } from "./../../../_services/jobs.service";
-import {
-  Component,
-  OnInit,
-  EventEmitter,
-  ViewChild,
-  ElementRef,
-  Input,
-  HostListener,
-  Renderer2
-} from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { faSlidersH } from "@fortawesome/free-solid-svg-icons";
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { Job } from '../../../_models/Job';
+import { JobService } from './../../../_services/jobs.service';
+import { Component, OnInit, EventEmitter, ViewChild, ElementRef, Input, HostListener, Renderer2 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 // import  'rxjs/add/operator/filter';
-import {
-  filter,
-  debounceTime,
-  distinctUntilChanged,
-  switchMap
-} from "rxjs/operators";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Observable } from "rxjs/internal/Observable";
-import { Subject } from "rxjs";
-import { AnonymousService } from "@app/_services/anonymous.service";
-import { ThrowStmt } from "@angular/compiler";
+import { filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/internal/Observable';
+import { Subject } from 'rxjs';
+import { AnonymousService } from '@app/_services/anonymous.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
-  selector: "shared-jobs-list",
-  templateUrl: "./jobs-list.component.html",
-  styleUrls: ["./jobs-list.component.scss"]
+  selector: 'shared-jobs-list',
+  templateUrl: './jobs-list.component.html',
+  styleUrls: ['./jobs-list.component.scss']
 })
 export class JobsListComponent implements OnInit {
   @Input() resultJobs;
@@ -49,18 +35,18 @@ export class JobsListComponent implements OnInit {
   salaryRangeName;
   industries = [];
   SalaryRange = [
-    { name: "All", value: "" },
-    { name: "Below 18,000", value: "<18000" },
-    { name: "18,000-25,000", value: "18000-25000" },
-    { name: "25,001-40,000", value: "25001-40000" },
-    { name: "40,001-60,000", value: "40001-60000" },
-    { name: "60,001-80,000", value: "60001-80000" },
-    { name: ">80,000", value: ">80000" }
+    { name: 'All', value: '' },
+    { name: 'Below 18,000', value: '<18000' },
+    { name: '18,000-25,000', value: '18000-25000' },
+    { name: '25,001-40,000', value: '25001-40000' },
+    { name: '40,001-60,000', value: '40001-60000' },
+    { name: '60,001-80,000', value: '60001-80000' },
+    { name: '>80,000', value: '>80000' }
   ];
-  defaultLimit ={max:"50",min:"0"};
+  defaultLimit = { max: '50', min: '0' };
   educationAttainment = [];
-  key = "";
-  city = "";
+  key = '';
+  city = '';
   pramsKey;
   belowScroll: boolean = true;
   cityName;
@@ -68,32 +54,32 @@ export class JobsListComponent implements OnInit {
   showLoader: boolean = false;
 
   employmentType = [
-    { name: "All", value: "" },
-    { name: "Part Time", value: "PARTTIME" },
-    { name: "Full Time", value: "FULLTIME" },
-    { name: "Project Based", value: "PROJECTBASED" },
-    { name: "Permanent", value: "PERMANENT" },
-    { name: "Temporary", value: "TEMPORARY" },
-    { name: "Internship/OJT", value: "INTERNSHIP/OJT" },
-    { name: "Freelance", value: "FREELANCE" }
+    { name: 'All', value: '' },
+    { name: 'Part Time', value: 'PARTTIME' },
+    { name: 'Full Time', value: 'FULLTIME' },
+    { name: 'Project Based', value: 'PROJECTBASED' },
+    { name: 'Permanent', value: 'PERMANENT' },
+    { name: 'Temporary', value: 'TEMPORARY' },
+    { name: 'Internship/OJT', value: 'INTERNSHIP/OJT' },
+    { name: 'Freelance', value: 'FREELANCE' }
   ];
 
   styleObject = {
     inputContainer: {},
     inputHeader: {
-      backgroundColor: "#fff",
-      fontSize: "1.5rem",
-      border: "1px solid #888"
+      backgroundColor: '#fff',
+      fontSize: '1.5rem',
+      border: '1px solid #888'
     },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.4rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.4rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   CITIES$: Observable<any>;
@@ -105,10 +91,8 @@ export class JobsListComponent implements OnInit {
   showOptionsIndustry: boolean;
   //scrolled = new EventEmitter();
 
-  @ViewChild("anchor", { static: false }) anchor: ElementRef<HTMLElement>;
-  @ViewChild("jobsListAnchor", { static: false }) jobsListAnchor: ElementRef<
-    HTMLElement
-  >;
+  @ViewChild('anchor', { static: false }) anchor: ElementRef<HTMLElement>;
+  @ViewChild('jobsListAnchor', { static: false }) jobsListAnchor: ElementRef<HTMLElement>;
   openActions: {};
   compId: any;
 
@@ -122,18 +106,17 @@ export class JobsListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // console.log(this.resultJobs, "resultjobs");
     this.searchForm = this.formBuilder.group({
-      query: ["", Validators.nullValidator],
-      city: ["", Validators.nullValidator],
-      industry: ["", Validators.nullValidator],
-      employmentType: ["", Validators.nullValidator],
-      SalaryRange: ["", Validators.nullValidator],
+      query: ['', Validators.nullValidator],
+      city: ['', Validators.nullValidator],
+      industry: ['', Validators.nullValidator],
+      employmentType: ['', Validators.nullValidator],
+      SalaryRange: ['', Validators.nullValidator],
       pwd: [false]
     });
 
-    let elem = document.getElementsByClassName("overlay");
-    elem[0].addEventListener("click", () => {
+    let elem = document.getElementsByClassName('overlay');
+    elem[0].addEventListener('click', () => {
       this.openActions = {};
       this.filterHidden = true;
     });
@@ -168,12 +151,9 @@ export class JobsListComponent implements OnInit {
     });
 
     if (auth === null || !auth.hasFinishedProfile) {
-      //console.log('auth is null')
       if (this.resultJobs) {
         this.jobs = this.resultJobs.rows;
-        this.page == this.resultJobs.pager.totalPages
-          ? this.reachedPageEnd == true
-          : "";
+        this.page == this.resultJobs.pager.totalPages ? this.reachedPageEnd == true : '';
         this.pager = this.resultJobs.pager;
         this.page = this.resultJobs.pager.currentPage + 1;
         if (this.pager.totalItems < 8) {
@@ -182,21 +162,17 @@ export class JobsListComponent implements OnInit {
         } else {
           this.loadJobs();
         }
-        //console.log(this.belowScroll)
       }
     } else {
       this.JobsService.getApplicantSavedJobs().subscribe(
         data => {
-          // console.log(data)
           if (data.success && data.jobs) {
             this.getSavedJobIds(data.jobs);
           }
 
           if (this.resultJobs) {
             this.jobs = this.resultJobs.rows;
-            this.page == this.resultJobs.pager.totalPages
-              ? this.reachedPageEnd == true
-              : "";
+            this.page == this.resultJobs.pager.totalPages ? this.reachedPageEnd == true : '';
             this.pager = this.resultJobs.pager;
             this.page = this.resultJobs.pager.currentPage + 1;
             if (this.pager.totalItems < 8) {
@@ -205,7 +181,6 @@ export class JobsListComponent implements OnInit {
             } else {
               this.loadJobs();
             }
-            //console.log(this.belowScroll)
           }
         },
         err => console.log(err)
@@ -214,32 +189,28 @@ export class JobsListComponent implements OnInit {
   }
 
   fetchCities(term: string): void {
-    if (term === "") {
+    if (term === '') {
       this.cities = [];
       return;
     }
 
     this.citySearchTerms.next(term);
     this.CITIES$.subscribe(data => {
-      //console.log(data)
       this.cities = data.cities;
       this.showOptions = true;
-      //console.log(data);
     });
   }
 
   fetchIndustries(term: string): void {
-    if (term === "") {
+    if (term === '') {
       this.industries = [];
       return;
     }
 
     this.industrySearchTerms.next(term);
     this.INDUSTRIES$.subscribe(data => {
-      //console.log(data)
       this.industries = data.industries;
       this.showOptionsIndustry = true;
-      //console.log(data);
     });
   }
 
@@ -263,15 +234,10 @@ export class JobsListComponent implements OnInit {
     let elementPositionForScroll = 0;
     window.onscroll = () => {
       var bottomPosition = window.innerHeight + window.pageYOffset;
-      var elementPosition = this.anchor
-        ? this.anchor.nativeElement.offsetTop
-        : 0;
+      var elementPosition = this.anchor ? this.anchor.nativeElement.offsetTop : 0;
       if (elementPosition > elementPositionForScroll) {
         if (elementPositionForScroll > 0) {
-          window.scrollTo(
-            0,
-            elementPosition - elementPosition / (this.jobs.length / 8)
-          );
+          window.scrollTo(0, elementPosition - elementPosition / (this.jobs.length / 8));
         }
         elementPositionForScroll = elementPosition;
       }
@@ -279,22 +245,18 @@ export class JobsListComponent implements OnInit {
         this.showLoader = true;
         this.shouldLoad = true;
       }
-      if (
-        bottomPosition > elementPosition &&
-        this.shouldLoad &&
-        !this.reachedPageEnd
-      ) {
+      if (bottomPosition > elementPosition && this.shouldLoad && !this.reachedPageEnd) {
         this.shouldLoad = false;
         this.showLoader = true;
         var val = this.searchForm.value;
 
         this.anonyService
           .advancedSearch(
-            val.query || "",
-            this.industryName || "",
-            val.employmentType || "",
-            val.SalaryRange || "",
-            this.cityName || "",
+            val.query || '',
+            this.industryName || '',
+            val.employmentType || '',
+            val.SalaryRange || '',
+            this.cityName || '',
             val.pwd ? 1 : 0,
             this.page
           )
@@ -338,20 +300,18 @@ export class JobsListComponent implements OnInit {
 
   AdvancedSearch() {
     var val = this.searchForm.value;
-    //console.log(val)
 
     this.anonyService
       .advancedSearch(
-        val.query || "",
-        this.industryName || "",
-        val.employmentType || "",
-        val.SalaryRange || "",
-        this.cityName || "",
+        val.query || '',
+        this.industryName || '',
+        val.employmentType || '',
+        val.SalaryRange || '',
+        this.cityName || '',
         val.pwd ? 1 : 0,
         1
       )
       .subscribe(data => {
-        // console.log(data);
         this.filterHidden = true;
         this.filtered = true;
         this.jobs = data.jobs.rows;

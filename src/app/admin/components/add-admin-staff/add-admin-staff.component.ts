@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AdminService } from "@app/_services/admin.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Route } from "@angular/compiler/src/core";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AdminService } from '@app/_services/admin.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
-  selector: "app-add-admin-staff",
-  templateUrl: "./add-admin-staff.component.html",
-  styleUrls: ["./add-admin-staff.component.scss"]
+  selector: 'app-add-admin-staff',
+  templateUrl: './add-admin-staff.component.html',
+  styleUrls: ['./add-admin-staff.component.scss']
 })
 export class AddAdminStaffComponent implements OnInit {
   addStaffer: FormGroup;
@@ -16,9 +16,9 @@ export class AddAdminStaffComponent implements OnInit {
   stafferError = false;
   previousStaffs = [];
   companyId;
-  defaultLimit ={max:"30",min:"0"};
-  numberRange={max:"20",min:"10"};
-  bigLimit = {max:"100",min:"6"}
+  defaultLimit = { max: '30', min: '0' };
+  numberRange = { max: '20', min: '10' };
+  bigLimit = { max: '100', min: '6' };
   constructor(
     private formBuilder: FormBuilder,
     private adminServices: AdminService,
@@ -28,10 +28,10 @@ export class AddAdminStaffComponent implements OnInit {
 
   ngOnInit() {
     this.addStaffer = this.formBuilder.group({
-      email: ["", Validators.email],
-      firstName: ["", Validators.required],
-      lastName: ["", Validators.required],
-      phoneNumber: ["", Validators.required]
+      email: ['', Validators.email],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phoneNumber: ['', Validators.required]
     });
   }
   onSubmit() {
@@ -43,10 +43,9 @@ export class AddAdminStaffComponent implements OnInit {
 
     this.adminServices.addAdminStaff(values).subscribe(
       data => {
-        console.log(data);
         if (data.success) {
           this.stafferAdded = true;
-          this.router.navigate(["../"], { relativeTo: this.Route });
+          this.router.navigate(['../'], { relativeTo: this.Route });
           setTimeout(() => {
             this.stafferAdded = false;
           }, 4000);

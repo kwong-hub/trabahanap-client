@@ -1,8 +1,8 @@
-import { ApplicantService } from "./../../../_services/applicant.service";
-import { Component, OnInit, Input } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { LocationService } from "@app/_services/location.service";
-import _ from "lodash";
+import { ApplicantService } from './../../../_services/applicant.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LocationService } from '@app/_services/location.service';
+import _ from 'lodash';
 import {
   faCheck,
   faUserPlus,
@@ -13,15 +13,15 @@ import {
   faEdit,
   faCamera,
   faTimes
-} from "@fortawesome/free-solid-svg-icons";
-import { Router } from "@angular/router";
-import { AuthenticationService } from "@app/_services/authentication-service.service";
-import { ImageCroppedEvent } from "ngx-image-cropper";
+} from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
-  selector: "app-add-applicant-profile",
-  templateUrl: "./add-applicant-profile.component.html",
-  styleUrls: ["./add-applicant-profile.component.scss"]
+  selector: 'app-add-applicant-profile',
+  templateUrl: './add-applicant-profile.component.html',
+  styleUrls: ['./add-applicant-profile.component.scss']
 })
 export class AddApplicantProfileComponent implements OnInit {
   @Input() applicantProfile: any;
@@ -42,80 +42,80 @@ export class AddApplicantProfileComponent implements OnInit {
   countries: any;
   cities: any;
   genderOptions: any = [
-    { name: "MALE", value: "MALE" },
-    { name: "FEMALE", value: "FEMALE" }
+    { name: 'MALE', value: 'MALE' },
+    { name: 'FEMALE', value: 'FEMALE' }
   ];
   monthOptions = [
-    { name: "January", value: "01" },
-    { name: "February", value: "02" },
-    { name: "March", value: "03" },
-    { name: "April", value: "04" },
-    { name: "May", value: "05" },
-    { name: "June", value: "06" },
-    { name: "July", value: "07" },
-    { name: "August", value: "08" },
-    { name: "September", value: "09" },
-    { name: "October", value: "10" },
-    { name: "November", value: "11" },
-    { name: "December", value: "12" }
+    { name: 'January', value: '01' },
+    { name: 'February', value: '02' },
+    { name: 'March', value: '03' },
+    { name: 'April', value: '04' },
+    { name: 'May', value: '05' },
+    { name: 'June', value: '06' },
+    { name: 'July', value: '07' },
+    { name: 'August', value: '08' },
+    { name: 'September', value: '09' },
+    { name: 'October', value: '10' },
+    { name: 'November', value: '11' },
+    { name: 'December', value: '12' }
   ];
   hasProfile: boolean = false;
   submitted: boolean = false;
   styleObject = {
     inputContainer: {},
-    input: { fontSize: "1.7rem" },
-    inputHeader: { fontSize: "1.7rem", borderBottom: "1px solid #888" },
+    input: { fontSize: '1.7rem' },
+    inputHeader: { fontSize: '1.7rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   monthStyle = {
-    inputContainer: { margin: "0" },
-    inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
+    inputContainer: { margin: '0' },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
     optionContainer: {
-      backgroundColor: "#555",
-      top: "3.3rem",
-      boxShadow: "0px 1px 2px #aaa"
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
     },
     option: {
-      fontSize: "1.5rem",
-      borderBottom: "1px solid #ddd",
-      backgroundColor: "#fff"
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
     }
   };
   dateStyle = {
-    inputContainer: { marginRight: "0" },
+    inputContainer: { marginRight: '0' },
     input: {},
     label: {},
     feedbackContainer: {},
     feedbackMessage: {}
   };
-  formErrors = ["Please fill in all the required inputs."];
-  cvFileTypes = ".pdf,.doc,.docx";
-  profilePictureFileTypes = ".png, .jpg, jpeg";
-  inputType: string = "file";
+  formErrors = ['Please fill in all the required inputs.'];
+  cvFileTypes = '.pdf,.doc,.docx';
+  profilePictureFileTypes = '.png, .jpg, jpeg';
+  inputType: string = 'file';
   showLoader = false;
   showCVPreview = false;
 
   isCVEditModalOpen = false;
   isApplicantPictureEditModalOpen = false;
-  yearRange = { min: "1920", max: "2020" };
-  dateRange = { min: "1", max: "31" };
+  yearRange = { min: '1920', max: '2020' };
+  dateRange = { min: '1', max: '31' };
   imageChangedEvent: any;
   croppedImage: any;
   tempImg: string;
   loading: boolean;
   success: boolean;
-  defaultLimit ={max:"35",min:"0"};
-  numberRange={max:"20",min:"10"};
-  bigLimit = {max:"100",min:"6"}
+  defaultLimit = { max: '35', min: '0' };
+  numberRange = { max: '20', min: '10' };
+  bigLimit = { max: '100', min: '6' };
   constructor(
     private formBuilder: FormBuilder,
     private locationService: LocationService,
@@ -129,29 +129,29 @@ export class AddApplicantProfileComponent implements OnInit {
     this.getCountries();
 
     this.addApplicantProfileForm = this.formBuilder.group({
-      fullName: ["", this.applicantProfile ? Validators.required : ""],
-      phoneNumber: ["", this.applicantProfile ? Validators.required : ""],
-      firstName: [""],
-      lastName: [""],
-      currentEmployer: [""],
-      currentOccopation: [""],
-      address: [""],
-      gender: ["", Validators.required],
-      year: ["", Validators.required],
-      month: ["", Validators.required],
-      date: ["", Validators.required],
-      dateOfBirth: ["", Validators.required],
-      selfDescription: ["", [Validators.required, Validators.maxLength(1500)]],
-      cv: ["", Validators.required],
-      applicantPicture: [""],
-      CityId: ["", Validators.required],
-      RegionId: ["", Validators.required],
-      CountryId: ["", Validators.required]
+      fullName: ['', this.applicantProfile ? Validators.required : ''],
+      phoneNumber: ['', this.applicantProfile ? Validators.required : ''],
+      firstName: [''],
+      lastName: [''],
+      currentEmployer: [''],
+      currentOccopation: [''],
+      address: [''],
+      gender: ['', Validators.required],
+      year: ['', Validators.required],
+      month: ['', Validators.required],
+      date: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      selfDescription: ['', [Validators.required, Validators.maxLength(1500)]],
+      cv: ['', Validators.required],
+      applicantPicture: [''],
+      CityId: ['', Validators.required],
+      RegionId: ['', Validators.required],
+      CountryId: ['', Validators.required]
     });
 
-    if (this.applicantProfile) {   
+    if (this.applicantProfile) {
       this.hasProfile = true;
-      this.inputType = "text";
+      this.inputType = 'text';
       this.updateForm();
       this.disableEdit();
       this.getCitiesByRegionId(this.applicantProfile.RegionId);
@@ -160,7 +160,7 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   selectChanged(value, name) {
-    if (name == "RegionId") {
+    if (name == 'RegionId') {
       this.getCitiesByRegionId(value);
     }
     this.addApplicantProfileForm.controls[name].setValue(value);
@@ -168,7 +168,7 @@ export class AddApplicantProfileComponent implements OnInit {
 
   updateForm() {
     let temp_date = new Date(this.applicantProfile.dateOfBirth);
-      
+
     this.applicantProfile = {
       ...this.applicantProfile,
       year: temp_date.getFullYear(),
@@ -179,12 +179,10 @@ export class AddApplicantProfileComponent implements OnInit {
     };
 
     _.map(this.applicantProfile, (value, key) => {
-      if (this.addApplicantProfileForm.controls[key] && key != "cv" && key != "applicantPicture") {
+      if (this.addApplicantProfileForm.controls[key] && key != 'cv' && key != 'applicantPicture') {
         this.addApplicantProfileForm.controls[key].setValue(value);
       }
     });
-
-    // console.log(this.addApplicantProfileForm.value)
   }
 
   fileChanged(value, name) {
@@ -200,22 +198,22 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   closeImageModal() {
-    this.imageChangedEvent = "";
-    this.selectedImage = "";
+    this.imageChangedEvent = '';
+    this.selectedImage = '';
   }
 
   saveImage() {
     this.tempImg = this.croppedImage.base64;
     this.closeImageModal();
-    let byteCharacters = atob(this.tempImg.split(",")[1]);
+    let byteCharacters = atob(this.tempImg.split(',')[1]);
     let byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     let byteArray = new Uint8Array(byteNumbers);
-    let blob = new Blob([byteArray], { type: "image/png" });
+    let blob = new Blob([byteArray], { type: 'image/png' });
 
-    this.formData.append("applicantPicture", blob);
+    this.formData.append('applicantPicture', blob);
   }
 
   onSubmit() {
@@ -223,15 +221,14 @@ export class AddApplicantProfileComponent implements OnInit {
     let val = this.addApplicantProfileForm.value;
     let date = `${val.year}-${val.month}-${val.date}`;
 
-    if (new Date(date).toDateString().includes("Invalid")) {
-      this.addApplicantProfileForm.controls["month"].setErrors({
+    if (new Date(date).toDateString().includes('Invalid')) {
+      this.addApplicantProfileForm.controls['month'].setErrors({
         invalid: true
       });
       return;
     }
 
-    this.addApplicantProfileForm.controls["dateOfBirth"].setValue(date);
-    // console.log(this.addApplicantProfileForm.value);
+    this.addApplicantProfileForm.controls['dateOfBirth'].setValue(date);
     if (this.addApplicantProfileForm.invalid) {
       return;
     }
@@ -242,16 +239,13 @@ export class AddApplicantProfileComponent implements OnInit {
     val = this.addApplicantProfileForm.value;
     // this.showLoader = true;
     _.map(val, (value, key) => {
-      // console.log(key, "=>", value);
-      if (key != "cv" && key != "applicantPicture") {
+      if (key != 'cv' && key != 'applicantPicture') {
         this.formData.append(key, value);
       }
     });
-    // console.log(this.addApplicantProfileForm.value);
 
     this.applicantService.addApplicantProfileWithCV(this.formData).subscribe(
       data => {
-        // console.log(data);
         this.loading = false;
         if (data.success) {
           this.success = true;
@@ -278,18 +272,18 @@ export class AddApplicantProfileComponent implements OnInit {
     let val = this.addApplicantProfileForm.value;
     let date = `${val.year}-${val.month}-${val.date}`;
 
-    if (new Date(date).toDateString().includes("Invalid")) {
-      this.addApplicantProfileForm.controls["month"].setErrors({
+    if (new Date(date).toDateString().includes('Invalid')) {
+      this.addApplicantProfileForm.controls['month'].setErrors({
         invalid: true
       });
       return;
     }
-    let nameArray = val.fullName.split(" ");
-    let lastName = nameArray.slice(1).join(" "); // in case value includes grandfather's name
+    let nameArray = val.fullName.split(' ');
+    let lastName = nameArray.slice(1).join(' '); // in case value includes grandfather's name
 
-    this.addApplicantProfileForm.controls["firstName"].setValue(nameArray[0]);
-    this.addApplicantProfileForm.controls["lastName"].setValue(lastName);
-    this.addApplicantProfileForm.controls["dateOfBirth"].setValue(date);
+    this.addApplicantProfileForm.controls['firstName'].setValue(nameArray[0]);
+    this.addApplicantProfileForm.controls['lastName'].setValue(lastName);
+    this.addApplicantProfileForm.controls['dateOfBirth'].setValue(date);
     if (this.addApplicantProfileForm.invalid) {
       return;
     }
@@ -300,37 +294,34 @@ export class AddApplicantProfileComponent implements OnInit {
     this.loading = true;
 
     _.map(val, (value, key) => {
-      // console.log(key,"=>", value)
-      if (key != "cv" && key != "applicantPicture") {
+      if (key != 'cv' && key != 'applicantPicture') {
         this.formData.append(key, value);
       }
     });
 
-    this.applicantService.editApplicantProfile(this.formData, this.applicantProfile.id)
-      .subscribe(
-        data => {
-          this.loading = false;
-          // console.log(data);
-          if (data.success) {
-            this.success = true;
-            this.applicantProfile = data.applicantProfile;
-            this.updateForm();
-            this.submitted = false;
-            this.tempImg = "";
-            let currentUser = this.authService.currentUserValue;
-            this.authService.updateCurrentUser({
-              ...currentUser,
-              applicantProfile: data.applicantProfile
-            });
-            this.disableEdit();
-            this.formData = new FormData();
-          }
-        },
-        err => {
-          this.loading = false;
-          console.log(err);
+    this.applicantService.editApplicantProfile(this.formData, this.applicantProfile.id).subscribe(
+      data => {
+        this.loading = false;
+        if (data.success) {
+          this.success = true;
+          this.applicantProfile = data.applicantProfile;
+          this.updateForm();
+          this.submitted = false;
+          this.tempImg = '';
+          let currentUser = this.authService.currentUserValue;
+          this.authService.updateCurrentUser({
+            ...currentUser,
+            applicantProfile: data.applicantProfile
+          });
+          this.disableEdit();
+          this.formData = new FormData();
         }
-      );
+      },
+      err => {
+        this.loading = false;
+        console.log(err);
+      }
+    );
   }
 
   getCitiesByRegionId(regionId) {
@@ -368,9 +359,7 @@ export class AddApplicantProfileComponent implements OnInit {
           this.countries.push({ name: country.countryName, value: country.id });
         });
 
-        this.addApplicantProfileForm.controls["CountryId"].setValue(
-          countries[0].id
-        );
+        this.addApplicantProfileForm.controls['CountryId'].setValue(countries[0].id);
       },
       error => console.log(error)
     );
@@ -381,13 +370,13 @@ export class AddApplicantProfileComponent implements OnInit {
     this.hasProfile = false;
     _.map(this.applicantProfile, (value, key) => {
       if (this.addApplicantProfileForm.controls[key]) {
-        if (!["cv"].includes(key)) {
+        if (!['cv'].includes(key)) {
           this.addApplicantProfileForm.controls[key].enable();
         }
       }
     });
-    this.addApplicantProfileForm.controls["year"].enable();
-    this.addApplicantProfileForm.controls["date"].enable();
+    this.addApplicantProfileForm.controls['year'].enable();
+    this.addApplicantProfileForm.controls['date'].enable();
   }
 
   disableEdit() {
@@ -397,8 +386,8 @@ export class AddApplicantProfileComponent implements OnInit {
         this.addApplicantProfileForm.controls[key].disable();
       }
     });
-    this.addApplicantProfileForm.controls["year"].disable();
-    this.addApplicantProfileForm.controls["date"].disable();
+    this.addApplicantProfileForm.controls['year'].disable();
+    this.addApplicantProfileForm.controls['date'].disable();
   }
 
   onCVPreview(event) {
@@ -411,8 +400,7 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   toggleApplicantPictureModal() {
-    this.isApplicantPictureEditModalOpen = !this
-      .isApplicantPictureEditModalOpen;
+    this.isApplicantPictureEditModalOpen = !this.isApplicantPictureEditModalOpen;
   }
 
   editCVChanged(event) {
@@ -422,7 +410,7 @@ export class AddApplicantProfileComponent implements OnInit {
   applicantUpdated(event) {
     this.applicantProfile = event;
     this.applicantProfile.dateOfBirth = this.applicantProfile.dateOfBirth
-      ? this.applicantProfile.dateOfBirth.split("T")[0]
+      ? this.applicantProfile.dateOfBirth.split('T')[0]
       : null;
     let currentUser = this.authService.currentUserValue;
     this.authService.updateCurrentUser({
@@ -431,6 +419,5 @@ export class AddApplicantProfileComponent implements OnInit {
       applicantProfile: event
     });
     this.updateForm();
-    // console.log(event);
   }
 }

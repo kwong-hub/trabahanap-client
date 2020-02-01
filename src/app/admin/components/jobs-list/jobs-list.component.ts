@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { AdminService } from "@app/_services/admin.service";
-import { Job } from "@app/_models/Job";
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '@app/_services/admin.service';
+import { Job } from '@app/_models/Job';
 import {
   faSlidersH,
   faPlus,
@@ -9,14 +9,14 @@ import {
   faTrashAlt,
   faBan,
   faInbox
-} from "@fortawesome/free-solid-svg-icons";
-import { ActivatedRoute, Router } from "@angular/router";
-import { StateService } from "@app/_services/state.service";
+} from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StateService } from '@app/_services/state.service';
 
 @Component({
-  selector: "app-jobs-list",
-  templateUrl: "./jobs-list.component.html",
-  styleUrls: ["./jobs-list.component.scss"]
+  selector: 'app-jobs-list',
+  templateUrl: './jobs-list.component.html',
+  styleUrls: ['./jobs-list.component.scss']
 })
 export class JobsListComponent implements OnInit {
   public jobs: Job[];
@@ -35,13 +35,7 @@ export class JobsListComponent implements OnInit {
   openActions = {};
   companyId;
 
-  displayedColumns: string[] = [
-    "jobTitle",
-    "industry",
-    "education",
-    "salaryRange",
-    "edit"
-  ];
+  displayedColumns: string[] = ['jobTitle', 'industry', 'education', 'salaryRange', 'edit'];
 
   constructor(
     private adminService: AdminService,
@@ -52,29 +46,24 @@ export class JobsListComponent implements OnInit {
 
   ngOnInit() {
     this.companyId = this.route.snapshot.params.id;
-    document.addEventListener("click", () => {
+    document.addEventListener('click', () => {
       this.openActions = {};
     });
-    this.adminService
-      .getAllJobs(1, this.pager ? this.pager.pageSize : 3, this.companyId)
-      .subscribe(
-        data => {
-          //console.log(data)
-          if (data.success) {
-            this.jobs = data.jobs.rows;
-            this.pager = data.jobs.pager;
-            //this.jobs = data.jobs;
-          }
-        },
-        error => {
-          console.log(error);
+    this.adminService.getAllJobs(1, this.pager ? this.pager.pageSize : 3, this.companyId).subscribe(
+      data => {
+        if (data.success) {
+          this.jobs = data.jobs.rows;
+          this.pager = data.jobs.pager;
+          //this.jobs = data.jobs;
         }
-      );
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
-  deleteJob($event) {
-    console.log($event);
-  }
+  deleteJob($event) {}
 
   editJob($event) {
     this.stateService.data = $event;
@@ -89,17 +78,15 @@ export class JobsListComponent implements OnInit {
   }
 
   getServerData(page) {
-    this.adminService
-      .getAllJobs(page.pageIndex + 1, page.pageSize, this.companyId)
-      .subscribe(
-        success => {
-          if (success.success == true) {
-            this.jobs = success.jobs.rows;
-            this.pager = success.jobs.pager;
-            // this.pager.pages = this.renderedPages();
-          }
-        },
-        err => console.log(err)
-      );
+    this.adminService.getAllJobs(page.pageIndex + 1, page.pageSize, this.companyId).subscribe(
+      success => {
+        if (success.success == true) {
+          this.jobs = success.jobs.rows;
+          this.pager = success.jobs.pager;
+          // this.pager.pages = this.renderedPages();
+        }
+      },
+      err => console.log(err)
+    );
   }
 }

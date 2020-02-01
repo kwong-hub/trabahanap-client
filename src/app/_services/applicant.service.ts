@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { environment } from "@environments/environment";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '@environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ApplicantService {
   constructor(private http: HttpClient) {}
@@ -14,63 +14,40 @@ export class ApplicantService {
   }
 
   addApplicantProfileWithCV(applicantProfile): Observable<any> {
-    return this.http.post<any>(
-      `${environment.apiUrl}/applicant/profile`,
-      applicantProfile
-    );
+    return this.http.post<any>(`${environment.apiUrl}/applicant/profile`, applicantProfile);
   }
 
-  getJobApplications(page,pageSize): Observable<any> {
-    return this.http.get<any>(
-      `${environment.apiUrl}/applicant/jobs?page=${page}&pageSize=${pageSize}`
-    );
+  getJobApplications(page, pageSize): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/applicant/jobs?page=${page}&pageSize=${pageSize}`);
   }
 
   getApplicantProfile() {
     return this.http.get<any>(`${environment.apiUrl}/applicant/profile`);
   }
 
-  getSavedJobs(page,pageSize): Observable<any> {
-    return this.http.get<any>(
-      `${environment.apiUrl}/applicant/jobs/saved?page=${page}&pageSize=${pageSize}`
-    );
+  getSavedJobs(page, pageSize): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/applicant/jobs/saved?page=${page}&pageSize=${pageSize}`);
   }
 
   applyToJob(job): Observable<any> {
     let jobId = { JobId: job };
-    return this.http.post<any>(
-      `${environment.apiUrl}/applicant/jobs/apply`,
-      jobId
-    );
+    return this.http.post<any>(`${environment.apiUrl}/applicant/jobs/apply`, jobId);
   }
 
   editApplicantProfile(applicantProfile, id): Observable<any> {
-    // console.log(applicantProfile);
-    return this.http.put<any>(
-      `${environment.apiUrl}/applicant/profile/${id}`,
-      applicantProfile
-    );
+    return this.http.put<any>(`${environment.apiUrl}/applicant/profile/${id}`, applicantProfile);
   }
 
   changeApplicantCV(formData): Observable<any> {
-    return this.http.post<any>(
-      `${environment.apiUrl}/applicant/profile/cv`,
-      formData
-    );
+    return this.http.post<any>(`${environment.apiUrl}/applicant/profile/cv`, formData);
   }
 
   changeApplicantPicture(formData): Observable<any> {
-    return this.http.post<any>(
-      `${environment.apiUrl}/applicant/profile/picture`,
-      formData
-    );
+    return this.http.post<any>(`${environment.apiUrl}/applicant/profile/picture`, formData);
   }
 
   sendIssue(formData): Observable<any> {
-    return this.http.post<any>(
-      `${environment.apiUrl}/applicant/issues`,
-      formData
-    );
+    return this.http.post<any>(`${environment.apiUrl}/applicant/issues`, formData);
   }
 
   getAllIssues(): Observable<any> {
@@ -96,9 +73,6 @@ export class ApplicantService {
   }
 
   reportJob(data, id): Observable<any> {
-    return this.http.post<any>(
-      `${environment.apiUrl}/applicant/reports/${id}`,
-      data
-    );
+    return this.http.post<any>(`${environment.apiUrl}/applicant/reports/${id}`, data);
   }
 }

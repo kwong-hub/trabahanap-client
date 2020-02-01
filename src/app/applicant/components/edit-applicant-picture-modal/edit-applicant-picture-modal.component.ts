@@ -1,16 +1,16 @@
-import { Component, OnInit, EventEmitter, Output, Input } from "@angular/core";
-import { Validators, FormBuilder, FormGroup } from "@angular/forms";
-import { ApplicantService } from "@app/_services/applicant.service";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { ApplicantService } from '@app/_services/applicant.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: "app-edit-applicant-picture-modal",
-  templateUrl: "./edit-applicant-picture-modal.component.html",
-  styleUrls: ["./edit-applicant-picture-modal.component.scss"]
+  selector: 'app-edit-applicant-picture-modal',
+  templateUrl: './edit-applicant-picture-modal.component.html',
+  styleUrls: ['./edit-applicant-picture-modal.component.scss']
 })
 export class EditApplicantPictureModalComponent implements OnInit {
   faTimes = faTimes;
-  applicantPictureFileTypes = ".png,.jpg,.jpeg";
+  applicantPictureFileTypes = '.png,.jpg,.jpeg';
 
   updateApplicnatPictureForm: FormGroup;
   formData = new FormData();
@@ -22,14 +22,11 @@ export class EditApplicantPictureModalComponent implements OnInit {
   @Output() closeModalEvent = new EventEmitter();
   @Output() applicantChanged = new EventEmitter();
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private applicantService: ApplicantService
-  ) {}
+  constructor(private formBuilder: FormBuilder, private applicantService: ApplicantService) {}
 
   ngOnInit() {
     this.updateApplicnatPictureForm = this.formBuilder.group({
-      applicantPicture: ["", Validators.required]
+      applicantPicture: ['', Validators.required]
     });
   }
 
@@ -39,8 +36,8 @@ export class EditApplicantPictureModalComponent implements OnInit {
 
   closeModal() {
     this.closeModalEvent.emit(false);
-    this.updateApplicnatPictureForm.controls["applicantPicture"].setValue("");
-    this.formData.delete("applicantPicture");
+    this.updateApplicnatPictureForm.controls['applicantPicture'].setValue('');
+    this.formData.delete('applicantPicture');
   }
 
   onSubmit() {
@@ -54,7 +51,6 @@ export class EditApplicantPictureModalComponent implements OnInit {
     this.applicantService.changeApplicantPicture(this.formData).subscribe(
       success => {
         if ((success.success, success.applicantProfile)) {
-          // console.log(success);
           this.applicantChanged.emit(success.applicantProfile);
           this.showEditLoader = false;
           this.closeModal();

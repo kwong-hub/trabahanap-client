@@ -16,7 +16,6 @@ export class CandidatesComponent implements OnInit {
       if (candidates.success) {
         this.rows = candidates.applications.rows;
         this.pager = candidates.applications.pager;
-        console.log(this.rows);
       }
     });
   }

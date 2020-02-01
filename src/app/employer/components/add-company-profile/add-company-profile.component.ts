@@ -10,9 +10,10 @@ import {
   faCloudUploadAlt,
   faUserCheck,
   faEyeDropper,
-  faEdit, faCamera
-} from "@fortawesome/free-solid-svg-icons";
-import { Router } from "@angular/router";
+  faEdit,
+  faCamera
+} from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 import _ from 'lodash';
 import { VirtualTimeScheduler, Observable, Subject } from 'rxjs';
@@ -41,11 +42,14 @@ export class AddCompanyProfileComponent implements OnInit {
   cities = null;
   regions = null;
   countries = null;
-  styleObject = { inputContainer: {}, inputHeader: { fontSize: "1.5rem", borderBottom: "1px solid #888" },
-    optionContainer: { backgroundColor: "#555", top: "3.3rem", boxShadow: "0px 1px 2px #aaa" },
-    option: { fontSize: "1.5rem", borderBottom: "1px solid #ddd", backgroundColor: "#fff" }};
-  submitStyle={ btn: {width: "100%"} };
-  formErrors = ["Please fill in all the required inputs."];
+  styleObject = {
+    inputContainer: {},
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
+    optionContainer: { backgroundColor: '#555', top: '3.3rem', boxShadow: '0px 1px 2px #aaa' },
+    option: { fontSize: '1.5rem', borderBottom: '1px solid #ddd', backgroundColor: '#fff' }
+  };
+  submitStyle = { btn: { width: '100%' } };
+  formErrors = ['Please fill in all the required inputs.'];
   serverErrors = false;
   hasProfile = false;
   companyProfile: any;
@@ -64,9 +68,9 @@ export class AddCompanyProfileComponent implements OnInit {
   industries: any = [];
   success: boolean;
   tempImg;
-  defaultLimit ={max:"35",min:"0"};
-  numberRange={max:"20",min:"10"};
-  bigLimit = {max:"100",min:"6"}
+  defaultLimit = { max: '35', min: '0' };
+  numberRange = { max: '20', min: '10' };
+  bigLimit = { max: '100', min: '6' };
   constructor(
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
@@ -85,20 +89,20 @@ export class AddCompanyProfileComponent implements OnInit {
     this.inputType = this.authService.currentUserValue.company_profile ? 'text' : 'file';
 
     this.addCompanyProfileForm = this.formBuilder.group({
-      zipcode: ["", [Validators.required, Validators.maxLength(5)]],
-      companyName: ["", Validators.required],
-      contactPerson: ["", Validators.required],
-      contactNumber: ["", Validators.required],
-      websiteURL: [""],
-      industryType: ["", Validators.required],
-      companyDescription: ["", Validators.required],
-      businessLicense: ["", Validators.required],
-      businessLicenseNumber: ["", Validators.required],
-      companyLogo: ["", Validators.required],
-      companyAddress: [""],
-      cityId: ["", Validators.required],
-      regionId: ["", Validators.required],
-      countryId: ["", Validators.required]
+      zipcode: ['', [Validators.required, Validators.maxLength(5)]],
+      companyName: ['', Validators.required],
+      contactPerson: ['', Validators.required],
+      contactNumber: ['', Validators.required],
+      websiteURL: [''],
+      industryType: ['', Validators.required],
+      companyDescription: ['', Validators.required],
+      businessLicense: ['', Validators.required],
+      businessLicenseNumber: ['', Validators.required],
+      companyLogo: ['', Validators.required],
+      companyAddress: [''],
+      cityId: ['', Validators.required],
+      regionId: ['', Validators.required],
+      countryId: ['', Validators.required]
     });
     this.updateInputes();
     if (this.authService.currentUserValue.company_profile) {
@@ -130,10 +134,8 @@ export class AddCompanyProfileComponent implements OnInit {
       this.companyProfile = this.authService.currentUserValue.company_profile;
       _.map(this.companyProfile, (value, key) => {
         if (this.addCompanyProfileForm.controls[key]) {
-          // console.log(key, value)
           this.addCompanyProfileForm.controls[key].disable();
           this.addCompanyProfileForm.controls[key].setValue(value);
-          // console.log(this.addCompanyProfileForm.controls[key], key)
         }
       });
     }
@@ -147,18 +149,15 @@ export class AddCompanyProfileComponent implements OnInit {
 
     this.industrySearchTerms.next(term);
     this.INDUSTRIES$.subscribe(data => {
-      // console.log(data)
       this.industries = data.industries;
 
       this.showIndustries = true;
-      // console.log(this.industries, "industries");
     });
   }
 
   selectIndustry(name) {
     this.addCompanyProfileForm.controls['industryType'].setValue(name);
     this.industries = [];
-    // console.log(this.form);
   }
 
   imageChanged(event) {
@@ -166,11 +165,10 @@ export class AddCompanyProfileComponent implements OnInit {
     let val = event.target.files[0] ? event.target.files[0] : null;
     let reader = new FileReader();
     reader.onload = (e: Event) => {
-      // console.log(e.target, "target")
       this.tempImg = reader.result;
     };
     reader.readAsDataURL(val);
-    this.formData.append('companyLogo', val, val.name)
+    this.formData.append('companyLogo', val, val.name);
   }
 
   selectChanged(value, name) {
@@ -231,7 +229,6 @@ export class AddCompanyProfileComponent implements OnInit {
       response => {
         const cities = response.cities;
         this.cities = [];
-        // console.log(cities);
         cities.map(city => {
           this.cities.push({ name: city.cityName, value: city.id });
         });
@@ -276,10 +273,7 @@ export class AddCompanyProfileComponent implements OnInit {
     this.isBusinessLicenseEditModalOpen = !this.isBusinessLicenseEditModalOpen;
   }
 
-  editLogoChanged(event) {
-    console.log(event);
-  }
-
+  editLogoChanged(event) {}
 
   onSubmit() {
     this.submitted = true;
@@ -291,28 +285,24 @@ export class AddCompanyProfileComponent implements OnInit {
 
     var val = this.addCompanyProfileForm.value;
     _.map(val, (value, key) => {
-      if (key != "companyLogo" && key != "businessLicense") {
+      if (key != 'companyLogo' && key != 'businessLicense') {
         this.formData.append(key, value);
       }
     });
 
     this.employerService.addCompanyProfileWithFile(this.formData).subscribe(
       response => {
-        // console.log(response);
         this.loading = false;
         if (response.success) {
           this.success = true;
           this.authService.updateCurrentUser(response.companyProfile);
-        }
-
-        else if (response.validationError && typeof response.validationError == "object") {
+        } else if (response.validationError && typeof response.validationError == 'object') {
           this.formErrors = this.formErrors.slice(1);
           _.map(response.validationError, (value, key) => {
             this.formErrors.push(value);
           });
           return (this.serverErrors = true);
-        }
-        else if (response.validationError) {
+        } else if (response.validationError) {
           this.formErrors[0] = response.validationError;
         }
       },
@@ -334,54 +324,47 @@ export class AddCompanyProfileComponent implements OnInit {
 
     let val = this.addCompanyProfileForm.value;
     _.map(val, (value, key) => {
-      if (key != "companyLogo" && key != "businessLicense") {
+      if (key != 'companyLogo' && key != 'businessLicense') {
         this.formData.append(key, value);
       }
     });
 
     //@ts-ignore
     // for (var pair of this.formData.entries()) {
-    //   console.log(pair[0], pair[1], )
     // }
 
-    this.employerService
-      .editCompanyProfile(this.formData, this.companyProfile.id).subscribe(
-        response => {
-          // console.log(response);
-          this.loading = false;
-          if (response.success) {
-            this.success = true;
-            this.authService.updateCurrentUser(response.companyProfile);
-            this.updateInputes();
-            this.formData = new FormData();
-          }
-
-          if (
-            response.validationError &&
-            typeof response.validationError == "object"
-          ) {
-            this.submitted = false;
-            this.formErrors = this.formErrors.slice(1);
-            _.map(response.validationError, (value, key) => {
-              this.formErrors.push(value);
-            });
-            return (this.serverErrors = true);
-          }
-          if (response.validationError) {
-            this.formErrors[0] = response.validationError;
-            this.submitted = false;
-          }
-          if (response.message) {
-            this.formErrors[0] = "something is wrong try again letter.";
-            this.submitted = false;
-          }
-          this.loading = false;
-        },
-        error => {
-          this.loading = false;
-          console.log(error);
+    this.employerService.editCompanyProfile(this.formData, this.companyProfile.id).subscribe(
+      response => {
+        this.loading = false;
+        if (response.success) {
+          this.success = true;
+          this.authService.updateCurrentUser(response.companyProfile);
+          this.updateInputes();
+          this.formData = new FormData();
         }
-      );
-  }
 
+        if (response.validationError && typeof response.validationError == 'object') {
+          this.submitted = false;
+          this.formErrors = this.formErrors.slice(1);
+          _.map(response.validationError, (value, key) => {
+            this.formErrors.push(value);
+          });
+          return (this.serverErrors = true);
+        }
+        if (response.validationError) {
+          this.formErrors[0] = response.validationError;
+          this.submitted = false;
+        }
+        if (response.message) {
+          this.formErrors[0] = 'something is wrong try again letter.';
+          this.submitted = false;
+        }
+        this.loading = false;
+      },
+      error => {
+        this.loading = false;
+        console.log(error);
+      }
+    );
+  }
 }

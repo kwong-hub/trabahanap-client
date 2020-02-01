@@ -205,7 +205,7 @@
             name="phoneNumber"
             id="phoneNumber"
             class="form__input form__input--password"
-            [placeholder]="lgUser.phoneNumber ? '--------' + lgUser?.phoneNumber : 'Phone Number'"
+            [placeholder]="lgUser.phoneNumber ? 'Phone --------' + lgUser?.phoneNumber : 'Phone Number'"
             [class.form__input--error]="submitted && fQuestionnaire.phoneNumber.errors"
             formControlName="phoneNumber"
             [ngClass]="{
@@ -283,13 +283,14 @@
       <img src="../../../../assets/img/th_logo.png" alt="" class="header-logo" />
       <h3 class="header-text">Select Contact Method</h3>
       <h5 class="header-text__sub">
-        For security reasons you need to confirm you identity.
+        For security reasons you need to confirm your identity.
       </h5>
     </div>
 
     <div class="contact_method__container form__group" [class.form__group__animate]="showOptions">
       <div (click)="sendEmail()" class="contact_method__option" [class.disable]="disable?.email">
-        <span class="contact_method__arrow">&#8594;</span> We send confirmation email to {{ lgUser?.email }} or
+        <span class="contact_method__arrow">&#8594;</span>Either we send you confirmation email to
+        {{ lgUser?.email }} or
       </div>
       <!-- <div
         (click)="sendMessage()"
@@ -301,7 +302,7 @@
         &bull;&bull;&bull;&bull;&bull;{{ lgUser?.phoneNumber }}
       </div> -->
       <div (click)="toQuestionnaire()" class="contact_method__option" [class.disable]="disable?.question">
-        <span class="contact_method__arrow">&#8594;</span> Answer the following questions
+        <span class="contact_method__arrow">&#8594;</span> You answer the following questions
       </div>
     </div>
   </div>
