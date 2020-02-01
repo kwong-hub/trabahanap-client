@@ -189,6 +189,12 @@
         color: #5f5f5f;
         font-size: 1.5rem;
         margin-bottom: 1.5rem;
+
+        .text {
+          font-style: italic;
+          text-transform: capitalize;
+          font-size: 1.8rem;
+        }
       }
 
       .overflow__gradient {
