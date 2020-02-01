@@ -93,11 +93,11 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
-  cancelConfirm($event){
+  cancelConfirm(){
     this.isConfirmSuspend = !this.isConfirmSuspend;
     this.loading = false;
   }
-  toggleSuspend($event) {
+  toggleSuspend() {
     // console.log($event,'toggle')
     this.submitted = true;
     this.success = false;
