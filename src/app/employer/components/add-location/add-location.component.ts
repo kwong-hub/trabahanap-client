@@ -231,7 +231,7 @@ export class AddLocationComponent implements OnInit {
           if (data.success) {
             this.loading = false;
             this.submitted = false;
-            this.locationForm.reset();
+            // this.locationForm.reset();
             this.locationAdded = true;
 
             const user = this.authenticationService.currentUserValue;

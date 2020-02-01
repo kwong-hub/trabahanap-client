@@ -42,14 +42,16 @@
 }
 
 .overlay.active {
-  z-index: 1;
+  z-index:4 ;
   background-color: rgba(black, 0.5);
 }
 
 
 .filter.active{
   background-color: #ddd;
+  z-index: 5;
 }
+
 .filter {
   display: flex;
   flex-direction: column;

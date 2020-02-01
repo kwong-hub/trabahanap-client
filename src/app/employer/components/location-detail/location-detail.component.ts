@@ -51,9 +51,9 @@ export class LocationDetailComponent implements OnInit {
   loading: boolean;
   editSuccess: boolean;
   tempImg: string | ArrayBuffer;
-  defaultLimit = { max: '50', min: '0' };
-  nameLimit = { max: '35', min: '0' };
-  numberRange = { max: '16', min: '10' };
+  defaultLimit ={max:"50",min:"0"};
+  nameLimit ={max:"35",min:"0"};
+  numberRange ={max:'18',min:'10'};
   // @ViewChild("checkBox", { static: false }) checkbox: ElementRef<HTMLElement>;
 
   constructor(
@@ -111,6 +111,8 @@ export class LocationDetailComponent implements OnInit {
     this.marker.on('dragend', e => {
       ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
     });
+
+    // console.log(this.locationForm.controls)
   } // ngOnInit ends here
 
   updateInputs() {
