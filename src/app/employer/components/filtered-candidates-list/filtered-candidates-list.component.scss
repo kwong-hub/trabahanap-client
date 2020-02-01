@@ -200,6 +200,7 @@ th.mat-sort-header-sorted {
   width: 100%;
   height: 100%;
   z-index: -1;
+  
   // transition: all .2s;
 }
 .overlay.active {
@@ -225,7 +226,7 @@ th.mat-sort-header-sorted {
 
   //padding-right: 2rem;
   margin-left: -7rem;
-  justify-content: space-between;
+  justify-content: flex-end;
 
   &__header {
     color: #555;
@@ -238,6 +239,9 @@ th.mat-sort-header-sorted {
     margin: 0 5%;
     font-size: 2rem;
     text-transform: uppercase;
+    position: absolute;
+    bottom: 0.7rem;
+    left: 1rem;
   }
 
   &__content {
@@ -295,6 +299,8 @@ th.mat-sort-header-sorted {
   position: relative;
   padding: 1rem 1rem;
   align-items: center;
+  align-self:center;
+  padding: 0rem;
 }
 
 

@@ -88,7 +88,7 @@ table {
 
   //padding-right: 2rem;
   margin-left: -7rem;
-  justify-content: space-between;
+  justify-content: flex-end;
 
   &__header {
     color: #555;
@@ -101,6 +101,9 @@ table {
     margin: 0 5%;
     font-size: 2rem;
     text-transform: uppercase;
+    position: absolute;
+    bottom: 0.7rem;
+    left: 1rem;
   }
 
   &__content {
