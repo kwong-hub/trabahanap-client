@@ -25,11 +25,68 @@
   }
 }
 
+
+
 // .jobs-list{
 //     &__applicants-count{
 //         color: tomato;
 //     }
 // }
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  margin-top:0;
+  &__input {
+    display: none;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    cursor: pointer;
+  }
+
+  &__button {
+    position: relative;
+    width: 2.3rem;
+    height: 2.3rem;
+    border: 2px solid tomato;
+    border-radius: 3px;
+    margin: 0 1rem;
+    // transition: all .2s;
+    &::before {
+      content: "";
+      font-family: "Font Awesome 5 Free";
+      font-size: 2.6rem;
+      display: inline-block;
+      color: tomato;
+      position: absolute;
+      top: -0.6rem;
+      left: -0.1rem;
+      transform: translateY(3px);
+      transition: transform 0.2s;
+    }
+  }
+
+  &__text {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 400;
+  }
+}
+
+
+.checkbox__input:checked ~ .checkbox__label .checkbox__button {
+  background: #eee;
+
+  &::before {
+    content: "\2714";
+    transform: translateY(0);
+  }
+}
 
 table {
   width: 100%;
@@ -149,7 +206,10 @@ th.mat-sort-header-sorted {
   z-index: 1;
   background-color: rgba(black, 0.5);
 }
+.filter.active{
+  background-color: white;
 
+}
 .filter {
   display: flex;
   flex-direction: row;
@@ -183,9 +243,9 @@ th.mat-sort-header-sorted {
   &__content {
     min-width: 30rem;
     background-color: white;
-    width: 23%;
+    width: 26%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     // max-height: 30rem;
     transition: 0.3s all;
@@ -221,12 +281,23 @@ th.mat-sort-header-sorted {
   }
 }
 
+// .form {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 80%;
+// }
+
 .form {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  position: relative;
+  padding: 1rem 1rem;
   align-items: center;
-  width: 80%;
 }
+
+
 .not_Found {
   display: flex;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -241,3 +312,4 @@ th.mat-sort-header-sorted {
   border: 2px solid #ccc;
   box-shadow: 0 10px 55px rgba(255, 255, 255, 0.1);
 }
+

@@ -21,16 +21,31 @@ table {
   width: 80%;
 }
 
+.overlay.active {
+  z-index:4 ;
+  background-color: rgba(black, 0.5);
+}
+
+
+.filter.active{
+  background-color: #ddd;
+  z-index: 5;
+}
+
 .filter {
   display: flex;
   flex-direction: row;
   width: 100%;
   margin: 0 auto;
   position: fixed;
-  top: 6.5rem;
-  z-index: 2;
+  top: 6rem;
+  position: fixed;
+  left: 0;
+  // z-index: 2;
   padding: 1.8rem 2rem;
-  margin-left: -9rem;
+
+  // background-color: white;
+
   justify-content: space-between;
 
   &__header {
@@ -45,10 +60,11 @@ table {
     font-size: 2rem;
     text-transform: uppercase;
     margin-left: 7rem;
+    margin-top:0rem;
   }
 
   &__content {
-    background-color: white;
+    background-color:#ddd;
     min-width: 27%;
     display: flex;
     flex-direction: column;
@@ -70,7 +86,7 @@ table {
       top: -1.6rem;
       right: 2rem;
       border: 8px solid transparent;
-      border-bottom-color: white;
+      border-bottom-color: #ddd;
     }
   }
 
@@ -95,7 +111,5 @@ table {
   z-index: -1;
   // transition: all .2s;
 }
-.overlay.active {
-  z-index: 1;
-  background-color: rgba(black, 0.5);
-}
+
+
