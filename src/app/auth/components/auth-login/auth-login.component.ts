@@ -72,6 +72,18 @@ export class AuthLoginComponent implements OnInit {
       passcode: ['', Validators.required]
     });
 
+    this.router.queryParams.subscribe(
+      res => {
+        let questionnaire = res.questionnaire;
+        let email = res.email;
+        if (questionnaire == 'true' && email) {
+          this.showEmailForm = false;
+          this.getUserByEmail(email);
+        }
+      },
+      err => console.log(err)
+    );
+
     this.authService.authState.subscribe(user => {
       if (user && user.authToken && this.login) {
         if (!user.email) {
@@ -227,13 +239,38 @@ export class AuthLoginComponent implements OnInit {
     this.authenticationService.resetPassword(this.lgUser.email).subscribe(res => {
       if (res.success) {
         this.emailSent = true;
-        setTimeout(() => {
-          this.emailSent = false;
-          this.route.navigate(['/']);
-        }, 4000);
+        this.route.navigate(['/auth/password-email'], { queryParams: { email: this.lgUser.email } });
+        // setTimeout(() => {
+        //   this.emailSent = false;
+
+        // }, 4000);
       }
     });
     // console.log(this.lgUser);
+  }
+
+  getUserByEmail(email) {
+    this.authenticationService.getUserByEmail(email).subscribe(res => {
+      if (res.success) {
+        this.lgUser = res.user;
+        this.submitted = false;
+        if (this.lgUser.hasPassword) {
+          this.showEmailForm = false;
+          this.showPasswordForm = true;
+        } else {
+          this.showEmailForm = false;
+          this.showquestionnaireForm = true;
+        }
+      } else {
+        this.showEmailForm = true;
+        this.showquestionnaireForm = false;
+        if (res.message.includes('connect') || res.message.includes('fail')) {
+          this.error = 'Can Not Login';
+        } else {
+          this.error = res.error || res.message;
+        }
+      }
+    });
   }
 
   sendMessage() {
