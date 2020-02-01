@@ -168,6 +168,11 @@
         .text {
           font-size: 1.8rem;
 
+          &--blurred {
+            color: #888;
+            font-weight: 300;
+          }
+
           &--noLocation {
             color: #888;
             font-style: italic;

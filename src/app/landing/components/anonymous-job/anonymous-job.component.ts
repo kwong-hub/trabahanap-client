@@ -14,7 +14,7 @@ export class AnonymousJobComponent implements OnInit {
   @Input() isBookMarked: boolean;
   bookmarked: boolean = false;
   userRole;
-  imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
+  // imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
 
   constructor(private authService: AuthenticationService, private router: Router, private jobsService: JobService) {}
 
