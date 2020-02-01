@@ -151,12 +151,12 @@ export class EmployerService {
     return this.http.delete<any>(`${environment.apiUrl}/employer/issue/${id}`);
   }
 
-  getFilterJobsApplications(jobtitle,industry,position,page,pageSize){
-    return this.http.get<any>(`${environment.apiUrl}/employer/filter/jobs/applications?job=${jobtitle}&industry=${industry}&position=${position}&page=${page}&pageSize=${pageSize}`);
+  getFilterJobsApplications(jobtitle,industry,position,active,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/employer/filter/jobs/applications?job=${jobtitle}&industry=${industry}&position=${position}&active=${active}&page=${page}&pageSize=${pageSize}`);
   }
   
-  getFilterJobsFilteredApplications(jobtitle,industry,position,page,pageSize){
-    return this.http.get<any>(`${environment.apiUrl}/employer/filter/filtered/applications?job=${jobtitle}&industry=${industry}&position=${position}&page=${page}&pageSize=${pageSize}`);
+  getFilterJobsFilteredApplications(jobtitle,industry,position,active,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/employer/filter/filtered/applications?job=${jobtitle}&industry=${industry}&position=${position}&active=${active}&page=${page}&pageSize=${pageSize}`);
   }
   
   getApplications(page){

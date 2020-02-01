@@ -1,6 +1,6 @@
 <div class="overlay" [class.active]="!filterHidden"></div>
 
-<div class="filter">
+<div class="filter" [class.active]="!filterHidden">
   <h3 class="filter__heading">Filtered Candidates</h3>
   <div (click)="toggleFilter($event)" class="filter__header">
     <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
@@ -54,6 +54,17 @@
           [limit] ="defaultLimit"
         >
         </shared-custom-input-field>
+        <div class="form__group--btn">
+          <div class="checkbox">
+            <input type="checkbox" formControlName="active" name="suspended" id="pwd-checkbox" class="checkbox__input" />
+            <label for="pwd-checkbox" class="checkbox__label">
+              <div class="checkbox__button"></div>
+              <span class="checkbox__text">Deleted
+                <!-- <i style="margin: .5rem .5rem 0; color: #42597B" class="fab fa-accessible-icon"></i> -->
+              </span>
+            </label>
+          </div>
+        </div>
       </div>
 
       <div class="form__group--btn">

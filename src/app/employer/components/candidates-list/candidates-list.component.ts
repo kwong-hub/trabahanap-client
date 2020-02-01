@@ -38,7 +38,8 @@ export class CandidatesListComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       jobTitle: ['', Validators.nullValidator],
       industry: ['', Validators.nullValidator],
-      position: ['', Validators.nullValidator]
+      position: ['', Validators.nullValidator],
+      active: [false]
     });
 
     let elem = document.getElementsByClassName('overlay');
@@ -77,6 +78,7 @@ export class CandidatesListComponent implements OnInit {
         val.jobTitle,
         val.industry,
         val.position,
+        !val.active,
         page.pageIndex + 1,
         page.pageSize
       ).subscribe(data => {
@@ -102,6 +104,7 @@ export class CandidatesListComponent implements OnInit {
       val.jobTitle,
       val.industry,
       val.position,
+      !val.active,
       this.page || 1,
       8
     ).subscribe(data => {
