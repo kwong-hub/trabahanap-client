@@ -22,6 +22,7 @@ export class AnonymousJobComponent implements OnInit {
     this.bookmarked = this.isBookMarked;
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
+    this.Job = {...this.Job, jobTitle: this.Job.jobTitle.match(/.{1,40}/g)[0]}
   }
 
   bookmarkJob(event) {
