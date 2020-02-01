@@ -15,7 +15,8 @@
       <img *ngIf="tempImg" class="image" [src]="tempImg" alt="location-picture" />
 
       <div class="menu">
-        <input type="file" name="" id="" class="picture-input" (change)="imageChanged($event)" />
+        <input type="file" name="" id="" class="picture-input" 
+          accept="image/x-png,image/jpg,image/jpeg" (change)="imageChanged($event)" />
         <span title="Edit Image" class="menu__item menu__item--change">
           <fa-icon style="color: rgba(0, 0, 0, 0.6)" [icon]="faCamera"></fa-icon>
         </span>
@@ -48,17 +49,17 @@
     </div>
 
     <div class="form__group">
-      <shared-custom-select [defaultValue]="1" [valid]="locationForm.controls['countryId']?.status"
+      <shared-custom-select [defaultValue]="1" disabled="" label="Country" [valid]="locationForm.controls['countryId']?.status"
         (onValueChange)="selectChanged($event, 'countryId')" name="countryId" [styleObject]="selectStyle"
         class="input-element-type-3" placeholder="Select Country" [options]="countries" [submitted]="submitted">
       </shared-custom-select>
 
-      <shared-custom-select [defaultValue]="+location?.regionId" [valid]="locationForm.controls['regionId']?.status"
+      <shared-custom-select [defaultValue]="+location?.regionId" disabled="" label="Region" [valid]="locationForm.controls['regionId']?.status"
         (onValueChange)="selectChanged($event, 'regionId')" name="regionId" [styleObject]="selectStyle"
         class="input-element-type-3" placeholder="Select Region" [options]="regions" [submitted]="submitted">
       </shared-custom-select>
 
-      <shared-custom-select [defaultValue]="+location?.cityId" [valid]="locationForm.controls['cityId']?.status"
+      <shared-custom-select [defaultValue]="+location?.cityId" disabled="" label="City" [valid]="locationForm.controls['cityId']?.status"
         (onValueChange)="selectChanged($event, 'cityId')" name="cityId" [styleObject]="selectStyle"
         class="input-element-type-3" placeholder="Select City" [options]="cities" [submitted]="submitted">
       </shared-custom-select>
@@ -82,7 +83,7 @@
 
       <!-- <input [class.disabled]="locationForm.invalid || loading" type="submit" value="Submit"
         class="form__submit th-btn th-btn--primary" /> -->
-      <app-custom-submit-button [loading]="loading" [disabled]="locationForm.invalid"
+      <app-custom-submit-button [loading]="loading" 
         [styleObject]="{btn: {borderRadius: '5px', minWidth: '12rem'}}" text="Submit">
       </app-custom-submit-button>
     </div>

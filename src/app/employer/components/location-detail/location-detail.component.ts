@@ -51,7 +51,7 @@ export class LocationDetailComponent implements OnInit {
   tempImg: string | ArrayBuffer;
   defaultLimit ={max:"50",min:"0"};
   nameLimit ={max:"35",min:"0"};
-  numberRange ={max:'16',min:'10'};
+  numberRange ={max:'18',min:'10'};
   // @ViewChild("checkBox", { static: false }) checkbox: ElementRef<HTMLElement>;
 
   constructor(
@@ -108,7 +108,7 @@ export class LocationDetailComponent implements OnInit {
       ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
     });
 
-    // console.log(this.form)
+    // console.log(this.locationForm.controls)
   } // ngOnInit ends here
 
   updateInputs() {

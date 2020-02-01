@@ -69,7 +69,7 @@ export class AddApplicantComponent implements OnInit {
       RegionId: ["", Validators.required],
       CountryId: ["", Validators.required]
     });
-  }
+  } // ngOnInit ends here
 
   getCitiesByRegionId(regionId) {
     this.locationService.getAllRegionCities(regionId).subscribe(
