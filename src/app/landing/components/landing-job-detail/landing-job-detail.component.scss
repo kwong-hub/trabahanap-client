@@ -149,6 +149,7 @@
       margin-bottom: 1.5rem;
 
       .img {
+        max-width: 150px;
         height: 10rem;
       }
 
@@ -212,7 +213,7 @@
       }
 
       .description {
-        font-size: 1.8rem;
+        font-size: 2.1rem;
         max-height: 40rem;
         overflow-y: auto;
         padding: 0 2rem 2rem 0;
