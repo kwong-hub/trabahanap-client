@@ -16,7 +16,7 @@ table {
   // transition: all .2s;
 }
 .overlay.active {
-  z-index: 1;
+  z-index: 5;
   background-color: rgba(black, 0.5);
 }
 
@@ -36,10 +36,10 @@ table {
   top: 6rem;
   position: fixed;
   left: 0;
-  z-index: 2;
+  z-index: 0;
   padding: 1.8rem 2rem;
 
-  // background-color: white;
+  background-color: white;
 
   justify-content: flex-end;
 
