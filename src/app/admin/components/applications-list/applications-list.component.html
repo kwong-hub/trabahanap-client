@@ -1,7 +1,7 @@
 <div class="sub-module-container">
   <div class="overlay" [class.active]="!filterHidden"></div>
   <div class="sub-module-container__container job">
-    <div class="filter">
+    <div class="filter" [class.active]="!filterHidden">
       <h3 class="filter__heading">Applications</h3>
       <div (click)="toggleFilter($event)" class="filter__header">
         <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter

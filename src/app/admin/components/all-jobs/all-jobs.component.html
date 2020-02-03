@@ -6,7 +6,7 @@
       Sorry! No jobs found related to you match
     </div>
   </h3>
-  <div class="filter">
+  <div class="filter" [class.active]="!filterHidden">
     <h3 class="filter__heading">Jobs</h3>
     <div (click)="toggleFilter($event)" class="filter__header">
       <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter

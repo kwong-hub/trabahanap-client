@@ -51,7 +51,7 @@ export class LandingJobDetailComponent implements OnInit {
 
     this.Route.data.subscribe(res => {
       let data = res.data;
-      console.log(res)
+      //console.log(res)
       if (data.success) {
         this.job = data.job;
       } else {
