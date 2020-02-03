@@ -19,10 +19,10 @@ export class HomeSectionThreeComponent implements OnInit {
     this.otherService.getFeaturedCompanies().subscribe(data => {
       this.featured = data.companies;
       let i = 1;
-      this.featured.map(item => {
-        item.companyLogo = `assets/img/pseudo/Logo${i}.png`;
-        i++;
-      });
+      // this.featured.map(item => {
+      //   item.companyLogo = `assets/img/pseudo/Logo${i}.png`;
+      //   i++;
+      // });
     });
   }
 

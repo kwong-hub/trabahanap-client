@@ -21,6 +21,7 @@ export class IssueListApplicantComponent implements OnInit {
   ngOnInit() {
     this.adminService.getAllApplicantIssues().subscribe(
       data => {
+        console.log(data)
         if (data.success) {
           this.issues = data.issues;
         }
