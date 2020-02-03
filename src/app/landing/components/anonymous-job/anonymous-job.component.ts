@@ -14,7 +14,7 @@ export class AnonymousJobComponent implements OnInit {
   @Input() isBookMarked: boolean;
   bookmarked: boolean = false;
   userRole;
-  imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
+  // imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
 
   constructor(private authService: AuthenticationService, private router: Router, private jobsService: JobService) {}
 
@@ -22,6 +22,7 @@ export class AnonymousJobComponent implements OnInit {
     this.bookmarked = this.isBookMarked;
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
+    this.Job = {...this.Job, jobTitle: this.Job.jobTitle.match(/.{1,40}/g)[0]}
   }
 
   bookmarkJob(event) {

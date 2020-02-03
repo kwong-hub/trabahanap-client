@@ -15,7 +15,7 @@ export class JobComponent implements OnInit {
   userRole;
   booking: string = '';
   bookmarked: boolean = false;
-  imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
+  // imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
 
   constructor(private authService: AuthenticationService, private router: Router, private jobsService: JobService) {}
 
@@ -23,6 +23,7 @@ export class JobComponent implements OnInit {
     this.bookmarked = this.isBookMarked;
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
+    this.Job = {...this.Job, jobTitle: this.Job.jobTitle.match(/.{1,40}/g)[0]}
   }
 
   bookmarkJob(event) {
