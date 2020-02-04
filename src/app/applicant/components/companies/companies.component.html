@@ -121,7 +121,10 @@
     
       <div *ngFor="let job of jobs" class="job">
         <div class="job__left">
-          <img [src]="job.companyLogo ? job.companyLogo : 'assets/img/building.png'" alt="" class="img">
+          <div class="img-container">
+            <img [src]="job.companyLogo ? job.companyLogo : 'assets/img/building.png'" alt="" class="img">
+          </div>
+          
           <div class="details-container">
             <h3 class="job__title">{{ job.jobTitle }}</h3>
             <div class="job__tags">
@@ -139,7 +142,7 @@
           </div>
         </div>
         <div class="job__right">
-          <div title="Delete from bookmarks" class="heart-container" (click)="unbookmark(job.id)">
+          <div title="Remove this job" class="heart-container" (click)="unbookmark(job.id)">
             <i class="icon far fa-heart"></i>
           </div>
           <a [routerLink]="['/applicant/bookmarks/details', job.id]" class="btn-outline view-btn">View</a>

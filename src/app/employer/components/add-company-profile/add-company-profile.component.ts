@@ -84,7 +84,7 @@ export class AddCompanyProfileComponent implements OnInit {
     // this.getCities();
     this.getRegions();
     this.getCountries();
-    this.getCities();
+    // this.getCities();
 
     this.inputType = this.authService.currentUserValue.company_profile ? 'text' : 'file';
 

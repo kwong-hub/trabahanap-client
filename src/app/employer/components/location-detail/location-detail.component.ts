@@ -76,7 +76,6 @@ export class LocationDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.Route.snapshot.params.id;
-    console.log(this.location)
     this.locationForm = this.formBuilder.group({
       picture: [''],
       locationName: ['', Validators.required],

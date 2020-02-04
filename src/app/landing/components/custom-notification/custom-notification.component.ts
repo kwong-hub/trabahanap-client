@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'landing-custom-notification',
@@ -14,7 +15,8 @@ export class CustomNotificationComponent implements OnInit {
   @Input() type: string;
   @Input() callback;
   @Input() styleObject: { notification: {}; body: {}; icon: {}; text: {}; };
-
+  faExclamation = faExclamation;
+  
   constructor(private _location: Location, private router: Router) {}
 
   ngOnInit() {}

@@ -130,6 +130,11 @@
   &__left {
     display: flex;
     flex-direction: column;
+
+    .img-container {
+      width: 17rem;
+      text-align: center;
+    }
     
     .img {
       max-width: 16rem;
@@ -153,16 +158,11 @@
       margin-right: 2rem;
       transition: all .2s;
       cursor: pointer;
-      
-      &:hover,&:active {
-        background-color: #aa111d;
-        .icon { color: white; }
-      }
 
       .icon {
         font-size: 2rem;
         color: #aa111d;
-        transition: all .2s;
+        font-weight: 600;
       }
     }
 

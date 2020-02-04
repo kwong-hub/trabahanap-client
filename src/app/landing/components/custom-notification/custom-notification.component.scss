@@ -3,6 +3,7 @@ $check-height: $container-size/2;
 $check-width: $check-height/2;
 $success-color: #50e83e;
 $error-color: #ff0000;
+$info-color: rgb(9, 190, 190);
 
 .notification {
     position: fixed;
@@ -34,6 +35,10 @@ $error-color: #ff0000;
         
         &--success {
           border: 2px solid $success-color;
+        }
+
+        &--info {
+          border: 2px solid $info-color;
         }
 
         &--error {

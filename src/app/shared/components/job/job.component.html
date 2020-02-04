@@ -54,7 +54,7 @@
     </div>
   </div>
   <div>
-    <button *ngIf="userRole === 'APPLICANT'" (click)="bookmarkJob($event)" 
+    <button *ngIf="!userRole || userRole === 'APPLICANT'" (click)="bookmarkJob($event)" 
       [class.job__bookmark--saved]="bookmarked" class="job__bookmark">
       <span class="job__bookmark-text">
         {{ bookmarked ? 'SAVED' : 'SAVE JOB' }}
