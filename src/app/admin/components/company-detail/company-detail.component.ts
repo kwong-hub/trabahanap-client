@@ -21,6 +21,7 @@ export class CompanyDetailComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     this.adminService.getEmployerById(this.id).subscribe(
       data => {
+        console.log(data)
         if (data.success) {
           this.company = data.employers.company;
           this.users = data.employers.user;

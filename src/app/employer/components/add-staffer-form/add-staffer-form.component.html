@@ -14,7 +14,7 @@
     </div>
     <div class="sub-container">
         <shared-custom-input-field class="input-element-type-2" [formGroup]="addStaffer" name="phoneNumber"
-            defaultValue="" [limit]="numberRange" placeholder="Phone Number" label="Phone Number"
+            defaultValue="" [range]="numberRange" placeholder="Phone Number" label="Phone Number"
             [input]="(addStaffer?.controls)['phoneNumber']" type="tel" [submitted]="submitted" [disabled]="false">
         </shared-custom-input-field>
     </div>
