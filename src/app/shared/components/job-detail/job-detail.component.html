@@ -1,14 +1,8 @@
-<div class="overlay" [class.active]="showModal"></div>
-<div class="modal" [class.active]="showModal">
-  <i style="color: #E1A223; margin-right: 1.5rem; font-size: 3rem; display: inline" class="far fa-check-circle"></i>
-  <span class="message">Application Submitted Successfully</span>
-</div>
-
 <div *ngIf="job" class="container" [class.lowered]="lower">
   <div class="details">
     <div class="details-left">
       <div class="details-left__header">
-        <img [src]="job.company_profile.companyLogo" alt="" class="img" />
+        <img [src]="job.company_profile.companyLogo ? job.company_profile.companyLogo : 'assets/img/building.png'" alt="" class="img" />
         <div class="header-content">
           <h2 class="title">{{ job.jobTitle }}</h2>
           <span class="companyName text">
@@ -70,8 +64,9 @@
       </div>
 
       <div class="dates-container text">
-        <span class="expiry">Expiry Date: {{ job.applicationEndDate | date: "longDate" }}</span>
+        <span class="start">Posted {{ job.applicationStartDate | dateAgo }}</span>
         <span *ngIf="job.applied" class="start">Applied date: {{ job.appliedDate | date: "longDate" }}</span>
+        <span class="expiry">Ends at: {{ job.applicationEndDate | date: "longDate" }}</span>
       </div>
 
       <div class="vacancy text">
@@ -92,7 +87,7 @@
     
   </div>
   
-  <button *ngIf="job.applied" class="applied th-btn th-btn--primary">
+  <button *ngIf="job.applied" class="applied th-btn">
     Already Applied
   </button>
 
@@ -108,4 +103,8 @@
       Back
     </button>
   </div> -->
+
+  <app-custom-notification [show]="showModal" type="success"
+    callback="applicant/applications" text="Application Submitted Successfully">
+  </app-custom-notification>
 </div>

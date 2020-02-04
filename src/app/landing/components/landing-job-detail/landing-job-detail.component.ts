@@ -91,10 +91,11 @@ export class LandingJobDetailComponent implements OnInit {
       });
       return false; // to prevent reload
     }
+    this.showModal = false;
     this.applicantService.applyToJob(this.job.id).subscribe(
       data => {
         if (data.success) {
-          this.modal();
+          this.showModal = true;
         }
       },
       error => {
@@ -102,14 +103,7 @@ export class LandingJobDetailComponent implements OnInit {
       }
     );
   }
-
-  modal() {
-    this.showModal = true;
-    setTimeout(() => {
-      this.showModal = false;
-      this.router.navigate(['applicant/applications']);
-    }, 2500);
-  }
+  
   bookmarkJob(jobId) {
     let auth = this.authService.currentUserValue;
 

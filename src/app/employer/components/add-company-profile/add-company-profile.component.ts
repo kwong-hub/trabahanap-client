@@ -89,7 +89,7 @@ export class AddCompanyProfileComponent implements OnInit {
     this.inputType = this.authService.currentUserValue.company_profile ? 'text' : 'file';
 
     this.addCompanyProfileForm = this.formBuilder.group({
-      zipcode: ['', [Validators.required, Validators.maxLength(5)]],
+      zipcode: ['', [Validators.min(10000), Validators.max(99999)]],
       companyName: ['', Validators.required],
       contactPerson: ['', Validators.required],
       contactNumber: ['', Validators.required],
@@ -275,6 +275,9 @@ export class AddCompanyProfileComponent implements OnInit {
 
   editLogoChanged(event) {}
 
+  get f() {
+    return this.addCompanyProfileForm.controls;
+  }
   onSubmit() {
     this.submitted = true;
     if (this.addCompanyProfileForm.invalid) {
@@ -341,9 +344,10 @@ export class AddCompanyProfileComponent implements OnInit {
           this.authService.updateCurrentUser(response.companyProfile);
           this.updateInputes();
           this.formData = new FormData();
+          this.submitted = false;
         }
 
-        if (response.validationError && typeof response.validationError == 'object') {
+        else if (response.validationError && typeof response.validationError == 'object') {
           this.submitted = false;
           this.formErrors = this.formErrors.slice(1);
           _.map(response.validationError, (value, key) => {
@@ -351,14 +355,15 @@ export class AddCompanyProfileComponent implements OnInit {
           });
           return (this.serverErrors = true);
         }
-        if (response.validationError) {
+        else if (response.validationError) {
           this.formErrors[0] = response.validationError;
           this.submitted = false;
         }
-        if (response.message) {
+        else if (response.message) {
           this.formErrors[0] = 'something is wrong try again letter.';
           this.submitted = false;
         }
+        else { console.log(response) }
         this.loading = false;
       },
       error => {

@@ -41,7 +41,7 @@ export class AdvertisementComponent implements OnInit {
     this.adsChange.unsubscribe();
   }
 
-  closeAds() {
-    this.closeModalEvent.emit(false);
-  }
+  // closeAds() {
+  //   this.closeModalEvent.emit(false);
+  // }
 }

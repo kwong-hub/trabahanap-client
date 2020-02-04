@@ -32,6 +32,7 @@ import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { RouterModule } from '@angular/router';
 import { PipesModule } from '@app/pipes/pipes.module';
+import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { PipesModule } from '@app/pipes/pipes.module';
     FeatureJobComponent,
     PrivacyComponent,
     AboutusComponent,
-    TermsComponent
+    TermsComponent,
+    CustomNotificationComponent
   ],
   imports: [
     CommonModule,

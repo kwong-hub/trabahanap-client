@@ -50,6 +50,11 @@
   cursor: pointer;
   transition: all 0.2s;
 
+  &:hover {
+    background-color: $color-secondary;
+    color: white;
+  }
+
   &:active {
     transform: translateY(1px);
   }

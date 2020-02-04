@@ -7,9 +7,9 @@ export class DateAgoPipe implements PipeTransform {
   transform(value: any, ...args: any[]): any {
     if (value) {
       const seconds = Math.floor((+new Date() - +new Date(value)) / 1000);
-      if (seconds < 29)
+      if (seconds < 86400)
         // less than 30 seconds ago will show as 'Just now'
-        return 'Just now';
+        return 'Today';
       const intervals = {
         year: 31536000,
         month: 2592000,
