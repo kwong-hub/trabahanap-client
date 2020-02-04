@@ -38,9 +38,9 @@ div.sideBarActive {
   }
 }
 
-.sideBarActive + .content {
-  // margin-left: 21rem;
-}
+// .sideBarActive + .content {
+//   // margin-left: 21rem;
+// }
 .sidebar {
   position: fixed;
   padding-top: 1rem; //to prevent Icon overlap
@@ -48,6 +48,7 @@ div.sideBarActive {
   height: 100%;
   transition: all 0.3s;
   background-color: white;
+  z-index: 3;
 
   &__header {
     font-weight: 700;

@@ -12,7 +12,7 @@
     </button>
   </div>
   <div class="sub-module-container__container job">
-    <div class="filter">
+    <div class="filter" [class.active]="!filterHidden"> 
       <h3 class="filter__heading">Applicants</h3>
       <div (click)="toggleFilter($event)" class="filter__header">
         <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter

@@ -8,9 +8,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  // justify-content: space-evenly;
   margin-bottom: 3rem;
   padding: 2rem 0;
+  width: 100%;
 
   &__header {
     color: #555;
@@ -28,7 +29,7 @@
     justify-content: space-between;
 
     &__row {
-      width: 30%;
+      width: 25%;
       display: flex;
       flex-direction: row;
       justify-content: space-evenly;
@@ -42,7 +43,7 @@
   }
 
   &__img {
-    width: 28%;
+    width: 40%;
     max-width: 135px;
     transition: all 0.25s;
     cursor: pointer;

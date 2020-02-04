@@ -56,7 +56,7 @@ table {
   // transition: all .2s;
 }
 .overlay.active {
-  z-index: 1;
+  z-index: 5;
   background-color: rgba(black, 0.5);
 }
 
@@ -72,22 +72,27 @@ table {
   padding-top: 1.5rem;
 }
 
+.filter.active{
+  z-index: 5;
+  background-color: white;
+  // height: 10rem;
+}
+
 .filter {
   display: flex;
   flex-direction: row;
-  //align-items: flex-end;
   width: 100%;
   margin: 0 auto;
   position: fixed;
-  top: 6.5rem;
+  top: 6rem;
+  position: fixed;
+  left: 0;
   z-index: 2;
-  // margin-left: 1.2rem;
-  background-color: white;
   padding: 1.8rem 2rem;
 
-  //padding-right: 2rem;
-  margin-left: -9rem;
-  justify-content: space-between;
+  background-color: white;
+
+  justify-content: flex-end;
 
   &__header {
     color: #555;
@@ -97,14 +102,17 @@ table {
   }
   &__heading {
     color: #888;
-    margin: 0 5%;
+    margin: 0 6rem;
     font-size: 2rem;
     text-transform: uppercase;
+    position: absolute;
+    bottom: 0.5rem;
+    left: 1rem;
   }
 
   &__content {
     background-color: white;
-    width: 23%;
+    min-width: 25%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -126,7 +134,7 @@ table {
       top: -1.6rem;
       right: 2rem;
       border: 8px solid transparent;
-      border-bottom-color: white;
+      border-bottom-color: #ddd;
     }
   }
 

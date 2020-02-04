@@ -36,12 +36,17 @@
 }
 .container {
   padding: 2rem;
-  margin: 7rem 0rem;
+  margin: 5rem 0rem;
   //border: 1px solid rgba(black, .2);
   border-radius: 5px;
+  background-color: rgb(235, 235, 235);
+  height: 100%;
 }
-
+.content-container{
+  background-color: #eee;
+}
 .company {
+  margin-top: 2rem;
   &__header {
     display: flex;
     position: relative;
