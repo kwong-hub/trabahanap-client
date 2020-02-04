@@ -62,7 +62,7 @@ export class AddLocationComponent implements OnInit {
   locationAdded: boolean;
   error;
   locationError: boolean;
-  defaultLimit = { max: '35', min: '0' };
+  defaultLimit = { max: '50', min: '0' };
   numberRange = { max: '20', min: '10' };
   hasLocations: boolean;
 
@@ -87,7 +87,7 @@ export class AddLocationComponent implements OnInit {
       cityId: ['', Validators.required],
       regionId: ['', Validators.required],
       countryId: ['', Validators.required],
-      isHeadOffice: [false]
+      isHeadOffice: [!this.hasLocations]
     });
 
     if (navigator.geolocation) {

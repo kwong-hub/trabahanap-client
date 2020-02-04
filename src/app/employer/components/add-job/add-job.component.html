@@ -90,14 +90,16 @@
           </div>
           <div style="margin-bottom: 2rem;" class="sub-container">
             <shared-custom-select [valid]="addJob.controls['educationAttainment']?.status" (onValueChange)="
-                customValueChanged($event, 'educationAttainment')
-              " name="educationAttainment" [defaultValue]="job?.educationAttainment" [styleObject]="styleObject"
+                customValueChanged($event, 'educationAttainment')" label="Education Attainment"
+
+               name="educationAttainment" [defaultValue]="job?.educationAttainment" [styleObject]="styleObject"
               class="input-element-type-1 job__custom-select" placeholder="Educational Attainment"
               [options]="educationAttainment" [submitted]="submitted" [disabled]="!isEditMode && job">
             </shared-custom-select>
             <shared-custom-select [valid]="addJob.controls['locationId']?.status"
               (onValueChange)="customValueChanged($event, 'locationId')" name="locationId"
-              [defaultValue]="job?.locationId" [styleObject]="styleObject"
+              [defaultValue]="job?.locationId" [styleObject]="styleObject" label="Location"
+
               class="input-element-type-1 job__custom-select" placeholder="Select Location" [options]="locations"
               [submitted]="submitted" [disabled]="!isEditMode && job"></shared-custom-select>
           </div>
@@ -145,13 +147,13 @@
             ></shared-custom-input-field>
           </div>
           <div style="margin-bottom: 2rem;" class="sub-container">
-            <shared-custom-select [valid]="addJob.controls['employmentType']?.status"
+            <shared-custom-select [valid]="addJob.controls['employmentType']?.status"  label="Emplopyment Type"
               (onValueChange)="customValueChanged($event, 'employmentType')" name="employmentType"
               [defaultValue]="job ? job.employmentType : ''" [styleObject]="styleObject"
               class="input-element-type-1 job__custom-select" placeholder="Emplopyment Type" [options]="employmentType"
               [submitted]="submitted" [disabled]="!isEditMode && job"></shared-custom-select>
             <shared-custom-select [valid]="addJob.controls['salaryRange']?.status"
-              (onValueChange)="customValueChanged($event, 'salaryRange')" name="salaryRange"
+              (onValueChange)="customValueChanged($event, 'salaryRange')" name="salaryRange" label="Salary Range"
               [defaultValue]="job?.salaryRange" [styleObject]="styleObject"
               class="input-element-type-1 job__custom-select" placeholder="Salary Range" [options]="salaryRange"
               [submitted]="submitted" [disabled]="!isEditMode && job"></shared-custom-select>

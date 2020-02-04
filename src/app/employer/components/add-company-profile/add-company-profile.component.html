@@ -189,7 +189,7 @@
           [defaultValue]="companyProfile?.zipcode"
           placeholder="Zip Code"
           label="Zip Code"
-          [range]="{ min: '', max: '99999' }"
+          [range]="{ min: '5', max: '10' }"
           [input]="addCompanyProfileForm.controls['zipcode']"
           type="number"
           [submitted]="submitted"
@@ -243,6 +243,7 @@
           label="Business License Number"
           [input]="addCompanyProfileForm.controls['businessLicenseNumber']"
           type="number"
+          [range]="{ min: '5', max: '20' }"
           [submitted]="submitted"
           [disabled]="hasProfile"
         ></shared-custom-input-field>

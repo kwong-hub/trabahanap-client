@@ -12,6 +12,7 @@ export class AuthGuard implements CanActivate {
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser) {
       var decodedToken = jwt_decode(currentUser.token);
+      //console.log(decodedToken,'decoded')
       if (decodedToken.exp * 1000 < Date.now()) {
         this.router.navigate(['auth/login'], {
           queryParams: { returnUrl: state.url }
