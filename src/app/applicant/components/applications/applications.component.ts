@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { faEllipsisV, faSlidersH, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV, faSlidersH, faEdit, faTimes, faToolbox, faClock, faMapMarkerAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { ApplicantService } from '@app/_services/applicant.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -10,6 +10,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./applications.component.scss']
 })
 export class ApplicationsComponent implements OnInit {
+  faCheckCircle = faCheckCircle;
+  faMapMarkerAlt = faMapMarkerAlt;
+  faToolbox = faToolbox;
+  faClock = faClock;
   faEllipsisV = faEllipsisV;
   faEdit = faEdit;
   faTimes = faTimes;
@@ -49,7 +53,7 @@ export class ApplicationsComponent implements OnInit {
       data => {
         this.jobs = data.jobs.rows;
         this.pager = data.jobs.pager;
-        // this.pager = s
+        console.log(this.jobs)
       },
       error => console.log(error)
     );

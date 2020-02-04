@@ -1,5 +1,4 @@
-table {
-  width: 100%;
+.container {
   margin-top: 2rem;
 }
 
@@ -43,9 +42,7 @@ table {
   left: 0;
   z-index: 2;
   padding: 1.8rem 2rem;
-
-  // background-color: white;
-
+  background-color: white;
   justify-content: flex-end;
 
   &__header {
@@ -104,7 +101,6 @@ table {
   }
 }
 
-
 .overlay {
   position: fixed;
   top: 12.5rem;
@@ -115,4 +111,86 @@ table {
   // transition: all .2s;
 }
 
+.job {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px #e6e6e6;
+  border-radius: 5px;
+  padding: 2rem;
 
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    
+    .img {
+      max-width: 16rem;
+      height: 10rem;
+      border-radius: 5px;
+    }
+
+    .details-container {
+      margin-top: 2rem;
+    }
+  }
+
+  &__right {
+    margin-top: 2rem;
+    text-align: center;
+
+    .view-btn {
+      display: inline-block;
+      padding: .8rem 3rem;
+      font-size: 1.8rem;
+      border-radius: 3rem;
+      font-weight: 600;
+    }
+  }
+
+  &__title {
+    color: #42597b;
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+
+    .tag {
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+
+    .icon {
+      color: #888;
+      margin-right: .1rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .job {
+    &__left {
+      flex-direction: row;
+    }
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .job {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .details-container {
+      margin-left: 2rem;
+    }
+  }
+}

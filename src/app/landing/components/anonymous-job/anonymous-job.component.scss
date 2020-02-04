@@ -118,6 +118,7 @@
     font-weight: 700;
     margin: 3px 0.3rem;
     font-size: 1rem;
+    white-space: nowrap;
   }
 
   &__company-verified {
@@ -151,8 +152,8 @@
 
   &__bookmark {
     position: absolute;
-    top: -6px;
-    right: 2.5rem;
+    top: 1rem;
+    right: 1rem;
     font-size: 1.1rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -163,14 +164,17 @@
     cursor: pointer;
 
     &--saved {
-      color: tomato;
+      color: #aa111d;
     }
+  }
+
+  &__bookmark-text {
+    vertical-align: super;
   }
 
   &__bookmark-icon {
     margin-top: -2px;
     font-size: 2.7rem;
-    background-color: #fff;
     // color: #777;
     margin-left: 5px;
   }

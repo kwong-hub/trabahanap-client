@@ -2,7 +2,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ApplicantService } from '@app/_services/applicant.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { faSlidersH, faToolbox, faMapMarkerAlt, faClock } from '@fortawesome/free-solid-svg-icons';
+import { JobService } from '@app/_services/jobs.service';
 
 @Component({
   selector: 'app-companies',
@@ -12,7 +13,6 @@ import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 export class CompaniesComponent implements OnInit {
   searchForm: FormGroup;
   jobs: Array<object> = [];
-  bookmarks: boolean = true;
   displayedColumns: string[] = ['companyLogo', 'jobName', 'companyName', 'action'];
   styleObject = {
     inputContainer: {},
@@ -32,14 +32,28 @@ export class CompaniesComponent implements OnInit {
   filterHidden: boolean = true;
   filtered: boolean = false;
   faSlidersH = faSlidersH;
+  faToolbox = faToolbox;
+  faMapMarkerAlt = faMapMarkerAlt;
+  faClock = faClock;
+  
   public pager: any;
   public page: 1;
   defaultLimit = { max: '35', min: '0' };
+  deleted: boolean;
+
   constructor(
     private applicantService: ApplicantService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute, private jobService: JobService
+  ) {
+    this.route.data.subscribe(
+      data => {
+        this.pager = data.jobs.pager;
+        this.jobs = data.jobs.rows;
+      },
+      error => console.log(error)
+    );
+  }
 
   ngOnInit() {
     let elem = document.getElementsByClassName('overlay');
@@ -53,13 +67,6 @@ export class CompaniesComponent implements OnInit {
       companyName: ['', Validators.nullValidator]
     });
 
-    this.route.data.subscribe(
-      data => {
-        this.pager = data.jobs.pager;
-        this.jobs = data.jobs.rows;
-      },
-      error => console.log(error)
-    );
   }
 
   toggleFilter(event) {
@@ -90,5 +97,24 @@ export class CompaniesComponent implements OnInit {
       },
       err => console.log(err)
     );
+  }
+
+  unbookmark(id) {
+    this.deleted = false;
+    this.jobService.toggleSaveJob(id).subscribe(
+      data => {
+        if(data.success) {
+          this.deleted = true;
+          this.getServerData({pageIndex: 0, pageSize: 5});
+          this.jobs = this.jobs.filter(temp => {
+            // @ts-ignore
+            if (temp.id !== id) {
+              return temp;
+            }
+          });
+        }
+      },
+      error => {console.log(error)}
+    )
   }
 }
