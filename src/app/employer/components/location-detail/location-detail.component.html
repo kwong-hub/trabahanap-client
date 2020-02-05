@@ -1,12 +1,3 @@
-<!-- <div class="notification notification--success" [class.active]="editSuccess">
-  <div class="notification__body">
-    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
-    <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon>
-
-    <span class="text">Successfully editted company branch</span>
-  </div>
-</div> -->
-
 <div *ngIf="location" class="container">
   <form class="form" [formGroup]="locationForm" enctype="multipart/form-data" action="#" (ngSubmit)="onSubmit()">
     <div class="form__group--imageContainer">
@@ -55,13 +46,13 @@
       </shared-custom-select>
 
       <shared-custom-select [defaultValue]="+location?.regionId" disabled="" label="Region" [valid]="locationForm.controls['regionId']?.status"
-        (onValueChange)="selectChanged($event, 'regionId')" name="regionId" [styleObject]="selectStyle"
+        (onValueChange)="selectChanged($event, 'regionId'); citySelect.resetValue()" name="regionId" [styleObject]="selectStyle"
         class="input-element-type-3" placeholder="Select Region" [options]="regions" [submitted]="submitted">
       </shared-custom-select>
 
       <shared-custom-select [defaultValue]="+location?.cityId" disabled="" label="City" [valid]="locationForm.controls['cityId']?.status"
         (onValueChange)="selectChanged($event, 'cityId')" name="cityId" [styleObject]="selectStyle"
-        class="input-element-type-3" placeholder="Select City" [options]="cities" [submitted]="submitted">
+        class="input-element-type-3" placeholder="Select City" [options]="cities" [submitted]="submitted" #citySelect>
       </shared-custom-select>
     </div>
 

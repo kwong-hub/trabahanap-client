@@ -62,7 +62,7 @@ export class AddLocationComponent implements OnInit {
   locationAdded: boolean;
   error;
   locationError: boolean;
-  defaultLimit = { max: '50', min: '0' };
+  defaultLimit = { max: '40', min: '0' };
   numberRange = { max: '20', min: '10' };
   hasLocations: boolean;
 
@@ -169,6 +169,7 @@ export class AddLocationComponent implements OnInit {
   selectChanged(value, name) {
     if (name == 'regionId') {
       this.getCitiesByRegionId(value);
+      this.locationForm.controls['cityId'].setValue(null);
     }
     this.locationForm.controls[name].setValue(value);
   }

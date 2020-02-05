@@ -162,6 +162,7 @@ export class AddApplicantProfileComponent implements OnInit {
   selectChanged(value, name) {
     if (name == 'RegionId') {
       this.getCitiesByRegionId(value);
+      this.addApplicantProfileForm.controls['CityId'].setValue(null);
     }
     this.addApplicantProfileForm.controls[name].setValue(value);
   }

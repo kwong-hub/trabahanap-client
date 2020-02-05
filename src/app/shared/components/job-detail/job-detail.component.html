@@ -76,8 +76,11 @@
   </div>
 
   <div *ngIf="!job.applied && (userRole === 'APPLICANT' || userRole === '')" class="btn-group">
-    <button (click)="bookmarkJob(job.id)" [class.saved]="bookmarked" class="save btn-outline">
-      {{ bookmarked ? "SAVED" : "SAVE JOB" }}
+    <button (click)="bookmarkJob(job.id)" [class.bookmark--saved]="bookmarked" class="bookmark">
+      <span class="bookmark__text">
+        {{ bookmarked ? 'SAVED' : 'SAVE JOB' }}
+      </span>
+      <i class="bookmark__icon far fa-heart"></i>
     </button>
 
     <button *ngIf="!job.applied" (click)="apply(job.id)" class="apply th-btn th-btn--primary">

@@ -267,7 +267,7 @@
         ></shared-custom-select>
         <shared-custom-select
           [valid]="addApplicantProfileForm.controls['RegionId']?.status"
-          (onValueChange)="selectChanged($event, 'RegionId')"
+          (onValueChange)="selectChanged($event, 'RegionId'); citySelect.resetValue();"
           name="RegionId"
           [defaultValue]="+applicantProfile?.RegionId"
           label="Region"
@@ -290,6 +290,7 @@
           [options]="cities"
           [submitted]="submitted"
           [disabled]="hasProfile"
+          #citySelect
         ></shared-custom-select>
       </div>
       <div class="sub-container">

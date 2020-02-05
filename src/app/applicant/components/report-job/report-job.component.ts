@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApplicantService } from '@app/_services/applicant.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-report-job',
@@ -37,14 +38,14 @@ export class ReportJobComponent implements OnInit {
   };
   jobId: any;
   invalidFields: any[];
-  jobAdded: boolean;
+  jobReported: boolean;
   submitted: boolean;
   loading: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private applicantService: ApplicantService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute, private _location: Location
   ) {}
 
   ngOnInit() {
@@ -60,7 +61,7 @@ export class ReportJobComponent implements OnInit {
     //this.checkValidOnValueChange();
   }
   onCancel() {
-    this.router.navigate(['../../'], { relativeTo: this.route });
+    this._location.back();
   }
   onSubmit() {
     this.submitted = true;
@@ -69,17 +70,14 @@ export class ReportJobComponent implements OnInit {
       return;
     }
     var val = this.reportForm.value;
+    this.jobReported = false;
     this.loading = true;
     this.applicantService.reportJob({ ...val }, this.jobId).subscribe(
       success => {
         this.submitted = false;
         this.loading = false;
         if (success.success) {
-          this.jobAdded = true;
-          setTimeout(() => {
-            this.jobAdded = false;
-            this.router.navigate(['../../'], { relativeTo: this.route });
-          }, 3000);
+          this.jobReported = true;
         }
       },
       err => console.log(err)

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EmployerService } from '@app/_services/employer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -18,9 +18,9 @@ export class LocationDetailComponent implements OnInit {
   marker: any;
   editable: boolean = false;
   locationForm: any;
-  countries = [];
-  regions = [];
-  cities = [];
+  countries
+  regions
+  cities
   faEdit = faEdit;
   faCamera = faCamera;
   faTimes = faTimes;
@@ -52,9 +52,8 @@ export class LocationDetailComponent implements OnInit {
   editSuccess: boolean;
   tempImg: string | ArrayBuffer;
   defaultLimit ={max:"50",min:"0"};
-  nameLimit ={max:"35",min:"0"};
+  nameLimit ={max:"40",min:"0"};
   numberRange ={max:'18',min:'10'};
-  // @ViewChild("checkBox", { static: false }) checkbox: ElementRef<HTMLElement>;
 
   constructor(
     private employerService: EmployerService,
@@ -92,7 +91,7 @@ export class LocationDetailComponent implements OnInit {
 
     this.getCountries();
     this.getRegions();
-    this.getCities();
+    // this.getCities();
 
     ({ latitude: this.latitude, longitude: this.longitude } = this.location);
     this.options.center = latLng(this.latitude, this.longitude);
@@ -132,6 +131,7 @@ export class LocationDetailComponent implements OnInit {
     this.locationService.getAllCountries().subscribe(
       response => {
         const countries = response.countries;
+        this.countries = [];
         countries.map(country => {
           this.countries.push({ name: country.countryName, value: country.id });
         });
@@ -146,6 +146,7 @@ export class LocationDetailComponent implements OnInit {
     this.locationService.getAllRegions().subscribe(
       response => {
         const regions = response.regions;
+        this.regions = [];
         regions.map(region => {
           this.regions.push({ name: region.regionName, value: region.id });
         });
@@ -183,6 +184,7 @@ export class LocationDetailComponent implements OnInit {
   selectChanged(value, name) {
     if (name == 'regionId') {
       this.getCitiesByRegionId(value);
+      this.locationForm.controls['cityId'].setValue(null);
     }
     this.locationForm.controls[name].setValue(value);
   }

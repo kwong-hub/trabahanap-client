@@ -82,4 +82,8 @@ export class CustomSelectComponent implements OnInit, OnChanges {
     this.isOpen = false;
     this.currentValue = option.name;
   }
+
+  resetValue() {
+    this.currentValue = null;
+  }
 }
