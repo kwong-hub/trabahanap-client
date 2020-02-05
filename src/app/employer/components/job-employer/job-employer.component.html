@@ -23,12 +23,11 @@
     <div class="job__left--bottom">
       <div>
         <span class="job__tag"
-          ><i class="job__tag-icon fa fa-tag"></i> Tags</span
-        >
+          ><i class="job__tag-icon fa fa-tag"></i> Tags</span>
       </div>
       <div class="job__tag-elements">
         <div class="job__tag-element">{{ Job?.employmentType }}</div>
-        <div class="job__tag-element">HUMAN RESOURCE</div>
+        <div class="job__tag-element">{{ Job?.industry }}</div>
       </div>
     </div>
   </div>
@@ -38,9 +37,8 @@
       <div class="job__info job__info-vacancies">
         {{ Job?.vacancies }} Vacancies
       </div>
-      <div class="job__info job__info-pwd">
-        <i style="margin-right: .5rem" class="fab fa-accessible-icon"></i
-        >PWD-Friendly
+      <div *ngIf="Job?.pwd" class="job__info job__info-pwd">
+        <i style="margin-right: .5rem" class="fab fa-accessible-icon"></i>PWD-Friendly
       </div>
     </div>
   </div>

@@ -308,20 +308,6 @@
   </div>
 </div>
 
-<div class="notification notification--added" [class.active]="emailSent">
-  <div class="notification__body">
-    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
-    <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-    <span class="text">Email Sent! Check your email to change your password.</span>
-  </div>
-</div>
-
-<div class="notification notification--added" [class.active]="messageSent">
-  <div class="notification__body">
-    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
-    <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-    <span class="text">Message Sent. Check you phone.</span>
-  </div>
-</div>
+<auth-custom-notification [show]="emailSent || messageSent" type="success"
+  [text]="messagesent ? 'Message Sent. Check you phone' : 'Email Sent! Check your email to change your password'">
+</auth-custom-notification>

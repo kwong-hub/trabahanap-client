@@ -276,7 +276,7 @@ export class AuthLoginComponent implements OnInit {
         this.messageSent = false;
         this.showOptions = false;
         this.showSmsConfirmationForm = true;
-      }, 3000);
+      }, 5000);
     });
   }
 

@@ -25,6 +25,7 @@ import {
 } from 'angularx-social-login';
 import { CustomSubmitComponent } from './components/custom-submit/custom-submit.component';
 import { PasswordEmailComponent } from './components/password-email/password-email.component';
+import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
 
 // Google secrete YqcEI_IxCWPOPy5rgFOKcudM
 const config = new AuthServiceConfig([
@@ -54,7 +55,8 @@ export function provideConfig() {
     AuthChangePasswordComponent,
     AuthRegistrationSuccessComponent,
     CustomSubmitComponent,
-    PasswordEmailComponent
+    PasswordEmailComponent,
+    CustomNotificationComponent
   ],
   imports: [
     CommonModule,

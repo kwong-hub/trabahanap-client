@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { EmployerService } from "@app/_services/employer.service";
+import { AuthenticationService } from '@app/_services/authentication-service.service';
 
 @Component({
   selector: "employer-home",
@@ -30,11 +31,13 @@ export class HomeComponent implements OnInit {
     value: "",
     description: "Staff",
     percent: "10%",
-    route: "staff"
+    route: ""
   };
-  constructor(private Route: ActivatedRoute) {
+  constructor(private Route: ActivatedRoute, private authService: AuthenticationService) {
     this.Route.data.subscribe(res => {
       let data = res.dashRes;
+      let role = this.authService.currentUserValue.role;
+
       if (data.success) {
         let stats = data.stats;
         this.dashboardItem1 = { ...this.dashboardItem1, value: stats.jobs };
@@ -43,7 +46,8 @@ export class HomeComponent implements OnInit {
           value: stats.applications
         };
         this.dashboardItem3 = { ...this.dashboardItem3, value: stats.filtered };
-        this.dashboardItem4 = { ...this.dashboardItem4, value: stats.staff };
+        this.dashboardItem4 = { ...this.dashboardItem4, value: stats.staff, 
+          route: role ==="EMPLOYER" ? 'staff' : ''};
       }
     });
   }
