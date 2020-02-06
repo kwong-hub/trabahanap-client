@@ -92,8 +92,8 @@ export class IssueFormComponent implements OnInit {
     });
 
     //@ts-ignore
-    for (var pair of this.formData.entries()) {
-    }
+    // for (var pair of this.formData.entries()) {
+    // }
 
     if (this.role === 'employer') {
       this.employerService.sendIssue(this.formData).subscribe(

@@ -209,9 +209,15 @@
   }
 
   &__footer {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 1rem;
     font-size: 2rem;
+
+    .text {
+      white-space: nowrap;
+    }
 
     a {
       text-decoration: none;

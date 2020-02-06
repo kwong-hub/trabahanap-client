@@ -24,7 +24,7 @@ export class AuthRegisterComponent implements OnInit {
   styleObject = {
     inputContainer: {},
     input: { fontSize: '2.2rem' },
-    label: { fontSize: '1.5rem' },
+    label: { fontSize: '1.2rem' },
     feedbackContainer: {},
     feedbackMessage: { fontSize: '1.5rem' }
   };

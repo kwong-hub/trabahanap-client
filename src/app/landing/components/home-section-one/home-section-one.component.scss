@@ -44,7 +44,7 @@
 
       &--btn {
         border-radius: 3px;
-        width: 100%;
+        min-width: 230px;
       }
     }
 
@@ -270,6 +270,11 @@
             border-top-right-radius: 8px;
             border-bottom-right-radius: 8px;
           }
+        }
+
+        &--btn {
+          width: 100%;
+          min-width: unset;
         }
       }
     }

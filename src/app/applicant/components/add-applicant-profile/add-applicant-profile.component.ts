@@ -97,7 +97,7 @@ export class AddApplicantProfileComponent implements OnInit {
     feedbackContainer: {},
     feedbackMessage: {}
   };
-  formErrors = ['Please fill in all the required inputs.'];
+  
   cvFileTypes = '.pdf,.doc,.docx';
   profilePictureFileTypes = '.png, .jpg, jpeg';
   inputType: string = 'file';
@@ -116,6 +116,8 @@ export class AddApplicantProfileComponent implements OnInit {
   defaultLimit = { max: '35', min: '0' };
   numberRange = { max: '20', min: '10' };
   bigLimit = { max: '100', min: '6' };
+  fileTypeError: boolean;
+  formError: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private locationService: LocationService,
@@ -187,6 +189,17 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   fileChanged(value, name) {
+    this.fileTypeError = false;
+    if(name === 'cv') {
+      let type = value.type;
+      if(!(type === 'application/doc' || type === 'application/ms-doc' || type === 'application/msword' || 
+        type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || type === 'application/pdf')) {
+          this.addApplicantProfileForm.controls['cv'].setValue('');
+          this.fileTypeError = true;
+          this.addApplicantProfileForm.controls['cv'].setErrors({invalid: true})
+          return;
+        }
+    }
     this.formData.append(name, value, value.name);
   }
 
@@ -236,6 +249,7 @@ export class AddApplicantProfileComponent implements OnInit {
 
     this.loading = true;
     this.success = false;
+    this.formError = false;
     // new form value after date of birth is added
     val = this.addApplicantProfileForm.value;
     // this.showLoader = true;
@@ -250,6 +264,7 @@ export class AddApplicantProfileComponent implements OnInit {
         this.loading = false;
         if (data.success) {
           this.success = true;
+          this.submitted = false;
           let currentUser = this.authService.currentUserValue;
           this.authService.updateCurrentUser({
             ...currentUser,
@@ -258,7 +273,7 @@ export class AddApplicantProfileComponent implements OnInit {
           });
           // this.router.navigate(["/applicant/jobs"]);
         } else {
-          this.submitted = false;
+          this.formError = true;
         }
       },
       err => {
@@ -285,6 +300,12 @@ export class AddApplicantProfileComponent implements OnInit {
     this.addApplicantProfileForm.controls['firstName'].setValue(nameArray[0]);
     this.addApplicantProfileForm.controls['lastName'].setValue(lastName);
     this.addApplicantProfileForm.controls['dateOfBirth'].setValue(date);
+
+    if(this.applicantProfile.cv) {
+      this.addApplicantProfileForm.controls['cv'].clearValidators();
+      this.addApplicantProfileForm.controls['cv'].updateValueAndValidity();
+    }
+
     if (this.addApplicantProfileForm.invalid) {
       return;
     }
@@ -293,16 +314,22 @@ export class AddApplicantProfileComponent implements OnInit {
     // this.showLoader = true;
     this.success = false;
     this.loading = true;
-
+    this.formError = false;
     _.map(val, (value, key) => {
       if (key != 'cv' && key != 'applicantPicture') {
         this.formData.append(key, value);
       }
     });
 
+    //@ts-ignore
+    // for (var pair of this.formData.entries()) {
+    //   console.log(pair[0]+ ', '+ pair[1]);
+    // }
+
     this.applicantService.editApplicantProfile(this.formData, this.applicantProfile.id).subscribe(
       data => {
         this.loading = false;
+        console.log(data)
         if (data.success) {
           this.success = true;
           this.applicantProfile = data.applicantProfile;
@@ -316,6 +343,9 @@ export class AddApplicantProfileComponent implements OnInit {
           });
           this.disableEdit();
           this.formData = new FormData();
+        }
+        else {
+          this.formError = true;
         }
       },
       err => {
@@ -371,9 +401,7 @@ export class AddApplicantProfileComponent implements OnInit {
     this.hasProfile = false;
     _.map(this.applicantProfile, (value, key) => {
       if (this.addApplicantProfileForm.controls[key]) {
-        if (!['cv'].includes(key)) {
-          this.addApplicantProfileForm.controls[key].enable();
-        }
+        this.addApplicantProfileForm.controls[key].enable();
       }
     });
     this.addApplicantProfileForm.controls['year'].enable();
@@ -392,12 +420,14 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   onCVPreview(event) {
+    this.success = false;
     event.stopPropagation();
     this.showCVPreview = !this.showCVPreview;
   }
 
-  toggleCVModal(event) {
+  toggleCVModal() {
     this.isCVEditModalOpen = !this.isCVEditModalOpen;
+    this.success = false;
   }
 
   toggleApplicantPictureModal() {
@@ -409,6 +439,7 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   applicantUpdated(event) {
+    this.toggleCVModal();
     this.applicantProfile = event;
     this.applicantProfile.dateOfBirth = this.applicantProfile.dateOfBirth
       ? this.applicantProfile.dateOfBirth.split('T')[0]
@@ -420,5 +451,6 @@ export class AddApplicantProfileComponent implements OnInit {
       applicantProfile: event
     });
     this.updateForm();
+    this.success = true;
   }
 }

@@ -54,19 +54,21 @@ export class LocationDetailComponent implements OnInit {
   defaultLimit ={max:"50",min:"0"};
   nameLimit ={max:"40",min:"0"};
   numberRange ={max:'18',min:'10'};
+  mustBeBranch: boolean;
 
   constructor(
     private employerService: EmployerService,
     private locationService: LocationService,
     private formBuilder: FormBuilder,
     private Route: ActivatedRoute,
-    private router: Router,
     private _location: Location
   ) {
     this.Route.data.subscribe(res => {
       let data = res.data;
+      console.log(data)
       if (data.success) {
-        this.location = data.location;
+        this.location = data.location.location;
+        this.mustBeBranch = !!data.location.heads.length;
       } else {
         this._location.back();
       }

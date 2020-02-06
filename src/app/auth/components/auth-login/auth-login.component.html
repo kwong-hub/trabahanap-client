@@ -76,13 +76,12 @@
     </div>
 
     <div class="form-container__footer">
-      <span *ngIf="registerType === 'applicant'; else empBlock"
-        >Searching for a Job? <a [routerLink]="['/auth/register']" [queryParams]="{ as: 'app' }">Register here</a></span
-      >
-      <ng-template #empBlock
-        >Want to post Jobs?
-        <a [routerLink]="['/auth/register']" [queryParams]="{ as: 'emp' }">Become an Employer</a></ng-template
-      >
+      <span class="text">
+        Searching for a Job? <a [routerLink]="['/auth/register']" [queryParams]="{ as: 'app' }">Register here</a>
+      </span>
+      <span class="text">
+        Want to post Jobs? <a [routerLink]="['/auth/register']" [queryParams]="{ as: 'emp' }">Become an Employer</a>
+      </span>
     </div>
   </div>
   <div class="form-container form-container__section_two" [class.form-container__hide]="!showPasswordForm">
@@ -309,5 +308,5 @@
 </div>
 
 <auth-custom-notification [show]="emailSent || messageSent" type="success"
-  [text]="messagesent ? 'Message Sent. Check you phone' : 'Email Sent! Check your email to change your password'">
+  [text]="messageSent ? 'Message Sent. Check you phone' : 'Email Sent! Check your email to change your password'">
 </auth-custom-notification>
