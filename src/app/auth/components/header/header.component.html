@@ -1,47 +1,33 @@
 <div class="nav-container">
   <nav class="navigation">
-    <div
-      class="menu-box"
-      (click)="toggleMenu($event)"
-      [class.menu-active]="menuActive"
-    >
+    <div class="menu-box" (click)="toggleMenu($event)" [class.menu-active]="menuActive">
       <!-- <div class="menu-icon__back"></div> -->
       <span class="menu-icon">&nbsp;</span>
     </div>
+
     <div class="img-container">
-      <a routerLink="/"
-        ><img
-          src="../../../../assets/img/th_logo.png"
-          alt="th-logo"
-          class="logo"
-      /></a>
+      <a class="img-holder" routerLink="/">
+        <img src="../../../../assets/img/th_logo-2.png" alt="th-logo" class="logo"/>
+      </a>
     </div>
 
+
     <div class="auth-container">
-      <div
-        *ngIf="!currentUser"
-        routerLink="/auth/login"
-        class="sign-in text-effect"
-      >
-        <a *ngIf="!currentUser" class=""
-          ><i class="fas fa-sign-in-alt"></i> Sign In</a
-        >
+      <div *ngIf="!currentUser" routerLink="/auth/login" class="sign-in text-effect">
+        <a *ngIf="!currentUser" class=""><i class="fas fa-sign-in-alt"></i> Sign In</a>
       </div>
 
-      <div
-        *ngIf="currentUser"
-        routerLink="/{{ currentUser.role | lowercase }}"
-        class="sign-in text-effect home"
-      >
-        <a class="home-btn"> <fa-icon [icon]="faHome"></fa-icon> Home </a>
+      <div *ngIf="currentUser" routerLink="/{{ currentUser.role | lowercase }}" class="sign-in text-effect home">
+        <a class="home-btn">
+          <fa-icon [icon]="faHome"></fa-icon> Home
+        </a>
         <div (click)="toggleDropdown($event)" class="dropbtn">
           <fa-icon class="dropIcon text-effect" [icon]="faCaretDown"></fa-icon>
         </div>
         <div id="myDropdown" [class.show]="drop" class="dropContent">
-          <a class="menu_item" (click)="logout()"
-            ><fa-icon class="menu__icon" [icon]="faSignOutAlt"></fa-icon
-            >Logout</a
-          >
+          <a class="menu_item" (click)="logout()">
+            <fa-icon class="menu__icon" [icon]="faSignOutAlt"></fa-icon>Logout
+          </a>
         </div>
       </div>
     </div>
@@ -50,10 +36,7 @@
 
 <div (click)="closeSlide()" class="success" [class.active]="slideActive">
   <div class="success__body">
-    <i
-      style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-times-circle"
-    ></i>
+    <i style="color: tomato; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-times-circle"></i>
     <span class="text">Already logged in as applicant.</span>
   </div>
 </div>

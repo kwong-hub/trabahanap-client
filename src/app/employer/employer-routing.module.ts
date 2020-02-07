@@ -126,7 +126,8 @@ const routes: Routes = [
         path: "profile",
         canActivate: [EmployerGuard],
         component: ProfileComponent,
-        data: { name: "company profile" }
+        data: { name: "company profile" },
+        resolve: { data: CompanyProfileResolverService }
       },
       {
         path: "issues",

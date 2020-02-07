@@ -72,6 +72,7 @@ export class AddLocationComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private locationService: LocationService
   ) {
+    
     this.hasLocations = this.authenticationService.currentUserValue.company_profile.hasLocations;
   }
 
