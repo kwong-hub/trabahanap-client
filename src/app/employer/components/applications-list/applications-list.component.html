@@ -64,7 +64,8 @@
       <ng-container matColumnDef="picture">
         <th mat-header-cell *matHeaderCellDef>Picture</th>
         <td mat-cell *matCellDef="let applications">
-          <img style="max-width: 6rem" [src]="applications.applicantPicture" alt="picture" />
+          <img class="img"
+           [src]="applications.applicantPicture ? applications.applicantPicture: 'assets/img/anonymous-avatar.png'" alt="picture" />
         </td>
       </ng-container>
       <ng-container matColumnDef="jobtitle">

@@ -265,7 +265,7 @@
 
         <shared-custom-select
           [valid]="addCompanyProfileForm.controls['RegionId']?.status"
-          (onValueChange)="selectChanged($event, 'regionId')"
+          (onValueChange)="selectChanged($event, 'regionId'); citySelect.resetValue()"
           name="regionId"
           label="Region"
           [defaultValue]="+companyProfile?.regionId"
@@ -290,6 +290,7 @@
           [options]="cities"
           [submitted]="submitted"
           [disabled]="hasProfile"
+          #citySelect
         >
         </shared-custom-select>
       </div>

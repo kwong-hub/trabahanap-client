@@ -19,7 +19,7 @@ import {
   animate,
   transition
 } from "@angular/animations";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-dashboard-item",
@@ -55,7 +55,7 @@ export class DashboardItemComponent implements OnInit {
   @Input() iconName: string;
   @Input() dashboard: any;
 
-  constructor(public el: ElementRef, private router: Router) {}
+  constructor(public el: ElementRef, private router: Router, private Route: ActivatedRoute) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -75,7 +75,10 @@ export class DashboardItemComponent implements OnInit {
   // }
 
   navigate() {
-    this.router.navigate([`/employer/${this.dashboard.route}`]);
+    if(this.dashboard.route) {
+      console.log(this.dashboard.route)
+      this.router.navigate([`../${this.dashboard.route}`], { relativeTo: this.Route})
+    }
   }
 
   getIcon() {

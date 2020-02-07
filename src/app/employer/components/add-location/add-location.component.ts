@@ -7,6 +7,8 @@ import _ from 'lodash';
 import { tileLayer, latLng, marker, Point, LatLng, icon } from 'leaflet';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-company-location',
@@ -21,20 +23,6 @@ export class AddLocationComponent implements OnInit {
   countries = [];
   locationForm: FormGroup;
   submitted: boolean;
-  // selectStyle = {
-  //   inputContainer: {},
-  //   inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
-  //   optionContainer: {
-  //     backgroundColor: '#555',
-  //     top: '3.3rem',
-  //     boxShadow: '0px 1px 2px #aaa'
-  //   },
-  //   option: {
-  //     fontSize: '1.5rem',
-  //     borderBottom: '1px solid #ddd',
-  //     backgroundColor: '#fff'
-  //   }
-  // };
   selectStyle = {
     inputContainer: {},
     inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
@@ -62,18 +50,28 @@ export class AddLocationComponent implements OnInit {
   locationAdded: boolean;
   error;
   locationError: boolean;
-  defaultLimit = { max: '50', min: '0' };
+  defaultLimit = { max: '40', min: '0' };
   numberRange = { max: '20', min: '10' };
   hasLocations: boolean;
+  mustBeBranch: boolean;
+  toggleConfirmModal: boolean;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private employerService: EmployerService,
-    private authenticationService: AuthenticationService,
-    private locationService: LocationService
+    private formBuilder: FormBuilder, private employerService: EmployerService,
+    private authenticationService: AuthenticationService, private locationService: LocationService,
+    private Route: ActivatedRoute, private _location: Location
   ) {
-    
+    this.Route.data.subscribe(res => {
+      let data = res.data;
+      if(data.success) {
+        this.mustBeBranch = !!data.heads.length;
+      }
+      else {
+        this._location.back();
+      }
+    })
     this.hasLocations = this.authenticationService.currentUserValue.company_profile.hasLocations;
+    console.log("must be branch", this.mustBeBranch)
   }
 
   ngOnInit() {
@@ -170,6 +168,7 @@ export class AddLocationComponent implements OnInit {
   selectChanged(value, name) {
     if (name == 'regionId') {
       this.getCitiesByRegionId(value);
+      this.locationForm.controls['cityId'].setValue(null);
     }
     this.locationForm.controls[name].setValue(value);
   }
@@ -193,6 +192,16 @@ export class AddLocationComponent implements OnInit {
     ({ lat: this.latitude, lng: this.longitude } = e.latlng);
   }
 
+  confirmAction() {
+    this.toggleConfirmModal = false;
+    this.mustBeBranch = false;
+    this.onSubmit();
+  }
+
+  cancelAction() {
+    this.toggleConfirmModal = false;
+  }
+
   onSubmit() {
     this.submitted = true;
     this.locationError = false;
@@ -200,8 +209,14 @@ export class AddLocationComponent implements OnInit {
     if (this.locationForm.invalid) {
       return;
     }
-
     let val = this.locationForm.value;
+
+    if(this.mustBeBranch && val.isHeadOffice) {
+      this.toggleConfirmModal = true;
+    }
+
+    else {
+
     _.map(val, (value, key) => {
       if (key != 'picture') {
         this.formData.append(key, value);
@@ -252,5 +267,6 @@ export class AddLocationComponent implements OnInit {
           this.loading = false;
         }
       );
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EmployerService } from '@app/_services/employer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -18,9 +18,9 @@ export class LocationDetailComponent implements OnInit {
   marker: any;
   editable: boolean = false;
   locationForm: any;
-  countries = [];
-  regions = [];
-  cities = [];
+  countries
+  regions
+  cities
   faEdit = faEdit;
   faCamera = faCamera;
   faTimes = faTimes;
@@ -52,22 +52,23 @@ export class LocationDetailComponent implements OnInit {
   editSuccess: boolean;
   tempImg: string | ArrayBuffer;
   defaultLimit ={max:"50",min:"0"};
-  nameLimit ={max:"35",min:"0"};
+  nameLimit ={max:"40",min:"0"};
   numberRange ={max:'18',min:'10'};
-  // @ViewChild("checkBox", { static: false }) checkbox: ElementRef<HTMLElement>;
+  mustBeBranch: boolean;
+  toggleConfirmModal: boolean;
 
   constructor(
     private employerService: EmployerService,
     private locationService: LocationService,
     private formBuilder: FormBuilder,
     private Route: ActivatedRoute,
-    private router: Router,
     private _location: Location
   ) {
     this.Route.data.subscribe(res => {
       let data = res.data;
       if (data.success) {
-        this.location = data.location;
+        this.location = data.location.location;
+        this.mustBeBranch = !!data.location.heads.length;
       } else {
         this._location.back();
       }
@@ -76,7 +77,6 @@ export class LocationDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.Route.snapshot.params.id;
-    console.log(this.location)
     this.locationForm = this.formBuilder.group({
       picture: [''],
       locationName: ['', Validators.required],
@@ -93,7 +93,7 @@ export class LocationDetailComponent implements OnInit {
 
     this.getCountries();
     this.getRegions();
-    this.getCities();
+    // this.getCities();
 
     ({ latitude: this.latitude, longitude: this.longitude } = this.location);
     this.options.center = latLng(this.latitude, this.longitude);
@@ -133,6 +133,7 @@ export class LocationDetailComponent implements OnInit {
     this.locationService.getAllCountries().subscribe(
       response => {
         const countries = response.countries;
+        this.countries = [];
         countries.map(country => {
           this.countries.push({ name: country.countryName, value: country.id });
         });
@@ -147,6 +148,7 @@ export class LocationDetailComponent implements OnInit {
     this.locationService.getAllRegions().subscribe(
       response => {
         const regions = response.regions;
+        this.regions = [];
         regions.map(region => {
           this.regions.push({ name: region.regionName, value: region.id });
         });
@@ -184,6 +186,7 @@ export class LocationDetailComponent implements OnInit {
   selectChanged(value, name) {
     if (name == 'regionId') {
       this.getCitiesByRegionId(value);
+      this.locationForm.controls['cityId'].setValue(null);
     }
     this.locationForm.controls[name].setValue(value);
   }
@@ -209,37 +212,53 @@ export class LocationDetailComponent implements OnInit {
     this.formData.append('picture', val, val.name);
   }
 
+  confirmAction() {
+    this.toggleConfirmModal = false;
+    this.mustBeBranch = false;
+    this.onSubmit();
+  }
+
+  cancelAction() {
+    this.toggleConfirmModal = false;
+  }
+
   onSubmit() {
     this.submitted = true;
     if (this.locationForm.invalid) {
       return;
     }
-    this.loading = true;
-    this.editSuccess = false;
 
     let newLocation = { ...this.locationForm.value, latitude: this.latitude, longitude: this.longitude };
 
-    _.map(newLocation, (value, key) => {
-      if (key != 'picture') {
-        this.formData.append(key, value);
-      }
-    });
+    if(this.mustBeBranch && newLocation.isHeadOffice) {
+      this.toggleConfirmModal = true;
+    }
+    else {
+      this.loading = true;
+      this.editSuccess = false;
 
-    //@ts-ignore
-    // for (var pair of this.formData.entries()) {
-    // }
-
-    this.employerService.editCompanyBranch(this.formData, this.id).subscribe(
-      data => {
-        this.loading = false;
-        if (data.success) {
-          this.editSuccess = true;
-        } else {
+      _.map(newLocation, (value, key) => {
+        if (key != 'picture') {
+          this.formData.append(key, value);
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      });
+
+      //@ts-ignore
+      // for (var pair of this.formData.entries()) {
+      // }
+
+      this.employerService.editCompanyBranch(this.formData, this.id).subscribe(
+        data => {
+          this.loading = false;
+          if (data.success) {
+            this.editSuccess = true;
+          } else {
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 }

@@ -13,6 +13,29 @@
     flex-direction: column;
     margin: 1.8rem 0 0;
 
+    .bookmark {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #777;
+      background-color: transparent;
+      border: none;
+      height: 4rem;
+      outline: none;
+      border: 1px solid;
+      border-radius: 5px;
+      padding: 0 6rem;
+      transition: all .3s;
+      cursor: pointer;
+
+      &--saved {
+        color: #aa111d;
+        .bookmark__icon {
+          font-weight: 600;
+        }
+      }
+    }
+
     .save {
       font-size: small;
       font-weight: bold;
@@ -313,7 +336,7 @@
       flex-direction: row;
       width: 60%;
       padding: 2rem;
-      justify-content: space-between;
+      justify-content: space-evenly;
       margin: 0;
 
       .save {

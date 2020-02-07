@@ -20,7 +20,8 @@ export class EmployerGuard implements CanActivate {
               this.router.navigate(['/employer/profile']);
               return false;
             }
-            if (!(route.routeConfig.path == 'branches' || route.routeConfig.path == 'branches/add')) {
+            if (!(route.routeConfig.path == 'branches' || route.routeConfig.path == 'branches/add' || 
+            route.routeConfig.path == 'profile' || route.routeConfig.path == 'password')) {
               if (data.user.company_profile) {
                 if (!data.user.company_profile.hasLocations) {
                   this.router.navigate(['/employer/branches/add']);
@@ -42,7 +43,8 @@ export class EmployerGuard implements CanActivate {
           this.router.navigate(['/employer/profile']);
           return false;
         }
-        if (!(route.routeConfig.path == 'branches' || route.routeConfig.path == 'branches/add')) {
+        if (!(route.routeConfig.path == 'branches' || route.routeConfig.path == 'branches/add' || 
+        route.routeConfig.path == 'profile' || route.routeConfig.path == 'password')) {
           if (currentUser.company_profile) {
             if (!currentUser.company_profile.hasLocations) {
               this.router.navigate(['/employer/branches/add']);

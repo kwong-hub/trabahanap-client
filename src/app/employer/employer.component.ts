@@ -18,14 +18,6 @@ export class EmployerComponent implements OnInit {
       switch (true) {
         case event instanceof NavigationStart: {
           this.routing = true;
-
-          if (
-            this.authenticationService.currentUserValue &&
-            !this.authenticationService.currentUserValue.company_profile.hasLocations
-          ) {
-            this.noLocations = true;
-            return false;
-          }
           break;
         }
         case event instanceof NavigationEnd: {
@@ -58,9 +50,13 @@ export class EmployerComponent implements OnInit {
     let currentUser = this.authenticationService.currentUserValue;
 
     // @ts-ignore
-    if (!currentUser.companyProfileId) {
+    if(!currentUser.companyProfileId) {
       this.noProfile = true;
       return false;
+    }
+
+    if(!currentUser.company_profile.hasLocations) {
+      this.noLocations = true;
     }
   }
 }

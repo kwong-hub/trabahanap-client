@@ -1,5 +1,5 @@
 <div *ngIf="applicant && applicant.length != 0" class="sub-module-container">
-  <h3 class="sub-module-container__heading">Applicant Detail</h3>
+  <h3 class="sub-module-container__heading">Applicant Details</h3>
 
   <div class="sub-module-container__container">
     <div class="sub-modulte-container__jobs">
@@ -32,7 +32,7 @@
           [class.applicant-detail__bookmark--saved]="passFilter"
           class="applicant-detail__bookmark"
         >
-          {{ passFilter ? 'Passed Filter' : 'Pass Filter' }}
+          {{ passFilter ? 'Bookmarked' : 'Bookmark' }}
           <i class="applicant-detail__bookmark-icon far fa-bookmark"></i>
         </button>
       </div>

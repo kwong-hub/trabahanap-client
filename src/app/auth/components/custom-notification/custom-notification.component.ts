@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'landing-custom-notification',
+  selector: 'auth-custom-notification',
   templateUrl: './custom-notification.component.html',
   styleUrls: ['./custom-notification.component.scss']
 })

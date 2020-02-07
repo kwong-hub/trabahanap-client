@@ -11,7 +11,8 @@ export class HomeComponent implements OnInit {
     value: 1234,
     description: "Available Jobs",
     percent: "50%",
-    percentIncrease: false
+    percentIncrease: false,
+    route: "jobs"
   };
   dashboardItem2 = {
     value: 2938,
@@ -23,14 +24,16 @@ export class HomeComponent implements OnInit {
     value: 930,
     description: "Jobs Applied",
     percent: "10%",
-    percentIncrease: false
+    percentIncrease: false,
+    route: "applications"
   };
 
   dashboardItem4 = {
     value: 1102,
     description: "Applications Viewed",
     percent: "10%",
-    percentIncrease: true
+    percentIncrease: true,
+    route: "applications"
   };
 
   constructor(private Route: ActivatedRoute) {

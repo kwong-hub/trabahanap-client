@@ -1,4 +1,5 @@
-import { Component, OnInit, HostBinding, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostBinding, Output, EventEmitter, ViewChild } from '@angular/core';
+import { CustomSelectComponent } from '@app/shared/components/custom-select/custom-select.component';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ApplicantService } from '@app/_services/applicant.service';
 import { Location } from '@angular/common';
@@ -10,13 +11,14 @@ import _ from 'lodash';
   styleUrls: ['./issue-form.component.scss']
 })
 export class IssueFormComponent implements OnInit {
+
+  @ViewChild('issueTypeSelect', {static: false}) typeSelectRef: CustomSelectComponent;
   @HostBinding('attr.class') cssClass = 'form';
   @Output() issueAdded = new EventEmitter();
   issueForm: any;
   submitted: boolean;
   loading: boolean;
   formData = new FormData();
-  issueSuccess: boolean;
   selectStyle = {
     inputContainer: {},
     inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
@@ -78,8 +80,6 @@ export class IssueFormComponent implements OnInit {
       return;
     }
 
-    this.formData = new FormData();
-
     this.loading = true;
 
     let val = this.issueForm.value;
@@ -89,21 +89,17 @@ export class IssueFormComponent implements OnInit {
       }
     });
 
-    //@ts-ignore
-    for (var pair of this.formData.entries()) {
-    }
 
     this.applicantService.sendIssue(this.formData).subscribe(
       data => {
+        this.submitted = false;
+        this.loading = false;
+
         if (data.success) {
           this.issueForm.reset();
-          this.issueSuccess = true;
-          this.submitted = false;
-          this.loading = false;
+          this.formData = new FormData();
+          this.typeSelectRef.resetValue();
           this.issueAdded.emit(data.issue);
-          setTimeout(() => {
-            this.issueSuccess = false;
-          }, 4000);
         }
       },
       error => {

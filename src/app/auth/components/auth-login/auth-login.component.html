@@ -76,13 +76,12 @@
     </div>
 
     <div class="form-container__footer">
-      <span *ngIf="registerType === 'applicant'; else empBlock"
-        >Searching for a Job? <a [routerLink]="['/auth/register']" [queryParams]="{ as: 'app' }">Register here</a></span
-      >
-      <ng-template #empBlock
-        >Want to post Jobs?
-        <a [routerLink]="['/auth/register']" [queryParams]="{ as: 'emp' }">Become an Employer</a></ng-template
-      >
+      <span class="text">
+        Searching for a Job? <a [routerLink]="['/auth/register']" [queryParams]="{ as: 'app' }">Register here</a>
+      </span>
+      <span class="text">
+        Want to post Jobs? <a [routerLink]="['/auth/register']" [queryParams]="{ as: 'emp' }">Become an Employer</a>
+      </span>
     </div>
   </div>
   <div class="form-container form-container__section_two" [class.form-container__hide]="!showPasswordForm">
@@ -308,20 +307,6 @@
   </div>
 </div>
 
-<div class="notification notification--added" [class.active]="emailSent">
-  <div class="notification__body">
-    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
-    <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-    <span class="text">Email Sent! Check your email to change your password.</span>
-  </div>
-</div>
-
-<div class="notification notification--added" [class.active]="messageSent">
-  <div class="notification__body">
-    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
-    <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-    <span class="text">Message Sent. Check you phone.</span>
-  </div>
-</div>
+<auth-custom-notification [show]="emailSent || messageSent" type="success"
+  [text]="messageSent ? 'Message Sent. Check you phone' : 'Email Sent! Check your email to change your password'">
+</auth-custom-notification>
