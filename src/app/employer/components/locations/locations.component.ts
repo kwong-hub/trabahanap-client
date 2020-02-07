@@ -31,18 +31,7 @@ export class LocationsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    // this.employerService.getCompanyLocations().subscribe(
-    //   data => {
-    //     if(data.success) {
-    //       if(data.locations.length !== 0) {
-    //         this.noLocation = false;
-    //       }
-    //       this.locations = data.locations;
-    //     }
-    //   }
-    // );
-  }
+  ngOnInit() {}
 
   confirmDelete(id) {
     this.confirm = true;

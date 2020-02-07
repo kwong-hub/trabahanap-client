@@ -35,6 +35,7 @@ import { CompanyApplicationsResolverService } from '@app/_resolvers/employer-res
 import { CompanyLocationResolverService } from '@app/_resolvers/employer-resolvers/company-location-resolver.service';
 import { CompanyStaffResolverService } from '@app/_resolvers/employer-resolvers/company-staff-resolver.service';
 import { LocationDetailResolverService } from '@app/_resolvers/employer-resolvers/location-detail-resolver.service';
+import { HeadLocationCheckResolverService } from '@app/_resolvers/employer-resolvers/head-location-check-resolver.service';
 
 const routes: Routes = [
   {
@@ -127,7 +128,8 @@ const routes: Routes = [
         path: 'profile',
         canActivate: [EmployerGuard],
         component: ProfileComponent,
-        data: { name: 'company profile' }
+        data: { name: 'company profile' },
+        resolve: { data: CompanyProfileResolverService }
       },
       {
         path: 'issues',
@@ -170,7 +172,8 @@ const routes: Routes = [
         path: 'branches/add',
         canActivate: [EmployerGuard],
         component: AddLocationComponent,
-        data: { name: 'Add Location' }
+        data: { name: 'Add Location' },
+        resolve: { data: HeadLocationCheckResolverService }
       },
       {
         path: 'branches/:id',

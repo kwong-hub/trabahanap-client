@@ -10,7 +10,7 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 export class EmployerService {
-  constructor(private http: HttpClient, private authenticationService: AuthenticationService) {}
+  constructor(private http: HttpClient, private authenticationService: AuthenticationService) { }
 
   fetchDashboardCounter(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/employer/counters`);
@@ -49,13 +49,18 @@ export class EmployerService {
   }
   getCompanyLocations(): Observable<any> {
     //@ts-ignore
-    let { companyProfileId } = this.authenticationService.currentUserValue;
-
-    return this.http.get<any>(`${environment.apiUrl}/employer/locations/${companyProfileId}`);
+    //let { companyProfileId } = this.authenticationService.currentUserValue;
+    return this.http.get<any>(`${environment.apiUrl}/employer/locations`);
   }
 
   getCompanyLocationsForAdmin(companyProfileId) {
-    return this.http.get<any>(`${environment.apiUrl}/employer/locations/${companyProfileId}`);
+    return this.http.get<any>(
+      `${environment.apiUrl}/admin/location/company/${companyProfileId}`
+    );
+  }
+
+  getHeadLocation() {
+    return this.http.get<any>(`${environment.apiUrl}/employer/profile/locations/heads`)
   }
 
   getCompanyLocationById(id): Observable<any> {
@@ -105,11 +110,11 @@ export class EmployerService {
     return this.http.delete<any>(`${environment.apiUrl}/employer/issue/${id}`);
   }
 
-  getFilterJobsApplications(jobtitle,industry,position,active,page,pageSize){
+  getFilterJobsApplications(jobtitle, industry, position, active, page, pageSize) {
     return this.http.get<any>(`${environment.apiUrl}/employer/filter/jobs/applications?job=${jobtitle}&industry=${industry}&position=${position}&active=${active}&page=${page}&pageSize=${pageSize}`);
   }
-  
-  getFilterJobsFilteredApplications(jobtitle,industry,position,active,page,pageSize){
+
+  getFilterJobsFilteredApplications(jobtitle, industry, position, active, page, pageSize) {
     return this.http.get<any>(`${environment.apiUrl}/employer/filter/filtered/applications?job=${jobtitle}&industry=${industry}&position=${position}&active=${active}&page=${page}&pageSize=${pageSize}`);
   }
 

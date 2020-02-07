@@ -13,31 +13,59 @@ export class EmployerOnlyGuard implements CanActivate {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService
-  ) {}
+  ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser.role === "EMPLOYER") {
-      // @ts-ignore
-      if (
-        route.routeConfig.path !== "profile" &&
-        !currentUser.hasFinishedProfile
-      ) {
-        return this.router.navigate(["/employer/profile"]);
-      } else if (
-        !(
-          route.routeConfig.path == "branches" ||
-          route.routeConfig.path == "branches/add"
-        )
-      ) {
-        if (currentUser.company_profile) {
-          if (!currentUser.company_profile.hasLocations) {
-            return this.router.navigate(["/employer/branches/add"]);
+
+      if (!currentUser.firstName) {
+        return !!this.authenticationService.getUserByToken(currentUser.token).subscribe(
+          data => {
+            this.authenticationService.currentUserSubject.next({ ...data.user, token: currentUser.token });
+            // @ts-ignore
+            if (
+              route.routeConfig.path !== "profile" &&
+              !currentUser.hasFinishedProfile
+            ) {
+              return this.router.navigate(["/employer/profile"]);
+            } else if (
+              !(
+                route.routeConfig.path == "branches" ||
+                route.routeConfig.path == "branches/add"
+              )
+            ) {
+              if (currentUser.company_profile) {
+                if (!currentUser.company_profile.hasLocations) {
+                  return this.router.navigate(["/employer/branches/add"]);
+                }
+              }
+            }
+          });
+
+      } else {
+        // @ts-ignore
+        if (
+          route.routeConfig.path !== "profile" &&
+          !currentUser.hasFinishedProfile
+        ) {
+          return this.router.navigate(["/employer/profile"]);
+        } else if (
+          !(
+            route.routeConfig.path == "branches" ||
+            route.routeConfig.path == "branches/add"
+          )
+        ) {
+          if (currentUser.company_profile) {
+            if (!currentUser.company_profile.hasLocations) {
+              return this.router.navigate(["/employer/branches/add"]);
+            }
           }
         }
+        // authorised so return true
+        return true;
       }
-      // authorised so return true
-      return true;
+
     } else {
       this.authenticationService.logout();
       return this.router.navigate(["/login"]);

@@ -14,7 +14,7 @@
           label="New CV"
           [input]="(updateCVForm?.controls)['cv']"
           type="file"
-          [submitted]="submited"
+          [submitted]="submitted"
           [disabled]="false"
           [accept]="CVFileTypes"
           (onValueChange)="fileChanged($event, 'cv')"
@@ -24,9 +24,10 @@
         <button (click)="closeModal()" class="modal__btn modal__btn--cancle">
           Cancel
         </button>
-        <button type="submit" class="modal__btn modal__btn--submit">
+        <!-- <button type="submit" class="modal__btn modal__btn--submit">
           Submit
-        </button>
+        </button> -->
+        <app-custom-submit-button [styleObject]="{btn: {borderRadius: '5px'}}" [loading]="loading" text="Submit"></app-custom-submit-button>
       </div>
     </form>
     <div class="modal__close-btn-container">
@@ -35,5 +36,4 @@
       </button>
     </div>
   </div>
-  <shared-loader *ngIf="showEditLoader"></shared-loader>
 </div>

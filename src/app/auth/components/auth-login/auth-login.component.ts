@@ -52,6 +52,7 @@ export class AuthLoginComponent implements OnInit {
     private authService: AuthService
   ) {
     if (this.authenticationService.currentUserValue) {
+      
       this.route.navigate([`/${this.authenticationService.currentUserValue.role.toLowerCase()}`]);
     }
   }
@@ -276,7 +277,7 @@ export class AuthLoginComponent implements OnInit {
         this.messageSent = false;
         this.showOptions = false;
         this.showSmsConfirmationForm = true;
-      }, 3000);
+      }, 5000);
     });
   }
 

@@ -52,25 +52,18 @@ export class AuthChangePasswordComponent implements OnInit {
       return;
     }
     this.loading = true;
-
-    this.authenticationService
-      .setPassword({
+    this.success = false;
+    this.authenticationService.setPassword({
         password: this.fSetPassword.password.value,
         confirmPassword: this.fSetPassword.confirmPassword.value,
         token: this.token
-      })
-      .subscribe(
+      }).subscribe(
         res => {
           this.loading = false;
           if (res.success) {
             this.success = true;
-            setTimeout(() => {
-              this.success = false;
-              this.router.navigate(["/auth/login"]);
-            }, 3000);
           } else {
-            this.error =
-              res.error || res.message || "Unable to change you password!";
+            this.error = res.error || res.message || "Unable to change you password!";
           }
         },
         err => console.log(err)

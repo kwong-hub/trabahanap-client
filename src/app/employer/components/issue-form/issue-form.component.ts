@@ -1,8 +1,9 @@
-import { Component, OnInit, HostBinding, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostBinding, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EmployerService } from '@app/_services/employer.service';
 import { Location } from '@angular/common';
 import _ from 'lodash';
+import { CustomSelectComponent } from '@app/shared/components/custom-select/custom-select.component';
 
 @Component({
   selector: 'employer-issue-form',
@@ -10,6 +11,8 @@ import _ from 'lodash';
   styleUrls: ['./issue-form.component.scss']
 })
 export class IssueFormComponent implements OnInit {
+
+  @ViewChild('issueTypeSelect', {static: false}) typeSelectRef: CustomSelectComponent;
   @HostBinding('attr.class') cssClass = 'form';
   @Output() issueAdded = new EventEmitter();
   issueForm: any;
@@ -43,6 +46,7 @@ export class IssueFormComponent implements OnInit {
     { name: 'Others', value: 'Others' }
   ];
   defaultLimit = { max: '50', min: '0' };
+  
   constructor(private formBuilder: FormBuilder, public employerService: EmployerService, private _location: Location) {}
 
   ngOnInit() {
@@ -93,6 +97,7 @@ export class IssueFormComponent implements OnInit {
         if (data.success) {
           this.issueForm.reset();
           this.formData = new FormData();
+          this.typeSelectRef.resetValue();
           this.issueAdded.emit(data.issue);
         }
       },

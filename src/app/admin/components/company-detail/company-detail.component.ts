@@ -14,6 +14,7 @@ export class CompanyDetailComponent implements OnInit {
   id;
   faCheckCircle = faCheckCircle;
   loading: boolean;
+  showLicensePreview=false;
 
   constructor(private adminService: AdminService, private route: ActivatedRoute) {}
 
@@ -47,5 +48,10 @@ export class CompanyDetailComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  onLicensePreview(event) {
+    event.stopPropagation();
+    this.showLicensePreview = !this.showLicensePreview;
   }
 }

@@ -13,7 +13,7 @@ import {
   faEdit,
   faCamera
 } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import _ from 'lodash';
 import { VirtualTimeScheduler, Observable, Subject } from 'rxjs';
@@ -75,10 +75,24 @@ export class AddCompanyProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
     private router: Router,
+    private route:ActivatedRoute,
     private authService: AuthenticationService,
     private locationService: LocationService,
     private anonyService: AnonymousService
-  ) {}
+  ) {
+    this.route.data.subscribe(res => {
+      let data = res.data;
+      if (data.success) {
+        if(data.employer.company_profile){
+         // this.inputType = data.employer.company_profile;
+          this.companyProfile=data.employer.company_profile ;
+        }
+      } else {
+        return false; 
+      }
+    });
+
+  }
 
   ngOnInit() {
     // this.getCities();
@@ -86,7 +100,7 @@ export class AddCompanyProfileComponent implements OnInit {
     this.getCountries();
     // this.getCities();
 
-    this.inputType = this.authService.currentUserValue.company_profile ? 'text' : 'file';
+    this.inputType = this.companyProfile ? 'text' : 'file';
 
     this.addCompanyProfileForm = this.formBuilder.group({
       zipcode: ['', [Validators.min(10000), Validators.max(99999)]],
@@ -105,10 +119,11 @@ export class AddCompanyProfileComponent implements OnInit {
       countryId: ['', Validators.required]
     });
     this.updateInputes();
-    if (this.authService.currentUserValue.company_profile) {
-      this.getCitiesByRegionId(this.authService.currentUserValue.company_profile.regionId);
-      this.addCompanyProfileForm.controls['cityId'].setValue(this.authService.currentUserValue.company_profile.cityId);
+    if (this.companyProfile) {
+      this.getCitiesByRegionId(this.companyProfile.regionId);
+      this.addCompanyProfileForm.controls['cityId'].setValue(this.companyProfile.cityId);
     }
+
     this.INDUSTRIES$ = this.industrySearchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -129,9 +144,10 @@ export class AddCompanyProfileComponent implements OnInit {
   }
 
   updateInputes() {
-    if (this.authService.currentUserValue.company_profile) {
+    if (this.companyProfile) {
       this.hasProfile = true;
-      this.companyProfile = this.authService.currentUserValue.company_profile;
+      console.log(this.companyProfile)
+      // this.companyProfile = this.companyProfile;
       _.map(this.companyProfile, (value, key) => {
         if (this.addCompanyProfileForm.controls[key]) {
           this.addCompanyProfileForm.controls[key].disable();
@@ -266,7 +282,7 @@ export class AddCompanyProfileComponent implements OnInit {
 
   toggleLogoModal() {
     this.isLogoEditModalOpen = !this.isLogoEditModalOpen;
-    this.companyProfile = this.authService.currentUserValue.company_profile;
+    this.companyProfile = this.companyProfile;
   }
 
   toggleBusinessLicense(event) {
@@ -298,7 +314,9 @@ export class AddCompanyProfileComponent implements OnInit {
         this.loading = false;
         if (response.success) {
           this.success = true;
+          this.companyProfile=response.companyProfile.company_profile;
           this.authService.updateCurrentUser(response.companyProfile);
+          // this.updateInputes();
         } else if (response.validationError && typeof response.validationError == 'object') {
           this.formErrors = this.formErrors.slice(1);
           _.map(response.validationError, (value, key) => {
@@ -341,6 +359,8 @@ export class AddCompanyProfileComponent implements OnInit {
         this.loading = false;
         if (response.success) {
           this.success = true;
+          console.log(response,'edit')
+          this.companyProfile = response.companyProfile.company_profile;
           this.authService.updateCurrentUser(response.companyProfile);
           this.updateInputes();
           this.formData = new FormData();

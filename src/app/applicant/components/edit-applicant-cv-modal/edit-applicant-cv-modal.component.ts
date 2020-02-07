@@ -16,8 +16,8 @@ export class EditApplicantCvModalComponent implements OnInit {
 
   updateCVForm: FormGroup;
   formData = new FormData();
-  submited = false;
-  showEditLoader = false;
+  submitted = false;
+  loading: boolean;
 
   @Input() isModalOpen: boolean;
   @Input() cvUrl: string;
@@ -36,33 +36,43 @@ export class EditApplicantCvModalComponent implements OnInit {
       cv: ['', Validators.required]
     });
   }
+  "     "
 
   fileChanged(value, name) {
+    let type = value.type;
+    this.submitted = true;
+    if(!(type === 'application/doc' || type === 'application/ms-doc' || type === 'application/msword' || 
+      type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || type === 'application/pdf')) {
+        this.updateCVForm.controls['cv'].setValue('');
+        this.updateCVForm.controls['cv'].setErrors({invalid: true})
+        return;
+      }
     this.formData.append(name, value, value.name);
   }
 
   closeModal() {
     this.closeModalEvent.emit(false);
     this.updateCVForm.controls['cv'].setValue('');
-    this.formData.delete('cv');
+    this.formData = new FormData();
   }
 
   onSubmit() {
-    this.submited = true;
+    this.submitted = true;
     if (this.updateCVForm.invalid) {
       return;
     }
-    this.showEditLoader = true;
+    this.loading = true;
     this.applicantService.changeApplicantCV(this.formData).subscribe(
       success => {
+        this.submitted = false;
         if ((success.success, success.applicantProfile)) {
           this.applicantChanged.emit(success.applicantProfile);
-          this.showEditLoader = false;
-          this.closeModal();
+          this.loading = false;
+          this.formData = new FormData()
         }
       },
       err => {
-        this.showEditLoader = false;
+        this.loading = false;
         console.log(err);
       }
     );
