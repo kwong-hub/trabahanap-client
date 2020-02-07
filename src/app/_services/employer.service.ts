@@ -58,6 +58,10 @@ export class EmployerService {
     return this.http.get<any>(`${environment.apiUrl}/employer/locations/${companyProfileId}`);
   }
 
+  getHeadLocation() {
+    return this.http.get<any>(`${environment.apiUrl}/employer/profile/locations/heads`)
+  }
+
   getCompanyLocationById(id): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/employer/profile/locations/${id}`);
   }

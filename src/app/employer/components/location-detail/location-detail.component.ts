@@ -55,6 +55,7 @@ export class LocationDetailComponent implements OnInit {
   nameLimit ={max:"40",min:"0"};
   numberRange ={max:'18',min:'10'};
   mustBeBranch: boolean;
+  toggleConfirmModal: boolean;
 
   constructor(
     private employerService: EmployerService,
@@ -65,7 +66,6 @@ export class LocationDetailComponent implements OnInit {
   ) {
     this.Route.data.subscribe(res => {
       let data = res.data;
-      console.log(data)
       if (data.success) {
         this.location = data.location.location;
         this.mustBeBranch = !!data.location.heads.length;
@@ -212,37 +212,53 @@ export class LocationDetailComponent implements OnInit {
     this.formData.append('picture', val, val.name);
   }
 
+  confirmAction() {
+    this.toggleConfirmModal = false;
+    this.mustBeBranch = false;
+    this.onSubmit();
+  }
+
+  cancelAction() {
+    this.toggleConfirmModal = false;
+  }
+
   onSubmit() {
     this.submitted = true;
     if (this.locationForm.invalid) {
       return;
     }
-    this.loading = true;
-    this.editSuccess = false;
 
     let newLocation = { ...this.locationForm.value, latitude: this.latitude, longitude: this.longitude };
 
-    _.map(newLocation, (value, key) => {
-      if (key != 'picture') {
-        this.formData.append(key, value);
-      }
-    });
+    if(this.mustBeBranch && newLocation.isHeadOffice) {
+      this.toggleConfirmModal = true;
+    }
+    else {
+      this.loading = true;
+      this.editSuccess = false;
 
-    //@ts-ignore
-    // for (var pair of this.formData.entries()) {
-    // }
-
-    this.employerService.editCompanyBranch(this.formData, this.id).subscribe(
-      data => {
-        this.loading = false;
-        if (data.success) {
-          this.editSuccess = true;
-        } else {
+      _.map(newLocation, (value, key) => {
+        if (key != 'picture') {
+          this.formData.append(key, value);
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      });
+
+      //@ts-ignore
+      // for (var pair of this.formData.entries()) {
+      // }
+
+      this.employerService.editCompanyBranch(this.formData, this.id).subscribe(
+        data => {
+          this.loading = false;
+          if (data.success) {
+            this.editSuccess = true;
+          } else {
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 }

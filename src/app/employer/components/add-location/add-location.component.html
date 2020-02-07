@@ -174,4 +174,7 @@
       <div *ngIf="locationTracked" [leafletLayer]="marker"></div>
     </div>
   </div>
+  <app-shared-confirm-model [isModalOpen]="toggleConfirmModal" headerText="Head Branch Already Exists"
+    bodyText="There is a head branch already listed to this company. Are you sure you want to make this location a head branch?"
+    (confirmed)="confirmAction()" (cancled)="cancelAction()"></app-shared-confirm-model>
 </div>

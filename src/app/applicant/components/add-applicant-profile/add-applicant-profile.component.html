@@ -205,7 +205,7 @@
           [valid]="addApplicantProfileForm.controls['month']?.status"
           (onValueChange)="selectChanged($event, 'month')"
           name="month"
-          label="Birth Date"
+          label="Birth Day"
           [defaultValue]="applicantProfile?.month"
           [styleObject]="styleObject"
           class="input-element-type-3"
@@ -214,6 +214,22 @@
           [submitted]="submitted"
           [disabled]="hasProfile"
         ></shared-custom-select>
+
+        <shared-custom-input-field
+          class="input-element-type-3"
+          [formGroup]="addApplicantProfileForm"
+          name="date"
+          [defaultValue]="applicantProfile?.date"
+          placeholder="Date"
+          label="Date"
+          [input]="addApplicantProfileForm.controls['date']"
+          type="number"
+          [submitted]="submitted"
+          [disabled]="hasProfile"
+          [styleObject]="styleObject"
+          [range]="dateRange"
+        ></shared-custom-input-field>
+
 
         <shared-custom-input-field
           class="input-element-type-3"
@@ -229,21 +245,6 @@
           [styleObject]="dateStyle"
           [range]="yearRange"
           [styleObject]="styleObject"
-        ></shared-custom-input-field>
-
-        <shared-custom-input-field
-          class="input-element-type-3"
-          [formGroup]="addApplicantProfileForm"
-          name="date"
-          [defaultValue]="applicantProfile?.date"
-          placeholder="Date"
-          label="Date"
-          [input]="addApplicantProfileForm.controls['date']"
-          type="number"
-          [submitted]="submitted"
-          [disabled]="hasProfile"
-          [styleObject]="styleObject"
-          [range]="dateRange"
         ></shared-custom-input-field>
       </div>
 
