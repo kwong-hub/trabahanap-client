@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmployerService } from '@app/_services/employer.service';
 import { JobService } from '@app/_services/jobs.service';
 
@@ -19,12 +19,21 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
   hired = false;
   jobId;
   applicantId;
+  subscription: any;
 
   constructor(
     private route: ActivatedRoute,
     private employerService: EmployerService,
-    private jobService: JobService
-  ) {}
+    private jobService: JobService,
+    private router:Router
+  ) {
+    this.route.data.subscribe(res => {
+      let subscriptons = res.subs;
+      if (subscriptons.success) {
+        this.subscription = subscriptons.subscription;
+      }
+    });
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(
@@ -64,4 +73,14 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
       .createPdf(documentDefinition)
       .download(this.applicant.user.firstName + ' ' + this.applicant.user.lastName + '  Resume.pdf');
   }
+
+  checkSubscription() {
+    if (this.subscription && this.subscription.points > 0 ) {
+      this.generatePdf();
+
+    } else {
+      this.router.navigate([`/employer/plan`]);
+    }
+  }
+
 }

@@ -1,6 +1,6 @@
 import { JobService } from '@app/_services/jobs.service';
 import { EmployerService } from './../../../_services/employer.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import pdfMake from 'pdfmake/build/pdfmake';
@@ -21,11 +21,22 @@ export class CandidateApplicantDetailComponent implements OnInit {
   applicantId: string = '';
   job: any;
   pdfMake = pdfMake;
+  subscription;
+  toggleConfirmModal: boolean;
   constructor(
     private route: ActivatedRoute,
     private employerService: EmployerService,
-    private jobService: JobService
-  ) {}
+    private jobService: JobService,
+    private router: Router,
+  ) {
+    this.route.data.subscribe(res => {
+      let subscriptons = res.subs;
+      if (subscriptons.success) {
+        this.subscription = subscriptons.subscription;
+      }
+    });
+
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(
@@ -92,5 +103,23 @@ export class CandidateApplicantDetailComponent implements OnInit {
     pdfMake
       .createPdf(documentDefinition)
       .download(this.applicant.user.firstName + ' ' + this.applicant.user.lastName + '  Resume.pdf');
+  }
+
+  checkSubscription() {
+    if (this.subscription && this.subscription.points > 0 ) {
+      this.toggleConfirmModal = true;
+      //this.router.navigate([`employer/plan`]);
+    } else {
+      this.router.navigate([`/employer/plan`]);
+    }
+  }
+
+  confirmAction() {
+    this.toggleConfirmModal = false;
+    this.generatePdf();
+  }
+
+  cancelAction() {
+    this.toggleConfirmModal = false;
   }
 }

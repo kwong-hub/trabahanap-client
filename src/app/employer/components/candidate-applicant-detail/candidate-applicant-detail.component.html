@@ -48,13 +48,18 @@
     <div class="applicant-detail__bottom">
       <div class="applicant-detail__download">
         Download Applicant CV
-        <a *ngIf="!applicant?.cv" (click)="generatePdf()" class="applicant-detail__download-cv"
+        <a (click)="checkSubscription()" class="applicant-detail__download-cv"
+        ><i class="fas fa-download"></i></a>
+        <a *ngIf="!applicant?.cv && subscripton && subscripton.length != 0"  (click)="generatePdf()" class="applicant-detail__download-cv"
           ><i class="fas fa-download"></i
         ></a>
-        <a *ngIf="applicant?.cv" [href]="applicant.cv" target="_blank" class="applicant-detail__download-cv"
+        <a *ngIf="applicant?.cv && subscripton && subscripton.length != 0" [href]="applicant.cv" target="_blank" class="applicant-detail__download-cv"
           ><i class="fas fa-download"></i
         ></a>
       </div>
     </div>
   </div>
+  <app-shared-confirm-model [isModalOpen]="toggleConfirmModal" headerText="Payment Confirmations"
+  bodyText="You need to pay to show cv,Are you sure you want to make this payment?"
+  (confirmed)="confirmAction()" (cancled)="cancelAction()"></app-shared-confirm-model> 
 </div>
