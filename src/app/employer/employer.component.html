@@ -79,6 +79,17 @@
       <h3 class="sidebar__header">Account</h3>
 
       <div class="sidebar__list">
+        <!-- <a
+          routerLink="subscription"
+          routerLinkActive="active"
+          title="Subscription"
+          (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="sidebar__list-item"
+        >
+          <i class="icons fab fa-paypal"></i>
+          <span class="names">Subscription</span>
+        </a> -->
         <a
           routerLink="profile"
           routerLinkActive="active"
@@ -90,7 +101,6 @@
           <i class="icons far fa-address-card"></i>
           <span class="names">Account Profile</span>
         </a>
-
         <a
           *ngIf="authenticationService.currentUserValue && authenticationService.currentUserValue.role == 'EMPLOYER'"
           routerLink="staff"
@@ -114,7 +124,7 @@
           <i class="icons fas fa-bug"></i>
           <span class="names">Report Issue</span>
         </a>
-        <!-- <a
+        <a
           routerLink="plan"
           routerLinkActive="active"
           title="Subscription Plan"
@@ -124,7 +134,7 @@
         >
           <i class="icons fas fa-money-check-alt"></i>
           <span class="names">Subscription Plan</span>
-        </a> -->
+        </a>
         <a (click)="logout()" class="sidebar__list-item" title="Logout">
           <i class="icons fas fa-sign-out-alt"></i>
           <span class="names">Logout</span>

@@ -1,0 +1,58 @@
+.current_subscription {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #8dd3d5;
+    align-items: center;
+    padding: 3rem;
+    align-self: center;
+    max-width: 50rem;
+    position: relative;
+  }
+
+  &__header {
+    position: absolute;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    // left: 999999px;
+    // right: 999999px;
+    top: -0.9rem;
+    z-index: 100;
+    background-color: #4e4e2d;
+    color: #fff;
+    border-radius: 5rem;
+    padding: 0.2rem 3rem;
+  }
+
+  &__type {
+    font-size: 2.5rem;
+    color: #42597b;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  &__name {
+    font-size: 2.2rem;
+    color: #888;
+    text-transform: uppercase;
+    padding: 1rem;
+  }
+
+  &__value {
+    font-size: 2rem;
+    color: #888;
+    padding: 1rem;
+  }
+
+  &__upgrade {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 12rem;
+  }
+}
+
+.sub-module-container__container {
+  display: flex;
+  justify-content: center;
+}

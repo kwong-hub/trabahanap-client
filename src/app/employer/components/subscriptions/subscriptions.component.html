@@ -1,4 +1,19 @@
 <div class="sub-module-container">
   <h3 class="sub-module-container__heading">Subscriptions</h3>
-  <div class="sub-module-container__container"></div>
+  <div class="sub-module-container__container">
+    <div class="current_subscription__container">
+      <div class="current_subscription__header">Your Subscriptions</div>
+      <div class="current_subscription__type">{{ subscription?.type }}</div>
+      <div class="current_subscription__name">
+        {{ subscription?.type == 'EXPRESS' ? subscription?.expressType : subscription?.premiumType }}
+      </div>
+      <div *ngIf="subscription?.type == 'EXPRESS'" class="current_subscription__value">
+        Remaining Points: {{ subscription?.points }}
+      </div>
+      <div *ngIf="subscription?.type == 'PREMIUM'" class="current_subscription__value">
+        Expires: {{ subscription?.expirationDate | date }}
+      </div>
+      <div class="th-btn th-btn--primary current_subscription__upgrade">Upgrade</div>
+    </div>
+  </div>
 </div>

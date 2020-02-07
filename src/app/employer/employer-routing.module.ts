@@ -1,181 +1,183 @@
-import { IndustryAndLocationResolverService } from "../_services/industry-and-location-resolver.service";
-import { CandidateApplicantDetailComponent } from "./components/candidate-applicant-detail/candidate-applicant-detail.component";
-import { JobCandidatesComponent } from "./components/job-candidates/job-candidates.component";
-import { AddJobComponent } from "./components/add-job/add-job.component";
-import { EmployerGuard } from "./_helpers/employer.guard";
-import { EmployerOnlyGuard } from "./_helpers/employer-only.guard";
-import { ProfileComponent } from "./components/profile/profile.component";
-import { JobsComponent } from "./components/jobs/jobs.component";
+import { SubscriptionResolverService } from './../_resolvers/employer-resolvers/subscription-resolver.service';
+import { IndustryAndLocationResolverService } from '../_services/industry-and-location-resolver.service';
+import { CandidateApplicantDetailComponent } from './components/candidate-applicant-detail/candidate-applicant-detail.component';
+import { JobCandidatesComponent } from './components/job-candidates/job-candidates.component';
+import { AddJobComponent } from './components/add-job/add-job.component';
+import { EmployerGuard } from './_helpers/employer.guard';
+import { EmployerOnlyGuard } from './_helpers/employer-only.guard';
+import { ProfileComponent } from './components/profile/profile.component';
+import { JobsComponent } from './components/jobs/jobs.component';
 
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { EmployerComponent } from "./employer.component";
-import { HomeComponent } from "./components/home/home.component";
-import { CandidatesComponent } from "./components/candidates/candidates.component";
-import { LocationsComponent } from "./components/locations/locations.component";
-import { StaffsComponent } from "./components/staffs/staffs.component";
-import { SubscriptionsComponent } from "./components/subscriptions/subscriptions.component";
-import { AddLocationComponent } from "./components/add-location/add-location.component";
-import { LocationDetailComponent } from "./components/location-detail/location-detail.component";
-import { ChangePasswordComponent } from "@app/shared/components/change-password/change-password.component";
-import { FilteredCandidatesComponent } from "./components/filtered-candidates/filtered-candidates.component";
-import { FilteredJobCandidatesComponent } from "./components/filtered-job-candidates/filtered-job-candidates.component";
-import { FilteredCandidateApplicantDetailComponent } from "./components/filtered-candidate-applicant-detail/filtered-candidate-applicant-detail.component";
-import { IssueListComponent } from "./components/issue-list/issue-list.component";
-import { EmployerDashboardResolverService } from "@app/_resolvers/employer-dashboard-resolver.service";
-import { ApplicationsListComponent } from "./components/applications-list/applications-list.component";
-import { IssueDetailsComponent } from "@app/shared/components/issue-details/issue-details.component";
-import { IssueDetailResolverService } from "@app/_resolvers/employer-resolvers/issue-detail-resolver.service";
-import { CompanyProfileResolverService } from "@app/_resolvers/employer-resolvers/company-profile-resolver.service";
-import { CompanyJobsResolverService } from "@app/_resolvers/employer-resolvers/company-jobs-resolver.service";
-import { CompanyCandidatesResolverService } from "@app/_resolvers/employer-resolvers/company-candidates-resolver.service";
-import { FilteredCandidatesResolverService } from "@app/_resolvers/employer-resolvers/filtered-candidates-resolver.service";
-import { CompanyApplicationsResolverService } from "@app/_resolvers/employer-resolvers/company-applications-resolver.service";
-import { CompanyLocationResolverService } from "@app/_resolvers/employer-resolvers/company-location-resolver.service";
-import { CompanyStaffResolverService } from "@app/_resolvers/employer-resolvers/company-staff-resolver.service";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { EmployerComponent } from './employer.component';
+import { HomeComponent } from './components/home/home.component';
+import { CandidatesComponent } from './components/candidates/candidates.component';
+import { LocationsComponent } from './components/locations/locations.component';
+import { StaffsComponent } from './components/staffs/staffs.component';
+import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
+import { AddLocationComponent } from './components/add-location/add-location.component';
+import { LocationDetailComponent } from './components/location-detail/location-detail.component';
+import { ChangePasswordComponent } from '@app/shared/components/change-password/change-password.component';
+import { FilteredCandidatesComponent } from './components/filtered-candidates/filtered-candidates.component';
+import { FilteredJobCandidatesComponent } from './components/filtered-job-candidates/filtered-job-candidates.component';
+import { FilteredCandidateApplicantDetailComponent } from './components/filtered-candidate-applicant-detail/filtered-candidate-applicant-detail.component';
+import { IssueListComponent } from './components/issue-list/issue-list.component';
+import { EmployerDashboardResolverService } from '@app/_resolvers/employer-dashboard-resolver.service';
+import { ApplicationsListComponent } from './components/applications-list/applications-list.component';
+import { IssueDetailsComponent } from '@app/shared/components/issue-details/issue-details.component';
+import { IssueDetailResolverService } from '@app/_resolvers/employer-resolvers/issue-detail-resolver.service';
+import { CompanyProfileResolverService } from '@app/_resolvers/employer-resolvers/company-profile-resolver.service';
+import { CompanyJobsResolverService } from '@app/_resolvers/employer-resolvers/company-jobs-resolver.service';
+import { CompanyCandidatesResolverService } from '@app/_resolvers/employer-resolvers/company-candidates-resolver.service';
+import { FilteredCandidatesResolverService } from '@app/_resolvers/employer-resolvers/filtered-candidates-resolver.service';
+import { CompanyApplicationsResolverService } from '@app/_resolvers/employer-resolvers/company-applications-resolver.service';
+import { CompanyLocationResolverService } from '@app/_resolvers/employer-resolvers/company-location-resolver.service';
+import { CompanyStaffResolverService } from '@app/_resolvers/employer-resolvers/company-staff-resolver.service';
 import { LocationDetailResolverService } from '@app/_resolvers/employer-resolvers/location-detail-resolver.service';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: EmployerComponent,
     children: [
       {
-        path: "home",
+        path: 'home',
         canActivate: [EmployerGuard],
         component: HomeComponent,
-        data: { name: "home" },
+        data: { name: 'home' },
         resolve: { dashRes: EmployerDashboardResolverService }
       },
       {
-        path: "",
+        path: '',
         canActivate: [EmployerGuard],
-        redirectTo: "home",
-        pathMatch: "full"
+        redirectTo: 'home',
+        pathMatch: 'full'
       },
       {
-        path: "jobs",
+        path: 'jobs',
         canActivate: [EmployerGuard],
         component: JobsComponent,
-        data: { name: "jobs" },
+        data: { name: 'jobs' },
         resolve: {
           company: CompanyProfileResolverService,
           jobs: CompanyJobsResolverService
         }
       },
       {
-        path: "applications",
+        path: 'applications',
         canActivate: [EmployerGuard],
         component: ApplicationsListComponent,
-        data: { name: "jobs" },
+        data: { name: 'jobs' },
         resolve: { data: CompanyApplicationsResolverService }
       },
       {
-        path: "candidates",
+        path: 'candidates',
         canActivate: [EmployerGuard],
         component: CandidatesComponent,
-        data: { name: "candidates" },
+        data: { name: 'candidates' },
         resolve: { candidates: CompanyCandidatesResolverService }
       },
       {
-        path: "filtered_candidates",
+        path: 'filtered_candidates',
         canActivate: [EmployerGuard],
         component: FilteredCandidatesComponent,
-        data: { name: "filtered_candidates" },
+        data: { name: 'filtered_candidates' },
         resolve: { filters: FilteredCandidatesResolverService }
       },
       {
-        path: "filtered_candidates/job/:id",
+        path: 'filtered_candidates/job/:id',
         canActivate: [EmployerGuard],
         component: FilteredJobCandidatesComponent,
-        data: { name: "View Filtered Job Applicants" }
+        data: { name: 'View Filtered Job Applicants' }
       },
       {
-        path: "candidates/job/:id",
+        path: 'candidates/job/:id',
         canActivate: [EmployerGuard],
         component: JobCandidatesComponent,
-        data: { name: "View Job Applicants" }
+        data: { name: 'View Job Applicants' }
       },
       {
-        path: "candidates/job/:jobId/applicant/:applicantId",
+        path: 'candidates/job/:jobId/applicant/:applicantId',
         canActivate: [EmployerGuard],
         component: CandidateApplicantDetailComponent,
-        data: { name: "View Applicant Detail" }
+        data: { name: 'View Applicant Detail' }
       },
       {
-        path: "filtered_candidates/job/:jobId/applicant/:applicantId",
+        path: 'filtered_candidates/job/:jobId/applicant/:applicantId',
         canActivate: [EmployerGuard],
         component: FilteredCandidateApplicantDetailComponent,
-        data: { name: "View Filtered Applicant Detail" }
+        data: { name: 'View Filtered Applicant Detail' }
       },
       {
-        path: "branches",
+        path: 'branches',
         canActivate: [EmployerGuard],
         component: LocationsComponent,
-        data: { name: "company branches" },
+        data: { name: 'company branches' },
         resolve: { data: CompanyLocationResolverService }
       },
       {
-        path: "staff",
+        path: 'staff',
         canActivate: [EmployerOnlyGuard],
         component: StaffsComponent,
-        data: { name: "staff" },
+        data: { name: 'staff' },
         resolve: { data: CompanyStaffResolverService }
       },
       {
-        path: "profile",
+        path: 'profile',
         canActivate: [EmployerGuard],
         component: ProfileComponent,
-        data: { name: "company profile" }
+        data: { name: 'company profile' }
       },
       {
-        path: "issues",
+        path: 'issues',
         canActivate: [EmployerGuard],
         component: IssueListComponent,
-        data: { name: "Report Issue" }
+        data: { name: 'Report Issue' }
       },
       {
-        path: "issues/details/:id",
+        path: 'issues/details/:id',
         canActivate: [EmployerGuard],
         component: IssueDetailsComponent,
         resolve: { data: IssueDetailResolverService }
       },
       {
-        path: "plan",
+        path: 'plan',
         canActivate: [EmployerGuard],
         component: SubscriptionsComponent,
-        data: { name: "subscription plan" }
+        data: { name: 'subscription plan' },
+        resolve: { data: SubscriptionResolverService }
       },
       {
-        path: "password",
+        path: 'password',
         canActivate: [EmployerGuard],
         component: ChangePasswordComponent,
-        data: { name: "Change password" }
+        data: { name: 'Change password' }
       },
       {
-        path: "jobs/add",
+        path: 'jobs/add',
         canActivate: [EmployerGuard],
         component: AddJobComponent,
         resolve: { data: IndustryAndLocationResolverService }
       },
       {
-        path: "jobs/:id",
+        path: 'jobs/:id',
         canActivate: [EmployerGuard],
         component: AddJobComponent,
         resolve: { data: IndustryAndLocationResolverService }
       },
       {
-        path: "branches/add",
+        path: 'branches/add',
         canActivate: [EmployerGuard],
         component: AddLocationComponent,
-        data: { name: "Add Location" }
+        data: { name: 'Add Location' }
       },
       {
-        path: "branches/:id",
+        path: 'branches/:id',
         canActivate: [EmployerGuard],
         component: LocationDetailComponent,
-        data: { name: "Edit Location Detail" },
-        resolve: { data: LocationDetailResolverService}
+        data: { name: 'Edit Location Detail' },
+        resolve: { data: LocationDetailResolverService }
       }
     ]
   }
