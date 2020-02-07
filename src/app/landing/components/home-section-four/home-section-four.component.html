@@ -1,0 +1,116 @@
+<section class="category">
+    <h2 class="category__header">Search by</h2>
+    <div class="category__body">
+        <div class="tab">
+            <input class="tab__radio tab__radio--location" type="radio" name="nav" id="location" checked>
+            <label for="location" class="tab__label">Location</label>
+            <input class="tab__radio tab__radio--industry" type="radio" name="nav" id="industry">
+            <label for="industry" class="tab__label">Job type</label>
+            
+            <div class="tab__body tab__body--location">
+                <div class="list-group">
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'manila'}"
+                            class="link">Manila</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'makati'}"
+                            class="link">Makati</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'quezon'}"
+                            class="link">Quezon</a></li>
+                    </ul>
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'cavite'}"
+                            class="link">Cavite</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'laguna'}"
+                            class="link">Laguna</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'batangas'}"
+                            class="link">Batangas</a></li>
+                    </ul>
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'cebu'}"
+                            class="link">Cebu</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'negros Oriental'}"
+                            class="link">Negros Oriental</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'lapu-lapu City'}"
+                            class="link">Lapu-Lapu City</a></li>
+                    </ul>
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'davao del sur'}"
+                            class="link">Davao del sur</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'davao del norte'}"
+                            class="link">Davao del norte</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'davao Oriental'}"
+                            class="link">Davao Oriental</a></li>
+                    </ul>
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'isabela'}"
+                            class="link">Isabela</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'cagayan'}"
+                            class="link">Cagayan</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'nueva Vizcaya'}"
+                            class="link">Nueva Vizcaya</a></li>
+                    </ul>
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'baguio city'}"
+                            class="link">Baguio City</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'benguet'}"
+                            class="link">Benguet</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'kalinga'}"
+                            class="link">Kalinga</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab__body tab__body--industry">
+                <div class="list-group">
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'office staff'}"
+                            class="link">Office staff</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'driver'}"
+                            class="link">Driver</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'sales manager'}"
+                            class="link">Sales manager</a></li>
+                    </ul>
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'data encoder'}"
+                            class="link">Data encoder</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'warehouse crew'}"
+                            class="link">Warehouse crew</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'service crew'}"
+                            class="link">Service crew</a></li>
+                    </ul>
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'cashier'}"
+                            class="link">Cashier</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'factory worker'}"
+                            class="link">Factory worker</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'electrician'}"
+                            class="link">Electrician</a></li>
+                    </ul>
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'health care'}"
+                            class="link">Health care</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'accounting'}"
+                            class="link">Accounting</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'call center'}"
+                            class="link">Call center</a></li>
+                    </ul>
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'marketing'}"
+                            class="link">Marketing</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'clerk'}"
+                            class="link">Clerk</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'human resource'}"
+                            class="link">Human resource</a></li>
+                    </ul>
+                    <ul class="list">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'lonstruction'}"
+                            class="link">Construction</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'logistic'}"
+                            class="link">Logistic</a></li>
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{key: 'computer'}"
+                            class="link">Computers</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

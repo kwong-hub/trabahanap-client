@@ -1,0 +1,104 @@
+.category {
+    padding: 2rem 2.5rem;
+
+    &__header {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #42597b;
+    }
+
+    &__body {
+        margin-top: 2rem;
+    }
+
+    .tab {
+        position: relative;
+        height: 25rem;
+
+        &__label {
+            position: relative;
+            z-index: 2;
+            color: #42597b;
+            font-size: 1.8rem;
+            font-weight: 600;
+            padding: .5rem 1rem;
+            border: 1px solid #bbb;
+            background-color: #eee;
+            border-bottom: none;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            &:first-of-type {
+                margin-left: 3rem;
+            }
+            &:hover {
+                background-color: #ddd;
+            }
+        }
+
+        &__body {
+            position: absolute;
+            top: 3rem;
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding-top: 2rem;
+            visibility: hidden;
+            opacity: 0;
+            transition: all .35s;
+            border-top: 1px solid #bbb;
+        }
+
+        &__radio {
+            display: none;
+        }
+
+        &__radio--location:checked ~ .tab__body--location  {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        &__radio--location:checked + .tab__label  {
+            background-color: white;
+            border-bottom: 1px solid white;
+        }
+
+        &__radio--industry:checked ~ .tab__body--industry  {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &__radio--industry:checked + .tab__label  {
+            background-color: white;
+            border-bottom: 1px solid white;
+        }
+
+        .list-group {
+            // display: flex;
+            justify-content: space-between;
+            &:first-child {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .list {
+            float: left;
+            width: 33%;
+        }
+        
+        .list-item {
+            list-style: none;
+            margin-bottom: .5rem;
+        }
+
+        .link {
+            text-decoration: none;
+            color: #1e82c4;
+            font-size: 1.6rem;
+
+            &:hover, &:active {
+                text-decoration: underline;
+            }
+        }
+    }
+}
