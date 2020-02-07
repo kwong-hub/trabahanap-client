@@ -52,6 +52,7 @@ export class AuthLoginComponent implements OnInit {
     private authService: AuthService
   ) {
     if (this.authenticationService.currentUserValue) {
+      
       this.route.navigate([`/${this.authenticationService.currentUserValue.role.toLowerCase()}`]);
     }
   }

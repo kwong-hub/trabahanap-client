@@ -13,6 +13,7 @@ export class CompanyLocationResolverService {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
+  
     return this.employerService.getCompanyLocations();
   }
 }
