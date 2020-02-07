@@ -54,6 +54,9 @@ export class SubscriptionsComponent implements OnInit {
   }
 
   expressClicked(event) {
+    if (this.subscription && this.subscription.type == 'PREMIUM') {
+      return;
+    }
     this.expressActive = true;
     this.premiumActive = false;
   }
