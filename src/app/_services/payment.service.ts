@@ -12,4 +12,8 @@ export class PaymentService {
   getSubscription(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/employer/subscription`);
   }
+
+  puchasePlan(data): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/employer/subscription`, data);
+  }
 }
