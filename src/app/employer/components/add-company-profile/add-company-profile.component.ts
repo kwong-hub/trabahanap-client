@@ -83,8 +83,10 @@ export class AddCompanyProfileComponent implements OnInit {
     this.route.data.subscribe(res => {
       let data = res.data;
       if (data.success) {
-        this.inputType = data.employer.company_profile;
-        this.companyProfile=data.employer.company_profile ;
+        if(data.employer.company_profile){
+         // this.inputType = data.employer.company_profile;
+          this.companyProfile=data.employer.company_profile ;
+        }
       } else {
         return false; 
       }
@@ -98,7 +100,7 @@ export class AddCompanyProfileComponent implements OnInit {
     this.getCountries();
     // this.getCities();
 
-   // this.inputType = this.authService.currentUserValue.company_profile ? 'text' : 'file';
+    this.inputType = this.companyProfile ? 'text' : 'file';
 
     this.addCompanyProfileForm = this.formBuilder.group({
       zipcode: ['', [Validators.min(10000), Validators.max(99999)]],

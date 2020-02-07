@@ -19,7 +19,7 @@ export class AuthenticationService {
       let decodedToken = jwt_decode(this.token);
       this.currentUserSubject = new BehaviorSubject<any>({ ...decodedToken, id: decodedToken.sub, token: this.token });
     } else {
-      this.currentUserSubject = new BehaviorSubject<any>({});
+      this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('token')));
     }
     console.log('loop')
     this.currentUser = this.currentUserSubject.asObservable();

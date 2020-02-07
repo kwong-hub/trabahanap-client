@@ -16,16 +16,18 @@ export class ApplicantGuard implements CanActivate {
         if (currentUser && currentUser.role === 'APPLICANT') {
             // @ts-ignore
           
-            this.authenticationService.getUserByToken(currentUser.token).subscribe(
+            return !!this.authenticationService.getUserByToken(currentUser.token).subscribe(
                 data => {
                    // console.log(data.user);
                     this.authenticationService.currentUserSubject.next({ ...data.user, token: currentUser.token })
                     if (route.routeConfig.path !== "profile" && !data.user.hasFinishedProfile) {
                         this.router.navigate(['/applicant/profile']);
+                        return true;
                     }
+                    return true;
                 });
            
-            return true;
+           
         } else {
             return false;
         }
