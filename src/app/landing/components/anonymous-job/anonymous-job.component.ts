@@ -3,6 +3,7 @@ import { Job } from '@app/_models/Job';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { Router } from '@angular/router';
 import { JobService } from '@app/_services/jobs.service';
+import { faToolbox, faClock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-anonymous-job',
@@ -10,6 +11,9 @@ import { JobService } from '@app/_services/jobs.service';
   styleUrls: ['./anonymous-job.component.scss']
 })
 export class AnonymousJobComponent implements OnInit {
+
+  faToolbox = faToolbox;
+  faClock = faClock;
   @Input() Job: Job;
   @Input() isBookMarked: boolean;
   bookmarked: boolean = false;
@@ -22,7 +26,9 @@ export class AnonymousJobComponent implements OnInit {
     this.bookmarked = this.isBookMarked;
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
-    this.Job = {...this.Job, jobTitle: this.Job.jobTitle.match(/.{1,40}/g)[0]}
+    let desc = this.Job.jobDescription.slice(0,130);
+    this.Job.jobDescription.length > 130 ? desc = desc.concat(' ...') : desc;
+    this.Job = { ...this.Job, jobTitle: this.Job.jobTitle.match(/.{1,40}/g)[0], jobDescription: desc }
   }
 
   bookmarkJob(event) {

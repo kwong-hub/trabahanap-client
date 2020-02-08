@@ -22,12 +22,12 @@
     </div>
 
     <div class="job__left--bottom">
-      <div>
+      <!-- <div>
         <span class="job__tag"><i class="job__tag-icon fa fa-tag"></i> Tags</span>
-      </div>
+      </div> -->
       <div class="job__tag-elements">
-        <div class="job__tag-element">{{ Job.employmentType }}</div>
-        <div class="job__tag-element">{{ Job.industry }}</div>
+        <div class="job__tag-element"><fa-icon class="icon" [icon]="faToolbox"></fa-icon> {{ Job.employmentType }}</div>
+        <div class="job__tag-element"><fa-icon class="icon" [icon]="faClock"></fa-icon> {{ Job.industry }}</div>
       </div>
     </div>
   </div>
