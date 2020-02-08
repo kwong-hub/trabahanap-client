@@ -36,6 +36,7 @@ import { CompanyLocationResolverService } from '@app/_resolvers/employer-resolve
 import { CompanyStaffResolverService } from '@app/_resolvers/employer-resolvers/company-staff-resolver.service';
 import { LocationDetailResolverService } from '@app/_resolvers/employer-resolvers/location-detail-resolver.service';
 import { HeadLocationCheckResolverService } from '@app/_resolvers/employer-resolvers/head-location-check-resolver.service';
+import { ApplicantDetailResolverService } from '@app/_resolvers/employer-resolvers/applicant-detail-resolver.service';
 
 const routes: Routes = [
   {
@@ -102,13 +103,15 @@ const routes: Routes = [
         path: 'candidates/job/:jobId/applicant/:applicantId',
         canActivate: [EmployerGuard],
         component: CandidateApplicantDetailComponent,
-        data: { name: 'View Applicant Detail' }
+        data: { name: 'View Applicant Detail' },
+        resolve: { subs: ApplicantDetailResolverService }
       },
       {
         path: 'filtered_candidates/job/:jobId/applicant/:applicantId',
         canActivate: [EmployerGuard],
         component: FilteredCandidateApplicantDetailComponent,
-        data: { name: 'View Filtered Applicant Detail' }
+        data: { name: 'View Filtered Applicant Detail' },
+        resolve: { subs: ApplicantDetailResolverService }
       },
       {
         path: 'branches',

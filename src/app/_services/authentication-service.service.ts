@@ -21,7 +21,7 @@ export class AuthenticationService {
     } else {
       this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('token')));
     }
-    console.log('loop')
+    // console.log('loop')
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -58,7 +58,7 @@ export class AuthenticationService {
     return this.http.get<any>(`${environment.apiUrl}/users/${decodedToken.sub}`)
       .pipe(map(data => {
 
-        console.log(data);
+        // console.log(data);
         // login successful if there's a jwt token in the response
         if (data.success) {
           if (data.user.token) {

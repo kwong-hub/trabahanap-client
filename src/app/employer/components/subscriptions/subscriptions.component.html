@@ -18,7 +18,11 @@
       </div>
       <div (click)="onUpgradeClick($event)" class="th-btn th-btn--primary current_subscription__upgrade">Upgrade</div>
     </div>
+    <h4 class="subscription__msg" *ngIf="msg && upgradeActive" > {{ msg }}</h4>
+      
     <div *ngIf="upgradeActive" class="subscription__type_options">
+
+      
       <div
         (click)="premiumClicked($event)"
         class="subscription__type"

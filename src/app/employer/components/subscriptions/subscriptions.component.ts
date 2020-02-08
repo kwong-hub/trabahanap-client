@@ -3,6 +3,7 @@ import { PaymentService } from './../../../_services/payment.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ThrowStmt } from '@angular/compiler';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-subscriptions',
@@ -18,16 +19,18 @@ export class SubscriptionsComponent implements OnInit {
   purchaseSuccess = false;
   currentUser: any;
   role: any;
+  msg;
 
   constructor(
     private route: ActivatedRoute,
     private paymentService: PaymentService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private _location: Location,
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
     this.role = this.currentUser.role.toLowerCase();
     this.route.data.subscribe(res => {
-      // console.log(res.data);
+      console.log(res)
       if (res.data.success) {
         this.subscription = res.data.subscription;
         this.subscription.expired =
@@ -39,22 +42,29 @@ export class SubscriptionsComponent implements OnInit {
                 .replace('T', ' ')) ||
           (this.subscription.type == 'EXPRESS' && this.subscription.points <= 0);
         this.hasSubscription = true;
+        this.msg = false;
       } else {
+        this.msg = true;
         // console.log('does not have subscripton');
         this.hasSubscription = false;
         this.upgradeActive = true;
       }
     });
+
+    this.msg=this.route.snapshot.paramMap.get('data');
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+    //console.log(this._location.back(),'loc')
+  }
 
   onUpgradeClick(event) {
     this.upgradeActive = true;
   }
 
   expressClicked(event) {
-    if (this.subscription && this.subscription.type == 'PREMIUM') {
+    if (this.subscription && this.subscription.type == 'PREMIUM' && !this.subscription.expired) {
       return;
     }
     this.expressActive = true;
@@ -70,6 +80,7 @@ export class SubscriptionsComponent implements OnInit {
     this.purchaseSuccess = false;
     this.paymentService.puchasePlan({ type, name }).subscribe(res => {
       if (res.success) {
+        this.msg =false;
         this.purchaseSuccess = true;
         this.subscription = res.subscription;
         this.upgradeActive = false;

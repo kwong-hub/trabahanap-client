@@ -26,16 +26,28 @@
         </button>
       </div>
     </div>
+
+    <div class="applicant-detail__middle">
+        <div class="applicant-detail__description">
+          <div class="applicant-detail__description-header">Self Description</div>
+          <p class="applicant-detail__description-content">
+            {{ applicant.selfDescription }}
+          </p>
+        </div>
+      </div>
     <div class="applicant-detail__bottom">
       <div class="applicant-detail__download">
         Download Applicant CV
-        <a *ngIf="!applicant?.cv" (click)="generatePdf()" class="applicant-detail__download-cv"
+        <a *ngIf="!applicant?.cv" (click)="checkSubscription()" class="applicant-detail__download-cv"
           ><i class="fas fa-download"></i
         ></a>
-        <a *ngIf="applicant?.cv" [href]="applicant.cv" target="_blank" class="applicant-detail__download-cv"
+        <a *ngIf="applicant?.cv"  (click)="checkSubscription()"  [href]="applicant.cv" target="_blank" class="applicant-detail__download-cv"
           ><i class="fas fa-download"></i
         ></a>
       </div>
     </div>
   </div>
+  <app-shared-confirm-model [isModalOpen]="toggleConfirmModal" headerText="Payment Confirmations"
+  bodyText="Are you sure you want to make this payment to download cv"
+  (confirmed)="confirmAction()" (cancled)="cancelAction()"></app-shared-confirm-model> 
 </div>

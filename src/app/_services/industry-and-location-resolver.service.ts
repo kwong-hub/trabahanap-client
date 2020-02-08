@@ -19,7 +19,7 @@ export class IndustryAndLocationResolverService implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
     const data = {};
     //ts-ignore
-    return this.locationService.getCompanyLocations(this.authService.currentUserValue.company_profile.id).pipe(
+    return this.locationService.getCompanyLocations().pipe(
       catchError(error => {
         return EMPTY;
       }),

@@ -329,7 +329,7 @@ export class AddApplicantProfileComponent implements OnInit {
     this.applicantService.editApplicantProfile(this.formData, this.applicantProfile.id).subscribe(
       data => {
         this.loading = false;
-        console.log(data)
+        // console.log(data)
         if (data.success) {
           this.success = true;
           this.applicantProfile = data.applicantProfile;

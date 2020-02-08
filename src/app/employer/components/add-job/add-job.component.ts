@@ -48,7 +48,6 @@ export class AddJobComponent implements OnInit {
   //   {name: 'Degree', value: 'Deploma'}
   // ]
   employmentType = [
-    { name: 'All', value: '' },
     { name: 'Part Time', value: 'Part-Time' },
     { name: 'Full Time', value: 'Full-Time' },
     { name: 'Project Based', value: 'Project-Based' },
