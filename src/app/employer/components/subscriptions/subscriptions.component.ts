@@ -53,7 +53,7 @@ export class SubscriptionsComponent implements OnInit {
   }
 
   expressClicked(event) {
-    if (this.subscription && this.subscription.type == 'PREMIUM') {
+    if (this.subscription && this.subscription.type == 'PREMIUM' && !this.subscription.expired) {
       return;
     }
     this.expressActive = true;

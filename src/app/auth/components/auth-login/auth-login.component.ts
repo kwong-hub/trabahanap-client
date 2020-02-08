@@ -52,7 +52,6 @@ export class AuthLoginComponent implements OnInit {
     private authService: AuthService
   ) {
     if (this.authenticationService.currentUserValue) {
-      
       this.route.navigate([`/${this.authenticationService.currentUserValue.role.toLowerCase()}`]);
     }
   }
@@ -88,7 +87,7 @@ export class AuthLoginComponent implements OnInit {
     this.authService.authState.subscribe(user => {
       if (user && user.authToken && this.login) {
         if (!user.email) {
-          this.error = 'Single Sign On has failed, please sign in manually.';
+          this.error = 'Single Sign On has failed, please sign in manually';
           return;
         }
         if (user.facebook) {
