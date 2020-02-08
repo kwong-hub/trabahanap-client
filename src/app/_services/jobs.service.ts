@@ -4,10 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, pipe } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
+import { AuthenticationService } from './authentication-service.service';
 
 @Injectable()
 export class JobService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private authService:AuthenticationService) {}
 
   getAllJobs(page): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/search?page=${page}`);
@@ -22,7 +23,16 @@ export class JobService {
   }
 
   getJobById(id): Observable<any> {
+    let currentUser = this.authService.currentUserValue;
     return this.http.get<any>(`${environment.apiUrl}/jobs/${id}`);
+    // if(!currentUser.firstName){
+    //   return this.http.get<any>(`${environment.apiUrl}/jobs/${id}`);
+    // }else if(currentUser.firstName && currentUser.hasFinishedProfile){
+    //   return this.http.get<any>(`${environment.apiUrl}/applicant/jobs/${id}`);
+    // }else{
+      
+
+    // }
   }
 
   getJobDetailForApplicant(id): Observable<any> {

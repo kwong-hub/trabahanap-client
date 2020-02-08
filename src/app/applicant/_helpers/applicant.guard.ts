@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ApplicantGuard implements CanActivate {
@@ -16,7 +17,7 @@ export class ApplicantGuard implements CanActivate {
         if (currentUser && currentUser.role === 'APPLICANT') {
             // @ts-ignore
             if (!currentUser.firstName) {
-                return !!this.authenticationService.getUserByToken(currentUser.token).subscribe(
+                return this.authenticationService.getUserByToken(currentUser.token).pipe(map(
                     data => {
                         // console.log(data.user);
                         this.authenticationService.currentUserSubject.next({ ...data.user, token: currentUser.token })
@@ -25,7 +26,7 @@ export class ApplicantGuard implements CanActivate {
                             return true;
                         }
                         return true;
-                    });
+                    }));
             } else {
                 if (route.routeConfig.path !== "profile" && !currentUser.hasFinishedProfile) {
                     this.router.navigate(['/applicant/profile']);

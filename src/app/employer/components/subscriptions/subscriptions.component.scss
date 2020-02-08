@@ -93,6 +93,13 @@
     transition: all 0.1s;
   }
 
+  &__msg{
+    font-size: 2rem;
+    color: #aaa;
+    padding: 0 1rem 5rem 0px;
+    display: block;
+  }
+
   &__partition_text {
     font-size: 1.2rem;
     top: -1.1rem;

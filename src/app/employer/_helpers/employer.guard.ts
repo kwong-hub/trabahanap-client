@@ -3,6 +3,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { EmployerService } from '@app/_services/employer.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class EmployerGuard implements CanActivate {
@@ -12,7 +13,7 @@ export class EmployerGuard implements CanActivate {
     let currentUser = this.authenticationService.currentUserValue;
     if (currentUser.role === 'EMPLOYER' || currentUser.role === 'STAFFER') {
       if (!currentUser.firstName) {
-        return !!this.authenticationService.getUserByToken(currentUser.token).subscribe(
+        return this.authenticationService.getUserByToken(currentUser.token).pipe(map(
           data => {
             this.authenticationService.currentUserSubject.next({ ...data.user, token: currentUser.token });
             // @ts-ignore
@@ -36,7 +37,7 @@ export class EmployerGuard implements CanActivate {
             }
             // authorised so return true
             return true;
-          });
+          }));
       } else {
         // @ts-ignore
         if (route.routeConfig.path !== 'profile' && !currentUser.hasFinishedProfile) {

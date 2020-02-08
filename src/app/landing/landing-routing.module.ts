@@ -13,6 +13,7 @@ import { SimpleJobSearchResolveService } from '@app/_resolvers/simple-job-search
 import { JobDetailResolverService } from '@app/_resolvers/job-detail-resolver.service';
 import { FeatureJobListComponent } from './components/feature-job-list/feature-job-list.component';
 import { TermsComponent } from './components/terms/terms.component';
+import { LandingGuard } from './_helpers/landing.guard';
 
 const routes: Routes = [
   {
@@ -24,21 +25,25 @@ const routes: Routes = [
       { path: 'jobs/near', component: LandingNearJobsComponent },
       {
         path: 'jobs/details/:id',
+        canActivate: [LandingGuard],
         component: LandingJobDetailComponent,
         resolve: { data: JobDetailResolverService }
       },
       {
         path: 'search/jobs',
+        canActivate: [LandingGuard],
         component: LandingJobListComponent,
         resolve: { jsRes: SimpleJobSearchResolveService }
       },
       {
         path: 'search/jobs/details/:id',
+        canActivate: [LandingGuard],
         component: LandingJobDetailComponent,
         resolve: { data: JobDetailResolverService }
       },
       {
         path: 'featured/jobs',
+        canActivate: [LandingGuard],
         component: FeatureJobListComponent,
         resolve: { data: SimpleJobSearchResolveService }
       },

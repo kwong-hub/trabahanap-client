@@ -26,6 +26,15 @@
         </button>
       </div>
     </div>
+
+    <div class="applicant-detail__middle">
+        <div class="applicant-detail__description">
+          <div class="applicant-detail__description-header">Self Description</div>
+          <p class="applicant-detail__description-content">
+            {{ applicant.selfDescription }}
+          </p>
+        </div>
+      </div>
     <div class="applicant-detail__bottom">
       <div class="applicant-detail__download">
         Download Applicant CV
@@ -39,6 +48,6 @@
     </div>
   </div>
   <app-shared-confirm-model [isModalOpen]="toggleConfirmModal" headerText="Payment Confirmations"
-  bodyText="You need to pay to show cv,Are you sure you want to make this payment?"
+  bodyText="Are you sure you want to make this payment to download cv"
   (confirmed)="confirmAction()" (cancled)="cancelAction()"></app-shared-confirm-model> 
 </div>

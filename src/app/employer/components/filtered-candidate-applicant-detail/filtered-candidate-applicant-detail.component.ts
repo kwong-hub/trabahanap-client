@@ -9,6 +9,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { generateResume } from '../../_helpers/generate-applicant-resume';
 import { PaymentService } from '@app/_services/payment.service';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
 
 @Component({
   selector: 'app-filtered-candidate-applicant-detail',
@@ -22,20 +23,29 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
   applicantId;
   subscription: any;
   toggleConfirmModal: boolean;
+  currentUser: import("/home/tiltek01/Desktop/trabahanap-frontend-v4/src/app/_models/User").User;
+  role: string;
 
   constructor(
     private route: ActivatedRoute,
     private employerService: EmployerService,
     private jobService: JobService,
-    private router:Router,
-    private paymentService:PaymentService
+    private router: Router,
+    private paymentService: PaymentService,
+    private authenticationService: AuthenticationService
   ) {
+    this.currentUser = this.authenticationService.currentUserValue;
+    this.role = this.currentUser.role.toLowerCase();
+
     this.route.data.subscribe(res => {
       let subscriptons = res.subs;
-      if (subscriptons.success) {
+      if (subscriptons.success && res.subs.subscription) {
         this.subscription = subscriptons.subscription;
+      } else {
+        this.router.navigate([`/${this.role}/plan`, { data: "Please buy one of the subscriptions plan to start downloading applicant profile." }]);
       }
     });
+
   }
 
   ngOnInit() {
@@ -80,15 +90,15 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
   checkSubscription() {
     let today = Date.now();
     if (this.subscription) {
-      if (this.subscription.type == "PERMIUM" && Date.parse(this.subscription.expirationDate) >= today) {
+      if (this.subscription.type == "PREMIUM" && Date.parse(this.subscription.expirationDate) >= today) {
         this.toggleConfirmModal = true;
       }else if(this.subscription.type == "EXPRESS" && this.subscription.points >= 30){
         this.toggleConfirmModal =true;
       }else{
-        this.router.navigate([`/employer/plan`]);
+        this.router.navigate([`/${this.role}/plan`,{data:"Please Upgrade your subscriptions plan to start downloading applicant profile." }]);
       }
     } else {
-      this.router.navigate([`/employer/plan`]);
+      this.router.navigate([`/${this.role}/plan`,{data:"Please Upgrade your subscriptions plan to start downloading applicant profile." }]);
     }
   }
 
@@ -102,6 +112,10 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
       }
     );
    
+  }
+
+  cancelAction() {
+    this.toggleConfirmModal = false;
   }
 
 }
