@@ -33,6 +33,7 @@ import { TermsComponent } from './components/terms/terms.component';
 import { RouterModule } from '@angular/router';
 import { PipesModule } from '@app/pipes/pipes.module';
 import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
+import { HomeSectionFourComponent } from './components/home-section-four/home-section-four.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { CustomNotificationComponent } from './components/custom-notification/cu
     PrivacyComponent,
     AboutusComponent,
     TermsComponent,
-    CustomNotificationComponent
+    CustomNotificationComponent,
+    HomeSectionFourComponent
   ],
   imports: [
     CommonModule,
