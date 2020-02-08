@@ -23,7 +23,9 @@ export class JobComponent implements OnInit {
     this.bookmarked = this.isBookMarked;
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
-    this.Job = {...this.Job, jobTitle: this.Job.jobTitle.match(/.{1,40}/g)[0]}
+    let desc = this.Job.jobDescription.slice(0,130);
+    this.Job.jobDescription.length > 130 ? desc = desc.concat('...') : desc;
+    this.Job = { ...this.Job, jobTitle: this.Job.jobTitle.match(/.{1,40}/g)[0], jobDescription: desc };
   }
 
   bookmarkJob(event) {
