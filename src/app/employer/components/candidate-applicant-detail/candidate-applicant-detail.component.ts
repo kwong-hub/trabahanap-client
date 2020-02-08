@@ -8,6 +8,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { generateResume } from '../../_helpers/generate-applicant-resume';
+import { PaymentService } from '@app/_services/payment.service';
 
 @Component({
   selector: 'app-candidate-applicant-detail',
@@ -28,17 +29,24 @@ export class CandidateApplicantDetailComponent implements OnInit {
     private employerService: EmployerService,
     private jobService: JobService,
     private router: Router,
+    private paymentService: PaymentService
   ) {
     this.route.data.subscribe(res => {
       let subscriptons = res.subs;
-      if (subscriptons.success) {
+      if (subscriptons.success && res.subs.subscription) {
+        // console.log(res.subs)
         this.subscription = subscriptons.subscription;
+       
+      }else{
+        this.router.navigate([`/employer/plan`]);
       }
     });
 
   }
 
   ngOnInit() {
+
+    
     this.route.paramMap.subscribe(
       success => {
         this.jobId = success.get('jobId');
@@ -106,9 +114,15 @@ export class CandidateApplicantDetailComponent implements OnInit {
   }
 
   checkSubscription() {
-    if (this.subscription && this.subscription.points > 0 ) {
-      this.toggleConfirmModal = true;
-      //this.router.navigate([`employer/plan`]);
+    let today = Date.now();
+    if (this.subscription) {
+      if (this.subscription.type == "PERMIUM" && Date.parse(this.subscription.expirationDate) >= today) {
+        this.toggleConfirmModal = true;
+      }else if(this.subscription.type == "EXPRESS" && this.subscription.points >= 30){
+        this.toggleConfirmModal =true;
+      }else{
+        this.router.navigate([`/employer/plan`]);
+      }
     } else {
       this.router.navigate([`/employer/plan`]);
     }
@@ -116,7 +130,14 @@ export class CandidateApplicantDetailComponent implements OnInit {
 
   confirmAction() {
     this.toggleConfirmModal = false;
-    this.generatePdf();
+    const purchased = this.paymentService.purchaseCV(this.subscription.id).subscribe(
+      data => {
+        if (data.success) {   
+          this.generatePdf();
+        }
+      }
+    );
+   
   }
 
   cancelAction() {

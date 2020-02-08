@@ -12,4 +12,8 @@ export class PaymentService {
   getSubscription(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/employer/subscription`);
   }
+
+  purchaseCV(id):Observable<any>{
+    return this.http.post(`${environment.apiUrl}/employer/subscription/purchase/${id}`,{});
+  }
 }

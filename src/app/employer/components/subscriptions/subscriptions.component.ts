@@ -12,7 +12,7 @@ export class SubscriptionsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {
     this.route.data.subscribe(res => {
-      console.log(res.data);
+      //console.log(res.data);
       if (res.data.success) {
         this.subscription = res.data.subscription;
         this.hasSubscription = true;

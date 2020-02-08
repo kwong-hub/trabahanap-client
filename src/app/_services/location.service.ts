@@ -15,10 +15,8 @@ export class LocationService {
     private authenticationService: AuthenticationService
   ) {}
 
-  getCompanyLocations(companyProfileId) {
-    return this.http.get<any>(
-      `${environment.apiUrl}/employer/locations/${companyProfileId}`
-    );
+  getCompanyLocations() {
+    return this.http.get<any>(`${environment.apiUrl}/employer/locations`);
   }
 
   getAllCities(): Observable<any> {

@@ -38,4 +38,7 @@
       </div>
     </div>
   </div>
+  <app-shared-confirm-model [isModalOpen]="toggleConfirmModal" headerText="Payment Confirmations"
+  bodyText="You need to pay to show cv,Are you sure you want to make this payment?"
+  (confirmed)="confirmAction()" (cancled)="cancelAction()"></app-shared-confirm-model> 
 </div>
