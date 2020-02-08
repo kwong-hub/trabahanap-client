@@ -15,19 +15,27 @@ export class ApplicantGuard implements CanActivate {
         const currentUser = this.authenticationService.currentUserValue;
         if (currentUser && currentUser.role === 'APPLICANT') {
             // @ts-ignore
-          
-            return !!this.authenticationService.getUserByToken(currentUser.token).subscribe(
-                data => {
-                   // console.log(data.user);
-                    this.authenticationService.currentUserSubject.next({ ...data.user, token: currentUser.token })
-                    if (route.routeConfig.path !== "profile" && !data.user.hasFinishedProfile) {
-                        this.router.navigate(['/applicant/profile']);
+            if (!currentUser.firstName) {
+                return !!this.authenticationService.getUserByToken(currentUser.token).subscribe(
+                    data => {
+                        // console.log(data.user);
+                        this.authenticationService.currentUserSubject.next({ ...data.user, token: currentUser.token })
+                        if (route.routeConfig.path !== "profile" && !data.user.hasFinishedProfile) {
+                            this.router.navigate(['/applicant/profile']);
+                            return true;
+                        }
                         return true;
-                    }
+                    });
+            } else {
+                if (route.routeConfig.path !== "profile" && !currentUser.hasFinishedProfile) {
+                    this.router.navigate(['/applicant/profile']);
                     return true;
-                });
-           
-           
+                }
+                return true;
+            }
+
+
+
         } else {
             return false;
         }

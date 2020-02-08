@@ -33,6 +33,7 @@ export class CandidateApplicantDetailComponent implements OnInit {
   ) {
     this.route.data.subscribe(res => {
       let subscriptons = res.subs;
+       console.log(res.subs)
       if (subscriptons.success && res.subs.subscription) {
         // console.log(res.subs)
         this.subscription = subscriptons.subscription;
@@ -116,7 +117,7 @@ export class CandidateApplicantDetailComponent implements OnInit {
   checkSubscription() {
     let today = Date.now();
     if (this.subscription) {
-      if (this.subscription.type == "PERMIUM" && Date.parse(this.subscription.expirationDate) >= today) {
+      if (this.subscription.type == "PREMIUM" && Date.parse(this.subscription.expirationDate) >= today) {
         this.toggleConfirmModal = true;
       }else if(this.subscription.type == "EXPRESS" && this.subscription.points >= 30){
         this.toggleConfirmModal =true;

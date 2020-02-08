@@ -53,7 +53,7 @@ export class ApplicationsComponent implements OnInit {
       data => {
         this.jobs = data.jobs.rows;
         this.pager = data.jobs.pager;
-        console.log(this.jobs)
+        // console.log(this.jobs)
       },
       error => console.log(error)
     );

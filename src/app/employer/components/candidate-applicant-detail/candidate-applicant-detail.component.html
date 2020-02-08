@@ -50,9 +50,6 @@
         Download Applicant CV
         <a (click)="checkSubscription()" class="applicant-detail__download-cv"
         ><i class="fas fa-download"></i></a>
-        <a *ngIf="!applicant?.cv && subscripton && subscripton.length != 0"  (click)="generatePdf()" class="applicant-detail__download-cv"
-          ><i class="fas fa-download"></i
-        ></a>
         <a *ngIf="applicant?.cv && subscripton && subscripton.length != 0" [href]="applicant.cv" target="_blank" class="applicant-detail__download-cv"
           ><i class="fas fa-download"></i
         ></a>
