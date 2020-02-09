@@ -14,11 +14,10 @@ export class LandingGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let currentUser = this.authenticationService.currentUserValue;
-    if (!currentUser.firstName) {
+    if (currentUser && !currentUser.firstName) {
       return this.authenticationService.getUserByToken(currentUser.token).pipe(map(
         data => {
           this.authenticationService.currentUserSubject.next({ ...data.user, token: currentUser.token })
-          console.log(currentUser,'curr')
           return true;
         }
       )
