@@ -10,6 +10,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { generateResume } from '../../_helpers/generate-applicant-resume';
 import { PaymentService } from '@app/_services/payment.service';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { User } from '@app/_models/User';
 
 @Component({
   selector: 'app-filtered-candidate-applicant-detail',

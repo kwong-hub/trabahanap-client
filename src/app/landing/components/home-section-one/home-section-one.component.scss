@@ -10,7 +10,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("../../../../assets/img/Mobile-header.png");
+  background-image: url("../../../../assets/img/Mobile-header-2.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -236,7 +236,7 @@
 
 @media only screen and (min-width: 650px) {
   .search {
-    background-image: url("../../../../assets/img/Header.png");
+    background-image: url("../../../../assets/img/Header-2.jpg");
     background-position: center;
 
     .form {
@@ -250,8 +250,8 @@
         right: 0;
         transform: translateY(-50%);
         display: inline-block;
-        height: 3.8rem;
-        border-left: 2px solid rgba(255, 99, 71, 0.8);
+        height: 3.5rem;
+        border-left: 2px solid #ce2127;
       }
 
       &__group {

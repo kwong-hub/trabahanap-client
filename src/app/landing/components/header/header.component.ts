@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   faCaretDown = faCaretDown;
   faHome = faHome;
   currentUser;
+  loggedOut: boolean;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -77,5 +78,6 @@ export class HeaderComponent implements OnInit {
     this.drop = !this.drop;
     this.authenticationService.logout();
     this.router.navigate(["/"]);
+    this.loggedOut = true;
   }
 }

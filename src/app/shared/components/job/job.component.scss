@@ -26,12 +26,13 @@
     &--middle {
       display: flex;
       flex-direction: column;
-      padding: 1.5rem 0rem;
+      padding: 1.5rem 0rem 0;
     }
 
     &--bottom {
       display: flex;
       align-items: center;
+      justify-content: center;
     }
   }
 
@@ -39,7 +40,7 @@
     display: flex;
     flex-direction: column-reverse;
     width: 100%;
-    margin: 1.5rem 0rem;
+    // margin: 1.5rem 0rem;
   }
 
   &__detail-button {
@@ -58,7 +59,7 @@
   }
 
   &__left--top__container {
-    margin: 1rem 2rem;
+    margin: 1rem 1.5rem;
   }
 
   &__title {
@@ -78,20 +79,9 @@
     margin-bottom: 1rem;
     font-size: 1.5rem;
     color: #555;
-    height: 6rem;
+    // height: 6rem;
     overflow: hidden;
     position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 150px;
-      height: 2rem;
-      text-align: center;
-      background: linear-gradient(to right, rgba(0, 0, 0, 0), #fff 50%);
-    }
   }
 
   &__salary-range {
@@ -116,14 +106,23 @@
     align-items: center;
     color: #42597b;
     background-color: white;
-    padding: 0.5rem 1.2rem;
     border-radius: 1.5rem;
-    border: 1px solid #42597b;
+    // border: 1px solid #42597b;
     text-transform: uppercase;
     font-weight: 700;
-    margin: 3px 0.3rem;
-    font-size: 1rem;
+    margin: 3px 1.5rem;
+    font-size: 1.3rem;
     white-space: nowrap;
+
+    &:not(:first-child) {
+      padding: 0.5rem 1.2rem;
+    }
+
+    .icon {
+      margin-right: .5rem;
+      font-size: 1.5rem;
+      color: #d64e4e;
+    }
   }
 
   &__company-verified {
@@ -199,8 +198,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    padding: 0.5rem 1.5rem;
-    margin-top: 1rem;
+    // margin-top: 1rem;
     flex-wrap: wrap;
   }
 
@@ -228,6 +226,10 @@
 
     &__left {
       width: 70%;
+
+      &--bottom {
+        justify-content: flex-start;
+      }
     }
 
     &__right {
@@ -242,6 +244,7 @@
 
     &__general-info {
       flex-direction: column;
+      padding: 0.5rem 1.5rem;
       align-items: flex-start;
     }
 
@@ -253,6 +256,10 @@
 
     &__description {
       width: 80%;
+    }
+
+    &__tag-element {
+      margin: 3px 0.3rem;
     }
   }
 }
