@@ -24,7 +24,7 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
   applicantId;
   subscription: any;
   toggleConfirmModal: boolean;
-  currentUser: User;
+  currentUser:any;
   role: string;
 
   constructor(

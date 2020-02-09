@@ -10,7 +10,9 @@
   // box-shadow: 0 0 .5rem rgba(black, .2);
   border-radius: 3px;
   // border: 1px solid rgba(black, 0.2);
-
+  &:hover, &:active {
+    box-shadow: 0 2px .5rem .2rem rgba(black, .2);
+  }
   &__left {
     width: 100%;
 
