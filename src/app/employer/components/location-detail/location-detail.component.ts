@@ -43,7 +43,8 @@ export class LocationDetailComponent implements OnInit {
       })
     ],
     zoom: 20,
-    center: latLng(14.6042, 120.9822)
+    center: latLng(14.6042, 120.9822),
+    attributionControl: false
   };
   latitude: any;
   longitude: any;

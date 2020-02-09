@@ -6,7 +6,7 @@
 
       <div (click)="onLicensePreview($event)"  class="preview">
         <i class="preview__icon far fa-file-pdf"></i>
-        <span class="preview__text">  Business License</span>
+        <span class="preview__text">Business License</span>
       </div>
 
       <div
@@ -30,16 +30,18 @@
         <div class="detail">
           <div class="detail__label">Website</div>
           <div class="detail__value">
-            <a target="_blank" [href]="company.websiteURL" class="text">{{
-              company.websiteURL
-            }}</a>
+            <a *ngIf="company.websiteURL" target="_blank" [href]="company.websiteURL" class="text">
+              {{company.websiteURL}}
+            </a>
+            <p *ngIf="!company.websiteURL" class="text text--noLocation">Not Provided</p>
           </div>
         </div>
 
         <div class="detail">
           <div class="detail__label">Address</div>
           <div class="detail__value">
-            <p class="text">{{ company.companyAddress }}</p>
+            <p *ngIf="company.companyAddress" class="text">{{ company.companyAddress }}</p>
+            <p *ngIf="!company.companyAddress" class="text text--noLocation">Not Provided</p>
           </div>
         </div>
       </div>
@@ -48,7 +50,8 @@
         <div class="detail">
           <div class="detail__label">Description</div>
           <div class="detail__value">
-            <p class="text">{{ company.companyDescription }}</p>
+            <p *ngIf="company.companyDescription" class="text">{{ company.companyDescription }}</p>
+            <p *ngIf="!company.companyDescription" class="text text--noLocation">Not Provided</p>
           </div>
         </div>
       </div>
@@ -57,14 +60,16 @@
         <div class="detail">
           <div class="detail__label">Contact Person</div>
           <div class="detail__value">
-            <p class="text">{{ company.contactPerson }}</p>
+            <p *ngIf="company.contactPerson" class="text">{{ company.contactPerson }}</p>
+            <p *ngIf="!company.contactPerson" class="text text--noLocation">Not Provided</p>
           </div>
         </div>
 
         <div class="detail">
           <div class="detail__label">Contact Phone Number</div>
           <div class="detail__value">
-            <p class="text">{{ company.contactNumber }}</p>
+            <p *ngIf="company.contactNumber" class="text">{{ company.contactNumber }}</p>
+            <p *ngIf="!company.contactNumber" class="text text--noLocation">Not Provided</p>
           </div>
         </div>
       </div>
@@ -73,14 +78,16 @@
         <div class="detail">
           <div class="detail__label">Business License Number</div>
           <div class="detail__value">
-            <p class="text">{{ company.businessLicenseNumber }}</p>
+            <p *ngIf="company.businessLicenseNumber" class="text">{{ company.businessLicenseNumber }}</p>
+            <p *ngIf="!company.businessLicenseNumber" class="text text--noLocation">Not Provided</p>
           </div>
         </div>
 
         <div class="detail">
           <div class="detail__label">Industry Type</div>
           <div class="detail__value">
-            <p class="text">{{ company.industryType }}</p>
+            <p *ngIf="company.industryType" class="text">{{ company.industryType }}</p>
+            <p *ngIf="!company.industryType" class="text text--noLocation">Not Provided</p>
           </div>
         </div>
       </div>
@@ -124,3 +131,13 @@
   *ngIf="showLicensePreview"
   style="position: fixed;top:6rem;left:0;right: 0;bottom:0;z-index:11000;"
 ></ngx-doc-viewer>
+<div
+  style="z-index:11001;"
+  [style.display]="showLicensePreview ? 'block' : 'none'"
+  (click)="onLicensePreview($event)"
+  class="business-license-preview__close"
+>
+  &#10005;
+</div>
+
+<shared-loader *ngIf="showLicensePreview"></shared-loader>

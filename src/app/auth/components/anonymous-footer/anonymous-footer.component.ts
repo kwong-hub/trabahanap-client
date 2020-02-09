@@ -7,7 +7,10 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./anonymous-footer.component.scss"]
 })
 export class AnonymousFooterComponent implements OnInit {
+  year: any;
   constructor(public authenticationService: AuthenticationService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.year = new Date().getFullYear();
+  }
 }

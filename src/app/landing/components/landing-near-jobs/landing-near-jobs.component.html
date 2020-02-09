@@ -61,8 +61,7 @@
       leaflet
       [leafletOptions]="options"
       (leafletMapReady)="onMapReady($event)"
-      [leafletLayers]="markers"
-    >
+      [leafletLayers]="markers" (leafletClick)="mapClicked($event)">
       <div *ngIf="locationTracked" [leafletLayer]="ping"></div>
     </div>
   </div>

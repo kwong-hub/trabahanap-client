@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { faMapMarkerAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as L from 'leaflet';
-import { tileLayer, latLng, marker, icon, Point } from 'leaflet';
+import { tileLayer, latLng, marker, icon, Point, LatLng } from 'leaflet';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AnonymousService } from '@app/_services/anonymous.service';
 import { Router } from '@angular/router';
@@ -24,7 +24,8 @@ export class LandingNearJobsComponent implements OnInit {
       })
     ],
     zoom: 13,
-    center: latLng(14.6042, 120.9822)
+    center: latLng(14.6042, 120.9822),
+    attributionControl: false
   };
   latitude: any;
   longitude: any;
@@ -83,6 +84,10 @@ export class LandingNearJobsComponent implements OnInit {
             autoPanPadding: new Point(70, 70)
           });
 
+          this.ping.on('dragend', e => {
+            ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
+          });
+
           this.ping.bindPopup(`<span>Your Location</span>`);
           this.options.center = latLng(latitude, longitude);
           this.map.panTo(new L.LatLng(latitude, longitude));
@@ -121,6 +126,12 @@ export class LandingNearJobsComponent implements OnInit {
   // get the reference to the map
   onMapReady(map: L.Map) {
     this.map = map;
+  }
+
+  mapClicked(e) {
+    let { lat, lng } = e.latlng;
+    this.ping.setLatLng(new LatLng(lat, lng));
+    ({ lat: this.latitude, lng: this.longitude } = e.latlng);
   }
 
   chooseRadius(rad) {
