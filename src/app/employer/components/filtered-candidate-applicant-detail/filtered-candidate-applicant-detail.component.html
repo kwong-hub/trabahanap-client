@@ -41,7 +41,7 @@
         <a *ngIf="!applicant?.cv" (click)="checkSubscription()" class="applicant-detail__download-cv"
           ><i class="fas fa-download"></i
         ></a>
-        <a *ngIf="applicant?.cv"  (click)="checkSubscription()"  [href]="applicant.cv" target="_blank" class="applicant-detail__download-cv"
+        <a *ngIf="applicant?.cv"  (click)="checkSubscription()"  target="_blank" class="applicant-detail__download-cv"
           ><i class="fas fa-download"></i
         ></a>
       </div>

@@ -24,7 +24,7 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
   applicantId;
   subscription: any;
   toggleConfirmModal: boolean;
-  currentUser:any;
+  currentUser: any;
   role: string;
 
   constructor(
@@ -93,13 +93,13 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
     if (this.subscription) {
       if (this.subscription.type == "PREMIUM" && Date.parse(this.subscription.expirationDate) >= today) {
         this.toggleConfirmModal = true;
-      }else if(this.subscription.type == "EXPRESS" && this.subscription.points >= 30){
-        this.toggleConfirmModal =true;
-      }else{
-        this.router.navigate([`/${this.role}/plan`,{data:"Please Upgrade your subscriptions plan to start downloading applicant profile." }]);
+      } else if (this.subscription.type == "EXPRESS" && this.subscription.points >= 30) {
+        this.toggleConfirmModal = true;
+      } else {
+        this.router.navigate([`/${this.role}/plan`, { data: "Please Upgrade your subscriptions plan to start downloading applicant profile." }]);
       }
     } else {
-      this.router.navigate([`/${this.role}/plan`,{data:"Please Upgrade your subscriptions plan to start downloading applicant profile." }]);
+      this.router.navigate([`/${this.role}/plan`, { data: "Please Upgrade your subscriptions plan to start downloading applicant profile." }]);
     }
   }
 
@@ -107,12 +107,20 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
     this.toggleConfirmModal = false;
     const purchased = this.paymentService.purchaseCV(this.subscription.id).subscribe(
       data => {
-        if (data.success) {   
-          this.generatePdf();
+        if (data.success) {
+          if (this.applicant.cv) {
+            window.open(
+              this.applicant.cv,
+              'download' // <- This is what makes it open in a new window.
+            );
+          } else {
+            this.generatePdf();
+          }
+
         }
       }
     );
-   
+
   }
 
   cancelAction() {
