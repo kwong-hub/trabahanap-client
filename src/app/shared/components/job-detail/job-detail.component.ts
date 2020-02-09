@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { JobService } from '@app/_services/jobs.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faCheckCircle, faMapMarkerAlt, faTag, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faMapMarkerAlt, faTag, faExternalLinkAlt, faToolbox, faClock } from '@fortawesome/free-solid-svg-icons';
 import { ApplicantService } from '@app/_services/applicant.service';
 import { tileLayer, latLng, marker, icon, Point } from 'leaflet';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
@@ -15,6 +15,8 @@ import { Role } from '@app/_models/Role';
 })
 export class JobDetailComponent implements OnInit {
   job;
+  faToolbox = faToolbox;
+  faClock = faClock;
   faCheckCircle = faCheckCircle;
   faMapMarkerAlt = faMapMarkerAlt;
   faTag = faTag;
@@ -28,7 +30,8 @@ export class JobDetailComponent implements OnInit {
       })
     ],
     zoom: 20,
-    center: latLng(14.6042, 120.9822)
+    center: latLng(14.6042, 120.9822),
+    attributionControl: false
   };
   marker;
   applicant: boolean = false;

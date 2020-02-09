@@ -22,6 +22,7 @@
       font-weight: 700;
       margin-left: 2rem;
       text-transform: uppercase;
+      max-width: 50rem;
     }
 
     .preview {
@@ -58,7 +59,7 @@
       position: absolute;
       top: 2.5rem;
       left: 5.5rem;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem .8rem;
       border: 1px solid rgba(black, 0.2);
       border-radius: 5px;
       transition: all 0.2s;
@@ -71,14 +72,14 @@
         transform: translateY(1px);
       }
       &__icon {
-        font-size: 2rem;
+        font-size: 1.8rem;
         color: green;
         margin-right: 1rem;
       }
 
       &__text {
         color: #333;
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         font-weight: 700;
         margin-right: 1rem;
       }
@@ -159,4 +160,25 @@
       }
     }
   }
+}
+
+.business-license-preview__close {
+  position: fixed;
+  top: 7.2rem;
+  right: 6rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 4rem;
+  // z-index: 10000;
+  cursor: pointer;
+  border: 2px solid #aa111d;
+  padding: 0.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  // border-radius: 50%;
+  color: #aa111d;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

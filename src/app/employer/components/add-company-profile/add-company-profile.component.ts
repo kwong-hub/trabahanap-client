@@ -146,7 +146,7 @@ export class AddCompanyProfileComponent implements OnInit {
   updateInputes() {
     if (this.companyProfile) {
       this.hasProfile = true;
-      console.log(this.companyProfile)
+      // console.log(this.companyProfile)
       // this.companyProfile = this.companyProfile;
       _.map(this.companyProfile, (value, key) => {
         if (this.addCompanyProfileForm.controls[key]) {

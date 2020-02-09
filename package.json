@@ -28,6 +28,7 @@
     "angularx-social-login": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "leaflet": "^1.6.0",
+    "mammoth": "^1.4.9",
     "ng-recaptcha": "^5.0.0",
     "ngx-doc-viewer": "^0.1.27",
     "ngx-image-cropper": "^2.0.1",

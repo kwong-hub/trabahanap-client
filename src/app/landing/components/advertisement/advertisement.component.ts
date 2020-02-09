@@ -12,7 +12,7 @@ export class AdvertisementComponent implements OnInit {
   advertisement = [];
   @Input() isAds: boolean;
   @Output() closeModalEvent = new EventEmitter();
-  @HostBinding('attr.class') cssClass = 'ads_contanier';
+  @HostBinding('attr.class') cssClass = 'ads-container';
   displayed:any;
   id: any;
   counter: number = Math.floor(Math.random() * 4);
