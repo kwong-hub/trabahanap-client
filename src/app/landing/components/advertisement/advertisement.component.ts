@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output, Input, HostBinding } from "@angular/core";
 import { AnonymousService } from "@app/_services/anonymous.service";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { interval } from "rxjs";
@@ -12,7 +12,7 @@ export class AdvertisementComponent implements OnInit {
   advertisement = [];
   @Input() isAds: boolean;
   @Output() closeModalEvent = new EventEmitter();
-
+  @HostBinding('attr.class') cssClass = 'ads_contanier';
   displayed:any;
   id: any;
   counter: number = Math.floor(Math.random() * 4);
