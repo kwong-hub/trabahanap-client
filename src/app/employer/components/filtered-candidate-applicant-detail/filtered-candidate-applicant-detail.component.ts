@@ -23,7 +23,7 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
   applicantId;
   subscription: any;
   toggleConfirmModal: boolean;
-  currentUser: import("/home/tiltek01/Desktop/trabahanap-frontend-v4/src/app/_models/User").User;
+  currentUser:any;
   role: string;
 
   constructor(
