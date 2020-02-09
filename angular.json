@@ -38,7 +38,7 @@
               "src/styles.scss",
               "./node_modules/leaflet/dist/leaflet.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/mammoth/mammoth.browser.min.js"]
           },
           "configurations": {
             "production": {
@@ -106,7 +106,7 @@
               "src/styles.scss",
               "./node_modules/leaflet/dist/leaflet.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/mammoth/mammoth.browser.min.js"]
           }
         },
         "lint": {
