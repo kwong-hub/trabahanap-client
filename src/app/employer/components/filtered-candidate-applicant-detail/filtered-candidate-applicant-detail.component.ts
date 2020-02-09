@@ -10,6 +10,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { generateResume } from '../../_helpers/generate-applicant-resume';
 import { PaymentService } from '@app/_services/payment.service';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { User } from '@app/_models/User';
 
 @Component({
   selector: 'app-filtered-candidate-applicant-detail',
@@ -23,7 +24,7 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
   applicantId;
   subscription: any;
   toggleConfirmModal: boolean;
-  currentUser: import("/home/tiltek01/Desktop/trabahanap-frontend-v4/src/app/_models/User").User;
+  currentUser: User;
   role: string;
 
   constructor(
