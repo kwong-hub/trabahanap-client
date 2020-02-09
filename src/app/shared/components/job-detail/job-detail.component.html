@@ -36,15 +36,15 @@
             Login as applicant to see this job's salary range
           </div>
           <div class="tags-container">
-            <span style="display: flex; align-items: center;" class="text">
+            <!-- <span style="display: flex; align-items: center;" class="text">
               <fa-icon style="color: #42597B; font-size: 2.5rem; margin-right: .5rem;" [icon]="faTag"></fa-icon>
               Tags
-            </span>
+            </span> -->
             <div class="tags">
-              <span class="tags__item">{{ job.employmentType }}</span>
-              <span class="tags__item">{{ job.industry }}</span>
+              <span class="tags__item"><fa-icon class="icon" [icon]="faToolbox"></fa-icon> {{ job.industry }}</span>
+              <span class="tags__item"><fa-icon class="icon" [icon]="faClock"></fa-icon> {{ job.employmentType }}</span>
               <div *ngIf="job.pwd" class="tags__item">
-                <i style="margin-right: .5rem" class="fab fa-accessible-icon"></i>PwD-Friendly
+                <i style="margin-right: .5rem; color: #d64e4e;" class="fab fa-accessible-icon"></i>PwD-Friendly
               </div>
             </div>
           </div>

@@ -5,13 +5,13 @@
   display: flex;
   flex-direction: column;
   border-radius: 3px;
-  padding: 0 2rem;
+  // padding: 0 2rem;
   position: relative;
 
   .btn-group {
     display: flex;
     flex-direction: column;
-    margin: 1.8rem 0;
+    margin: 1.8rem 0 0;
 
     .bookmark {
       font-size: 1.5rem;
@@ -19,8 +19,8 @@
       text-transform: uppercase;
       color: #777;
       background-color: transparent;
-      height: 4rem;
       border: none;
+      height: 4rem;
       outline: none;
       border: 1px solid;
       border-radius: 5px;
@@ -33,6 +33,17 @@
         .bookmark__icon {
           font-weight: 600;
         }
+      }
+    }
+
+    .save {
+      font-size: small;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      &:hover {
+        background-color: #ce2127;
+        color: white;
       }
     }
 
@@ -60,40 +71,41 @@
       cursor: pointer;
 
       &:hover {
-        color: #ce2127;
+        color: tomato;
       }
     }
   }
+}
 
-  .applied {
-    text-transform: capitalize;
-    border-radius: 0;
-    white-space: nowrap;
-    width: 18rem;
-    position: relative;
-    margin: 1.5rem auto;
-    border: none;
-    color: #888;
-    
-    &::before, &::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      border: 2rem solid transparent;
-    }
+.applied {
+  text-transform: capitalize;
+  border-radius: 0;
+  white-space: nowrap;
+  width: 18rem;
+  position: relative;
+  margin: 1.5rem auto;
+  border:none;
+  color: #888;
+  
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 2rem solid transparent;
+  }
 
-    &::before {
-      left: 0;
-      border-left-color: white;
-    }
+  &::before {
+    left: 0;
+    border-left-color: white;
+  }
 
-    &::after {
-      right: 0;
-      border-right-color: white;
-    }
+  &::after {
+    right: 0;
+    border-right-color: white;
   }
 }
+
 .reports {
   color: #42597b;
   white-space: nowrap;
@@ -153,6 +165,7 @@
         font-size: 1.2rem;
         margin-left: 1.5rem;
         font-weight: 600;
+        white-space: nowrap;
       }
     }
 
@@ -193,7 +206,7 @@
         overflow-y: auto;
         padding: 0 2rem 2rem 0;
         font-weight: 300;
-        
+
         &::-webkit-scrollbar {
           width: 8px;
         }
@@ -246,16 +259,22 @@
         }
 
         .tags__item {
-          font-size: 1.2rem;
+          font-size: 1.3rem;
           color: #42597b;
           font-weight: 700;
           background-color: white;
-          border: 1px solid #42597b;
+          // border: 1px solid #42597b;
           padding: 0.5rem 1.5rem;
           border-radius: 1.5rem;
           text-transform: uppercase;
           margin: 3px 0.3rem;
           white-space: nowrap;
+
+          .icon {
+            color: #d64e4e;
+            font-size-adjust: 1.5rem;
+            margin-right: .5rem;
+          }
         }
       }
 
@@ -294,7 +313,9 @@
       justify-content: space-evenly;
       align-items: center;
       margin-bottom: 2rem;
-
+      color: #42597b;
+      font-weight: 600;
+      
       .expiry {
         color: red;
       }
@@ -333,7 +354,15 @@
         width: 45%;
         margin-top: 0;
       }
+
+      .applied {
+        width: 45%;
+        margin-top: 0;
+      }
     }
+  }
+  .back {
+    display: none;
   }
   .reports {
     padding-left: 2rem;
@@ -344,10 +373,6 @@
     top: 0;
     right: 2rem;
     font-weight: 300;
-  }
-  
-  .back {
-    display: none;
   }
 
   .details {
@@ -377,9 +402,7 @@
 
       .dates-container {
         flex-direction: column;
-        color: #42597b;
-        font-weight: 600;
-
+        // align-items: center;
         span {
           margin-bottom: 0.5rem;
         }

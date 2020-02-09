@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faCheckCircle, faMapMarkerAlt, faTag, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faMapMarkerAlt, faTag, faExternalLinkAlt, faToolbox, faClock } from '@fortawesome/free-solid-svg-icons';
 import { tileLayer, latLng, marker, icon, Point } from 'leaflet';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
@@ -14,7 +14,10 @@ import { Location } from '@angular/common';
   styleUrls: ['./landing-job-detail.component.scss']
 })
 export class LandingJobDetailComponent implements OnInit {
+  
   job;
+  faToolbox = faToolbox;
+  faClock = faClock;
   faCheckCircle = faCheckCircle;
   faMapMarkerAlt = faMapMarkerAlt;
   faTag = faTag;
