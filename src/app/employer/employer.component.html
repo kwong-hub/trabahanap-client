@@ -42,13 +42,13 @@
         <a
           routerLink="filtered_candidates"
           routerLinkActive="active"
-          title="Bookmarked Applicants"
+          title="Screened Candidates"
           (click)="toggleSidebar(false)"
           [routerLinkActiveOptions]="{ exact: false }"
           class="sidebar__list-item"
         >
           <i class="icons fas fa-filter"></i>
-          <span class="names">Bookmarked Applicants</span>
+          <span class="names">Screened Candidates</span>
         </a>
 
         <a
@@ -124,7 +124,7 @@
           <i class="icons fas fa-bug"></i>
           <span class="names">Report Issue</span>
         </a>
-        <a
+        <!-- <a
           routerLink="plan"
           routerLinkActive="active"
           title="Subscription Plan"
@@ -134,7 +134,7 @@
         >
           <i class="icons fas fa-money-check-alt"></i>
           <span class="names">Subscription Plan</span>
-        </a>
+        </a> -->
         <a (click)="logout()" class="sidebar__list-item" title="Logout">
           <i class="icons fas fa-sign-out-alt"></i>
           <span class="names">Logout</span>
