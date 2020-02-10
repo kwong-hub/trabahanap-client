@@ -47,6 +47,9 @@ import { ReportByIdResolverService } from "@app/_resolvers/admin-resolvers/repor
 import { AdvertisementListComponent } from "./components/advertisement-list/advertisement-list.component";
 import { AddAdvertisementComponent } from "./components/add-advertisement/add-advertisement.component";
 import { AdsListResolverService } from "@app/_resolvers/admin-resolvers/ads-list-resolver.service";
+import { ApplicantIssueListResolverService } from '@app/_resolvers/admin-resolvers/applicant-issue-list-resolver.service';
+import { EmployerIssueListResolverService } from '@app/_resolvers/admin-resolvers/employer-issue-list-resolver.service';
+import { AdminIssueDashboardResolverService } from '@app/_resolvers/admin-resolvers/admin-issue-dashboard-resolver.service';
 
 const routes: Routes = [
   {
@@ -65,11 +68,17 @@ const routes: Routes = [
         redirectTo: "home",
         pathMatch: "full"
       },
-      { path: "issues", canActivate: [AdminGuard], component: IssuesComponent },
+      { 
+        path: "issues", 
+        canActivate: [AdminGuard], 
+        component: IssuesComponent,
+        resolve: { data: AdminIssueDashboardResolverService }
+      },
       {
         path: "issues/applicant",
         canActivate: [AdminGuard],
-        component: IssueListApplicantComponent
+        component: IssueListApplicantComponent,
+        resolve: { data: ApplicantIssueListResolverService }
       },
       {
         path: "issues/report",
@@ -91,7 +100,8 @@ const routes: Routes = [
       {
         path: "issues/employer",
         canActivate: [AdminGuard],
-        component: IssueListEmployerComponent
+        component: IssueListEmployerComponent,
+        resolve: { data: EmployerIssueListResolverService}
       },
       {
         path: "issues/employer/details/:id",

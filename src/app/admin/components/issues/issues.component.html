@@ -3,16 +3,49 @@
   <div class="sub-module-container__container dash">
     <!-- <app-issues-list></app-issues-list> -->
     <a routerLink="applicant" class="board">
+      <div class="board__icon-container board__icon-container--applicant">
+        <fa-icon [icon]="faUsers"></fa-icon>
+      </div>
       <h2 class="board__title">Applicant Issues</h2>
-      <div class="board__body"></div>
+      <div class="board__body">
+        <span *ngIf="newApplicantIssues === 0" class="no-issue">
+          No new Issues
+        </span>
+        <span *ngIf="newApplicantIssues !== 0" class="issue">
+          <span class="number">{{ newApplicantIssues }}</span>
+           new {{ newApplicantIssues === 1 ? 'issue' : 'issues'}}
+        </span>
+      </div>
     </a>
     <a routerLink="employer" class="board">
+      <div class="board__icon-container board__icon-container--employer">
+        <fa-icon [icon]="faBuilding"></fa-icon>
+      </div>
       <h2 class="board__title">Employer Issues</h2>
-      <div class="board__body"></div>
+      <div class="board__body">
+        <span *ngIf="newEmployerIssues === 0" class="no-issue">
+          No new Issues
+        </span>
+        <span *ngIf="newEmployerIssues !== 0" class="issue">
+          <span class="number">{{ newEmployerIssues }}</span>
+           new {{ newEmployerIssues === 1 ? 'issue' : 'issues'}}
+        </span>
+      </div>
     </a>
     <a routerLink="report" class="board">
+      <div class="board__icon-container board__icon-container--jobs">
+        <fa-icon [icon]="faList"></fa-icon>
+      </div>
       <h2 class="board__title">Reported Job</h2>
-      <div class="board__body"></div>
+      <div class="board__body">
+        <span *ngIf="newReportedJobs === 0" class="no-issue">
+          No new Issues
+        </span>
+        <span *ngIf="newReportedJobs !== 0" class="issue">
+          <span class="number">{{ newReportedJobs }}</span>
+           new issues
+        </span>
+      </div>
     </a>
   </div>
 </div>

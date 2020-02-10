@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '@app/_services/admin.service';
 import { faReply, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-issue-list-applicant',
@@ -16,18 +18,17 @@ export class IssueListApplicantComponent implements OnInit {
   detailModal: boolean;
   replySuccess: boolean;
 
-  constructor(private adminService: AdminService) {}
-
-  ngOnInit() {
-    this.adminService.getAllApplicantIssues().subscribe(
-      data => {
-        if (data.success) {
-          this.issues = data.issues;
-        }
-      },
-      error => {
-        console.log(error);
+  constructor(private adminService: AdminService, private Route: ActivatedRoute, private _location: Location) {
+    this.Route.data.subscribe(res => {
+      let data = res.data;
+      if(data.success) {
+        this.issues = data.issues;
       }
-    );
+      else {
+        this._location.back();
+      }
+    })
   }
+
+  ngOnInit() { }
 }

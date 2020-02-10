@@ -1,26 +1,77 @@
 .dash {
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   align-items: flex-start;
   margin-top: 5rem;
 }
 
 .board {
-  text-align: center;
-  padding: 2rem 4rem;
-  border-radius: 5px;
-  box-shadow: 0 0 2rem 1rem rgba(black, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 26rem;
+  padding: 4rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 1rem .5rem rgba(black, 0.1);
   text-decoration: none;
+  box-sizing: content-box;
   transition: all 0.2s;
 
-  &:hover,
-  &:active {
-    transform: translateY(-1px);
+  &:hover, &:active {
+    box-shadow: 0 0 1.5rem 1rem rgba(black, .1);
+  }
+
+  &__icon-container {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 3rem;
+
+    &--employer {
+      color: rgb(64, 131, 215);
+      background-color: rgb(197, 217, 243);
+    }
+
+    &--applicant {
+      color: rgb(255, 87, 34);
+      background-color: rgb(255, 204, 188);
+    }
+
+    &--jobs {
+      color: #551a8b;;
+      background-color: rgba(84, 26, 139, 0.3);
+    }
   }
 
   &__title {
+    margin-top: 1rem;
     font-size: 2.5rem;
     font-weight: 600;
-    color: #333;
+    color: #42597b;
+  }
+
+  &__body {
+    margin-top: 1.5rem;
+    font-size: 2rem;
+
+    .no-issue {
+      color: #888;
+    }
+
+    .issue {
+      color: #42597b;
+
+      .number {
+        font-size: 2rem;
+        margin-right: .3rem;
+        color: orangered;
+        text-align: center;
+        font-weight: 700;
+      }
+    }
   }
 }

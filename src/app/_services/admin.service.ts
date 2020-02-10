@@ -16,6 +16,11 @@ export class AdminService {
   fetchDashboardCounter(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/counters`);
   }
+
+  fetchIssueCounter(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/admin/issue-counter`);
+  }
+
   getAllAds(page, pageSize): Observable<any> {
     return this.http.get<any>(
       `${environment.apiUrl}/admin/advertisement?page=${page}&pageSize=${pageSize}`

@@ -49,6 +49,7 @@ export class IssueDetailContainerComponent implements OnInit {
 
   onSubmit() {
     this.submited = true;
+    this.successReply = false;
     if (!this.replyIssue.valid) {
       return;
     }
@@ -64,9 +65,6 @@ export class IssueDetailContainerComponent implements OnInit {
               issueResponse: data.issueResponse.issueResponse
             }
           };
-          setTimeout(() => {
-            this.successReply = false;
-          }, 4500);
         }
       },
       err => console.log(err)
