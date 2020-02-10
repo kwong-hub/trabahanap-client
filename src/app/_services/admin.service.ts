@@ -242,4 +242,10 @@ export class AdminService {
   getAllReportedJob() {
     return this.http.get<any>(`${environment.apiUrl}/admin/reports`);
   }
+  verifyUser(){
+    return this.http.post<any>(`${environment.apiUrl}/admin/send_email`,{});
+  }
+  unVerifiedUser(){
+    return this.http.get<any>(`${environment.apiUrl}/admin/find_email`)
+  }
 }
