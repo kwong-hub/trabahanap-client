@@ -133,4 +133,22 @@ export class ApplicantListComponent implements OnInit {
       }
     );
   }
+  getUnVerifiedUsers(){
+    this.adminService.unVerifiedUser().subscribe(
+      data =>{
+
+        console.log(data)
+      }
+    )
+  }
+  VerifyApplicants(){
+    this.adminService.verifyUser().subscribe(
+      data =>{
+        if(data.success){
+          console.log(data)
+        } 
+       
+      }
+    )
+  }
 }
