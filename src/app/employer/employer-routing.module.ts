@@ -103,15 +103,13 @@ const routes: Routes = [
         path: 'candidates/job/:jobId/applicant/:applicantId',
         canActivate: [EmployerGuard],
         component: CandidateApplicantDetailComponent,
-        data: { name: 'View Applicant Detail' },
-        resolve: { subs: ApplicantDetailResolverService }
+        data: { name: 'View Applicant Detail' }
       },
       {
         path: 'filtered_candidates/job/:jobId/applicant/:applicantId',
         canActivate: [EmployerGuard],
         component: FilteredCandidateApplicantDetailComponent,
-        data: { name: 'View Filtered Applicant Detail' },
-        resolve: { subs: ApplicantDetailResolverService }
+        data: { name: 'View Filtered Applicant Detail' }
       },
       {
         path: 'branches',
