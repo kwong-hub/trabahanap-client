@@ -1,4 +1,4 @@
-import { SubscriptionResolverService } from './../_resolvers/employer-resolvers/subscription-resolver.service';
+// import { SubscriptionResolverService } from './../_resolvers/employer-resolvers/subscription-resolver.service';
 import { IndustryAndLocationResolverService } from '../_services/industry-and-location-resolver.service';
 import { CandidateApplicantDetailComponent } from './components/candidate-applicant-detail/candidate-applicant-detail.component';
 import { JobCandidatesComponent } from './components/job-candidates/job-candidates.component';
@@ -15,7 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CandidatesComponent } from './components/candidates/candidates.component';
 import { LocationsComponent } from './components/locations/locations.component';
 import { StaffsComponent } from './components/staffs/staffs.component';
-import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
+// import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
 import { AddLocationComponent } from './components/add-location/add-location.component';
 import { LocationDetailComponent } from './components/location-detail/location-detail.component';
 import { ChangePasswordComponent } from '@app/shared/components/change-password/change-password.component';
@@ -146,13 +146,13 @@ const routes: Routes = [
         component: IssueDetailsComponent,
         resolve: { data: IssueDetailResolverService }
       },
-      {
-        path: 'plan',
-        canActivate: [EmployerGuard],
-        component: SubscriptionsComponent,
-        data: { name: 'subscription plan' },
-        resolve: { data: SubscriptionResolverService }
-      },
+      // {
+      //   path: 'plan',
+      //   canActivate: [EmployerGuard],
+      //   component: SubscriptionsComponent,
+      //   data: { name: 'subscription plan' },
+      //   resolve: { data: SubscriptionResolverService }
+      // },
       {
         path: 'password',
         canActivate: [EmployerGuard],
