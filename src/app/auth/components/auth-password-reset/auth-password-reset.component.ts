@@ -39,10 +39,13 @@ export class AuthPasswordResetComponent implements OnInit {
     this.loading = true;
     this.authService.resetPassword(this.f.email.value).subscribe(
       data => {
+        console.log(data)
         this.loading = false;
         if (data.success) {
+          this.error = '';
           this.success = data.response;
         } else {
+          this.success = '';
           this.error = data.response;
           this.loading = false;
         }

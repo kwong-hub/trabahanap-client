@@ -58,22 +58,22 @@
       </div>
     </div>
 
-    <table
-      *ngIf="companies.length > 0"
-      mat-table
-      [dataSource]="companies"
-      class="mat-elevation-z3"
-    >
+    <h3 *ngIf="companies && companies.length == 0">
+      <div class="not_Found">
+        <span> Sorry, we didn't find any Company matching your criteria </span>
+      </div>
+    </h3>
+
+    <table *ngIf="companies.length > 0"  mat-table
+      [dataSource]="companies" class="mat-elevation-z3">
       <!-- Name Column -->
       <ng-container matColumnDef="companyLogo">
         <th mat-header-cell *matHeaderCellDef>Company Logo</th>
         <td mat-cell *matCellDef="let company">
-          <img
-            style="margin: 0.5rem 0; height: 5rem;"
-            [src]="company.companyLogo"
-            alt=""
-            class="logo"
-          />
+          <img *ngIf="company.companyLogo" style="margin: 0.5rem 0; height: 5rem;"
+            [src]="company.companyLogo" alt="" class="logo" />
+          <img *ngIf="!company.companyLogo" style="margin: 0.5rem 0; height: 5rem;"
+            src="assets/img/building.png" alt="" class="logo" />
         </td>
       </ng-container>
 
@@ -175,12 +175,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-
-    <h3 *ngIf="companies && companies.length == 0">
-      <div class="not_Found">
-        <span> Sorry, we didn't find any Company matching your criteria </span>
-      </div>
-    </h3>
 
     <div class="paginator">
       <mat-paginator

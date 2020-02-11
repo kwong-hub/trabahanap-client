@@ -1,12 +1,17 @@
 <div *ngIf="company" class="container">
   <div class="company">
     <div class="company__header">
-      <img [src]="company.companyLogo" alt="" class="img" />
+      <img *ngIf="company.companyLogo" [src]="company.companyLogo" alt="" class="img" />
+      <img *ngIf="!company.companyLogo" src="assets/img/building.png" alt="" class="img" />
       <h2 class="name">{{ company.companyName }}</h2>
 
-      <div (click)="onLicensePreview($event)"  class="preview">
+      <div *ngIf="company?.businessLicense" (click)="onLicensePreview()"  class="preview">
         <i class="preview__icon far fa-file-pdf"></i>
         <span class="preview__text">Business License</span>
+      </div>
+
+      <div *ngIf="!company?.businessLicense" class="preview">
+        <span class="preview__text--noLicense">No business license</span>
       </div>
 
       <div
@@ -113,28 +118,37 @@
         <div class="detail">
           <div class="detail__label">Staff</div>
           <div class="detail__value">
-            <p *ngIf="!company.hasLocations" class="text text--noLocation">
+            <p *ngIf="users.length === 1" class="text text--noLocation">
               No Staff under this company
             </p>
-            <a [routerLink]="['../../staffs/', company.id]" class="text"
-              >View staff</a
-            >
+            <a *ngIf="users.length > 1" [routerLink]="['../../staffs/', company.id]" 
+              class="text">View staff</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<div class="overlay" [class.active]="showLicensePreview && isImage">
+  <!-- <div (click)="onLicensePreview()" class="overlay__close">
+        <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
+    </div> -->
+</div>
+
+<img (click)="onLicensePreview()" [src]="company?.businessLicense" alt="" 
+  class="modalImage" [class.active]="showLicensePreview && isImage" />
+
 <ngx-doc-viewer
   [url]="company?.businessLicense"
   viewer="google"
-  *ngIf="showLicensePreview"
+  *ngIf="showLicensePreview && isDocument"
   style="position: fixed;top:6rem;left:0;right: 0;bottom:0;z-index:11000;"
 ></ngx-doc-viewer>
 <div
   style="z-index:11001;"
   [style.display]="showLicensePreview ? 'block' : 'none'"
-  (click)="onLicensePreview($event)"
+  (click)="onLicensePreview()"
   class="business-license-preview__close"
 >
   &#10005;

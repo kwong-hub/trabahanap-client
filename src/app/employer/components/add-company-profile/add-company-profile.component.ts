@@ -55,7 +55,7 @@ export class AddCompanyProfileComponent implements OnInit {
   companyProfile: any;
   inputType: string;
   logoFileTypes = '.png,.jpg,.jpeg';
-  licenseFileTypes = '.pdf,.doc,.docx';
+  licenseFileTypes = '.pdf,.doc,.docx,.png,.jpg,.jpeg';
   formData = new FormData();
   showLicensePreview = false;
 
@@ -71,6 +71,9 @@ export class AddCompanyProfileComponent implements OnInit {
   defaultLimit = { max: '35', min: '0' };
   numberRange = { max: '20', min: '10' };
   bigLimit = { max: '100', min: '6' };
+  isDocument: boolean;
+  isImage: boolean;
+  imageModal: any;
   constructor(
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
@@ -275,9 +278,28 @@ export class AddCompanyProfileComponent implements OnInit {
     });
   }
 
-  onLicensePreview(event) {
-    event.stopPropagation();
+  onLicensePreview() {
     this.showLicensePreview = !this.showLicensePreview;
+    this.success = false; // to make the notification available for the next display
+    if(this.showLicensePreview) {
+      let ext = this.companyProfile.businessLicense.split('.').pop();
+      if(ext === 'pdf' || ext === 'doc' || ext === 'docx') {
+        console.log(ext)
+        this.isDocument = true;
+        this.isImage = false;
+      }
+      else {
+        this.isImage = true;
+        this.isDocument = false;
+      }
+    }
+  }
+
+  updateProfile(data) {
+    this.companyProfile = data;
+    this.isBusinessLicenseEditModalOpen = false;
+    this.success = true;
+    this.updateInputes();
   }
 
   toggleLogoModal() {
@@ -285,8 +307,9 @@ export class AddCompanyProfileComponent implements OnInit {
     this.companyProfile = this.companyProfile;
   }
 
-  toggleBusinessLicense(event) {
+  toggleBusinessLicense() {
     this.isBusinessLicenseEditModalOpen = !this.isBusinessLicenseEditModalOpen;
+    this.success = false; // to make the notification available for the next display
   }
 
   editLogoChanged(event) {}
@@ -294,6 +317,7 @@ export class AddCompanyProfileComponent implements OnInit {
   get f() {
     return this.addCompanyProfileForm.controls;
   }
+  
   onSubmit() {
     this.submitted = true;
     if (this.addCompanyProfileForm.invalid) {
