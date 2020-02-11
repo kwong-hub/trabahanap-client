@@ -96,6 +96,22 @@
           </div>
         </div>
       </div>
+      
+      <div class="details-group">
+        <div class="detail">
+          <div class="detail__label">Registration Date</div>
+          <div class="detail__value">
+            <p *ngIf="company.industryType" class="text">{{ company.createdAt | date: "fullDate" }}</p>
+          </div>
+        </div>
+
+        <div class="detail">
+          <div class="detail__label">Last Update</div>
+          <div class="detail__value">
+            <p *ngIf="company.industryType" class="text">{{ company.updatedAt | date: "fullDate" }}</p>
+          </div>
+        </div>
+      </div>
 
       <div class="details-group">
         <div class="detail">
@@ -112,9 +128,7 @@
             >
           </div>
         </div>
-      </div>
 
-      <div class="details-group">
         <div class="detail">
           <div class="detail__label">Staff</div>
           <div class="detail__value">
@@ -126,6 +140,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>
