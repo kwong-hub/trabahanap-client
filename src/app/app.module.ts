@@ -8,6 +8,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService } from './_services/authentication-service.service';
 import { JwtInterceptor } from './_helpers/jwt.intercepter';
+import { CustomPreloadingService } from './_services/custom-preloading.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,8 @@ import { JwtInterceptor } from './_helpers/jwt.intercepter';
       provide: APP_BASE_HREF,
       useValue: '/'
     },
-    AuthenticationService
+    AuthenticationService,
+    CustomPreloadingService
   ],
   bootstrap: [AppComponent]
 })
