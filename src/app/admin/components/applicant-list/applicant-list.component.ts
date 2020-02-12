@@ -61,19 +61,6 @@ export class ApplicantListComponent implements OnInit {
       this.filterHidden = true;
     });
 
-    // this.adminService.getAllApplicants(1).subscribe(
-    //   data => {
-    //     if(data.success) {
-    //       data.applicants.rows.forEach(apps => {
-    //         this.applicants.push(apps.user)
-    //       });
-    //       this.pager = data.applicants.pager;
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error)
-    //   }
-    // )
   }
 
   getServerData(page) {
@@ -133,22 +120,22 @@ export class ApplicantListComponent implements OnInit {
       }
     );
   }
-  getUnVerifiedUsers(){
-    this.adminService.unVerifiedUser().subscribe(
-      data =>{
+  // getUnVerifiedUsers(){
+  //   this.adminService.unVerifiedUser().subscribe(
+  //     data =>{
 
-        console.log(data)
-      }
-    )
-  }
-  VerifyApplicants(){
-    this.adminService.verifyUser().subscribe(
-      data =>{
-        if(data.success){
-          console.log(data)
-        } 
+  //       console.log(data)
+  //     }
+  //   )
+  // }
+  // VerifyApplicants(){
+  //   this.adminService.verifyUser().subscribe(
+  //     data =>{
+  //       if(data.success){
+  //         console.log(data)
+  //       } 
        
-      }
-    )
-  }
+  //     }
+  //   )
+  // }
 }

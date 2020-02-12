@@ -175,8 +175,8 @@
       <div style="padding: 1rem" *ngIf="companyProfile && companyProfile.businessLicense" class="sub-container">
         <div class="business-license-preview">
           Preview Your Business License
-          <a (click)="onLicensePreview($event)" class="business-license-preview__btn">Preview</a
-          ><a (click)="toggleBusinessLicense($event)" class="business-license-preview__btn">
+          <a (click)="onLicensePreview()" class="business-license-preview__btn">Preview</a
+          ><a (click)="toggleBusinessLicense()" class="business-license-preview__btn">
             <fa-icon [icon]="faEdit"></fa-icon> Edit
           </a>
         </div>
@@ -344,24 +344,34 @@
   >
   </app-custom-notification>
 </div>
+<div class="overlay" [class.active]="showLicensePreview && isImage">
+  <!-- <div (click)="onLicensePreview()" class="overlay__close">
+        <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
+    </div> -->
+</div>
+
+<img (click)="onLicensePreview()" [src]="companyProfile?.businessLicense" alt="" 
+  class="modalImage" [class.active]="showLicensePreview && isImage" />
+
 <ngx-doc-viewer
   [url]="companyProfile?.businessLicense"
   viewer="google"
-  *ngIf="showLicensePreview"
+  *ngIf="showLicensePreview && isDocument"
   style="position: fixed;top:6rem;left:0;right: 0;bottom:0;z-index:11000;"
 ></ngx-doc-viewer>
 <div
   style="z-index:11001;"
   [style.display]="showLicensePreview ? 'block' : 'none'"
-  (click)="onLicensePreview($event)"
+  (click)="onLicensePreview()"
   class="business-license-preview__close"
 >
   &#10005;
 </div>
 
 <app-edit-business-license-modal
+  (profileUpdated)="updateProfile($event)"
   [isModalOpen]="isBusinessLicenseEditModalOpen"
-  (closeModalEvent)="toggleBusinessLicense($event)"
+  (closeModalEvent)="toggleBusinessLicense()"
 ></app-edit-business-license-modal>
 
 <shared-loader *ngIf="showLicensePreview"></shared-loader>

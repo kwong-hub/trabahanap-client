@@ -50,6 +50,7 @@ import { AdsListResolverService } from "@app/_resolvers/admin-resolvers/ads-list
 import { ApplicantIssueListResolverService } from '@app/_resolvers/admin-resolvers/applicant-issue-list-resolver.service';
 import { EmployerIssueListResolverService } from '@app/_resolvers/admin-resolvers/employer-issue-list-resolver.service';
 import { AdminIssueDashboardResolverService } from '@app/_resolvers/admin-resolvers/admin-issue-dashboard-resolver.service';
+import { AdminCompanyDetailResolverService } from '@app/_resolvers/admin-resolvers/admin-company-detail-resolver.service';
 
 const routes: Routes = [
   {
@@ -135,7 +136,8 @@ const routes: Routes = [
       {
         path: "employers/details/:id",
         canActivate: [AdminGuard],
-        component: CompanyDetailComponent
+        component: CompanyDetailComponent,
+        resolve: { data: AdminCompanyDetailResolverService }
       },
       {
         path: "employers/add",

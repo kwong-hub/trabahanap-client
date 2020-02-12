@@ -12,20 +12,18 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 })
 export class EditBusinessLicenseModalComponent implements OnInit {
   faTimes = faTimes;
-  businessLicenseFileTypes = ".pdf,.doc,.docx";
+  businessLicenseFileTypes = ".pdf,.doc,.docx,.png,.jpg,.jpeg";
 
   updateBusinessLicenseForm: FormGroup;
   formData = new FormData();
   submited = false;
-  showEditLoader = false;
+  loading = false;
 
   @Input() isModalOpen: boolean;
   @Output() closeModalEvent = new EventEmitter();
+  @Output() profileUpdated = new EventEmitter();
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private employerService: EmployerService
-  ) {}
+  constructor(private formBuilder: FormBuilder, private employerService: EmployerService) {}
 
   ngOnInit() {
     this.updateBusinessLicenseForm = this.formBuilder.group({
@@ -48,18 +46,21 @@ export class EditBusinessLicenseModalComponent implements OnInit {
     if (this.updateBusinessLicenseForm.invalid) {
       return;
     }
-    this.showEditLoader = true;
+    this.loading = true;
     this.employerService.chnageBusinessLicense(this.formData).subscribe(
-      success => {
-        this.showEditLoader = false;
-        if (success.success) {
-          this.closeModal();
+      data => {
+        this.loading = false;
+        console.log(data)
+        if (data.success) {
+          this.formData.delete("businessLicense");
+          this.updateBusinessLicenseForm.controls["businessLicense"].setValue("");
+          this.profileUpdated.emit(data.companyProfile)
         } else {
           this.closeModal();
         }
       },
       err => {
-        this.showEditLoader = false;
+        this.loading = false;
         console.log(err);
       }
     );
