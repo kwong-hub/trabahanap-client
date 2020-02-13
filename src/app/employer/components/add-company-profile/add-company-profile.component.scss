@@ -431,6 +431,7 @@
   opacity: 0;
   cursor: pointer;
   transition: all 0.25s;
+  z-index: -1;
 }
 
 .modalImage.active {
