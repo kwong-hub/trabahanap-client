@@ -1,13 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  Router,
-  Event,
-  NavigationStart,
-  NavigationEnd,
-  NavigationCancel,
-  NavigationError
-} from "@angular/router";
+import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from "@angular/router";
 import { AuthenticationService } from "@app/_services/authentication-service.service";
+
+declare var gtag: Function;
 
 @Component({
   selector: "app-auth",
@@ -42,6 +37,13 @@ export class AuthComponent implements OnInit {
         default: {
           break;
         }
+      }
+      if (event instanceof NavigationEnd) {
+        let url: any = event.urlAfterRedirects.split('/');
+        url = url.slice(0, 4).join('/');
+        gtag('config', 'UA-116904531-1', {
+          'page_path': url
+        });
       }
     });
   }

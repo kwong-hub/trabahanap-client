@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 
+declare var gtag: Function;
+
 @Component({
   selector: 'app-employer',
   templateUrl: './employer.component.html',
@@ -32,6 +34,13 @@ export class EmployerComponent implements OnInit {
         default: {
           break;
         }
+      }
+      if(event instanceof NavigationEnd){
+        let url: any = event.urlAfterRedirects.split('/');
+        url = url.slice(0, 3).join('/');
+        gtag('config', 'UA-116904531-1', {
+          'page_path': url
+        });
       }
     });
   }
