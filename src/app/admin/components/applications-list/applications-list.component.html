@@ -7,13 +7,7 @@
         <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
       </div>
       <div class="filter__content" [class.filter__hide]="filterHidden">
-        <form
-          action="#"
-          (ngSubmit)="filterApplications()"
-          class="form"
-          [formGroup]="searchForm"
-          autocomplete="off"
-        >
+        <form action="#" (ngSubmit)="filterApplications()" class="form" [formGroup]="searchForm" autocomplete="off">
           <div class="sub-container">
             <shared-custom-input-field
               class="input-element-type-2"
@@ -26,7 +20,7 @@
               type="text"
               [submitted]="false"
               [disabled]="false"
-              [limit] ="defaultLimit"
+              [limit]="defaultLimit"
             >
             </shared-custom-input-field>
           </div>
@@ -42,7 +36,7 @@
               type="text"
               [submitted]="false"
               [disabled]="false"
-              [limit] ="defaultLimit"
+              [limit]="defaultLimit"
             >
             </shared-custom-input-field>
           </div>
@@ -58,33 +52,24 @@
               type="text"
               [submitted]="false"
               [disabled]="false"
-              [limit] ="defaultLimit"
+              [limit]="defaultLimit"
             >
             </shared-custom-input-field>
           </div>
 
           <div class="form__group--btn">
-            <input
-              type="submit"
-              value="Search"
-              class="form__submit th-btn th-btn--primary"
-            />
+            <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
           </div>
         </form>
       </div>
     </div>
 
-    <table
-      *ngIf="applications && applications.length > 0"
-      mat-table
-      [dataSource]="applications"
-      class="mat-elevation-z3"
-    >
+    <table *ngIf="hasValues" mat-table [dataSource]="applications" class="mat-elevation-z3">
       <!-- Name Column -->
       <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
         <td mat-cell *matCellDef="let applications">
-          {{ applications.firstName + " " + applications.lastName }}
+          {{ applications.firstName + ' ' + applications.lastName }}
         </td>
       </ng-container>
 
@@ -123,7 +108,7 @@
       <ng-container matColumnDef="applicationDate">
         <th mat-header-cell *matHeaderCellDef>Applied Date</th>
         <td mat-cell *matCellDef="let applications">
-          {{ applications.applicationDate | date: "longDate" }}
+          {{ applications.applicationDate | date: 'longDate' }}
         </td>
       </ng-container>
 
@@ -132,13 +117,7 @@
 
         <td mat-cell *matCellDef="let applications">
           <div>
-            <input
-              class=" tag tag--verified"
-              type="checkbox"
-              name="check"
-              [(ngModel)]="applications.hired"
-              disabled
-            />
+            <input class=" tag tag--verified" type="checkbox" name="check" [(ngModel)]="applications.hired" disabled />
           </div>
 
           <!-- <div *ngIf="applications.hired" class="tag tag--verified">
@@ -170,7 +149,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <h3 *ngIf="applications && applications.length == 0">
+    <h3 *ngIf="empty">
       <div class="not_Found">
         <span>
           Sorry, we didn't find any Applications matching your criteria
@@ -184,6 +163,7 @@
         [pageSize]="pager?.pageSize"
         [pageSizeOptions]="[5, 8, 10, 25, 100]"
         (page)="getServerData($event)"
+        [pageIndex]="pager?.currentPage - 1"
       >
       </mat-paginator>
     </div>

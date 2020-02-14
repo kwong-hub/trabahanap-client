@@ -2,7 +2,11 @@
   <div class="details">
     <div class="details-left">
       <div class="details-left__header">
-        <img [src]="job.company_profile.companyLogo ? job.company_profile.companyLogo : 'assets/img/building.png'" alt="" class="img" />
+        <img
+          [src]="job.company_profile.companyLogo ? job.company_profile.companyLogo : 'assets/img/building.png'"
+          alt=""
+          class="img"
+        />
         <div class="header-content">
           <h2 class="title">{{ job.jobTitle }}</h2>
           <span class="companyName text">
@@ -18,7 +22,7 @@
       <div class="details-left__body">
         <div class="location">
           <fa-icon style="color: #71171C; font-size: 2rem; margin-right: .8rem;" [icon]="faMapMarkerAlt"></fa-icon>
-          <span class="text">{{ job.location.city.cityName +", "+ job.location.region.regionName }}</span>
+          <span class="text">{{ job.location.city.cityName + ', ' + job.location.region.regionName }}</span>
         </div>
         <div class="overflow__gradient">
           <p class="description">
@@ -29,9 +33,7 @@
 
       <div class="details-left__bottom">
         <div class="sal-tags">
-          <div *ngIf="applicant" class="salary text">
-            Salary range: {{ job.salaryRange }}
-          </div>
+          <div *ngIf="applicant" class="salary text">Salary range: {{ job.salaryRange }}</div>
           <div *ngIf="!applicant" class="noSalary text">
             Login as applicant to see this job's salary range
           </div>
@@ -65,8 +67,8 @@
 
       <div class="dates-container text">
         <span class="start">Posted {{ job.applicationStartDate | dateAgo }}</span>
-        <span *ngIf="job.applied" class="start">Applied date: {{ job.appliedDate | date: "longDate" }}</span>
-        <span class="expiry">Ends at: {{ job.applicationEndDate | date: "longDate" }}</span>
+        <span *ngIf="job.applied" class="start">Applied date: {{ job.appliedDate | date: 'longDate' }}</span>
+        <span class="expiry">Ends at: {{ job.applicationEndDate | date: 'longDate' }}</span>
       </div>
 
       <div class="vacancy text">
@@ -87,16 +89,18 @@
       MAG-APPLY
     </button>
     <!-- If already applied, show this button -->
-    
   </div>
-  
+
   <button *ngIf="job.applied" class="applied th-btn">
     Already Applied
   </button>
 
   <div style="display: flex; justify-content: space-between;">
-    <button (click)="goBack()" mat-button class="back">Back</button>
-    <a [routerLink]="['/applicant/jobs/report/', job.id]" class="reports" href="">Report this job
+    <button (click)="goBack()" mat-button class="back">
+      <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faArrowLeft"></fa-icon> Back
+    </button>
+    <a [routerLink]="['/applicant/jobs/report/', job.id]" class="reports" href=""
+      >Report this job
       <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faExternalLinkAlt"></fa-icon>
     </a>
   </div>
@@ -107,7 +111,11 @@
     </button>
   </div> -->
 
-  <app-custom-notification [show]="showModal" type="success"
-    callback="applicant/applications" text="Application Submitted Successfully">
+  <app-custom-notification
+    [show]="showModal"
+    type="success"
+    callback="applicant/applications"
+    text="Application Submitted Successfully"
+  >
   </app-custom-notification>
 </div>

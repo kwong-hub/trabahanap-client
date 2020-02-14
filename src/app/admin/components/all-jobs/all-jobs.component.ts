@@ -81,6 +81,13 @@ export class AllJobsComponent implements OnInit {
   isLogoEditModalOpen: boolean = false;
   deletedId: any;
   defaultLimit = { max: '50', min: '0' };
+  empty = false;
+  hasValues = false;
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 8
+  };
+
   constructor(
     private adminService: AdminService,
     private anonyService: AnonymousService,
@@ -89,14 +96,21 @@ export class AllJobsComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder
   ) {
-    this.route.data.subscribe(res => {
-      let data = res.data;
-      if (data.success) {
-        this.jobs = data.jobs.rows;
-        this.pager = data.jobs.pager;
-      } else {
-      }
-    });
+    this.route.queryParams.subscribe(
+      data => {
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
+      },
+      err => console.log(err)
+    );
+    // this.route.data.subscribe(res => {
+    //   let data = res.data;
+    //   if (data.success) {
+    //     this.jobs = data.jobs.rows;
+    //     this.pager = data.jobs.pager;
+    //   } else {
+    //   }
+    // });
   }
 
   ngOnInit() {
@@ -174,6 +188,13 @@ export class AllJobsComponent implements OnInit {
         .subscribe(data => {
           this.jobs = data.jobs.rows;
           this.pager = data.jobs.pager;
+          this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: this.pager.currentPage },
+            replaceUrl: true,
+            queryParamsHandling: 'merge'
+          });
         });
     } else {
       this.adminService.getJobs(page.pageIndex + 1, page.pageSize).subscribe(
@@ -181,6 +202,13 @@ export class AllJobsComponent implements OnInit {
           if (success.success == true) {
             this.jobs = success.jobs.rows;
             this.pager = success.jobs.pager;
+            this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { page: this.pager.currentPage },
+              replaceUrl: true,
+              queryParamsHandling: 'merge'
+            });
             // this.pager.pages = this.renderedPages();
           }
         },

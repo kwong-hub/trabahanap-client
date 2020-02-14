@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ApplicantService } from '@app/_services/applicant.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -13,6 +13,10 @@ import { JobService } from '@app/_services/jobs.service';
 export class CompaniesComponent implements OnInit {
   searchForm: FormGroup;
   jobs: Array<object> = [];
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 5
+  };
   displayedColumns: string[] = ['companyLogo', 'jobName', 'companyName', 'action'];
   styleObject = {
     inputContainer: {},
@@ -35,23 +39,25 @@ export class CompaniesComponent implements OnInit {
   faToolbox = faToolbox;
   faMapMarkerAlt = faMapMarkerAlt;
   faClock = faClock;
-  
+
   public pager: any;
-  public page: 1;
+  public page = 1;
   defaultLimit = { max: '35', min: '0' };
   deleted: boolean;
 
   constructor(
     private applicantService: ApplicantService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute, private jobService: JobService
+    private route: ActivatedRoute,
+    private jobService: JobService,
+    private router: Router
   ) {
-    this.route.data.subscribe(
+    this.route.queryParams.subscribe(
       data => {
-        this.pager = data.jobs.pager;
-        this.jobs = data.jobs.rows;
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
       },
-      error => console.log(error)
+      err => console.log(err)
     );
   }
 
@@ -66,7 +72,6 @@ export class CompaniesComponent implements OnInit {
       industry: ['', Validators.nullValidator],
       companyName: ['', Validators.nullValidator]
     });
-
   }
 
   toggleFilter(event) {
@@ -88,11 +93,18 @@ export class CompaniesComponent implements OnInit {
   }
 
   getServerData(page) {
+    this.matPager = page;
     this.applicantService.getSavedJobs(page.pageIndex + 1, page.pageSize).subscribe(
       data => {
         if (data.success == true) {
           this.jobs = data.jobs.rows;
           this.pager = data.jobs.pager;
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: this.pager.currentPage },
+            replaceUrl: true,
+            queryParamsHandling: 'merge'
+          });
         }
       },
       err => console.log(err)
@@ -103,9 +115,9 @@ export class CompaniesComponent implements OnInit {
     this.deleted = false;
     this.jobService.toggleSaveJob(id).subscribe(
       data => {
-        if(data.success) {
+        if (data.success) {
           this.deleted = true;
-          this.getServerData({pageIndex: 0, pageSize: 5});
+          this.getServerData({ pageIndex: 0, pageSize: 5 });
           this.jobs = this.jobs.filter(temp => {
             // @ts-ignore
             if (temp.id !== id) {
@@ -114,7 +126,9 @@ export class CompaniesComponent implements OnInit {
           });
         }
       },
-      error => {console.log(error)}
-    )
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 3px;
-  // padding: 0 2rem;
+  padding: 2rem 0rem;
   position: relative;
 
   .btn-group {
@@ -25,7 +25,7 @@
       border: 1px solid;
       border-radius: 5px;
       padding: 0 6rem;
-      transition: all .3s;
+      transition: all 0.3s;
       cursor: pointer;
 
       &--saved {
@@ -59,12 +59,7 @@
       font-size: small;
       font-weight: bold;
       text-transform: uppercase;
-      background-image: linear-gradient(
-        155deg,
-        white 0%,
-        white 50%,
-        rgba(211, 211, 211, 0.8)
-      );
+      background-image: linear-gradient(155deg, white 0%, white 50%, rgba(211, 211, 211, 0.8));
       // background-color: rgba(128, 128, 128, .5);
       // color: #888;
       border: 1px solid rgba(black, 0.3);
@@ -84,10 +79,11 @@
   width: 18rem;
   position: relative;
   margin: 1.5rem auto;
-  border:none;
+  border: none;
   color: #888;
-  
-  &::before, &::after {
+
+  &::before,
+  &::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -114,7 +110,8 @@
   text-decoration: none;
   margin: 1.5rem 0;
 
-  &:hover, &:active {
+  &:hover,
+  &:active {
     text-decoration: underline;
   }
 }
@@ -190,7 +187,7 @@
         position: relative;
 
         &::after {
-          content: "";
+          content: '';
           position: absolute;
           bottom: 0;
           width: 98%; // to avoid the scroll bar
@@ -273,7 +270,7 @@
           .icon {
             color: #d64e4e;
             font-size-adjust: 1.5rem;
-            margin-right: .5rem;
+            margin-right: 0.5rem;
           }
         }
       }
@@ -315,7 +312,7 @@
       margin-bottom: 2rem;
       color: #42597b;
       font-weight: 600;
-      
+
       .expiry {
         color: red;
       }
@@ -336,7 +333,7 @@
 @media only screen and (min-width: 800px) {
   .container {
     // padding: 0;
-    padding: 1rem 3rem;
+    padding: 2.5rem 3rem;
     position: relative;
 
     .btn-group {
@@ -362,7 +359,9 @@
     }
   }
   .back {
-    display: none;
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
   }
   .reports {
     padding-left: 2rem;
@@ -373,6 +372,7 @@
     top: 0;
     right: 2rem;
     font-weight: 300;
+    margin: 0;
   }
 
   .details {

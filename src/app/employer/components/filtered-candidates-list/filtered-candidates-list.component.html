@@ -19,7 +19,7 @@
           type="text"
           [submitted]="false"
           [disabled]="false"
-          [limit] ="defaultLimit"
+          [limit]="defaultLimit"
         >
         </shared-custom-input-field>
       </div>
@@ -35,7 +35,7 @@
           type="text"
           [submitted]="false"
           [disabled]="false"
-          [limit] ="defaultLimit"
+          [limit]="defaultLimit"
         >
         </shared-custom-input-field>
       </div>
@@ -51,15 +51,22 @@
           type="text"
           [submitted]="false"
           [disabled]="false"
-          [limit] ="defaultLimit"
+          [limit]="defaultLimit"
         >
         </shared-custom-input-field>
         <div class="form__group--btn">
           <div class="checkbox">
-            <input type="checkbox" formControlName="active" name="suspended" id="pwd-checkbox" class="checkbox__input" />
+            <input
+              type="checkbox"
+              formControlName="active"
+              name="suspended"
+              id="pwd-checkbox"
+              class="checkbox__input"
+            />
             <label for="pwd-checkbox" class="checkbox__label">
               <div class="checkbox__button"></div>
-              <span class="checkbox__text">Deleted
+              <span class="checkbox__text"
+                >Deleted
                 <!-- <i style="margin: .5rem .5rem 0; color: #42597B" class="fab fa-accessible-icon"></i> -->
               </span>
             </label>
@@ -74,11 +81,11 @@
   </div>
 </div>
 
-<h3 class="not_Found" *ngIf="!jobs || jobs?.length == 0">
+<h3 class="not_Found" *ngIf="empty">
   You don't have any filtered jobs yet.
 </h3>
 
-<div *ngIf="jobs && jobs.length > 0">
+<div *ngIf="hasValues">
   <table style="min-width: 95rem;" mat-table [dataSource]="jobs" class="mat-elevation-z4">
     <ng-container matColumnDef="jobTitle">
       <th mat-header-cell *matHeaderCellDef>Job Title</th>
@@ -138,6 +145,7 @@
     [pageSize]="pager?.pageSize"
     [pageSizeOptions]="[5, 8, 10, 25, 100]"
     (page)="getServerData($event)"
+    [pageIndex]="pager?.currentPage - 1"
   >
   </mat-paginator>
 </div>

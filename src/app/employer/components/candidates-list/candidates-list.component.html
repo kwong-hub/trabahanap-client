@@ -24,21 +24,51 @@
   <div class="filter__content" [class.filter__hide]="filterHidden">
     <form action="#" (ngSubmit)="filterJobsApplications()" class="form" [formGroup]="searchForm" autocomplete="off">
       <div class="sub-container">
-        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="jobTitle" defaultValue=""
-          label="Jobs" placeholder="Enter Search Jobs" [input]="searchForm.controls['jobTitle']" type="text"
-          [submitted]="false" [disabled]="false" [limit]="defaultLimit">
+        <shared-custom-input-field
+          class="input-element-type-2"
+          [formGroup]="searchForm"
+          name="jobTitle"
+          defaultValue=""
+          label="Jobs"
+          placeholder="Enter Search Jobs"
+          [input]="searchForm.controls['jobTitle']"
+          type="text"
+          [submitted]="false"
+          [disabled]="false"
+          [limit]="defaultLimit"
+        >
         </shared-custom-input-field>
       </div>
       <div class="sub-container">
-        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="industry" defaultValue=""
-          label="Industry Type" placeholder="Search by Industry" [input]="searchForm.controls['industry']" type="text"
-          [submitted]="false" [disabled]="false" [limit]="defaultLimit">
+        <shared-custom-input-field
+          class="input-element-type-2"
+          [formGroup]="searchForm"
+          name="industry"
+          defaultValue=""
+          label="Industry Type"
+          placeholder="Search by Industry"
+          [input]="searchForm.controls['industry']"
+          type="text"
+          [submitted]="false"
+          [disabled]="false"
+          [limit]="defaultLimit"
+        >
         </shared-custom-input-field>
       </div>
       <div class="sub-container">
-        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="position" defaultValue=""
-          label="Position" placeholder="Search by Position" [input]="searchForm.controls['position']" type="text"
-          [submitted]="false" [disabled]="false" [limit]="defaultLimit">
+        <shared-custom-input-field
+          class="input-element-type-2"
+          [formGroup]="searchForm"
+          name="position"
+          defaultValue=""
+          label="Position"
+          placeholder="Search by Position"
+          [input]="searchForm.controls['position']"
+          type="text"
+          [submitted]="false"
+          [disabled]="false"
+          [limit]="defaultLimit"
+        >
         </shared-custom-input-field>
       </div>
 
@@ -47,15 +77,13 @@
           <input type="checkbox" formControlName="active" name="suspended" id="pwd-checkbox" class="checkbox__input" />
           <label for="pwd-checkbox" class="checkbox__label">
             <div class="checkbox__button"></div>
-            <span class="checkbox__text">Deleted
+            <span class="checkbox__text"
+              >Deleted
               <!-- <i style="margin: .5rem .5rem 0; color: #42597B" class="fab fa-accessible-icon"></i> -->
             </span>
           </label>
         </div>
       </div>
-
-
-
 
       <div class="form__group--btn">
         <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
@@ -63,11 +91,11 @@
     </form>
   </div>
 </div>
-<h3 class="not_Found" *ngIf="jobs && jobs.length == 0">
+<h3 class="not_Found" *ngIf="empty">
   You don't have any candidate jobs.
 </h3>
 
-<div *ngIf="jobs && jobs.length > 0">
+<div *ngIf="hasValues">
   <table style="min-width: 95rem;" mat-table [dataSource]="jobs" class="mat-elevation-z4">
     <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
@@ -112,11 +140,12 @@
     <ng-container matColumnDef="detail">
       <th mat-header-cell *matHeaderCellDef>Show Detail</th>
       <td mat-cell style="min-width: 8rem;" *matCellDef="let element">
-        <button [disabled]="element.applicationsCount == 0" (click)="showCadidates(element)"
-          class="job-list__action job-list__action--hover">
-          <span class="job-list__icon">
-            <fa-icon [icon]="faPenFancy"></fa-icon>
-          </span>Details
+        <button
+          [disabled]="element.applicationsCount == 0"
+          (click)="showCadidates(element)"
+          class="job-list__action job-list__action--hover"
+        >
+          <span class="job-list__icon"> <fa-icon [icon]="faPenFancy"></fa-icon> </span>Details
         </button>
       </td>
     </ng-container>
@@ -125,13 +154,18 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
-  <h3 *ngIf="jobs && jobs.length == 0 && filtered">
+  <h3 *ngIf="empty && filtered">
     <div class="not_Found">
       <span> Sorry, we didn't find any jobs matching your criteria </span>
     </div>
   </h3>
 
-  <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize" [pageSizeOptions]="[5, 8, 10, 25, 100]"
-    (page)="getServerData($event)">
+  <mat-paginator
+    [length]="pager?.totalItems"
+    [pageSize]="pager?.pageSize"
+    [pageSizeOptions]="[5, 8, 10, 25, 100]"
+    [pageIndex]="pager?.currentPage - 1"
+    (page)="getServerData($event)"
+  >
   </mat-paginator>
 </div>

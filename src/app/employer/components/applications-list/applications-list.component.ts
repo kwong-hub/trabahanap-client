@@ -33,6 +33,13 @@ export class ApplicationsListComponent implements OnInit {
   filterHidden: boolean = true;
   filtered: boolean = false;
   defaultLimit = { max: '50', min: '0' };
+  empty = false;
+  hasValues = false;
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 5
+  };
+
   constructor(
     private employerService: EmployerService,
     private Route: ActivatedRoute,
@@ -40,13 +47,21 @@ export class ApplicationsListComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.Route.data.subscribe(res => {
-      let data = res.data;
-      if (data.success) {
-        this.pager = data.applications.pager;
-        this.applications = data.applications.rows;
-      }
-    });
+    // this.Route.data.subscribe(res => {
+    //   let data = res.data;
+    //   if (data.success) {
+    //     this.pager = data.applications.pager;
+    //     this.applications = data.applications.rows;
+    //   }
+    // });
+
+    this.route.queryParams.subscribe(
+      data => {
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
+      },
+      err => console.log(err)
+    );
   }
 
   ngOnInit() {
@@ -67,6 +82,14 @@ export class ApplicationsListComponent implements OnInit {
           if (success.success == true) {
             this.applications = success.applications.rows;
             this.pager = success.applications.pager;
+            this.applications.length == 0 ? (this.empty = true) : (this.hasValues = true);
+
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { page: this.pager.currentPage },
+              replaceUrl: true,
+              queryParamsHandling: 'merge'
+            });
             // this.pager.pages = this.renderedPages();
           }
         },
@@ -79,6 +102,13 @@ export class ApplicationsListComponent implements OnInit {
         .subscribe(data => {
           this.applications = data.applications.rows;
           this.pager = data.applications.pager;
+          this.applications.length == 0 ? (this.empty = true) : (this.hasValues = true);
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: this.pager.currentPage },
+            replaceUrl: true,
+            queryParamsHandling: 'merge'
+          });
         });
     }
   }

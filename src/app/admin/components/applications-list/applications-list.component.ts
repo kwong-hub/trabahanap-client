@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AdminService } from '@app/_services/admin.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-applications-list',
@@ -43,15 +43,27 @@ export class ApplicationsListComponent implements OnInit {
   filtered: boolean = false;
   openActions: {};
   defaultLimit = { max: '50', min: '0' };
-  constructor(private adminService: AdminService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
-    this.route.data.subscribe(res => {
-      let data = res.data;
-      if (data.success) {
-        this.applications = data.applications.rows;
-        this.pager = data.applications.pager;
-      } else {
-      }
-    });
+  empty = false;
+  hasValues = false;
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 8
+  };
+
+  constructor(
+    private adminService: AdminService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    // this.route.data.subscribe(res => {
+    //   let data = res.data;
+    //   if (data.success) {
+    //     this.applications = data.applications.rows;
+    //     this.pager = data.applications.pager;
+    //   } else {
+    //   }
+    // });
   }
 
   ngOnInit() {
@@ -67,6 +79,14 @@ export class ApplicationsListComponent implements OnInit {
       this.openActions = {};
       this.filterHidden = true;
     });
+
+    this.route.queryParams.subscribe(
+      data => {
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
+      },
+      err => console.log(err)
+    );
 
     // this.adminService.getAllApplications(1).subscribe(
     //   data => {
@@ -89,6 +109,14 @@ export class ApplicationsListComponent implements OnInit {
           if (success.success == true) {
             this.applications = success.applications.rows;
             this.pager = success.applications.pager;
+
+            this.applications.length == 0 ? (this.empty = true) : (this.hasValues = true);
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { page: this.pager.currentPage },
+              replaceUrl: true,
+              queryParamsHandling: 'merge'
+            });
             // this.pager.pages = this.renderedPages();
           }
         },
@@ -101,6 +129,14 @@ export class ApplicationsListComponent implements OnInit {
         .subscribe(data => {
           this.applications = data.applications.rows;
           this.pager = data.applications.pager;
+
+          this.applications.length == 0 ? (this.empty = true) : (this.hasValues = true);
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: this.pager.currentPage },
+            replaceUrl: true,
+            queryParamsHandling: 'merge'
+          });
         });
     }
   }

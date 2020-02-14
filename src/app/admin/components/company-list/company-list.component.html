@@ -7,13 +7,7 @@
         <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
       </div>
       <div class="filter__content" [class.filter__hide]="filterHidden">
-        <form
-          action="#"
-          (ngSubmit)="filterEmployers()"
-          class="form"
-          [formGroup]="searchForm"
-          autocomplete="off"
-        >
+        <form action="#" (ngSubmit)="filterEmployers()" class="form" [formGroup]="searchForm" autocomplete="off">
           <div class="sub-container">
             <shared-custom-input-field
               class="input-element-type-2"
@@ -26,7 +20,7 @@
               type="text"
               [submitted]="false"
               [disabled]="false"
-              [limit] ="defaultLimit"
+              [limit]="defaultLimit"
             >
             </shared-custom-input-field>
           </div>
@@ -42,38 +36,43 @@
               type="text"
               [submitted]="false"
               [disabled]="false"
-              [limit] ="defaultLimit"
+              [limit]="defaultLimit"
             >
             </shared-custom-input-field>
           </div>
 
           <div class="form__group--btn">
-            <input
-              type="submit"
-              value="Search"
-              class="form__submit th-btn th-btn--primary"
-            />
+            <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
           </div>
         </form>
       </div>
     </div>
 
-    <h3 *ngIf="companies && companies.length == 0">
+    <h3 *ngIf="empty">
       <div class="not_Found">
         <span> Sorry, we didn't find any Company matching your criteria </span>
       </div>
     </h3>
 
-    <table *ngIf="companies.length > 0"  mat-table
-      [dataSource]="companies" class="mat-elevation-z3">
+    <table *ngIf="hasValues" mat-table [dataSource]="companies" class="mat-elevation-z3">
       <!-- Name Column -->
       <ng-container matColumnDef="companyLogo">
         <th mat-header-cell *matHeaderCellDef>Company Logo</th>
         <td mat-cell *matCellDef="let company">
-          <img *ngIf="company.companyLogo" style="margin: 0.5rem 0; height: 5rem;"
-            [src]="company.companyLogo" alt="" class="logo" />
-          <img *ngIf="!company.companyLogo" style="margin: 0.5rem 0; height: 5rem;"
-            src="assets/img/building.png" alt="" class="logo" />
+          <img
+            *ngIf="company.companyLogo"
+            style="margin: 0.5rem 0; height: 5rem;"
+            [src]="company.companyLogo"
+            alt=""
+            class="logo"
+          />
+          <img
+            *ngIf="!company.companyLogo"
+            style="margin: 0.5rem 0; height: 5rem;"
+            src="assets/img/building.png"
+            alt=""
+            class="logo"
+          />
         </td>
       </ng-container>
 
@@ -104,34 +103,17 @@
       <!-- Actions Column -->
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td
-          style="min-width: 16rem;"
-          class="company-list__actions-container"
-          mat-cell
-          *matCellDef="let company"
-        >
-          <button
-            (click)="toggleActions($event, company.id)"
-            class="company-list__action"
-          >
+        <td style="min-width: 16rem;" class="company-list__actions-container" mat-cell *matCellDef="let company">
+          <button (click)="toggleActions($event, company.id)" class="company-list__action">
             <fa-icon [icon]="faEllipsisV"></fa-icon>
           </button>
           <div class="company-list__actions" *ngIf="openActions[company.id]">
-            <button
-              [routerLink]="['details/', company.id]"
-              class="company-list__action company-list__action--hover"
-            >
+            <button [routerLink]="['details/', company.id]" class="company-list__action company-list__action--hover">
               <span class="company-list__icon"></span>Details
             </button>
-            <button
-              (click)="verifyCompany(company.id)"
-              class="company-list__action company-list__action--hover"
-            >
-              <span class="company-list__icon">
-                <fa-icon
-                  [icon]="company?.verified ? faTimes : ''"
-                ></fa-icon> </span
-              >{{ company.verified ? "Reject" : "Verify" }}
+            <button (click)="verifyCompany(company.id)" class="company-list__action company-list__action--hover">
+              <span class="company-list__icon"> <fa-icon [icon]="company?.verified ? faTimes : ''"></fa-icon> </span
+              >{{ company.verified ? 'Reject' : 'Verify' }}
             </button>
             <button
               [routerLink]="['locations/', company.id]"
@@ -160,7 +142,7 @@
               *ngIf="company.verified"
               class="company-list__action company-list__action--hover"
             >
-              {{ company.featured ? "Remove Featured" : "Add Featured" }}
+              {{ company.featured ? 'Remove Featured' : 'Add Featured' }}
             </button>
             <!-- <button [routerLink]="['applicant/', company.id]" *ngIf="company.verified && company.hasLocations"
                             class="company-list__action company-list__action--hover"><span class="company-list__icon">
@@ -181,6 +163,7 @@
         [length]="pager?.totalItems"
         [pageSize]="pager?.pageSize"
         [pageSizeOptions]="[5, 8, 10, 25, 100]"
+        [pageIndex]="pager?.currentPage - 1"
         (page)="getServerData($event)"
       >
       </mat-paginator>
@@ -194,19 +177,11 @@
   </button>
 </div>
 
-<div
-  class="notification notification--error"
-  [class.active]="reachedMaxFeatured"
->
+<div class="notification notification--error" [class.active]="reachedMaxFeatured">
   <div class="notification__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
+    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
     <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
-    <span class="text"
-      >Maximum Featured Company Reached. Remove a company first.</span
-    >
+    <span class="text">Maximum Featured Company Reached. Remove a company first.</span>
   </div>
 </div>

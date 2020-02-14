@@ -68,6 +68,7 @@
         [length]="pager?.totalItems"
         [pageSize]="pager?.pageSize"
         [pageSizeOptions]="[5, 8, 10, 25, 100]"
+        [pageIndex]="pager?.currentPage - 1"
         (page)="getServerData($event)"
       >
       </mat-paginator>
