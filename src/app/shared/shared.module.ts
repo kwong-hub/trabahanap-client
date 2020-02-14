@@ -46,6 +46,7 @@ import { CustomSubmitButtonComponent } from './components/custom-submit-button/c
 import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
 import { CustomOverlayComponent } from './components/custom-overlay/custom-overlay.component';
 import { DateAgoPipe } from '@app/pipes/date-ago.pipe';
+import { StateService } from '@app/_services/state.service';
 // import { FeatureJobComponent } from './components/feature-job/feature-job.component';
 
 @NgModule({
@@ -126,6 +127,6 @@ import { DateAgoPipe } from '@app/pipes/date-ago.pipe';
     CustomOverlayComponent,
     CustomNotificationComponent
   ],
-  providers: [JobService, EmployerService, ApplicantService, LocationService]
+  providers: [JobService, EmployerService, ApplicantService, LocationService, StateService]
 })
 export class SharedModule {}
