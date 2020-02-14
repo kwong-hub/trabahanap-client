@@ -339,7 +339,7 @@ export class JobsListComponent implements OnInit {
   scrollToPosition() {
     setTimeout(() => {
       if (this.stateService.jobs) {
-        window.scrollTo(0, (this.stateService.jobs.rows.length / 12) * window.innerHeight);
+        window.scrollTo(0, document.body.scrollHeight - window.innerHeight / 2);
       }
     }, 100);
   }
