@@ -9,12 +9,16 @@ import {
   faExternalLinkAlt,
   faToolbox,
   faClock,
-  faArrowLeft
+  faArrowLeft,
+  faBookOpen,
+  faBuilding,
+  faListUl
 } from '@fortawesome/free-solid-svg-icons';
 import { ApplicantService } from '@app/_services/applicant.service';
 import { tileLayer, latLng, marker, icon, Point } from 'leaflet';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { Role } from '@app/_models/Role';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-job-detail',
@@ -30,7 +34,12 @@ export class JobDetailComponent implements OnInit {
   faTag = faTag;
   faExternalLinkAlt = faExternalLinkAlt;
   faArrowLeft = faArrowLeft;
+  faBookOpen = faBookOpen;
+  faBuilding = faBuilding;
+  faListUl = faListUl;
   showModal: boolean;
+  tabs: any;
+  companyJobs = [];
   options = {
     layers: [
       tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -92,6 +101,7 @@ export class JobDetailComponent implements OnInit {
         autoPanPadding: new Point(70, 70)
       });
     }
+    this.tabClicked('detailActive');
   } // ngOnInit ends here
 
   apply(jobId) {
@@ -124,7 +134,6 @@ export class JobDetailComponent implements OnInit {
       });
       return false; // to prevent reload
     } else if (!auth.hasFinishedProfile) {
-      console.error('has not finished profile');
       return false;
     } else if (auth.role === Role.applicant) {
       this.jobService.toggleSaveJob(jobId).subscribe(
@@ -142,5 +151,25 @@ export class JobDetailComponent implements OnInit {
 
   goBack() {
     this._location.back();
+  }
+
+  tabClicked(tab) {
+    this.tabs = {};
+    this.tabs[tab] = true;
+  }
+
+  getCompanyJobs() {
+    this.tabClicked('otherActive');
+    this.jobService.getCompanyJobsApplicant(this.job.companyProfileId).subscribe(
+      data => {
+        data.jobs.map(job => {
+          if (this.job.id != job.id) {
+            job.jobId = job.id;
+            this.companyJobs.push(job);
+          }
+        });
+      },
+      err => console.log(err)
+    );
   }
 }

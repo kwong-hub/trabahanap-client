@@ -1,7 +1,17 @@
-<div class="job" [routerLink]="['details', Job.jobId]">
+<div class="job" [routerLink]="['/applicant/jobs/details', Job.jobId]">
   <div class="job__left">
     <div class="job__left--top">
-      <img class="job__company-image" [src]="Job.companyLogo ? Job.companyLogo : 'assets/img/building.png'" />
+      <img
+        *ngIf="showSave"
+        class="job__company-image"
+        [src]="
+          Job.companyLogo
+            ? Job.companyLogo
+            : Job.company_profile?.companyLogo
+            ? Job.company_profile?.companyLogo
+            : 'assets/img/building.png'
+        "
+      />
       <div class="job__left--top__container">
         <h3 class="job__title">{{ Job.jobTitle }}</h3>
         <div style="margin-top: 1rem;">
@@ -54,8 +64,12 @@
     </div>
   </div>
   <div>
-    <button *ngIf="!userRole || userRole === 'APPLICANT'" (click)="bookmarkJob($event)" 
-      [class.job__bookmark--saved]="bookmarked" class="job__bookmark">
+    <button
+      *ngIf="(!userRole || userRole === 'APPLICANT') && showSave"
+      (click)="bookmarkJob($event)"
+      [class.job__bookmark--saved]="bookmarked"
+      class="job__bookmark"
+    >
       <span class="job__bookmark-text">
         {{ bookmarked ? 'SAVED' : 'SAVE JOB' }}
       </span>
