@@ -17,21 +17,25 @@
         <a routerLink="home" routerLinkActive="active" title="Dashboard" (click)="toggleSidebar(false)"
           [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons fas fa-home"></i> <span class="names">Dashboard</span>
+          <!-- <img src="../../assets/img/icons/" alt="" class="imgs"> -->
         </a>
         <a routerLink="jobs" routerLinkActive="active" title="Jobs" (click)="toggleSidebar(false)"
           [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
-          <i class="icons fas fa-clipboard-list"></i>
+          <!-- <i class="icons fas fa-clipboard-list"></i> -->
+          <img src="../../assets/img/icons/job_icon_03.svg" alt="" class="imgs">
           <span class="names">Jobs</span>
         </a>
         <a routerLink="applications" routerLinkActive="active" title="Applications" (click)="toggleSidebar(false)"
           [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
-          <i class="icons fas fa-list"></i>
+          <!-- <i class="icons fas fa-list"></i> -->
+          <img src="../../assets/img/icons/applications_icon_03.svg" alt="" class="imgs">
           <span class="names">Applications</span>
         </a>
         <a routerLink="bookmarks" routerLinkActive="active" title="Saved Jobs" (click)="toggleSidebar(false)"
           [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
-          <i class="icons far fa-heart"></i>
-          <span class="names">Bookmarks</span>
+          <!-- <i class="icons far fa-heart"></i> -->
+          <img src="../../assets/img/icons/bookmark_icon_button.svg" alt="" class="imgs">
+          <span class="names">Saved Jobs</span>
         </a>
       </div>
 
@@ -40,21 +44,25 @@
       <div class="sidebar__list">
         <a routerLink="profile" routerLinkActive="active" title="Account Profile" (click)="toggleSidebar(false)"
           [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
-          <i class="icons far fa-address-card"></i>
+          <!-- <i class="icons far fa-address-card"></i> -->
+          <img src="../../assets/img/icons/account_profile_icon_w8HQn.svg" alt="" class="imgs">
           <span class="names">Account Profile</span>
         </a>
         <a routerLink="issues" routerLinkActive="active" title="Report Issue" (click)="toggleSidebar(false)"
           [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
-          <i class="icons fas fa-bug"></i>
+          <!-- <i class="icons fas fa-bug"></i> -->
+          <img src="../../assets/img/icons/reported_issues_icon_bzUp2.svg" alt="" class="imgs">
           <span class="names">Report Issue</span>
         </a>
         <a routerLink="password" routerLinkActive="active" title="Change Password" (click)="toggleSidebar(false)"
           [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
           <i class="icons fas fa-key"></i>
+          <!-- <img src="../../assets/img/icons/" alt="" class="imgs"> -->
           <span class="names">Change password</span>
         </a>
         <a (click)="logout()" class="sidebar__list-item" title="Logout">
           <i class="icons fas fa-sign-out-alt"></i>
+          <!-- <img src="../../assets/img/icons/" alt="" class="imgs"> -->
           <span class="names">Logout</span>
         </a>
       </div>

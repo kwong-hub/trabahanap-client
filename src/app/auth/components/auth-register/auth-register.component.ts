@@ -35,6 +35,7 @@ export class AuthRegisterComponent implements OnInit {
   submitStyle = { btn: { width: '100%', borderRadius: '5px' } };
   eyeIcon = faEyeSlash;
   error;
+  terms;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,7 +60,8 @@ export class AuthRegisterComponent implements OnInit {
         phoneNumber: ['', [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         passwordConfirm: ['', Validators.required],
-        recaptcha: ['', Validators.required]
+        recaptcha: ['', Validators.required],
+        terms: [false, Validators.required]
       },
       {
         validator: MustMatch('password', 'passwordConfirm')
@@ -104,8 +106,12 @@ export class AuthRegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    if(!this.registerForm.value.terms) {
+      this.f.terms.setErrors({'incorrect': true});
+    }
     // stop here if form is invalid
-    if (this.registerForm.invalid) {
+    if (this.registerForm.invalid || !this.registerForm.value.terms) {
+      console.log(this.registerForm.controls)
       return;
     }
 
@@ -157,7 +163,8 @@ export class AuthRegisterComponent implements OnInit {
             this.loading = false;
           }
         );
-    } else {
+    } 
+    else {
       this.registrationService
         .registerApplicant({
           ...this.registerForm.value,

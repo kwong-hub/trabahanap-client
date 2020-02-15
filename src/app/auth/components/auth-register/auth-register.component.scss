@@ -1,5 +1,5 @@
 .container {
-  padding: 8rem 0;
+  padding: 10rem 0 8rem;
   position: relative;
 }
 
@@ -37,8 +37,8 @@
   width: 97%;
   max-width: 55rem;
   margin: 0 auto;
-  border: 1px solid rgba(black, 0.1);
-  box-shadow: 0 0.5rem 1rem rgba(black, 0.2);
+  // border: 1px solid rgba(black, 0.1);
+  // box-shadow: 0 0.5rem 1rem rgba(black, 0.2);
   padding: 3rem 2rem;
   padding: 3rem;
 
@@ -52,7 +52,7 @@
     }
 
     .header-text {
-      color: tomato;
+      color: #aa111d;
       font-size: 2.8rem;
       margin-bottom: 2rem;
       display: inline-block;
@@ -62,7 +62,7 @@
   &__body {
     .form {
       &__group {
-        width: 85%;
+        width: 90%;
         margin: 0 auto 1rem;
 
         &--double {
@@ -81,6 +81,51 @@
           color: grey;
           border: 2px solid grey;
           cursor: progress;
+        }
+      }
+
+      .checkbox {
+        &__input {
+          display: none;
+        }
+
+        &__label {
+          display: flex;
+          align-items: center;
+          margin: 2rem 0 1rem;
+          cursor: pointer;
+        }
+
+        &__button {
+          position: relative;
+          width: 25px;
+          height: 2.5rem;
+          border: 2px solid #aa111d;
+          border-radius: 3px;
+          margin: 0 1rem;
+          // transition: all .2s;
+          &::before {
+            content: "";
+            font-family: "Font Awesome 5 Free";
+            font-size: 2.6rem;
+            display: inline-block;
+            color: #ce2127;
+            position: absolute;
+            top: -5px;
+            left: 0;
+            transform: translateY(3px);
+            transition: transform 0.2s;
+          }
+        }
+
+        &__text {
+          font-size: 2rem;
+          color: #333;
+          font-weight: 400;
+
+          .link {
+            text-decoration: none;
+          }
         }
       }
 
@@ -112,12 +157,20 @@
         font-weight: 600;
         text-align: center;
       }
+      .checkbox__input:checked ~ .checkbox__label .checkbox__button {
+        background: #eee;
+    
+        &::before {
+          content: "\2714";
+          transform: translateY(0);
+        }
+      }
     }
   }
 
   .invalid-feedback {
     &__message {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       color: rgb(255, 0, 0);
       font-style: italic;
     }

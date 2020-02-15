@@ -23,7 +23,7 @@ export class LandingNearJobsComponent implements OnInit {
         attribution: '...'
       })
     ],
-    zoom: 13,
+    zoom: 16,
     center: latLng(14.6042, 120.9822),
     attributionControl: false
   };

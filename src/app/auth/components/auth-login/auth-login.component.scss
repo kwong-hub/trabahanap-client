@@ -1,7 +1,7 @@
 @import '../../../../assets/scss/abstracts/variables';
 
 .container {
-  padding: 8rem 0;
+  padding: 10rem 0 8rem;
   position: relative;
 }
 
@@ -45,11 +45,12 @@
   margin: 0 auto;
   border: 1px solid rgba(black, 0.1);
   border-radius: 5px;
-  padding: 2rem 4.5rem;
+  padding: 3rem 4.5rem;
   translate: 5s all;
   transform: translateX(0);
   position: relative;
-
+  overflow: hidden;
+  
   &__back {
     position: fixed;
     left: 1rem;
@@ -79,7 +80,7 @@
     .header-text {
       font-size: 2.5rem;
       margin-bottom: 2rem;
-      color: #333;
+      color: #aa111d;
 
       &__sub {
         font-size: 1.8rem;

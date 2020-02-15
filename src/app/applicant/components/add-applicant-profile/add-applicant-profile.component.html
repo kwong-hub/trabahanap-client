@@ -197,7 +197,7 @@
           [submitted]="submitted"
           [disabled]="hasProfile"
           [styleObject]="styleObject"
-          [limit] ="defaultLimit"
+          [limit] ="bigLimit"
         ></shared-custom-input-field>
       </div>
       <div class="sub-container">
@@ -205,7 +205,7 @@
           [valid]="addApplicantProfileForm.controls['month']?.status"
           (onValueChange)="selectChanged($event, 'month')"
           name="month"
-          label="Birth Day"
+          label="Birth Month"
           [defaultValue]="applicantProfile?.month"
           [styleObject]="styleObject"
           class="input-element-type-3"
@@ -220,8 +220,8 @@
           [formGroup]="addApplicantProfileForm"
           name="date"
           [defaultValue]="applicantProfile?.date"
-          placeholder="Date"
-          label="Date"
+          placeholder="Day"
+          label="Day"
           [input]="addApplicantProfileForm.controls['date']"
           type="number"
           [submitted]="submitted"
