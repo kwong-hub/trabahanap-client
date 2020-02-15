@@ -6,7 +6,7 @@
   flex-direction: column;
   border-radius: 3px;
   padding: 2rem 0rem;
-  position: relative;
+  margin-top: 9rem;
 
   .btn-group {
     display: flex;
@@ -334,7 +334,6 @@
   .container {
     // padding: 0;
     padding: 2.5rem 3rem;
-    position: relative;
 
     .btn-group {
       flex-direction: row;
@@ -362,6 +361,7 @@
     position: absolute;
     left: 0rem;
     top: 0rem;
+    font-size: 4rem;
   }
   .reports {
     padding-left: 2rem;
@@ -369,7 +369,7 @@
     white-space: nowrap;
     font-size: 1.8rem;
     position: absolute;
-    top: 0;
+    top: 0rem;
     right: 2rem;
     font-weight: 300;
     margin: 0;
@@ -407,6 +407,113 @@
           margin-bottom: 0.5rem;
         }
       }
+    }
+  }
+}
+
+.tabs {
+  &__container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 10rem;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 5rem;
+  }
+
+  &__tab {
+    position: absolute;
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    width: 33.3%;
+    top: 3.5rem;
+    padding: 1rem;
+    font-size: 1.8rem;
+    background-color: lighten(#ce2127, 3);
+    color: #fff;
+    border-radius: 0.2rem;
+    clip-path: polygon(90% 0, 100% 100%, 0% 100%, 0 50%, 0% 0%);
+    align-self: stretch;
+    box-shadow: 1px 2px 3px 7px #ce2127;
+    border-bottom: 1px solid #ce2127;
+    border-left: 1px solid #ce2127;
+    // border-top: 1px solid #ce2127;
+    cursor: pointer;
+
+    &--active {
+      background-color: #fff;
+      color: #ce2127;
+      border-top-left-radius: 0.5rem;
+    }
+  }
+
+  &__text {
+    margin-left: 0.5rem;
+  }
+}
+
+.company_summary {
+  &__container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+  }
+
+  &__name {
+    font-weight: 400;
+    font-size: 3rem;
+    color: dimgray;
+    font-style: italic;
+  }
+
+  &__image {
+    height: 8rem;
+  }
+}
+
+.company {
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &__detail {
+    min-height: 6rem;
+    border-left: 2px solid #ce2127;
+    border-radius: 0.5rem;
+    width: 40%;
+    display: flex;
+    align-content: center;
+    padding: 2rem;
+    font-size: 2rem;
+    color: #555;
+    margin: 1rem;
+  }
+
+  // &__address {
+  // }
+
+  &__description {
+    width: 100%;
+  }
+
+  // &__industry-type {
+  // }
+}
+
+@media only screen and (min-width: 500px) {
+  .tabs {
+    &__container {
+      width: 90%;
+    }
+
+    &__tab {
+      padding: 1rem 3rem;
+      font-size: 1.8rem;
     }
   }
 }

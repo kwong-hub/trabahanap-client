@@ -11,10 +11,10 @@ import { faToolbox, faClock } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./anonymous-job.component.scss']
 })
 export class AnonymousJobComponent implements OnInit {
-
   faToolbox = faToolbox;
   faClock = faClock;
   @Input() Job: Job;
+  @Input() showSave: boolean = true;
   @Input() isBookMarked: boolean;
   bookmarked: boolean = false;
   userRole;
@@ -26,9 +26,9 @@ export class AnonymousJobComponent implements OnInit {
     this.bookmarked = this.isBookMarked;
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
-    let desc = this.Job.jobDescription.slice(0,130);
-    this.Job.jobDescription.length > 130 ? desc = desc.concat(' ...') : desc;
-    this.Job = { ...this.Job, jobTitle: this.Job.jobTitle.match(/.{1,40}/g)[0], jobDescription: desc }
+    let desc = this.Job.jobDescription.slice(0, 130);
+    this.Job.jobDescription.length > 130 ? (desc = desc.concat(' ...')) : desc;
+    this.Job = { ...this.Job, jobTitle: this.Job.jobTitle.match(/.{1,40}/g)[0], jobDescription: desc };
   }
 
   bookmarkJob(event) {

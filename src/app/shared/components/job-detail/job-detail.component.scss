@@ -361,6 +361,7 @@
     position: absolute;
     left: 0rem;
     top: 0rem;
+    font-size: 4rem;
   }
   .reports {
     padding-left: 2rem;
@@ -426,7 +427,7 @@
     display: flex;
     // justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 33.3%;
     top: 3.5rem;
     padding: 1rem;
     font-size: 1.8rem;
@@ -471,6 +472,37 @@
   &__image {
     height: 8rem;
   }
+}
+
+.company {
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &__detail {
+    min-height: 6rem;
+    border-left: 2px solid #ce2127;
+    border-radius: 0.5rem;
+    width: 40%;
+    display: flex;
+    align-content: center;
+    padding: 2rem;
+    font-size: 2rem;
+    color: #555;
+    margin: 1rem;
+  }
+
+  // &__address {
+  // }
+
+  &__description {
+    width: 100%;
+  }
+
+  // &__industry-type {
+  // }
 }
 
 @media only screen and (min-width: 500px) {

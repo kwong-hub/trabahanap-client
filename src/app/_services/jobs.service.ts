@@ -26,6 +26,10 @@ export class JobService {
     return this.http.get<any>(`${environment.apiUrl}/applicant/company/jobs/${companyId}`);
   }
 
+  getCompanyJobsAnonymous(companyId) {
+    return this.http.get<any>(`${environment.apiUrl}/company/jobs/${companyId}`);
+  }
+
   getJobById(id): Observable<any> {
     let currentUser = this.authService.currentUserValue;
     return this.http.get<any>(`${environment.apiUrl}/jobs/${id}`);
