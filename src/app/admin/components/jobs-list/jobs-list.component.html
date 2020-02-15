@@ -1,10 +1,10 @@
 <div class="sub-module-container">
   <h3 class="sub-module-container__heading">Jobs</h3>
-  <h3 class="not_Found" *ngIf="jobs && jobs.length == 0">
+  <h3 class="not_Found" *ngIf="empty">
     You don't have any jobs yet.
   </h3>
 
-  <div *ngIf="jobs && jobs.length > 0">
+  <div *ngIf="hasValues">
     <div class="sub-module-container__container job">
       <table mat-table [dataSource]="jobs" class="mat-elevation-z3">
         <!--- Note that these columns can be defined in any order.
@@ -38,25 +38,13 @@
 
         <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td
-            class="job-list__actions-container"
-            mat-cell
-            *matCellDef="let element"
-          >
-            <button
-              (click)="toggleActions($event, element.id)"
-              class="job-list__action"
-            >
+          <td class="job-list__actions-container" mat-cell *matCellDef="let element">
+            <button (click)="toggleActions($event, element.id)" class="job-list__action">
               <fa-icon [icon]="faEllipsisV"></fa-icon>
             </button>
             <div class="job-list__actions" *ngIf="openActions[element.id]">
-              <button
-                (click)="editJob(element)"
-                class="job-list__action job-list__action--hover"
-              >
-                <span class="job-list__icon"
-                  ><fa-icon [icon]="faPenFancy"></fa-icon></span
-                >Edit
+              <button (click)="editJob(element)" class="job-list__action job-list__action--hover">
+                <span class="job-list__icon"><fa-icon [icon]="faPenFancy"></fa-icon></span>Edit
               </button>
             </div>
           </td>
@@ -71,6 +59,7 @@
         [pageSize]="pager?.pageSize"
         [pageSizeOptions]="[5, 8, 10, 25, 100]"
         (page)="getServerData($event)"
+        [pageIndex]="pager?.currentPage - 1"
       >
       </mat-paginator>
     </div>

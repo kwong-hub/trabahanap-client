@@ -16,6 +16,10 @@ export class JobCandidatesComponent implements OnInit {
     totalPages: 0,
     currentPage: 0
   };
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 5
+  };
   displayedColumns: string[] = ['picture', 'name', 'gender', 'applicationDate', 'detail'];
   applicants: any[] = [];
 
@@ -33,12 +37,10 @@ export class JobCandidatesComponent implements OnInit {
             },
             err => console.log(err)
           );
-          this.jobService.getJobApplications(success.id, this.pager.currentPage + 1, this.pager.pageSize).subscribe(
-            success => {
-              if (success.success) {
-                this.applicants = success.applicants.rows;
-                this.pager = success.applicants.pager;
-              }
+          this.route.queryParams.subscribe(
+            data => {
+              this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+              this.getServerData(this.matPager, success.id);
             },
             err => console.log(err)
           );
@@ -52,15 +54,23 @@ export class JobCandidatesComponent implements OnInit {
     this.router.navigate([`../../../candidates/job/${job.id}/applicant/${applicant.id}`], { relativeTo: this.route });
   }
 
-  getServerData(page) {
-    this.jobService.getJobApplications(this.job.id, page.pageIndex + 1, page.pageSize).subscribe(
-      success => {
-        if (success.success) {
-          this.applicants = success.applicants.rows;
-          this.pager = success.applicants.pager;
-        }
-      },
-      err => console.log(err)
-    );
+  getServerData(page, id) {
+    this.jobService
+      .getJobApplications(id ? id : this.job ? this.job.id : null, page.pageIndex + 1, page.pageSize)
+      .subscribe(
+        success => {
+          if (success.success) {
+            this.applicants = success.applicants.rows;
+            this.pager = success.applicants.pager;
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { page: this.pager.currentPage },
+              replaceUrl: true,
+              queryParamsHandling: 'merge'
+            });
+          }
+        },
+        err => console.log(err)
+      );
   }
 }

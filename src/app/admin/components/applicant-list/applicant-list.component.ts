@@ -12,7 +12,7 @@ import {
 import { AdminService } from '@app/_services/admin.service';
 import _ from 'lodash';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-applicant-list',
@@ -36,17 +36,29 @@ export class ApplicantListComponent implements OnInit {
   filterHidden = true;
   filtered = false;
   defaultLimit = { max: '50', min: '0' };
-  constructor(private adminService: AdminService, private formBuilder: FormBuilder, private Route: ActivatedRoute) {
-    this.Route.data.subscribe(res => {
-      let data = res.data;
-      if (data.success) {
-        data.applicants.rows.forEach(apps => {
-          this.applicants.push(apps.user);
-        });
-        this.pager = data.applicants.pager;
-      } else {
-      }
-    });
+  empty = false;
+  hasValues = false;
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 8
+  };
+
+  constructor(
+    private adminService: AdminService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    // this.route.data.subscribe(res => {
+    //   let data = res.data;
+    //   if (data.success) {
+    //     data.applicants.rows.forEach(apps => {
+    //       this.applicants.push(apps.user);
+    //     });
+    //     this.pager = data.applicants.pager;
+    //   } else {
+    //   }
+    // });
   }
 
   ngOnInit() {
@@ -61,6 +73,13 @@ export class ApplicantListComponent implements OnInit {
       this.filterHidden = true;
     });
 
+    this.route.queryParams.subscribe(
+      data => {
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
+      },
+      err => console.log(err)
+    );
   }
 
   getServerData(page) {
@@ -73,6 +92,13 @@ export class ApplicantListComponent implements OnInit {
               this.applicants.push(apps.user);
             });
             this.pager = success.applicants.pager;
+            this.applicants.length == 0 ? (this.empty = true) : (this.hasValues = true);
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { page: this.pager.currentPage },
+              replaceUrl: true,
+              queryParamsHandling: 'merge'
+            });
           }
         },
         err => console.log(err)
@@ -133,8 +159,8 @@ export class ApplicantListComponent implements OnInit {
   //     data =>{
   //       if(data.success){
   //         console.log(data)
-  //       } 
-       
+  //       }
+
   //     }
   //   )
   // }

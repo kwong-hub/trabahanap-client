@@ -34,6 +34,7 @@ import { RouterModule } from '@angular/router';
 import { PipesModule } from '@app/pipes/pipes.module';
 import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
 import { HomeSectionFourComponent } from './components/home-section-four/home-section-four.component';
+import { StateService } from '@app/_services/state.service';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,6 @@ import { HomeSectionFourComponent } from './components/home-section-four/home-se
     MatButtonModule,
     PipesModule
   ],
-  providers: [JobDetailResolverService, SimpleJobSearchResolveService, JobService, AnonymousService]
+  providers: [JobDetailResolverService, SimpleJobSearchResolveService, JobService, AnonymousService, StateService]
 })
 export class LandingModule {}

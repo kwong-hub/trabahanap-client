@@ -1,15 +1,11 @@
 <div *ngIf="!showCVPreview">
   <div class="employer-steps">
-    <div
-      class="employer-steps__step employer__first-step employer-steps__step--done"
-    >
+    <div class="employer-steps__step employer__first-step employer-steps__step--done">
       <fa-icon class="employer-steps__icon" [icon]="faUserPlus"></fa-icon>
       <div class="employer-steps__display-text"><h5>Register</h5></div>
     </div>
     <div class="employer-steps__middle"></div>
-    <div
-      class="employer-steps__step employer__second-step employer-steps__step--done"
-    >
+    <div class="employer-steps__step employer__second-step employer-steps__step--done">
       <fa-icon class="employer-steps__icon" [icon]="faUserCheck"></fa-icon>
       <div class="employer-steps__display-text"><h5>Verify Your Email</h5></div>
     </div>
@@ -43,18 +39,11 @@
           *ngIf="!tempImg"
           class="applicant-picture-display__image"
           [src]="
-            applicantProfile?.applicantPicture
-              ? applicantProfile.applicantPicture
-              : 'assets/img/anonymous-avatar.png'
+            applicantProfile?.applicantPicture ? applicantProfile.applicantPicture : 'assets/img/anonymous-avatar.png'
           "
           alt="applicant-picture"
         />
-        <img
-          *ngIf="tempImg"
-          class="applicant-picture-display__image"
-          [src]="tempImg"
-          alt="applicant-picture"
-        />
+        <img *ngIf="tempImg" class="applicant-picture-display__image" [src]="tempImg" alt="applicant-picture" />
 
         <div *ngIf="!hasProfile" class="applicant-picture-display__edit">
           <input
@@ -84,7 +73,7 @@
           [submitted]="submitted"
           [disabled]="hasProfile"
           [styleObject]="styleObject"
-          [limit] ="defaultLimit"
+          [limit]="defaultLimit"
         ></shared-custom-input-field>
 
         <shared-custom-input-field
@@ -99,7 +88,7 @@
           [submitted]="submitted"
           [disabled]="hasProfile"
           [styleObject]="styleObject"
-          [limit] ="defaultLimit"
+          [limit]="defaultLimit"
         ></shared-custom-input-field>
       </div>
     </div>
@@ -112,26 +101,24 @@
           <fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ err }}
         </p>
       </div> -->
-      <div
-        style="padding: 1rem"
-        *ngIf="applicantProfile && applicantProfile.cv"
-        class="sub-container"
-      >
+      <div style="padding: 1rem" *ngIf="applicantProfile && applicantProfile.cv" class="sub-container">
         <div class="cv-preview">
-          Preview Your CV
+          Preview Your Resume
           <a (click)="onCVPreview($event)" class="cv-preview__btn">Preview</a>
-          <a (click)="toggleCVModal()" class="cv-preview__btn">
-            <fa-icon [icon]="faEdit"></fa-icon> Edit</a>
+          <a (click)="toggleCVModal()" class="cv-preview__btn"> <fa-icon [icon]="faEdit"></fa-icon> Edit</a>
         </div>
       </div>
-      <div *ngIf="!(applicantProfile && applicantProfile.cv)"
-        style="justify-content: space-between;" class="sub-container">
+      <div
+        *ngIf="!(applicantProfile && applicantProfile.cv)"
+        style="justify-content: space-between;"
+        class="sub-container"
+      >
         <shared-custom-file-input
           class="input-element-type-2"
           [formGroup]="addApplicantProfileForm"
           name="cv"
-          placeholder="Upload CV"
-          [label]="applicantProfile ? 'Your CV' : 'Upload CV'"
+          placeholder="Upload Resume"
+          [label]="applicantProfile ? 'Your Resume' : 'Upload Resume'"
           [input]="addApplicantProfileForm.controls['cv']"
           type="file"
           [submitted]="submitted || fileTypeError"
@@ -153,7 +140,7 @@
           [submitted]="submitted"
           [disabled]="hasProfile"
           [styleObject]="styleObject"
-          [limit] ="defaultLimit"
+          [limit]="defaultLimit"
         ></shared-custom-input-field>
         <shared-custom-input-field
           class="input-element-type-1"
@@ -167,7 +154,7 @@
           [submitted]="submitted"
           [disabled]="hasProfile"
           [styleObject]="styleObject"
-          [limit] ="defaultLimit"
+          [limit]="defaultLimit"
         ></shared-custom-input-field>
       </div>
 
@@ -230,7 +217,6 @@
           [range]="dateRange"
         ></shared-custom-input-field>
 
-
         <shared-custom-input-field
           class="input-element-type-3"
           [formGroup]="addApplicantProfileForm"
@@ -264,7 +250,7 @@
         ></shared-custom-select>
         <shared-custom-select
           [valid]="addApplicantProfileForm.controls['RegionId']?.status"
-          (onValueChange)="selectChanged($event, 'RegionId'); citySelect.resetValue();"
+          (onValueChange)="selectChanged($event, 'RegionId'); citySelect.resetValue()"
           name="RegionId"
           [defaultValue]="+applicantProfile?.RegionId"
           label="Region"
@@ -305,18 +291,10 @@
         ></shared-textarea-field>
       </div>
       <div class="submit-container">
-        <div
-          (click)="enableEdit($event)"
-          *ngIf="hasProfile && applicantProfile"
-          class="form__edit"
-        >
+        <div (click)="enableEdit($event)" *ngIf="hasProfile && applicantProfile" class="form__edit">
           Edit <fa-icon class="form__edit-icon" [icon]="faEdit"></fa-icon>
         </div>
-        <div
-          (click)="disableEdit()"
-          *ngIf="!hasProfile && applicantProfile"
-          class="form__edit"
-        >
+        <div (click)="disableEdit()" *ngIf="!hasProfile && applicantProfile" class="form__edit">
           Cancel
         </div>
         <!-- <input
@@ -337,15 +315,16 @@
           [show]="success"
           type="success"
           [callback]="!applicantProfile ? '/applicant/jobs' : ''"
-          [text]="
-            applicantProfile
-              ? 'Profile Editted Successfully'
-              : 'Profile Submitted Successfully'">
+          [text]="applicantProfile ? 'Profile Editted Successfully' : 'Profile Submitted Successfully'"
+        >
         </app-custom-notification>
 
-        <app-custom-notification [show]="formError" type="error" 
-          [text]="applicantProfile ? 'Update Failed. Try again!' : 'Could not upload. Try again!'">
-      </app-custom-notification>
+        <app-custom-notification
+          [show]="formError"
+          type="error"
+          [text]="applicantProfile ? 'Update Failed. Try again!' : 'Could not upload. Try again!'"
+        >
+        </app-custom-notification>
       </div>
     </div>
   </form>

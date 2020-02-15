@@ -14,8 +14,14 @@
     <div class="sidebar" [class.sideBarActive]="sideBarActive">
       <h3 class="sidebar__header">Main</h3>
       <div class="sidebar__list">
-        <a routerLink="home" routerLinkActive="active" title="Dashboard" (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
+        <a
+          routerLink="home"
+          routerLinkActive="active"
+          title="Dashboard"
+          (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="sidebar__list-item"
+        >
           <i class="icons fas fa-home"></i> <span class="names">Dashboard</span>
           <!-- <img src="../../assets/img/icons/" alt="" class="imgs"> -->
         </a>
@@ -54,8 +60,14 @@
           <img src="../../assets/img/icons/reported_issues_icon_bzUp2.svg" alt="" class="imgs">
           <span class="names">Report Issue</span>
         </a>
-        <a routerLink="password" routerLinkActive="active" title="Change Password" (click)="toggleSidebar(false)"
-          [routerLinkActiveOptions]="{ exact: false }" class="sidebar__list-item">
+        <a
+          routerLink="password"
+          routerLinkActive="active"
+          title="Change Password"
+          (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="sidebar__list-item"
+        >
           <i class="icons fas fa-key"></i>
           <!-- <img src="../../assets/img/icons/" alt="" class="imgs"> -->
           <span class="names">Change password</span>
@@ -71,9 +83,8 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-  
-  <app-custom-notification type="error" [show]="slideActive" 
-    text="Please, Finish Your Profile First"> 
+
+  <app-custom-notification type="error" [show]="slideActive" text="Please, Finish Your Profile First">
   </app-custom-notification>
 
   <shared-footer></shared-footer>

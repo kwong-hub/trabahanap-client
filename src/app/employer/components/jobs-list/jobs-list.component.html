@@ -8,21 +8,51 @@
   <div class="filter__content" [class.filter__hide]="filterHidden">
     <form action="#" (ngSubmit)="filterJobsApplications()" class="form" [formGroup]="searchForm" autocomplete="off">
       <div class="sub-container">
-        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="jobTitle" defaultValue=""
-          label="Jobs" placeholder="Enter Search Jobs" [input]="searchForm.controls['jobTitle']" type="text"
-          [submitted]="false" [disabled]="false" [limit]="defaultLimit">
+        <shared-custom-input-field
+          class="input-element-type-2"
+          [formGroup]="searchForm"
+          name="jobTitle"
+          defaultValue=""
+          label="Jobs"
+          placeholder="Enter Search Jobs"
+          [input]="searchForm.controls['jobTitle']"
+          type="text"
+          [submitted]="false"
+          [disabled]="false"
+          [limit]="defaultLimit"
+        >
         </shared-custom-input-field>
       </div>
       <div class="sub-container">
-        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="industry" defaultValue=""
-          label="Industry Type" placeholder="Search by Industry" [input]="searchForm.controls['industry']" type="text"
-          [submitted]="false" [disabled]="false" [limit]="defaultLimit">
+        <shared-custom-input-field
+          class="input-element-type-2"
+          [formGroup]="searchForm"
+          name="industry"
+          defaultValue=""
+          label="Industry Type"
+          placeholder="Search by Industry"
+          [input]="searchForm.controls['industry']"
+          type="text"
+          [submitted]="false"
+          [disabled]="false"
+          [limit]="defaultLimit"
+        >
         </shared-custom-input-field>
       </div>
       <div class="sub-container">
-        <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="position" defaultValue=""
-          label="Position" placeholder="Searc by Position" [input]="searchForm.controls['position']" type="text"
-          [submitted]="false" [disabled]="false" [limit]="defaultLimit">
+        <shared-custom-input-field
+          class="input-element-type-2"
+          [formGroup]="searchForm"
+          name="position"
+          defaultValue=""
+          label="Position"
+          placeholder="Searc by Position"
+          [input]="searchForm.controls['position']"
+          type="text"
+          [submitted]="false"
+          [disabled]="false"
+          [limit]="defaultLimit"
+        >
         </shared-custom-input-field>
       </div>
 
@@ -65,11 +95,9 @@
       <ng-container matColumnDef="appEnd">
         <th mat-header-cell *matHeaderCellDef>Application End Date</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.applicationEndDate | date: "longDate" }}
+          {{ element.applicationEndDate | date: 'longDate' }}
         </td>
       </ng-container>
-
-
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="salaryRange">
@@ -97,29 +125,22 @@
           </button>
           <div class="job-list__actions" *ngIf="openActions[element.id]">
             <button (click)="candidatesJob(element.id)" class="job-list__action job-list__action--hover">
-              <span class="job-list__icon">
-                <fa-icon [icon]="faInbox"></fa-icon>
-              </span>Candidates
+              <span class="job-list__icon"> <fa-icon [icon]="faInbox"></fa-icon> </span>Candidates
             </button>
             <button (click)="editJob(element)" class="job-list__action job-list__action--hover">
-              <span class="job-list__icon">
-                <fa-icon [icon]="faPenFancy"></fa-icon>
-              </span>Edit
+              <span class="job-list__icon"> <fa-icon [icon]="faPenFancy"></fa-icon> </span>Edit
             </button>
             <!-- <button (click)="deleteJob(element.id)" class="job-list__action job-list__action--hover"><span
                                 class="job-list__icon">
                                 <fa-icon [icon]="faBan"></fa-icon>
                             </span>Cancel</button> -->
             <button (click)="toggleSuspend(element.id)" class="job-list__action job-list__action--hover">
-              <span class="job-list__icon">
-                <fa-icon [icon]="faPause"></fa-icon>
-              </span>{{ element.suspended ? "Unsuspend" : "Suspend" }}
+              <span class="job-list__icon"> <fa-icon [icon]="faPause"></fa-icon> </span
+              >{{ element.suspended ? 'Unsuspend' : 'Suspend' }}
             </button>
 
             <button (click)="toggleDelete(element.id)" class="job-list__action job-list__action--hover">
-              <span class="job-list__icon">
-                <fa-icon [icon]="faTrashAlt"></fa-icon>
-              </span>Delete
+              <span class="job-list__icon"> <fa-icon [icon]="faTrashAlt"></fa-icon> </span>Delete
             </button>
           </div>
         </td>
@@ -129,13 +150,29 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize" [pageSizeOptions]="[5, 8, 10, 25, 100]"
-      (page)="getServerData($event)">
+    <mat-paginator
+      [length]="pager?.totalItems"
+      [pageSize]="pager?.pageSize"
+      [pageSizeOptions]="[5, 8, 10, 25, 100]"
+      [pageIndex]="pager?.currentPage - 1"
+      (page)="getServerData($event)"
+    >
     </mat-paginator>
   </div>
 </div>
 
-<app-shared-delete-modal [isModalOpen]="isConfirmDelete" [jobId]="deletedId" (closeModalEvent)="toggleDelete($event)"
-  (deletedJob)="deleteJob($event)"></app-shared-delete-modal>
+<app-shared-delete-modal
+  [isModalOpen]="isConfirmDelete"
+  [jobId]="deletedId"
+  (closeModalEvent)="toggleDelete($event)"
+  (deletedJob)="deleteJob($event)"
+></app-shared-delete-modal>
 
-<app-shared-confirm-model [headerText]="confirmHeader" [data]="deletedId" [bodyText]="confirmBody" [isModalOpen]='isConfirmSuspend' (confirmed)="suspendJobs($event)" (cancled)="toggleSuspend($event)" ></app-shared-confirm-model>
+<app-shared-confirm-model
+  [headerText]="confirmHeader"
+  [data]="deletedId"
+  [bodyText]="confirmBody"
+  [isModalOpen]="isConfirmSuspend"
+  (confirmed)="suspendJobs($event)"
+  (cancled)="toggleSuspend($event)"
+></app-shared-confirm-model>

@@ -1,3 +1,4 @@
+import { StateService } from '@app/_services/state.service';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { Job } from '../../../_models/Job';
 import { JobService } from './../../../_services/jobs.service';
@@ -102,10 +103,14 @@ export class JobsListComponent implements OnInit {
     private anonyService: AnonymousService,
     private route: ActivatedRoute,
     private host: ElementRef,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private stateService: StateService
   ) {}
 
   ngOnInit() {
+    if (this.stateService.jobs) {
+      this.resultJobs = this.stateService.jobs;
+    }
     this.searchForm = this.formBuilder.group({
       query: ['', Validators.nullValidator],
       city: ['', Validators.nullValidator],
@@ -186,6 +191,8 @@ export class JobsListComponent implements OnInit {
         err => console.log(err)
       );
     }
+
+    this.scrollToPosition();
   }
 
   fetchCities(term: string): void {
@@ -323,5 +330,17 @@ export class JobsListComponent implements OnInit {
       });
 
     //this.searchForm.reset();
+  }
+
+  ngOnDestroy() {
+    this.stateService.pushJobs({ rows: this.jobs, pager: this.pager });
+  }
+
+  scrollToPosition() {
+    setTimeout(() => {
+      if (this.stateService.jobs) {
+        window.scrollTo(0, document.body.scrollHeight - window.innerHeight / 2);
+      }
+    }, 100);
   }
 }

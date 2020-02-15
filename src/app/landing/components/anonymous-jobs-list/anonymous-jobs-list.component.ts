@@ -8,6 +8,7 @@ import { AnonymousService } from '@app/_services/anonymous.service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { StateService } from '@app/_services/state.service';
 
 @Component({
   selector: 'app-anonymous-jobs-list',
@@ -99,10 +100,14 @@ export class AnonymousJobsListComponent implements OnInit {
     private anonyService: AnonymousService,
     private route: ActivatedRoute,
     private host: ElementRef,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private stateService: StateService
   ) {}
 
   ngOnInit() {
+    if (this.stateService.jobs) {
+      this.resultJobs = this.stateService.jobs;
+    }
     // console.log(this.employmentType);
     this.searchForm = this.formBuilder.group({
       query: ['', Validators.nullValidator],
@@ -184,6 +189,8 @@ export class AnonymousJobsListComponent implements OnInit {
         err => console.log(err)
       );
     }
+
+    this.scrollToPosition();
   }
 
   fetchCities(term: string): void {
@@ -325,5 +332,17 @@ export class AnonymousJobsListComponent implements OnInit {
 
   toggleAds($event) {
     this.adsModal = !this.adsModal;
+  }
+
+  ngOnDestroy() {
+    this.stateService.pushJobs({ rows: this.jobs, pager: this.pager });
+  }
+
+  scrollToPosition() {
+    setTimeout(() => {
+      if (this.stateService.jobs) {
+        window.scrollTo(0, document.body.scrollHeight - window.innerHeight);
+      }
+    }, 100);
   }
 }

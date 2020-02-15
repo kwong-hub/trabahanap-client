@@ -20,12 +20,18 @@ export class CandidatesListComponent implements OnInit {
   faSlidersH = faSlidersH;
   displayedColumns: string[] = ['jobTitle', 'noOfPositions', 'postedDate', 'endDate', 'noOfApplicants', 'detail'];
   public page: any;
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 5
+  };
   @Input() pager: any;
   searchForm: FormGroup;
   filterHidden: boolean = true;
   filtered: boolean = false;
   openActions: {};
   defaultLimit = { max: '50', min: '0' };
+  empty = false;
+  hasValues = false;
   constructor(
     private JobsService: JobService,
     private EmployerService: EmployerService,
@@ -47,6 +53,14 @@ export class CandidatesListComponent implements OnInit {
       this.openActions = {};
       this.filterHidden = true;
     });
+
+    this.route.queryParams.subscribe(
+      data => {
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
+      },
+      err => console.log(err)
+    );
   }
 
   updateExpansionState(jobId) {}
@@ -64,7 +78,13 @@ export class CandidatesListComponent implements OnInit {
           if (success.success == true) {
             this.jobs = success.applications.rows;
             this.pager = success.applications.pager;
-            // this.pager.pages = this.renderedPages();
+            this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { page: this.pager.currentPage },
+              replaceUrl: true,
+              queryParamsHandling: 'merge'
+            });
           }
         },
         err => console.log(err)
@@ -81,7 +101,14 @@ export class CandidatesListComponent implements OnInit {
       ).subscribe(data => {
         if (data.success == true) {
           this.jobs = data.applications.rows;
+          this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
           this.pager = data.applications.pager;
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: this.pager.currentPage },
+            replaceUrl: true,
+            queryParamsHandling: 'merge'
+          });
         }
       });
     }

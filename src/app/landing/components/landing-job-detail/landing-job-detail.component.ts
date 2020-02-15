@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { faCheckCircle, faMapMarkerAlt, faTag, faExternalLinkAlt, faToolbox, faClock } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheckCircle,
+  faMapMarkerAlt,
+  faTag,
+  faExternalLinkAlt,
+  faToolbox,
+  faClock,
+  faArrowLeft
+} from '@fortawesome/free-solid-svg-icons';
 import { tileLayer, latLng, marker, icon, Point } from 'leaflet';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
@@ -14,7 +22,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./landing-job-detail.component.scss']
 })
 export class LandingJobDetailComponent implements OnInit {
-  
   job;
   faToolbox = faToolbox;
   faClock = faClock;
@@ -22,6 +29,7 @@ export class LandingJobDetailComponent implements OnInit {
   faMapMarkerAlt = faMapMarkerAlt;
   faTag = faTag;
   faExternalLinkAlt = faExternalLinkAlt;
+  faArrowLeft = faArrowLeft;
   showModal: boolean;
   options = {
     layers: [
@@ -108,7 +116,7 @@ export class LandingJobDetailComponent implements OnInit {
       }
     );
   }
-  
+
   bookmarkJob(jobId) {
     let auth = this.authService.currentUserValue;
 

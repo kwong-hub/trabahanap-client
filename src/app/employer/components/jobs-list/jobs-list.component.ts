@@ -45,6 +45,10 @@ export class JobsListComponent {
   faInbox = faInbox;
   faBan = faBan;
   filterHidden = true;
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 5
+  };
   openActions = {};
   defaultLimit = { max: '50', min: '0' };
   displayedColumns: string[] = ['jobTitle', 'industry', 'education', 'salaryRange', 'appEnd', 'status', 'edit'];
@@ -80,6 +84,15 @@ export class JobsListComponent {
     document.addEventListener('click', () => {
       this.openActions = {};
     });
+
+    this.route.queryParams.subscribe(
+      data => {
+        // console.log(data);
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
+      },
+      err => console.log(err)
+    );
 
     // this.JobsService.getCompanyJobs(1, this.pager ? this.pager.pageSize : 8)
     //   .subscribe(
@@ -158,6 +171,12 @@ export class JobsListComponent {
         if (success.success == true) {
           this.jobs = success.jobs.rows;
           this.pager = success.jobs.pager;
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: this.pager.currentPage },
+            replaceUrl: true,
+            queryParamsHandling: 'merge'
+          });
           // this.pager.pages = this.renderedPages();
         }
       },

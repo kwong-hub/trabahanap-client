@@ -19,17 +19,19 @@ export class ApplicantDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.params.id;
-    this.adminService.getApplicantById(this.id).subscribe(
-      data => {
-        if (data.success) {
-          this.applicant = data.applicant;
-          //this.applicant['active'] = data.applicant.user.active;
+    if (this.id) {
+      this.adminService.getApplicantById(this.id).subscribe(
+        data => {
+          if (data.success) {
+            this.applicant = data.applicant;
+            //this.applicant['active'] = data.applicant.user.active;
+          }
+        },
+        error => {
+          console.log(error);
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      );
+    }
   }
 
   toggleActivate(id) {
