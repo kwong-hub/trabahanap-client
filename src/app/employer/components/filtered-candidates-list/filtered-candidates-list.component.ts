@@ -22,8 +22,14 @@ export class FilteredCandidatesListComponent implements OnInit {
 
   filterHidden: boolean = true;
   filtered: boolean = false;
-  defaultLimit ={max:"50",min:"0"};
+  defaultLimit = { max: '50', min: '0' };
   openActions: {};
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 5
+  };
+  empty = false;
+  hasValues = false;
 
   constructor(
     private JobsService: JobService,
@@ -46,6 +52,14 @@ export class FilteredCandidatesListComponent implements OnInit {
       this.openActions = {};
       this.filterHidden = true;
     });
+
+    this.route.queryParams.subscribe(
+      data => {
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
+      },
+      err => console.log(err)
+    );
   }
 
   showCadidates(application) {
@@ -56,11 +70,18 @@ export class FilteredCandidatesListComponent implements OnInit {
 
   getServerData(page) {
     if (!this.filtered) {
-      this.JobsService.getJobWithApplications(page.pageIndex + 1, page.pageSize).subscribe(
+      this.JobsService.getFilteredJobWithApplications(page.pageIndex + 1, page.pageSize).subscribe(
         success => {
           if (success.success == true) {
             this.jobs = success.applications.rows;
             this.pager = success.applications.pager;
+            this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { page: this.pager.currentPage },
+              replaceUrl: true,
+              queryParamsHandling: 'merge'
+            });
           }
         },
         err => console.log(err)
@@ -77,6 +98,13 @@ export class FilteredCandidatesListComponent implements OnInit {
       ).subscribe(data => {
         this.jobs = data.applications.rows;
         this.pager = data.applications.pager;
+        this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { page: this.pager.currentPage },
+          replaceUrl: true,
+          queryParamsHandling: 'merge'
+        });
       });
     }
   }

@@ -46,9 +46,7 @@
 
             <ul *ngIf="showOptions && cities.length > 0" class="options">
               <li
-                (click)="
-                  selectCity(city.cityName); cityInput.value = city.cityName
-                "
+                (click)="selectCity(city.cityName); cityInput.value = city.cityName"
                 class="options__list"
                 *ngFor="let city of cities"
               >
@@ -70,15 +68,9 @@
               placeholder="Industry"
             />
 
-            <ul
-              *ngIf="showOptionsIndustry && industries.length > 0"
-              class="options"
-            >
+            <ul *ngIf="showOptionsIndustry && industries.length > 0" class="options">
               <li
-                (click)="
-                  selectIndustry(industry.industryName);
-                  industryInput.value = industry.industryName
-                "
+                (click)="selectIndustry(industry.industryName); industryInput.value = industry.industryName"
                 class="options__list"
                 *ngFor="let industry of industries"
               >
@@ -125,21 +117,11 @@
 
         <div class="form__group--btn">
           <div class="checkbox">
-            <input
-              type="checkbox"
-              formControlName="pwd"
-              name="pwd"
-              id="pwd-checkbox"
-              class="checkbox__input"
-            />
+            <input type="checkbox" formControlName="pwd" name="pwd" id="pwd-checkbox" class="checkbox__input" />
             <label for="pwd-checkbox" class="checkbox__label">
               <div class="checkbox__button"></div>
               <span class="checkbox__text"
-                >PWD-Friendly
-                <i
-                  style="margin: .5rem .5rem 0; color: #42597B"
-                  class="fab fa-accessible-icon"
-                ></i
+                >PWD-Friendly <i style="margin: .5rem .5rem 0; color: #42597B" class="fab fa-accessible-icon"></i
               ></span>
             </label>
           </div>
@@ -159,11 +141,7 @@
                     </app-anonymous-custom-input-field> -->
 
         <div class="form__group--btn">
-          <input
-            type="submit"
-            value="Search"
-            class="form__submit th-btn th-btn--primary"
-          />
+          <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
         </div>
       </form>
     </div>
@@ -171,24 +149,14 @@
 
   <!-- <shared-custom-datepicker (onValueChange)="datePickerChanged($event)"></shared-custom-datepicker> -->
 
-  <div #jobsListAnchor *ngFor="let job of jobs; index as i">
-    <app-anonymous-job
-      [isBookMarked]="checkJobBookmarked(job.jobId)"
-      [Job]="job"
-    ></app-anonymous-job>
+  <div #jobsListAnchor id="jobsListAnchor" *ngFor="let job of jobs; index as i">
+    <app-anonymous-job [isBookMarked]="checkJobBookmarked(job.jobId)" [Job]="job"></app-anonymous-job>
     <div *ngIf="!(i % 3)">
-      <app-advertisement
-        [isAds]="adsModal"
-        (closeModalEvent)="toggleAds($event)"
-      >
-      </app-advertisement>
+      <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
     </div>
   </div>
   <!-- <div #anchor class="loader-container" [class.hide-loader]="reachedPageEnd"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div> -->
-  <div
-    #anchor
-    *ngIf="!reachedPageEnd && belowScroll && !(jobs && jobs.length == 0)"
-  >
+  <div #anchor *ngIf="!reachedPageEnd && belowScroll && !(jobs && jobs.length == 0)">
     <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
     <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
   </div>

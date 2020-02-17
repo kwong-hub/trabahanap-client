@@ -151,7 +151,7 @@
     </div> -->
 </div>
 
-<img (click)="onLicensePreview()" [src]="company?.businessLicense" alt="" 
+<img *ngIf="isImage" (click)="onLicensePreview()" [src]="company?.businessLicense" alt="" 
   class="modalImage" [class.active]="showLicensePreview && isImage" />
 
 <ngx-doc-viewer

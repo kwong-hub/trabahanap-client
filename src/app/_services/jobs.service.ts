@@ -8,7 +8,7 @@ import { AuthenticationService } from './authentication-service.service';
 
 @Injectable()
 export class JobService {
-  constructor(private http: HttpClient,private authService:AuthenticationService) {}
+  constructor(private http: HttpClient, private authService: AuthenticationService) {}
 
   getAllJobs(page): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/search?page=${page}`);
@@ -22,6 +22,14 @@ export class JobService {
     return this.http.get<any>(`${environment.apiUrl}/employer/jobs?page=${page}&pageSize=${pageSize}`);
   }
 
+  getCompanyJobsApplicant(companyId) {
+    return this.http.get<any>(`${environment.apiUrl}/applicant/company/jobs/${companyId}`);
+  }
+
+  getCompanyJobsAnonymous(companyId) {
+    return this.http.get<any>(`${environment.apiUrl}/company/jobs/${companyId}`);
+  }
+
   getJobById(id): Observable<any> {
     let currentUser = this.authService.currentUserValue;
     return this.http.get<any>(`${environment.apiUrl}/jobs/${id}`);
@@ -30,7 +38,6 @@ export class JobService {
     // }else if(currentUser.firstName && currentUser.hasFinishedProfile){
     //   return this.http.get<any>(`${environment.apiUrl}/applicant/jobs/${id}`);
     // }else{
-      
 
     // }
   }

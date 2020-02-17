@@ -1,6 +1,15 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { faEllipsisV, faSlidersH, faEdit, faTimes, faToolbox, faClock, faMapMarkerAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEllipsisV,
+  faSlidersH,
+  faEdit,
+  faTimes,
+  faToolbox,
+  faClock,
+  faMapMarkerAlt,
+  faCheckCircle
+} from '@fortawesome/free-solid-svg-icons';
 import { ApplicantService } from '@app/_services/applicant.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -16,6 +25,10 @@ export class ApplicationsComponent implements OnInit {
   faClock = faClock;
   faEllipsisV = faEllipsisV;
   faEdit = faEdit;
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 5
+  };
   faTimes = faTimes;
   filterHidden: boolean = true;
   filtered: boolean = false;
@@ -45,18 +58,27 @@ export class ApplicationsComponent implements OnInit {
   constructor(
     private applicantService: ApplicantService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe(
+    this.route.queryParams.subscribe(
       data => {
-        this.jobs = data.jobs.rows;
-        this.pager = data.jobs.pager;
-        // console.log(this.jobs)
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
       },
-      error => console.log(error)
+      err => console.log(err)
     );
+
+    // this.route.data.subscribe(
+    //   data => {
+    //     this.jobs = data.jobs.rows;
+    //     this.pager = data.jobs.pager;
+    //     // console.log(this.jobs)
+    //   },
+    //   error => console.log(error)
+    // );
 
     let elem = document.getElementsByClassName('overlay');
     elem[0].addEventListener('click', () => {
@@ -96,6 +118,13 @@ export class ApplicationsComponent implements OnInit {
         .subscribe(data => {
           this.jobs = data.jobs.rows;
           this.pager = data.jobs.pager;
+
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: this.pager.currentPage },
+            replaceUrl: true,
+            queryParamsHandling: 'merge'
+          });
         });
     } else {
       this.applicantService.getJobApplications(page.pageIndex + 1, page.pageSize).subscribe(
@@ -103,7 +132,12 @@ export class ApplicationsComponent implements OnInit {
           if (success.success == true) {
             this.jobs = success.jobs.rows;
             this.pager = success.jobs.pager;
-            // this.pager.pages = this.renderedPages();
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { page: this.pager.currentPage },
+              replaceUrl: true,
+              queryParamsHandling: 'merge'
+            });
           }
         },
         err => console.log(err)

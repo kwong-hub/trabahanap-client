@@ -284,7 +284,6 @@ export class AddCompanyProfileComponent implements OnInit {
     if(this.showLicensePreview) {
       let ext = this.companyProfile.businessLicense.split('.').pop();
       if(ext === 'pdf' || ext === 'doc' || ext === 'docx') {
-        console.log(ext)
         this.isDocument = true;
         this.isImage = false;
       }
@@ -383,7 +382,6 @@ export class AddCompanyProfileComponent implements OnInit {
         this.loading = false;
         if (response.success) {
           this.success = true;
-          console.log(response,'edit')
           this.companyProfile = response.companyProfile.company_profile;
           this.authService.updateCurrentUser(response.companyProfile);
           this.updateInputes();

@@ -60,7 +60,7 @@
     </div> -->
 </div>
 
-<img (click)="toggleImageModal()" [src]="issue.picture" alt="" class="modalImage" [class.active]="imageModal" />
+<img *ngIf="issue.picture" (click)="toggleImageModal()" [src]="issue.picture" alt="" class="modalImage" [class.active]="imageModal" />
 
 <app-custom-notification [show]="successReply" type="success" 
   text="You have successfully replied" >

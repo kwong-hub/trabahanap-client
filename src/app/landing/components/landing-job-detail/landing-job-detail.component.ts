@@ -1,5 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { faCheckCircle, faMapMarkerAlt, faTag, faExternalLinkAlt, faToolbox, faClock } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheckCircle,
+  faMapMarkerAlt,
+  faTag,
+  faExternalLinkAlt,
+  faToolbox,
+  faClock,
+  faArrowLeft,
+  faBookOpen,
+  faBuilding,
+  faListUl
+} from '@fortawesome/free-solid-svg-icons';
 import { tileLayer, latLng, marker, icon, Point } from 'leaflet';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
@@ -14,7 +25,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./landing-job-detail.component.scss']
 })
 export class LandingJobDetailComponent implements OnInit {
-  
   job;
   faToolbox = faToolbox;
   faClock = faClock;
@@ -22,7 +32,13 @@ export class LandingJobDetailComponent implements OnInit {
   faMapMarkerAlt = faMapMarkerAlt;
   faTag = faTag;
   faExternalLinkAlt = faExternalLinkAlt;
+  faArrowLeft = faArrowLeft;
+  faBookOpen = faBookOpen;
+  faBuilding = faBuilding;
+  faListUl = faListUl;
   showModal: boolean;
+  tabs: any = {};
+  companyJobs = [];
   options = {
     layers: [
       tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -55,14 +71,13 @@ export class LandingJobDetailComponent implements OnInit {
 
     this.Route.data.subscribe(res => {
       let data = res.data;
-      //console.log(res)
       if (data.success) {
         this.job = data.job;
       } else {
         this.goBack();
       }
     });
-
+    this.tabClicked('detailActive');
     // give a margin to the container only in anonymous view
     this.lower = !this.router.url.includes('applicant');
   }
@@ -107,7 +122,7 @@ export class LandingJobDetailComponent implements OnInit {
       }
     );
   }
-  
+
   bookmarkJob(jobId) {
     let auth = this.authService.currentUserValue;
 
@@ -134,5 +149,26 @@ export class LandingJobDetailComponent implements OnInit {
 
   goBack() {
     this._location.back();
+  }
+
+  tabClicked(tab) {
+    this.tabs = {};
+    this.tabs[tab] = true;
+  }
+
+  getCompanyJobs() {
+    this.tabClicked('otherActive');
+    this.companyJobs = [];
+    this.jobService.getCompanyJobsAnonymous(this.job.companyProfileId).subscribe(
+      data => {
+        data.jobs.map(job => {
+          if (this.job.id != job.id) {
+            job.jobId = job.id;
+            this.companyJobs.push(job);
+          }
+        });
+      },
+      err => console.log(err)
+    );
   }
 }

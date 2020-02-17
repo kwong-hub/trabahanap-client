@@ -14,13 +14,7 @@
         <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
       </div>
       <div class="filter__content" [class.filter__hide]="filterHidden">
-        <form
-          action="#"
-          (ngSubmit)="filterJobs()"
-          class="form"
-          [formGroup]="searchForm"
-          autocomplete="off"
-        >
+        <form action="#" (ngSubmit)="filterJobs()" class="form" [formGroup]="searchForm" autocomplete="off">
           <div class="sub-container">
             <shared-custom-input-field
               class="input-element-type-2"
@@ -34,7 +28,7 @@
               [submitted]="false"
               [disabled]="false"
               [styleObject]="styleObject"
-              [limit] ="defaultLimit"
+              [limit]="defaultLimit"
             >
             </shared-custom-input-field>
           </div>
@@ -51,7 +45,7 @@
               [submitted]="false"
               [disabled]="false"
               [styleObject]="styleObject"
-              [limit] ="defaultLimit"
+              [limit]="defaultLimit"
             >
             </shared-custom-input-field>
           </div>
@@ -68,16 +62,12 @@
               [submitted]="false"
               [disabled]="false"
               [styleObject]="styleObject"
-              [limit] ="defaultLimit"
+              [limit]="defaultLimit"
             >
             </shared-custom-input-field>
           </div>
           <div class="form__group--btn">
-            <input
-              type="submit"
-              value="Search"
-              class="form__submit th-btn th-btn--primary"
-            />
+            <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
           </div>
         </form>
       </div>
@@ -118,27 +108,22 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table> -->
-    
+
       <div *ngFor="let job of jobs" class="job">
         <div class="job__left">
           <div class="img-container">
-            <img [src]="job.companyLogo ? job.companyLogo : 'assets/img/building.png'" alt="" class="img">
+            <img [src]="job.companyLogo ? job.companyLogo : 'assets/img/building.png'" alt="" class="img" />
           </div>
-          
+
           <div class="details-container">
             <h3 class="job__title">{{ job.jobTitle }}</h3>
             <div class="job__tags">
-              <span class="tag">
-                <fa-icon class="icon" [icon]="faToolbox"></fa-icon> {{ job.industry }}
-              </span>
+              <span class="tag"> <fa-icon class="icon" [icon]="faToolbox"></fa-icon> {{ job.industry }} </span>
               <!-- <span class="tag">
                 <fa-icon class="icon" [icon]="faMarkerAlt"></fa-icon> {{ job.cityName }}
               </span> -->
-              <span class="tag">
-                <fa-icon class="icon" [icon]="faClock"></fa-icon> {{ job.employmentType }}
-              </span>
+              <span class="tag"> <fa-icon class="icon" [icon]="faClock"></fa-icon> {{ job.employmentType }} </span>
             </div>
-
           </div>
         </div>
         <div class="job__right">
@@ -150,13 +135,16 @@
       </div>
     </div>
 
-    <mat-paginator *ngIf="jobs && jobs.length > 0"
+    <mat-paginator
+      *ngIf="jobs && jobs.length > 0"
       class="paginator"
       [length]="pager?.totalItems"
       [pageSize]="pager?.pageSize"
       [pageSizeOptions]="[5, 8, 10, 25, 100]"
-      (page)="getServerData($event)">
-  </mat-paginator>
-  <app-custom-notification [show]="deleted" type="error" text="Job removed from bookmarks"></app-custom-notification>
+      [pageIndex]="pager?.currentPage - 1"
+      (page)="getServerData($event)"
+    >
+    </mat-paginator>
+    <app-custom-notification [show]="deleted" type="error" text="Job removed from bookmarks"></app-custom-notification>
   </div>
 </div>

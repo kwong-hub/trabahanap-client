@@ -10,7 +10,7 @@ import {
   faTimesCircle
 } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OtherService } from '@app/_services/other.service';
 import { ThrowStmt } from '@angular/compiler';
 
@@ -38,21 +38,29 @@ export class CompanyListComponent implements OnInit {
   filtered = false;
   reachedMaxFeatured = false;
   defaultLimit = { max: '50', min: '0' };
+  empty = false;
+  hasValues = false;
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 8
+  };
+
   constructor(
     private otherService: OtherService,
     private adminService: AdminService,
     private formBuilder: FormBuilder,
-    private Route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
-    this.Route.data.subscribe(res => {
-      let data = res.data;
-      if (data.success) {
-        this.companies = data.employers.rows;
-        this.pager = data.employers.pager;
-        this.countotalJobs();
-      } else {
-      }
-    });
+    // this.Route.data.subscribe(res => {
+    //   let data = res.data;
+    //   if (data.success) {
+    //     this.companies = data.employers.rows;
+    //     this.pager = data.employers.pager;
+    //     this.countotalJobs();
+    //   } else {
+    //   }
+    // });
   }
 
   ngOnInit() {
@@ -66,6 +74,14 @@ export class CompanyListComponent implements OnInit {
       this.openActions = {};
       this.filterHidden = true;
     });
+
+    this.route.queryParams.subscribe(
+      data => {
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
+      },
+      err => console.log(err)
+    );
 
     // this.adminService.getAllEmployers(1, this.pager ? this.pager.pageSize : 8)
     //   .subscribe(
@@ -120,6 +136,13 @@ export class CompanyListComponent implements OnInit {
           if (data) {
             this.companies = data.companies.rows;
             this.pager = data.companies.pager;
+            this.companies.length == 0 ? (this.empty = true) : (this.hasValues = true);
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { page: this.pager.currentPage },
+              replaceUrl: true,
+              queryParamsHandling: 'merge'
+            });
           }
           this.countotalJobs();
         });
@@ -129,6 +152,13 @@ export class CompanyListComponent implements OnInit {
           if (success.success == true) {
             this.companies = success.employers.rows;
             this.pager = success.employers.pager;
+            this.companies.length == 0 ? (this.empty = true) : (this.hasValues = true);
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { page: this.pager.currentPage },
+              replaceUrl: true,
+              queryParamsHandling: 'merge'
+            });
             // this.pager.pages = this.renderedPages();
           }
           this.countotalJobs();

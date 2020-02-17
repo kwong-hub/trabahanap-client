@@ -1,7 +1,7 @@
 <div class="modal__container" [class.modal__show]="isModalOpen">
   <div class="modal">
     <div class="modal__header">
-      Add A New CV
+      Add A New Resume
     </div>
     <form class="modal__form" action="#" (ngSubmit)="onSubmit()">
       <div class="modal__content">
@@ -10,8 +10,8 @@
           name="cv"
           [formGroup]="updateCVForm"
           defaultValue=""
-          placeholder="New CV"
-          label="New CV"
+          placeholder="New Resume"
+          label="New Resume"
           [input]="(updateCVForm?.controls)['cv']"
           type="file"
           [submitted]="submitted"
@@ -27,7 +27,11 @@
         <!-- <button type="submit" class="modal__btn modal__btn--submit">
           Submit
         </button> -->
-        <app-custom-submit-button [styleObject]="{btn: {borderRadius: '5px'}}" [loading]="loading" text="Submit"></app-custom-submit-button>
+        <app-custom-submit-button
+          [styleObject]="{ btn: { borderRadius: '5px' } }"
+          [loading]="loading"
+          text="Submit"
+        ></app-custom-submit-button>
       </div>
     </form>
     <div class="modal__close-btn-container">

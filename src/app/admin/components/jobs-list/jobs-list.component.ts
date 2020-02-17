@@ -34,6 +34,12 @@ export class JobsListComponent implements OnInit {
   filterHidden = true;
   openActions = {};
   companyId;
+  empty = false;
+  hasValues = false;
+  matPager: any = {
+    pageIndex: 0,
+    pageSize: 8
+  };
 
   displayedColumns: string[] = ['jobTitle', 'industry', 'education', 'salaryRange', 'edit'];
 
@@ -49,18 +55,26 @@ export class JobsListComponent implements OnInit {
     document.addEventListener('click', () => {
       this.openActions = {};
     });
-    this.adminService.getAllJobs(1, this.pager ? this.pager.pageSize : 3, this.companyId).subscribe(
+
+    this.route.queryParams.subscribe(
       data => {
-        if (data.success) {
-          this.jobs = data.jobs.rows;
-          this.pager = data.jobs.pager;
-          //this.jobs = data.jobs;
-        }
+        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+        this.getServerData(this.matPager);
       },
-      error => {
-        console.log(error);
-      }
+      err => console.log(err)
     );
+    // this.adminService.getAllJobs(1, this.pager ? this.pager.pageSize : 3, this.companyId).subscribe(
+    //   data => {
+    //     if (data.success) {
+    //       this.jobs = data.jobs.rows;
+    //       this.pager = data.jobs.pager;
+    //       //this.jobs = data.jobs;
+    //     }
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
   }
 
   deleteJob($event) {}
@@ -83,6 +97,13 @@ export class JobsListComponent implements OnInit {
         if (success.success == true) {
           this.jobs = success.jobs.rows;
           this.pager = success.jobs.pager;
+          this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { page: this.pager.currentPage },
+            replaceUrl: true,
+            queryParamsHandling: 'merge'
+          });
           // this.pager.pages = this.renderedPages();
         }
       },

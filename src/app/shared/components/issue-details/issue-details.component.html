@@ -60,6 +60,7 @@
     </div> -->
 </div>
 <img
+  *ngIf="issue.picture"
   (click)="toggleImageModal()"
   [src]="issue.picture"
   alt=""
