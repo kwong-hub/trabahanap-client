@@ -155,44 +155,20 @@ export class JobsListComponent implements OnInit {
       this.city = this.pramsKey.params.city;
     });
 
-    if (auth === null || !auth.hasFinishedProfile) {
-      if (this.resultJobs) {
-        this.jobs = this.resultJobs.rows;
-        this.page == this.resultJobs.pager.totalPages ? this.reachedPageEnd == true : '';
-        this.pager = this.resultJobs.pager;
-        this.page = this.resultJobs.pager.currentPage + 1;
-        if (this.pager.totalItems < 8) {
-          this.reachedPageEnd = true;
-          this.belowScroll = false;
-        } else {
-          this.loadJobs();
-        }
+    if (this.resultJobs) {
+      this.jobs = this.resultJobs.rows;
+      this.page == this.resultJobs.pager.totalPages ? this.reachedPageEnd == true : '';
+      this.pager = this.resultJobs.pager;
+      this.page = this.resultJobs.pager.currentPage + 1;
+      if (this.pager.totalItems < 8) {
+        this.reachedPageEnd = true;
+        this.belowScroll = false;
+      } else {
+        this.loadJobs();
       }
-    } else {
-      this.JobsService.getApplicantSavedJobs().subscribe(
-        data => {
-          if (data.success && data.jobs) {
-            this.getSavedJobIds(data.jobs);
-          }
-
-          if (this.resultJobs) {
-            this.jobs = this.resultJobs.rows;
-            this.page == this.resultJobs.pager.totalPages ? this.reachedPageEnd == true : '';
-            this.pager = this.resultJobs.pager;
-            this.page = this.resultJobs.pager.currentPage + 1;
-            if (this.pager.totalItems < 8) {
-              this.belowScroll = false;
-              this.reachedPageEnd = true;
-            } else {
-              this.loadJobs();
-            }
-          }
-        },
-        err => console.log(err)
-      );
     }
 
-    this.scrollToPosition();
+    // this.scrollToPosition();
   }
 
   fetchCities(term: string): void {
@@ -333,14 +309,14 @@ export class JobsListComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.stateService.pushJobs({ rows: this.jobs, pager: this.pager });
+    // this.stateService.pushJobs({ rows: this.jobs, pager: this.pager });
   }
 
-  scrollToPosition() {
-    setTimeout(() => {
-      if (this.stateService.jobs) {
-        window.scrollTo(0, document.body.scrollHeight - window.innerHeight / 2);
-      }
-    }, 100);
-  }
+  // scrollToPosition() {
+  //   setTimeout(() => {
+  //     if (this.stateService.jobs) {
+  //       window.scrollTo(0, document.body.scrollHeight - window.innerHeight / 2);
+  //     }
+  //   }, 100);
+  // }
 }

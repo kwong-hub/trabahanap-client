@@ -23,7 +23,7 @@ export class JobService {
   }
 
   getCompanyJobsApplicant(companyId) {
-    return this.http.get<any>(`${environment.apiUrl}/applicant/company/jobs/${companyId}`);
+    return this.http.get<any>(`${environment.apiUrl}/company/jobs/${companyId}`);
   }
 
   getCompanyJobsAnonymous(companyId) {

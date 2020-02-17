@@ -112,7 +112,7 @@ export class LandingNearJobsComponent implements OnInit {
             latitude: 14.6042,
             longitude: 120.9822
           });
-          console.log(err);
+          // console.log(err);
         }
       );
     }

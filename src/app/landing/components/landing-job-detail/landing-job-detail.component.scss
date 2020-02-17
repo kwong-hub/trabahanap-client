@@ -361,7 +361,7 @@
     position: absolute;
     left: 0rem;
     top: 0rem;
-    font-size: 4rem;
+    font-size: 2rem;
   }
   .reports {
     padding-left: 2rem;
@@ -436,10 +436,10 @@
     border-radius: 0.2rem;
     clip-path: polygon(90% 0, 100% 100%, 0% 100%, 0 50%, 0% 0%);
     align-self: stretch;
-    box-shadow: 1px 2px 3px 7px #ce2127;
+    // box-shadow: 1px 2px 3px 7px #ce2127;
     border-bottom: 1px solid #ce2127;
     border-left: 1px solid #ce2127;
-    // border-top: 1px solid #ce2127;
+    border-top: 1px solid #ce2127;
     cursor: pointer;
 
     &--active {

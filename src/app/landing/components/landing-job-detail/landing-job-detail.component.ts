@@ -73,8 +73,6 @@ export class LandingJobDetailComponent implements OnInit {
       let data = res.data;
       if (data.success) {
         this.job = data.job;
-      } else {
-        this.goBack();
       }
     });
     this.tabClicked('detailActive');
