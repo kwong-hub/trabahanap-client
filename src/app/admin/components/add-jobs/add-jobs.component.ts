@@ -101,7 +101,7 @@ export class AddJobsComponent implements OnInit {
               this.job.applicationStartDate = this.job.applicationStartDate.split('T')[0];
               this.job.applicationEndDate = this.job.applicationEndDate.split('T')[0];
 
-              this.job.locationId = '';
+              // this.job.locationId = '';
               this.populateFields();
             },
             err => console.log(err)
@@ -115,7 +115,7 @@ export class AddJobsComponent implements OnInit {
   ngOnInit() {
     this.companyId = this.route.snapshot.params.id;
     this.getIndustries();
-    // this.getLocations();
+    this.getLocations();
 
     this.addJob = this.formBuilder.group({
       jobTitle: ['', Validators.required],
@@ -138,6 +138,7 @@ export class AddJobsComponent implements OnInit {
   getLocations() {
     this.adminService.getCompanyLocationsByCompanyId(this.companyId).subscribe(
       response => {
+
         const locations = response.locations.location;
         if (locations) {
           locations.map(locations => {
@@ -146,7 +147,9 @@ export class AddJobsComponent implements OnInit {
               value: locations.id
             });
           });
-          if (locations) {
+          //console.log(locations[0].id)
+          if (locations[0]) {
+            //console.log(locations[0].id,'id')
             this.addJob.controls['locationId'].setValue(locations[0].id);
           }
         }
@@ -188,35 +191,39 @@ export class AddJobsComponent implements OnInit {
 
     var val = this.addJob.value;
     val['companyProfileId'] = this.companyId;
-
+    //console.log(val,'value')
     if (this.job) {
+      //console.log(this.job)
       this.job['jobDescription'] = val.jobDescription;
       this.adminService.editCompanyJob(this.job.id, this.job).subscribe(
-        success => {
-          this.jobEditted = true;
-
-          setTimeout(() => {
-            this.jobEditted = false;
-            this._location.back();
-          }, 3000);
+        data => {
+         
+          if(data.success){
+            this.jobEditted = true;
+            setTimeout(() => {
+              this.jobEditted = false;
+              this._location.back();
+            }, 3000);
+          }
+          
         },
         err => console.log(err)
       );
       return;
     }
 
-    this.adminService.addCompanyJob({ ...val }, this.companyId).subscribe(
-      success => {
-        if (success.success) {
-          this.jobAdded = true;
-          setTimeout(() => {
-            this.jobAdded = false;
-            this.router.navigate([`/admin/employers/jobs/${this.companyId}`]);
-          }, 3000);
-        }
-      },
-      err => console.log(err)
-    );
+    // this.adminService.addCompanyJob({ ...val }, this.companyId).subscribe(
+    //   success => {
+    //     if (success.success) {
+    //       this.jobAdded = true;
+    //       setTimeout(() => {
+    //         this.jobAdded = false;
+    //         this.router.navigate([`/admin/employers/jobs/${this.companyId}`]);
+    //       }, 3000);
+    //     }
+    //   },
+    //   err => console.log(err)
+    // );
   }
 
   customValueChanged(value, name) {
@@ -256,7 +263,7 @@ export class AddJobsComponent implements OnInit {
   }
 
   enableEdit() {
-    this.isEditMode = true;
+    this.isEditMode = false;
     this.descriptionOnly = true;
     _.map(this.job, (value, key) => {
       if (this.addJob.controls[key]) {

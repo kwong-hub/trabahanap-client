@@ -8,16 +8,16 @@
             <label for="industry" class="tab__label">Search by Job title</label>
             
             <div class="tab__body tab__body--location">
-                <div class="list-group">
-                    <ul class="list">
-                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'manila'}"
-                            class="link">Manila</a></li>
-                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'makati'}"
+                <div class="list-group" *ngIf='cityCount'>
+                    <ul class="list" *ngFor="let cityc of cityCount">
+                        <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: cityc.cityName}"
+                            class="link">{{cityc.cityName }} ( {{ cityc.count }}) </a></li>
+                        <!-- <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'makati'}"
                             class="link">Makati</a></li>
                         <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'quezon'}"
-                            class="link">Quezon</a></li>
+                            class="link">Quezon</a></li> -->
                     </ul>
-                    <ul class="list">
+                    <!-- <ul class="list">
                         <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'cavite'}"
                             class="link">Cavite</a></li>
                         <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'laguna'}"
@@ -56,7 +56,7 @@
                             class="link">Benguet</a></li>
                         <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'kalinga'}"
                             class="link">Kalinga</a></li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
             <div class="tab__body tab__body--industry">

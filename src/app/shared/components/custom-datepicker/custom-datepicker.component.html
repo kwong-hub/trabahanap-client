@@ -98,4 +98,20 @@
       </div>
     </div>
   </div>
+
+  <!-- <div
+    *ngIf="submitted && (currentValue == null || currentValue == '')"
+    class="invalid-feedback"
+    [ngStyle]="styleObject?.feedbackContainer"
+  >
+    <div class="invalid-feedback__message" [ngStyle]="styleObject?.feedbackMessage">{{ label }} is not valid</div>
+  </div> -->
+
+    <div
+    *ngIf="submitted && valids =='INVALID'"
+    class="invalid-feedback"
+    [ngStyle]="styleObject?.feedbackContainer"
+  >
+    <div class="invalid-feedback__message" [ngStyle]="styleObject?.feedbackMessage">{{ label }} is not valid</div>
+  </div>
 </div>

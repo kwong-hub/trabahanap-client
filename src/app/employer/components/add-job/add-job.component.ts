@@ -78,6 +78,8 @@ export class AddJobComponent implements OnInit {
   jobAdded: boolean;
   jobEditted: boolean;
   currentDate = new Date();
+  // validDate =  new Date();
+  validDate = this.currentDate.getDate() + "-" + (this.currentDate.getMonth() + 1) + "-" + this.currentDate.getFullYear()
 
   defaultDate1 = '';
   loading: boolean;
@@ -108,6 +110,7 @@ export class AddJobComponent implements OnInit {
       },
       err => console.log(err)
     );
+   
   }
 
   ngOnInit() {
@@ -143,13 +146,14 @@ export class AddJobComponent implements OnInit {
       employmentType: ['', Validators.required],
       vacancies: ['', Validators.required],
       additionalQualifications: [''],
-      applicationStartDate: ['', Validators.required],
-      applicationEndDate: ['', Validators.required],
+      applicationStartDate: [''],
+      applicationEndDate: [''],
       locationId: ['', Validators.required]
     });
+
   }
 
-  get form() {
+  get f() {
     return this.addJob.controls;
   }
 
@@ -159,10 +163,21 @@ export class AddJobComponent implements OnInit {
     }
     this.submitted = true;
     this.checkValidOnValueChange();
-
+    let StartDate = new Date(this.addJob.value.applicationStartDate);
+    let endDate = new Date(this.addJob.value.applicationEndDate);
+    let dateValid = new Date(this.validDate);
+    
     if (this.addJob.invalid) {
       return;
+    }else if(StartDate.getTime() <= dateValid.getTime() || StartDate==null){
+      this.f.applicationStartDate.setErrors({'rangeOut':true});
+      return;
+    }else if(endDate.getTime() <= dateValid.getTime() || endDate==null){
+      this.f.applicationEndDate.setErrors({'rangeOut':true});
+      return;
     }
+   
+
 
     this.loading = true;
     this.jobEditted = false;

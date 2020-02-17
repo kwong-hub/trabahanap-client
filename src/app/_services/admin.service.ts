@@ -32,6 +32,12 @@ export class AdminService {
       {}
     );
   }
+  confirmPayment(id): Observable<any> {
+    return this.http.put<any>(
+      `${environment.apiUrl}/admin/confirm/payment/${id}`,
+      {}
+    );
+  }
   getAdsbyId(id): Observable<any> {
     return this.http.get<any>(
       `${environment.apiUrl}/admin/advertisement/${id}`
@@ -247,10 +253,25 @@ export class AdminService {
   getAllReportedJob() {
     return this.http.get<any>(`${environment.apiUrl}/admin/reports`);
   }
-  verifyUser(){
-    return this.http.post<any>(`${environment.apiUrl}/admin/send_email`,{});
+
+  getPaymentInfo(){
+    return this.http.get<any>(`${environment.apiUrl}/admin/subscriptions`);
   }
-  unVerifiedUser(){
-    return this.http.get<any>(`${environment.apiUrl}/admin/find_email`)
+
+  getEmployerPaymentInfo(id){
+    return this.http.get<any>(`${environment.apiUrl}/admin/subscription/company/${id}`);
   }
+
+  getSubscriptionById(id){
+    return  this.http.get<any>(`${environment.apiUrl}/admin/subscription/${id}`);
+  }
+
+  // verifyUser(){
+  //   return this.http.post<any>(`${environment.apiUrl}/admin/send_email`,{});
+  // }
+  // unVerifiedUser(){
+  //   return this.http.get<any>(`${environment.apiUrl}/admin/find_email`)
+  // }
+
+
 }

@@ -63,6 +63,11 @@ import { AdsListResolverService } from '@app/_resolvers/admin-resolvers/ads-list
 import { AddAdvertisementComponent } from './components/add-advertisement/add-advertisement.component';
 import { AdvertisementListComponent } from './components/advertisement-list/advertisement-list.component';
 import { PipesModule } from '@app/pipes/pipes.module';
+import { PaymentListComponent } from './components/payment-list/payment-list.component';
+import { PaymentDetailComponent } from './components/payment-detail/payment-detail.component';
+import { AdminPaymentListResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-list-resolver.service';
+import { AdminPaymentDetailResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-detail-resolver.service';
+import { EmployerPaymentInformationComponent } from './components/employer-payment-information/employer-payment-information.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +101,10 @@ import { PipesModule } from '@app/pipes/pipes.module';
     FeaturedCompaniesComponent,
     ReportJobDetailComponent,
     AddAdvertisementComponent,
-    AdvertisementListComponent
+    AdvertisementListComponent,
+    PaymentListComponent,
+    PaymentDetailComponent,
+    EmployerPaymentInformationComponent
   ],
   imports: [
     AdminRoutingModule,
@@ -130,7 +138,9 @@ import { PipesModule } from '@app/pipes/pipes.module';
     FeaturedCompanyListResolverService,
     ApplicantListResolverService,
     ApplicationListResolverService,
-    AdsListResolverService
+    AdsListResolverService,
+    AdminPaymentListResolverService,
+    AdminPaymentDetailResolverService
   ]
 })
 export class AdminModule {}

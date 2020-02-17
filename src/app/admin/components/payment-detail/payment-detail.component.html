@@ -1,0 +1,106 @@
+<div *ngIf="subscription" class="container">
+    <div class="subscription">
+      <div class="subscription__header">
+        <!-- <img [src]="subscription.job.company_profile.companyLogo" alt="" class="img" /> -->
+        <h2 class="name">{{ subscription.application_user.company.companyName }}</h2>
+        <!-- <div class="verify">
+            <fa-icon
+            class="verify__icon"
+            [icon]="faCheckCircle"
+          ></fa-icon>
+          <span class="verify__text">
+            Paied
+            </span>
+        </div> -->
+        <!-- <div
+          [title]="subscription.checked ? 'Checked' : 'Check'"
+          (click)="toggleChecked(subscription.id)"
+          class="verify"
+        >
+          <fa-icon
+            *ngIf="subscription.verified"
+            class="verify__icon"
+            [icon]="faCheckCircle"
+          ></fa-icon>
+          <span class="verify__text">{{
+            subscription.checked ? "Not Paied" : "Not Paied"
+          }}</span>
+          <div *ngIf="loading" class="verify__loading"></div>
+        </div> -->
+      </div>
+  
+      <div class="subscription__body">
+        <div class="details-group">
+          <div class="detail">
+            <div class="detail__label">Transaction From</div>
+            <div class="detail__value">
+              <h2 class=" text name">{{ subscription.transactionFrom  }}</h2>
+            </div>
+          </div>
+          <div class="detail">
+            <div class="detail__label">Transaction To</div>
+            <div class="detail__value">
+              <p class="text">{{ subscription.transactionTo }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="details-group">
+          <div class="detail">
+            <div class="detail__label">Amount</div>
+            <div class="detail__value">
+              <p class="text">{{ subscription.amount }}</p>
+            </div>
+          </div>
+          <div class="detail">
+            <div class="detail__label">Transaction Date</div>
+            <div class="detail__value">
+              <p class="text">{{ subscription.updatedAt | date: "medium" }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="details-group">
+          <div class="detail">
+            <div class="detail__label">Payment Information</div>
+            <div class="detail__value">
+              <p class="text">{{ subscription.paid ? "Already Paid" : "Not Paid" }}</p>
+            </div>
+          </div>
+        </div> 
+  
+        <div class="details-group">
+          <div class="detail">
+            <div class="detail__label">Purchased By</div>
+            <div class="detail__value">
+              <span class="detail__value__header"
+                >Name -
+                <p class="text">
+                  {{
+                    subscription.application_user.user.firstName +
+                      " " +
+                      subscription.application_user.user.lastName
+                  }}
+                </p></span
+              >
+              <span class="detail__value__header"
+                >Email -
+                <p class="text">
+                  {{ subscription.application_user.user.email }}
+                </p></span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="details-group">
+            <div class="detail">
+              <div class="detail__label">Confirm Payment</div>
+              <div class="detail__value">
+                <button (click)='confirmPayment(subscription.id)' class="detail__value__button th-btn th-btn--primary">{{ subscription.paid ? "Already Paid" : "Confirm Payment" }}</button>
+              </div>
+            </div>
+          </div> 
+      </div>
+    </div>
+  </div>
+  

@@ -37,10 +37,11 @@ export class CustomDatepickerComponent implements OnInit {
   @Input() defaultValue: string;
   @Input() name: string;
   @Input() submitted: boolean;
-  @Input() valid: any;
+  @Input() valids: any;
   @Input() disabled: boolean;
   @Input() label: string;
   @Output() onValueChange = new EventEmitter();
+  // @Input() range: { min: ""; max: "" };
 
   constructor() {
     let d = new Date();

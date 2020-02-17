@@ -37,6 +37,8 @@ import { CompanyStaffResolverService } from '@app/_resolvers/employer-resolvers/
 import { LocationDetailResolverService } from '@app/_resolvers/employer-resolvers/location-detail-resolver.service';
 import { HeadLocationCheckResolverService } from '@app/_resolvers/employer-resolvers/head-location-check-resolver.service';
 import { ApplicantDetailResolverService } from '@app/_resolvers/employer-resolvers/applicant-detail-resolver.service';
+import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
+import { SubscriptionResolverService } from '@app/_resolvers/employer-resolvers/subscription-resolver.service';
 
 const routes: Routes = [
   {
@@ -144,13 +146,13 @@ const routes: Routes = [
         component: IssueDetailsComponent,
         resolve: { data: IssueDetailResolverService }
       },
-      // {
-      //   path: 'plan',
-      //   canActivate: [EmployerGuard],
-      //   component: SubscriptionsComponent,
-      //   data: { name: 'subscription plan' },
-      //   resolve: { data: SubscriptionResolverService }
-      // },
+      {
+        path: 'plan',
+        canActivate: [EmployerGuard],
+        component: SubscriptionsComponent,
+        data: { name: 'subscription plan' },
+        resolve: { data: SubscriptionResolverService }
+      },
       {
         path: 'password',
         canActivate: [EmployerGuard],

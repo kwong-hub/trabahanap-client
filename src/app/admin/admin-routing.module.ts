@@ -51,6 +51,13 @@ import { ApplicantIssueListResolverService } from '@app/_resolvers/admin-resolve
 import { EmployerIssueListResolverService } from '@app/_resolvers/admin-resolvers/employer-issue-list-resolver.service';
 import { AdminIssueDashboardResolverService } from '@app/_resolvers/admin-resolvers/admin-issue-dashboard-resolver.service';
 import { AdminCompanyDetailResolverService } from '@app/_resolvers/admin-resolvers/admin-company-detail-resolver.service';
+import { AdminReportResolverService } from '@app/_resolvers/admin-resolvers/admin-report-resolver.service';
+import { PaymentListComponent } from './components/payment-list/payment-list.component';
+import { AdminPaymentListResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-list-resolver.service';
+import { PaymentDetailComponent } from './components/payment-detail/payment-detail.component';
+import { AdminPaymentDetailResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-detail-resolver.service';
+import { AdminEmployerPaymentResolverService } from '@app/_resolvers/admin-resolvers/admin-employer-payment-resolver.service';
+import { EmployerPaymentInformationComponent } from './components/employer-payment-information/employer-payment-information.component';
 
 const routes: Routes = [
   {
@@ -84,7 +91,8 @@ const routes: Routes = [
       {
         path: "issues/report",
         canActivate: [AdminGuard],
-        component: ReportJobListComponent
+        component: ReportJobListComponent,
+        resolve: { data: AdminReportResolverService }
       },
       {
         path: "issues/report/detail/:id",
@@ -190,7 +198,13 @@ const routes: Routes = [
         canActivate: [AdminGuard],
         component: AddStaffComponent
       },
-
+      {
+        path: "employers/payment/:id",
+        canActivate: [AdminGuard],
+        component: EmployerPaymentInformationComponent,
+        resolve: { data: AdminEmployerPaymentResolverService }
+      }
+      ,
       {
         path: "companies/featured",
         canActivate: [AdminGuard],
@@ -235,6 +249,18 @@ const routes: Routes = [
         path: "ads/add",
         canActivate: [AdminGuard],
         component: AddAdvertisementComponent
+      },
+      {
+        path: "payment",
+        canActivate: [AdminGuard],
+        component: PaymentListComponent,
+        resolve: { data: AdminPaymentListResolverService }
+      },
+      {
+        path: "payment/detail/:id",
+        canActivate: [AdminGuard],
+        component: PaymentDetailComponent,
+        resolve: { data: AdminPaymentDetailResolverService }
       },
       { path: "", redirectTo: "home", pathMatch: "full" }
     ]

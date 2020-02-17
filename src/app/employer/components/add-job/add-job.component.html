@@ -23,13 +23,13 @@
 </div> -->
 <div class="sub-module-container">
   <h3 class="sub-module-container__heading">
-    {{ job ? "Edit Job" : "Add Job" }}
+    {{ job ? 'Edit Job' : 'Add Job' }}
   </h3>
   <div class="sub-module-container__container job">
     <div class="job__add-job">
       <form action="#" class="form" [formGroup]="addJob" (ngSubmit)="onSubmit()">
         <div class="form__title-container">
-          <h4 class="form__title">{{ job ? "Edit Job" : "Add A New Job" }}</h4>
+          <h4 class="form__title">{{ job ? 'Edit Job' : 'Add A New Job' }}</h4>
         </div>
         <div class="add-company-profile">
           <div *ngIf="submitted && addJob.invalid" class="form__error">
@@ -49,14 +49,22 @@
               type="text"
               [submitted]="submitted"
               [disabled]="!isEditMode && job"
-              [limit] ="defaultLimit"
+              [limit]="defaultLimit"
             ></shared-custom-input-field>
           </div>
           <div class="sub-container">
-            <shared-textarea-field [disabled]="isEditMode" class="input-element-type-2" [formGroup]="addJob"
-              name="jobDescription" [defaultValue]="job?.jobDescription" placeholder="Job description"
-              label="Job Description" [input]="addJob.controls['jobDescription']" type="textarea"
-              [submitted]="submitted"></shared-textarea-field>
+            <shared-textarea-field
+              [disabled]="isEditMode"
+              class="input-element-type-2"
+              [formGroup]="addJob"
+              name="jobDescription"
+              [defaultValue]="job?.jobDescription"
+              placeholder="Job description"
+              label="Job Description"
+              [input]="addJob.controls['jobDescription']"
+              type="textarea"
+              [submitted]="submitted"
+            ></shared-textarea-field>
           </div>
           <div class="sub-container">
             <shared-custom-select
@@ -89,36 +97,50 @@
             ></shared-custom-input-field>
           </div>
           <div style="margin-bottom: 2rem;" class="sub-container">
-            <shared-custom-select [valid]="addJob.controls['educationAttainment']?.status" (onValueChange)="
-                customValueChanged($event, 'educationAttainment')" label="Education Attainment"
-
-               name="educationAttainment" [defaultValue]="job?.educationAttainment" [styleObject]="styleObject"
-              class="input-element-type-1 job__custom-select" placeholder="Educational Attainment"
-              [options]="educationAttainment" [submitted]="submitted" [disabled]="!isEditMode && job">
+            <shared-custom-select
+              [valid]="addJob.controls['educationAttainment']?.status"
+              (onValueChange)="customValueChanged($event, 'educationAttainment')"
+              label="Education Attainment"
+              name="educationAttainment"
+              [defaultValue]="job?.educationAttainment"
+              [styleObject]="styleObject"
+              class="input-element-type-1 job__custom-select"
+              placeholder="Educational Attainment"
+              [options]="educationAttainment"
+              [submitted]="submitted"
+              [disabled]="!isEditMode && job"
+            >
             </shared-custom-select>
-            <shared-custom-select [valid]="addJob.controls['locationId']?.status"
-              (onValueChange)="customValueChanged($event, 'locationId')" name="locationId"
-              [defaultValue]="job?.locationId" [styleObject]="styleObject" label="Location"
-
-              class="input-element-type-1 job__custom-select" placeholder="Select Location" [options]="locations"
-              [submitted]="submitted" [disabled]="!isEditMode && job"></shared-custom-select>
+            <shared-custom-select
+              [valid]="addJob.controls['locationId']?.status"
+              (onValueChange)="customValueChanged($event, 'locationId')"
+              name="locationId"
+              [defaultValue]="job?.locationId"
+              [styleObject]="styleObject"
+              label="Location"
+              class="input-element-type-1 job__custom-select"
+              placeholder="Select Location"
+              [options]="locations"
+              [submitted]="submitted"
+              [disabled]="!isEditMode && job"
+            ></shared-custom-select>
           </div>
           <div class="sub-container">
             <shared-custom-datepicker
+              [valids]="addJob.controls['applicationStartDate']?.status"
               class="input-element-type-1 job__custom-select"
               [formGroup]="addJob"
               name="applicationStartDate"
               [defaultValue]="job ? job.applicationStartDate : ''"
               placeholder="Application Start Date"
               label="Application Start Date"
-              (onValueChange)="
-                customValueChanged($event, 'applicationStartDate')
-              "
+              (onValueChange)="customValueChanged($event, 'applicationStartDate')"
               type="text"
               [submitted]="submitted"
               [disabled]="!isEditMode && job"
             ></shared-custom-datepicker>
             <shared-custom-datepicker
+              [valids]="addJob.controls['applicationEndDate']?.status"
               class="input-element-type-1 job__custom-select"
               [formGroup]="addJob"
               name="applicationEndDate"
@@ -143,26 +165,50 @@
               type="text"
               [submitted]="submitted"
               [disabled]="!isEditMode && job"
-              [limit] ="defaultLimit"
+              [limit]="defaultLimit"
             ></shared-custom-input-field>
           </div>
           <div style="margin-bottom: 2rem;" class="sub-container">
-            <shared-custom-select [valid]="addJob.controls['employmentType']?.status"  label="Emplopyment Type"
-              (onValueChange)="customValueChanged($event, 'employmentType')" name="employmentType"
-              [defaultValue]="job ? job.employmentType : ''" [styleObject]="styleObject"
-              class="input-element-type-1 job__custom-select" placeholder="Emplopyment Type" [options]="employmentType"
-              [submitted]="submitted" [disabled]="!isEditMode && job"></shared-custom-select>
-            <shared-custom-select [valid]="addJob.controls['salaryRange']?.status"
-              (onValueChange)="customValueChanged($event, 'salaryRange')" name="salaryRange" label="Salary Range"
-              [defaultValue]="job?.salaryRange" [styleObject]="styleObject"
-              class="input-element-type-1 job__custom-select" placeholder="Salary Range" [options]="salaryRange"
-              [submitted]="submitted" [disabled]="!isEditMode && job"></shared-custom-select>
+            <shared-custom-select
+              [valid]="addJob.controls['employmentType']?.status"
+              label="Emplopyment Type"
+              (onValueChange)="customValueChanged($event, 'employmentType')"
+              name="employmentType"
+              [defaultValue]="job ? job.employmentType : ''"
+              [styleObject]="styleObject"
+              class="input-element-type-1 job__custom-select"
+              placeholder="Emplopyment Type"
+              [options]="employmentType"
+              [submitted]="submitted"
+              [disabled]="!isEditMode && job"
+            ></shared-custom-select>
+            <shared-custom-select
+              [valid]="addJob.controls['salaryRange']?.status"
+              (onValueChange)="customValueChanged($event, 'salaryRange')"
+              name="salaryRange"
+              label="Salary Range"
+              [defaultValue]="job?.salaryRange"
+              [styleObject]="styleObject"
+              class="input-element-type-1 job__custom-select"
+              placeholder="Salary Range"
+              [options]="salaryRange"
+              [submitted]="submitted"
+              [disabled]="!isEditMode && job"
+            ></shared-custom-select>
           </div>
           <div class="sub-container">
-            <shared-textarea-field [disabled]="isEditMode" class="input-element-type-2" [formGroup]="addJob"
-              name="additionalQualifications" [defaultValue]="job?.additionalQualifications"
-              placeholder="Additional Qualifications" label="Additional Qualifications"
-              [input]="addJob.controls['additionalQualifications']" type="textarea" [submitted]="submitted">
+            <shared-textarea-field
+              [disabled]="isEditMode"
+              class="input-element-type-2"
+              [formGroup]="addJob"
+              name="additionalQualifications"
+              [defaultValue]="job?.additionalQualifications"
+              placeholder="Additional Qualifications"
+              label="Additional Qualifications"
+              [input]="addJob.controls['additionalQualifications']"
+              type="textarea"
+              [submitted]="submitted"
+            >
             </shared-textarea-field>
           </div>
           <div class="sub-container" style="justify-content: center; margin-bottom: 1.5rem;">
@@ -170,8 +216,9 @@
               <input type="checkbox" formControlName="pwd" name="pwd" id="pwd-checkbox" class="checkbox__input" />
               <label for="pwd-checkbox" class="checkbox__label">
                 <div class="checkbox__button"></div>
-                <span class="checkbox__text">PWD-Friendly
-                  <i style="margin: .5rem .5rem 0; color: #42597B" class="fab fa-accessible-icon"></i></span>
+                <span class="checkbox__text"
+                  >PWD-Friendly <i style="margin: .5rem .5rem 0; color: #42597B" class="fab fa-accessible-icon"></i
+                ></span>
               </label>
             </div>
           </div>
@@ -186,9 +233,14 @@
 
             <!-- <input type="submit" class="form__submit th-btn th-btn--primary"
               [class.form__submit--inactive]="!isEditMode && job" [value]="job ? 'Save' : 'Add Job'" /> -->
-            
-            <app-custom-submit-button *ngIf="!(job && !isEditMode)" [loading]="loading" [text]="job ? 'Save' : 'Add Job'" class="form__submit"
-              [styleObject]="{btn: {width: '100%'}}">
+
+            <app-custom-submit-button
+              *ngIf="!(job && !isEditMode)"
+              [loading]="loading"
+              [text]="job ? 'Save' : 'Add Job'"
+              class="form__submit"
+              [styleObject]="{ btn: { width: '100%' } }"
+            >
             </app-custom-submit-button>
           </div>
         </div>
@@ -197,14 +249,21 @@
     <div class="previous-jobs__container">
       <div class="previous-jobs__header">Your Job Postings</div>
       <div class="job__previous-jobs">
-        <employer-mini-job-display (showDetail)="showDetail($event)" [job]="prevJob"
-          *ngFor="let prevJob of previousJobs"></employer-mini-job-display>
+        <employer-mini-job-display
+          (showDetail)="showDetail($event)"
+          [job]="prevJob"
+          *ngFor="let prevJob of previousJobs"
+        ></employer-mini-job-display>
         <h3 *ngIf="previousJobs?.length == 0">No Posted Jobs</h3>
       </div>
     </div>
     <!-- <shared-loader></shared-loader> -->
-    <app-custom-notification [show]="jobAdded || jobEditted" type="success"
-      [text]="jobAdded ? 'Job Posted Successfully' : 'Job Editted Successfully'" callback="goBack">
+    <app-custom-notification
+      [show]="jobAdded || jobEditted"
+      type="success"
+      [text]="jobAdded ? 'Job Posted Successfully' : 'Job Editted Successfully'"
+      callback="goBack"
+    >
     </app-custom-notification>
   </div>
 </div>

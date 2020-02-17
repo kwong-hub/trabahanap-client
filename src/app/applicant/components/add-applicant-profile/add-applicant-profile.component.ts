@@ -113,7 +113,7 @@ export class AddApplicantProfileComponent implements OnInit {
   tempImg: string;
   loading: boolean;
   success: boolean;
-  defaultLimit = { max: '35', min: '0' };
+  defaultLimit = { max: '40', min: '0' };
   numberRange = { max: '20', min: '10' };
   bigLimit = { max: '100', min: '6' };
   fileTypeError: boolean;
