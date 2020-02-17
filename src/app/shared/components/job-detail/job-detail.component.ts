@@ -160,6 +160,7 @@ export class JobDetailComponent implements OnInit {
   getCompanyJobs() {
     this.tabClicked('otherActive');
     this.companyJobs = [];
+
     this.jobService.getCompanyJobsApplicant(this.job.companyProfileId).subscribe(
       data => {
         data.jobs.map(job => {

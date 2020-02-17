@@ -109,6 +109,9 @@
   padding-right: 0rem;
   text-decoration: none;
   margin: 1.5rem 0;
+  position: absolute;
+  top: -3rem;
+  right: 2rem;
 
   &:hover,
   &:active {
@@ -318,6 +321,13 @@
       }
     }
   }
+}
+
+.back {
+  position: absolute;
+  left: 0rem;
+  top: -3rem;
+  font-size: 2rem;
 }
 
 @media only screen and (min-width: 400px) {

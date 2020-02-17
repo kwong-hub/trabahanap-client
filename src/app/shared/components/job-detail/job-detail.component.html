@@ -130,7 +130,7 @@
 
   <div *ngIf="tabs?.otherActive" class="container" style="background-color: #DDDDDD">
     <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
-      <app-job [Job]="job" [showSave]="false"></app-job>
+      <app-job [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
     </div>
   </div>
   <div style="display: flex; justify-content: space-between;">

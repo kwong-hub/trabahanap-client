@@ -1,7 +1,11 @@
 <div class="job" [routerLink]="['/search/jobs/details', Job.jobId]">
   <div class="job__left">
     <div class="job__left--top">
-      <img class="job__company-image" [src]="Job.companyLogo ? Job.companyLogo : 'assets/img/building.png'" />
+      <img
+        *ngIf="showCompLogo"
+        class="job__company-image"
+        [src]="Job.companyLogo ? Job.companyLogo : 'assets/img/building.png'"
+      />
       <div class="job__left--top__container">
         <h3 class="job__title">{{ Job.jobTitle }}</h3>
         <div style="margin-top: 1rem;">
