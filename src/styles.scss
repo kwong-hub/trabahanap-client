@@ -21,15 +21,17 @@ $error-color: #ff0000;
 // }
 
 .sub-module-container {
-  padding: 1rem;
+  padding: 1rem 0;
+
   &__heading {
     font-size: 2rem;
     text-transform: uppercase;
     color: #888;
+    margin-left: 3rem;
   }
 
   &__container {
-    padding: 2rem 0.5rem;
+    padding: 2rem 2.5rem;
   }
 }
 

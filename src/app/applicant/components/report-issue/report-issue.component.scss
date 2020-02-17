@@ -1,3 +1,35 @@
+.fab {
+  position: fixed;
+  bottom: 8rem;
+  right: 4rem;
+  text-align: center;
+
+  &__button {
+    // display: inline-block;
+    width: 4.5rem;
+    height: 4.5rem;
+    font-size: 2rem;
+    background-color: tomato;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 0 0.5rem rgba(black, 0.5);
+    transition: all 0.2s;
+
+    &:hover {
+      box-shadow: 0 0 0.8rem rgba(black, 0.5);
+      transform: translateY(-1px);
+      cursor: pointer;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-60%);
+  }
+}
 .container {
   &__header {
     display: none;
@@ -17,38 +49,6 @@
     }
   }
 
-  .fab {
-    position: fixed;
-    bottom: 8rem;
-    right: 4rem;
-    text-align: center;
-
-    &__button {
-      // display: inline-block;
-      width: 4.5rem;
-      height: 4.5rem;
-      font-size: 2rem;
-      background-color: tomato;
-      color: white;
-      border-radius: 50%;
-      border: none;
-      box-shadow: 0 0 0.5rem rgba(black, 0.5);
-      transition: all 0.2s;
-
-      &:hover {
-        box-shadow: 0 0 0.8rem rgba(black, 0.5);
-        transform: translateY(-1px);
-        cursor: pointer;
-      }
-    }
-
-    &__icon {
-      position: absolute;
-      top: 1rem;
-      left: 50%;
-      transform: translateX(-60%);
-    }
-  }
 }
 
 .overlay {
@@ -345,9 +345,9 @@
       }
     }
 
-    .fab {
-      display: none;
-    }
+  }
+  .fab {
+    display: none;
   }
 }
 

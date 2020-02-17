@@ -19,11 +19,11 @@ export class LandingNearJobsComponent implements OnInit {
   options = {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
+        maxZoom: 15,
         attribution: '...'
       })
     ],
-    zoom: 16,
+    zoom: 15,
     center: latLng(14.6042, 120.9822),
     attributionControl: false
   };
