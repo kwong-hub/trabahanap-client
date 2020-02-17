@@ -16,6 +16,7 @@ export class JobComponent implements OnInit {
   @Input() Job: Job;
   @Input() isBookMarked: boolean;
   @Input() showSave: boolean = true;
+  @Input() showCompLogo: boolean = true;
   userRole;
   booking: string = '';
   bookmarked: boolean = false;

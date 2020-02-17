@@ -38,7 +38,7 @@ export class JobDetailComponent implements OnInit {
   faBuilding = faBuilding;
   faListUl = faListUl;
   showModal: boolean;
-  tabs: any;
+  tabs: any = {};
   companyJobs = [];
   options = {
     layers: [
@@ -78,7 +78,7 @@ export class JobDetailComponent implements OnInit {
         this.goBack();
       }
     });
-
+    this.tabClicked('detailActive');
     // give a margin to the container only in anonymous view
     this.lower = !this.router.url.includes('applicant');
   }
@@ -101,7 +101,6 @@ export class JobDetailComponent implements OnInit {
         autoPanPadding: new Point(70, 70)
       });
     }
-    this.tabClicked('detailActive');
   } // ngOnInit ends here
 
   apply(jobId) {
@@ -160,6 +159,8 @@ export class JobDetailComponent implements OnInit {
 
   getCompanyJobs() {
     this.tabClicked('otherActive');
+    this.companyJobs = [];
+
     this.jobService.getCompanyJobsApplicant(this.job.companyProfileId).subscribe(
       data => {
         data.jobs.map(job => {
