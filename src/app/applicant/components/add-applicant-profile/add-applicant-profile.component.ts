@@ -106,16 +106,16 @@ export class AddApplicantProfileComponent implements OnInit {
 
   isCVEditModalOpen = false;
   isApplicantPictureEditModalOpen = false;
-  yearRange = { min: '1920', max: '2020' };
+  yearRange = { min: '1920', max: (new Date().getFullYear()- 18).toString() };
   dateRange = { min: '1', max: '31' };
   imageChangedEvent: any;
   croppedImage: any;
   tempImg: string;
   loading: boolean;
   success: boolean;
-  defaultLimit = { max: '35', min: '0' };
+  defaultLimit = { max: '45', min: '0' };
   numberRange = { max: '20', min: '10' };
-  bigLimit = { max: '100', min: '6' };
+  bigLimit = { max: '60', min: '6' };
   fileTypeError: boolean;
   formError: boolean;
   constructor(
@@ -170,16 +170,24 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   updateForm() {
-    let temp_date = new Date(this.applicantProfile.dateOfBirth);
-
-    this.applicantProfile = {
-      ...this.applicantProfile,
-      year: temp_date.getFullYear(),
-      month: temp_date.getMonth() + 1,
-      date: temp_date.getDate(),
-      fullName: `${this.applicantProfile.user.firstName} ${this.applicantProfile.user.lastName}`,
-      phoneNumber: this.applicantProfile.user.phoneNumber
-    };
+    if(this.applicantProfile.dateOfBirth) {
+      let temp_date = new Date(this.applicantProfile.dateOfBirth);
+      this.applicantProfile = {
+        ...this.applicantProfile,
+        year: temp_date.getFullYear(),
+        month: temp_date.getMonth() + 1,
+        date: temp_date.getDate(),
+        fullName: `${this.applicantProfile.user.firstName} ${this.applicantProfile.user.lastName}`,
+        phoneNumber: this.applicantProfile.user.phoneNumber
+      };
+    }
+    else {
+      this.applicantProfile = {
+        ...this.applicantProfile,
+        fullName: `${this.applicantProfile.user.firstName} ${this.applicantProfile.user.lastName}`,
+        phoneNumber: this.applicantProfile.user.phoneNumber
+      };
+    }
 
     _.map(this.applicantProfile, (value, key) => {
       if (this.addApplicantProfileForm.controls[key] && key != 'cv' && key != 'applicantPicture') {
@@ -230,11 +238,23 @@ export class AddApplicantProfileComponent implements OnInit {
     this.formData.append('applicantPicture', blob);
   }
 
+  get f() {
+    return this.addApplicantProfileForm.controls;
+  }
+
   onSubmit() {
     this.submitted = true;
     let val = this.addApplicantProfileForm.value;
     let date = `${val.year}-${val.month}-${val.date}`;
+    let now = new Date();
 
+    if(+val.year > now.getFullYear() - 15 || +val.year < 1920 ) {
+      this.f.year.setErrors({'rangeOut': true});
+    } 
+    if(+val.date > 31 || +val.date < 1) {
+      this.f.date.setErrors({'rangeOut': true});
+    }
+    
     if (new Date(date).toDateString().includes('Invalid')) {
       this.addApplicantProfileForm.controls['month'].setErrors({
         invalid: true
@@ -287,7 +307,15 @@ export class AddApplicantProfileComponent implements OnInit {
     this.submitted = true;
     let val = this.addApplicantProfileForm.value;
     let date = `${val.year}-${val.month}-${val.date}`;
+    let now = new Date();
 
+    if(+val.year > now.getFullYear() - 15 || +val.year < 1920 ) {
+      this.f.year.setErrors({'rangeOut': true});
+    } 
+    if(+val.date > 31 || +val.date < 1) {
+      this.f.date.setErrors({'rangeOut': true});
+    }
+    
     if (new Date(date).toDateString().includes('Invalid')) {
       this.addApplicantProfileForm.controls['month'].setErrors({
         invalid: true

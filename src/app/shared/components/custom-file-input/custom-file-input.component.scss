@@ -41,7 +41,7 @@
 
     &:not(:placeholder-shown) + label,
     &:focus + label {
-      transform: translateY(-5rem);
+      transform: translateY(-5.5rem);
       opacity: 1;
     }
 

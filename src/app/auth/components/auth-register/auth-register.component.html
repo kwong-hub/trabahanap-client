@@ -8,23 +8,19 @@
 
   <div class="form-container">
     <div class="form-container__header">
-      <img
+      <!-- <img
         src="../../../../assets/img/th_logo.png"
         alt=""
         class="header-logo"
-      />
+      /> -->
       <h3 *ngIf="empRegister" class="header-text">
         Create an Employer account
       </h3>
       <h3 *ngIf="!empRegister" class="header-text">Create an Account</h3>
     </div>
     <div class="form-container__body">
-      <form
-        action="#"
-        [formGroup]="registerForm"
-        class="form"
-        (ngSubmit)="onSubmit()"
-      >
+      <form action="#" [formGroup]="registerForm"
+        class="form" (ngSubmit)="onSubmit()">
         <div *ngIf="error" class="form__error">{{ error | uppercase }}</div>
 
         <div class="form__group form__group--double">
@@ -129,25 +125,38 @@
           ></fa-icon>
         </div>
 
+        <div class="form__group" style="margin-bottom: 3.5rem;">
+          <div class="checkbox">
+            <input type="checkbox" formControlName="terms"
+              name="terms" id="terms-check" class="checkbox__input" />
+            <label for="terms-check" class="checkbox__label">
+              <div class="checkbox__button"></div>
+              <span class="checkbox__text">
+                Agree to our <a class="link" routerLink="/legal">terms, condition</a> and 
+                <a class="link" routerLink="/privacy">privacy policy</a>
+              </span>
+            </label>
+          </div>
+          <div *ngIf="submitted && f.terms.errors?.incorrect" class="invalid-feedback">
+            <div class="invalid-feedback__message">
+              You must agree to our terms and conditions
+            </div>
+          </div>
+        </div>
+
         <!-- ReCaptcha Integration -->
         <div class="form__group form__group--recaptcha">
           <re-captcha
-            required
-            formControlName="recaptcha"
+            required formControlName="recaptcha"
             (resolved)="resolved($event)"
             siteKey="6LcbF78UAAAAAA-J3-I-Xa-U0UMok39UaIUju_zl"
           ></re-captcha>
-          <div
-            *ngIf="submitted && f.recaptcha.errors?.required"
-            class="invalid-feedback"
-          >
+          <div *ngIf="submitted && f.recaptcha.errors?.required"
+            class="invalid-feedback">
             <div class="invalid-feedback__message">
               reCAPTCHA validation is required
             </div>
           </div>
-          <!-- <div *ngIf="error && error.required" class="invalid-feedback">
-                        <div class="invalid-feedback__message">reCAPTCHA validation is required</div>
-                    </div> -->
         </div>
 
         <!-- Form submit button -->

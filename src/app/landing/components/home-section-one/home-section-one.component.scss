@@ -10,18 +10,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("../../../../assets/img/Mobile-header-2.jpg");
+  background-image: url("../../../../assets/img/website-header-new-mobile.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   // background-position: 75.5%;
-  // background-position: 70%;
+  background-position: center;
 
   &__header {
     color: white;
     font-size: 3.8rem;
     font-weight: 700;
     font-style: italic;
+    text-shadow: 0 1px 6px black;
   }
 
   .form {
@@ -236,7 +237,7 @@
 
 @media only screen and (min-width: 650px) {
   .search {
-    background-image: url("../../../../assets/img/Header-2.jpg");
+    background-image: url("../../../../assets/img/website-header-new.jpg");
     background-position: center;
 
     .form {

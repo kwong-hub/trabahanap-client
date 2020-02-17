@@ -47,7 +47,7 @@ export class JobDetailComponent implements OnInit {
         attribution: '...'
       })
     ],
-    zoom: 20,
+    zoom: 15,
     center: latLng(14.6042, 120.9822),
     attributionControl: false
   };

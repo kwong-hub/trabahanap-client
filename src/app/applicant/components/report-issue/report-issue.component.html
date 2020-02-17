@@ -1,77 +1,80 @@
-<div class="container">
-  <div (click)="toggleFormModal()" class="fab">
-    <button class="fab__button">
-      <fa-icon class="fab__icon" [icon]="faPaperPlane"></fa-icon>
-    </button>
-  </div>
+<div (click)="toggleFormModal()" class="fab">
+  <button class="fab__button">
+    <fa-icon class="fab__icon" [icon]="faPaperPlane"></fa-icon>
+  </button>
+</div>
+<div class="sub-module-container">
+  <h3 class="sub-module-container__heading">Report an Issue</h3>
 
-  <h3 class="container__header">Report an Issue</h3>
+  <div class="sub-module-container__container container">
 
-  <div class="container__body">
-    <!-- to be displayed in desktop mode -->
-    <div class="desktop-form">
-      <app-issue-form (issueAdded)="addIssueToArray($event)"></app-issue-form>
-    </div>
-
-    <div class="issues">
-      <div class="issues__header">
-        Reported Issues
+    <div class="container__body">
+      <!-- to be displayed in desktop mode -->
+      <div class="desktop-form">
+        <app-issue-form (issueAdded)="addIssueToArray($event)"></app-issue-form>
       </div>
 
-      <div class="issues__list">
-        <div *ngFor="let issue of issues" class="issue">
-          <p class="type">{{ issue.issueType }} related</p>
+      <div class="issues">
+        <div *ngIf="issues.length === 0" class="issues__header">You have not reported any issues</div>
+        <div *ngIf="issues.length > 0" class="issues__header">
+          Reported Issues
+        </div>
 
-          <div class="issue__body">
-            <div class="issue__left">
-              <p class="reason">{{ issue.issueReason }}</p>
-            </div>
+        <div class="issues__list">
+          <div *ngFor="let issue of issues" class="issue">
+            <p class="type">{{ issue.issueType }} related</p>
 
-            <div class="issue__right">
-              <p class="date">{{ issue.createdAt | date: "longDate" }}</p>
-              <div class="btn-group">
-                <!-- <button title="Detail" (click)="openDetailModal(issue)" class="btn">
-                                    <fa-icon class="icon" [class.icon--reply]="issue.issueResponseId" [icon]="faEnvelope"></fa-icon>
-                                </button> -->
-                <button
-                  title="Details"
-                  [routerLink]="['details', issue.id]"
-                  class="btn"
-                >
-                  <fa-icon
-                    class="icon"
-                    [class.icon--reply]="issue.issueResponseId"
-                    [icon]="faEnvelope"
-                  ></fa-icon>
-                </button>
-                <button (click)="deleteIssue(issue.id)" class="btn">
-                  <fa-icon *ngIf="deleting !== issue.id" class="icon icon--delete" [icon]="faTimes"></fa-icon>
-                  <div *ngIf="deleting === issue.id" class="icon icon--progress"></div>
-                </button>
+            <div class="issue__body">
+              <div class="issue__left">
+                <p class="reason">{{ issue.issueReason }}</p>
+              </div>
+
+              <div class="issue__right">
+                <p class="date">{{ issue.createdAt | date: "longDate" }}</p>
+                <div class="btn-group">
+                  <!-- <button title="Detail" (click)="openDetailModal(issue)" class="btn">
+                                      <fa-icon class="icon" [class.icon--reply]="issue.issueResponseId" [icon]="faEnvelope"></fa-icon>
+                                  </button> -->
+                  <button
+                    title="Details"
+                    [routerLink]="['details', issue.id]"
+                    class="btn"
+                  >
+                    <fa-icon
+                      class="icon"
+                      [class.icon--reply]="issue.issueResponseId"
+                      [icon]="faEnvelope"
+                    ></fa-icon>
+                  </button>
+                  <button (click)="deleteIssue(issue.id)" class="btn">
+                    <fa-icon *ngIf="deleting !== issue.id" class="icon icon--delete" [icon]="faTimes"></fa-icon>
+                    <div *ngIf="deleting === issue.id" class="icon icon--progress"></div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="overlay" [class.active]="isModalVisible">
-    <div (click)="toggleFormModal()" class="overlay__close">
-      <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
+    <div class="overlay" [class.active]="isModalVisible">
+      <div (click)="toggleFormModal()" class="overlay__close">
+        <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
+      </div>
     </div>
-  </div>
 
-  <div class="modal" [class.active]="isModalVisible">
-    <div class="modal__header">
-      <h2 class="text">Report the issue you encountered</h2>
+    <div class="modal" [class.active]="isModalVisible">
+      <div class="modal__header">
+        <h2 class="text">Report the issue you encountered</h2>
+      </div>
+      <div class="modal__body">
+        <app-issue-form (issueAdded)="addIssueToArray($event)"></app-issue-form>
+      </div>
     </div>
-    <div class="modal__body">
-      <app-issue-form (issueAdded)="addIssueToArray($event)"></app-issue-form>
-    </div>
-  </div>
-  
-  <app-custom-notification [show]="issueSuccess" type="success" text="Issue Submitted Successfully"></app-custom-notification>
-  <app-custom-notification [show]="deleteSuccess" type="error" text="Issue Deleted Successfully"></app-custom-notification>
+    
+    <app-custom-notification [show]="issueSuccess" type="success" text="Issue Submitted Successfully"></app-custom-notification>
+    <app-custom-notification [show]="deleteSuccess" type="error" text="Issue Deleted Successfully"></app-custom-notification>
 
+  </div>
 </div>
