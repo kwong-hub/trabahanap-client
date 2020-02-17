@@ -18,10 +18,11 @@
   background-position: center;
 
   &__header {
-    color: rgba(black, 0.6);
+    color: white;
     font-size: 3.8rem;
     font-weight: 700;
     font-style: italic;
+    text-shadow: 0 1px 6px black;
   }
 
   .form {
