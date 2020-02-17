@@ -109,6 +109,9 @@
   padding-right: 0rem;
   text-decoration: none;
   margin: 1.5rem 0;
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
 
   &:hover,
   &:active {
@@ -320,6 +323,13 @@
   }
 }
 
+.back {
+  position: absolute;
+  left: 0rem;
+  top: 1rem;
+  font-size: 2rem;
+}
+
 @media only screen and (min-width: 400px) {
   .details {
     &-right {
@@ -357,20 +367,15 @@
       }
     }
   }
-  .back {
-    position: absolute;
-    left: 0rem;
-    top: 0rem;
-    font-size: 2rem;
-  }
+
   .reports {
     padding-left: 2rem;
     color: #42597b;
     white-space: nowrap;
     font-size: 1.8rem;
     position: absolute;
-    top: 0rem;
-    right: 2rem;
+    top: 1rem;
+    right: 1rem;
     font-weight: 300;
     margin: 0;
   }
@@ -468,6 +473,7 @@
     align-items: center;
     width: 100%;
     justify-content: center;
+    padding-top: 5rem;
   }
 
   &__name {
