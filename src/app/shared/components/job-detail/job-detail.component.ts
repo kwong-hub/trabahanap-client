@@ -47,7 +47,7 @@ export class JobDetailComponent implements OnInit {
         attribution: '...'
       })
     ],
-    zoom: 20,
+    zoom: 15,
     center: latLng(14.6042, 120.9822),
     attributionControl: false
   };
@@ -160,6 +160,7 @@ export class JobDetailComponent implements OnInit {
   getCompanyJobs() {
     this.tabClicked('otherActive');
     this.companyJobs = [];
+
     this.jobService.getCompanyJobsApplicant(this.job.companyProfileId).subscribe(
       data => {
         data.jobs.map(job => {

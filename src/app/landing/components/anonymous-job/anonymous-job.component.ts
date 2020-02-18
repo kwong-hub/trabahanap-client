@@ -16,6 +16,7 @@ export class AnonymousJobComponent implements OnInit {
   @Input() Job: Job;
   @Input() showSave: boolean = true;
   @Input() isBookMarked: boolean;
+  @Input() showCompLogo: boolean = true;
   bookmarked: boolean = false;
   userRole;
   // imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;

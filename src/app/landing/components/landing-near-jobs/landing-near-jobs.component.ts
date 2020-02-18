@@ -19,11 +19,11 @@ export class LandingNearJobsComponent implements OnInit {
   options = {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
+        maxZoom: 15,
         attribution: '...'
       })
     ],
-    zoom: 13,
+    zoom: 15,
     center: latLng(14.6042, 120.9822),
     attributionControl: false
   };
@@ -112,7 +112,7 @@ export class LandingNearJobsComponent implements OnInit {
             latitude: 14.6042,
             longitude: 120.9822
           });
-          console.log(err);
+          // console.log(err);
         }
       );
     }

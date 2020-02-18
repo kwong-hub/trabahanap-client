@@ -27,7 +27,8 @@ export class CustomInputFieldComponent implements OnInit {
   @Input() range: { min: ""; max: "" };
   @Input() limit: { min: ""; max: "" };
   errorMessage: string;
-
+  id = Math.random();
+  
   constructor() {}
 
   ngOnInit() {}

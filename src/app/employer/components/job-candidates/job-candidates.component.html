@@ -69,7 +69,7 @@
         [pageSize]="pager?.pageSize"
         [pageSizeOptions]="[5, 8, 10, 25, 100]"
         [pageIndex]="pager?.currentPage - 1"
-        (page)="getServerData($event)"
+        (page)="getServerData($event, null)"
       >
       </mat-paginator>
       <!-- <div class="candidates__container">

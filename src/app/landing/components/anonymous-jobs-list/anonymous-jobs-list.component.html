@@ -150,7 +150,7 @@
   <!-- <shared-custom-datepicker (onValueChange)="datePickerChanged($event)"></shared-custom-datepicker> -->
 
   <div #jobsListAnchor id="jobsListAnchor" *ngFor="let job of jobs; index as i">
-    <app-anonymous-job [isBookMarked]="checkJobBookmarked(job.jobId)" [Job]="job"></app-anonymous-job>
+    <app-anonymous-job [isBookMarked]="job.saved" [Job]="job"></app-anonymous-job>
     <div *ngIf="!(i % 3)">
       <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
     </div>

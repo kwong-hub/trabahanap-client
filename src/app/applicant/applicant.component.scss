@@ -39,6 +39,10 @@ div.sideBarActive {
         padding-right: 1rem;
         margin-right: 10px;
       }
+      .imgs {
+        padding-left: 0;
+        margin-right: 1.5rem;
+      }
       .names {
         font-size: inherit;
       }
@@ -90,6 +94,13 @@ div.sideBarActive {
       color: $color-primary;
     }
 
+    .imgs {
+      width: 1.5rem;
+      padding: 0 0.5rem;
+      text-align: center;
+      box-sizing: content-box;
+    }
+
     .names {
       color: inherit;
       transition: all 0.2s;
@@ -117,7 +128,7 @@ div.sideBarActive {
 }
 
 .content {
-  padding: 2rem;
+  padding: 2rem 0.5rem;
   // margin-left: 4rem;
   transition: all 0.3s;
 }

@@ -79,7 +79,7 @@ export class AddJobComponent implements OnInit {
   jobEditted: boolean;
   currentDate = new Date();
   // validDate =  new Date();
-  validDate = this.currentDate.getDate() + "-" + (this.currentDate.getMonth() + 1) + "-" + this.currentDate.getFullYear()
+  validDate = this.currentDate.getFullYear()  + "-" + (this.currentDate.getMonth() + 1) + "-" + this.currentDate.getDate()
 
   defaultDate1 = '';
   loading: boolean;
@@ -165,15 +165,8 @@ export class AddJobComponent implements OnInit {
     this.checkValidOnValueChange();
     let StartDate = new Date(this.addJob.value.applicationStartDate);
     let endDate = new Date(this.addJob.value.applicationEndDate);
-    let dateValid = new Date(this.validDate);
-    
+    let dateValid = new Date(`'${this.validDate}'`);
     if (this.addJob.invalid) {
-      return;
-    }else if(StartDate.getTime() <= dateValid.getTime() || StartDate==null){
-      this.f.applicationStartDate.setErrors({'rangeOut':true});
-      return;
-    }else if(endDate.getTime() <= dateValid.getTime() || endDate==null){
-      this.f.applicationEndDate.setErrors({'rangeOut':true});
       return;
     }
    
@@ -200,7 +193,17 @@ export class AddJobComponent implements OnInit {
       );
       return;
     }
+    this.loading = false;
 
+    if(StartDate.getTime() <= dateValid.getTime() || StartDate==null && !(this.job)){
+      this.f.applicationStartDate.setErrors({'rangeOut':true});
+      return;
+    }else if(endDate.getTime() <= dateValid.getTime() || endDate==null && !(this.job) ){
+      this.f.applicationEndDate.setErrors({'rangeOut':true});
+      return;
+    }
+    
+    this.loading = true;
     this.employerService.addEmployerJob({ ...val }).subscribe(
       success => {
         this.loading = false;

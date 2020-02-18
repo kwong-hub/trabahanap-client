@@ -10,24 +10,20 @@
     </span>
   </div>
   <div class="tabs__container">
-    <div
-      (click)="tabClicked('detailActive')"
-      class="tabs__tab"
-      [class.tabs__tab--active]="tabs?.detailActive"
-      style="left: 0%"
-    >
-      <fa-icon [icon]="faBookOpen"></fa-icon><span class="tabs__text">Detail</span>
+    <div class="tabs__border" style="left: 0%">
+      <div (click)="tabClicked('detailActive')" class="tabs__tab" [class.tabs__tab--active]="tabs?.detailActive">
+        <fa-icon [icon]="faBookOpen"></fa-icon><span class="tabs__text">Detail</span>
+      </div>
     </div>
-    <div
-      (click)="tabClicked('companyActive')"
-      class="tabs__tab"
-      [class.tabs__tab--active]="tabs?.companyActive"
-      style="left: 33.3%"
-    >
-      <fa-icon [icon]="faBuilding"></fa-icon><span class="tabs__text">Company</span>
+    <div class="tabs__border" style="left: 33.3%">
+      <div (click)="tabClicked('companyActive')" class="tabs__tab" [class.tabs__tab--active]="tabs?.companyActive">
+        <fa-icon [icon]="faBuilding"></fa-icon><span class="tabs__text">Company</span>
+      </div>
     </div>
-    <div (click)="getCompanyJobs()" class="tabs__tab" [class.tabs__tab--active]="tabs?.otherActive" style="left: 66.7%">
-      <fa-icon [icon]="faListUl"></fa-icon><span class="tabs__text">Other Jobs</span>
+    <div class="tabs__border" style="left: 66.7%">
+      <div (click)="getCompanyJobs()" class="tabs__tab" [class.tabs__tab--active]="tabs?.otherActive">
+        <fa-icon [icon]="faListUl"></fa-icon><span class="tabs__text">Other Jobs</span>
+      </div>
     </div>
   </div>
 
@@ -134,7 +130,7 @@
 
   <div *ngIf="tabs?.otherActive" class="container" style="background-color: #DDDDDD">
     <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
-      <app-job [Job]="job" [showSave]="false"></app-job>
+      <app-job [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
     </div>
   </div>
   <div style="display: flex; justify-content: space-between;">

@@ -43,10 +43,11 @@ export class LandingJobDetailComponent implements OnInit {
     layers: [
       tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
-        attribution: '...'
+        attribution: '...',
+        
       })
     ],
-    zoom: 20,
+    zoom: 15,
     center: latLng(14.6042, 120.9822),
     attributionControl: false
   };
@@ -73,8 +74,6 @@ export class LandingJobDetailComponent implements OnInit {
       let data = res.data;
       if (data.success) {
         this.job = data.job;
-      } else {
-        this.goBack();
       }
     });
     this.tabClicked('detailActive');
