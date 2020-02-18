@@ -129,8 +129,18 @@
   </div>
 
   <div *ngIf="tabs?.otherActive" class="container" style="background-color: #DDDDDD">
-    <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
-      <app-job [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
+    <div *ngIf="companyJobs.length > 0">
+      <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
+        <app-job [isBookMarked]="job.saved" [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
+      </div>
+    </div>
+    <div *ngIf="companyJobs.length == 0">
+      <div class="not_Found">
+        <span> Sorry, we didn't find any jobs from this company </span>
+      </div>
+      <div (click)="tabClicked('detailActive')" *ngFor="let job of tempJobs">
+        <app-job [isBookMarked]="job.saved" [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
+      </div>
     </div>
   </div>
   <div style="display: flex; justify-content: space-between;">

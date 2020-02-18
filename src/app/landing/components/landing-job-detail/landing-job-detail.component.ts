@@ -1,3 +1,4 @@
+import { AnonymousService } from './../../../_services/anonymous.service';
 import { Component, OnInit } from '@angular/core';
 import {
   faCheckCircle,
@@ -18,6 +19,7 @@ import { ApplicantService } from '@app/_services/applicant.service';
 import { JobService } from '@app/_services/jobs.service';
 import { Role } from '@app/_models/Role';
 import { Location } from '@angular/common';
+import { Job } from '@app/_models/Job';
 
 @Component({
   selector: 'app-landing-job-detail',
@@ -39,12 +41,12 @@ export class LandingJobDetailComponent implements OnInit {
   showModal: boolean;
   tabs: any = {};
   companyJobs = [];
+  public tempJobs: Job[] = [];
   options = {
     layers: [
       tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
-        attribution: '...',
-        
+        attribution: '...'
       })
     ],
     zoom: 15,
@@ -64,7 +66,8 @@ export class LandingJobDetailComponent implements OnInit {
     private authService: AuthenticationService,
     private applicantService: ApplicantService,
     private jobService: JobService,
-    private _location: Location
+    private _location: Location,
+    private anonymousService: AnonymousService
   ) {
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
@@ -146,6 +149,14 @@ export class LandingJobDetailComponent implements OnInit {
     }
   }
 
+  loadJobsForNoResults() {
+    this.anonymousService.advancedSearch('', '', '', '', '', 0, 1).subscribe(data => {
+      if (data.jobs.rows.length > 0) {
+        this.tempJobs.push(...data.jobs.rows);
+      }
+    });
+  }
+
   goBack() {
     this._location.back();
   }
@@ -166,6 +177,10 @@ export class LandingJobDetailComponent implements OnInit {
             this.companyJobs.push(job);
           }
         });
+
+        if (this.companyJobs.length == 0) {
+          this.loadJobsForNoResults();
+        }
       },
       err => console.log(err)
     );

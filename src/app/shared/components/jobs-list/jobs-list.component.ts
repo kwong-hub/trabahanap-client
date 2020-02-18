@@ -22,6 +22,7 @@ export class JobsListComponent implements OnInit {
   @Input() resultJobs;
   searchForm: FormGroup;
   public jobs: Job[];
+  public tempJobs: Job[] = [];
   public pager: any;
   public page: any;
   shouldLoad: boolean = true;
@@ -160,9 +161,13 @@ export class JobsListComponent implements OnInit {
       this.page == this.resultJobs.pager.totalPages ? this.reachedPageEnd == true : '';
       this.pager = this.resultJobs.pager;
       this.page = this.resultJobs.pager.currentPage + 1;
-      if (this.pager.totalItems < 8) {
-        this.reachedPageEnd = true;
+      if (this.pager.totalItems == 0) {
+        this.loadJobsForNoResults();
         this.belowScroll = false;
+        this.reachedPageEnd = true;
+      } else if (this.pager.totalItems < 8) {
+        this.belowScroll = false;
+        this.reachedPageEnd = true;
       } else {
         this.loadJobs();
       }
@@ -256,11 +261,21 @@ export class JobsListComponent implements OnInit {
                   this.reachedPageEnd = true;
                   this.belowScroll = false;
                 }
+              } else {
+                this.loadJobsForNoResults();
               }
             }
           });
       }
     };
+  }
+
+  loadJobsForNoResults() {
+    this.anonyService.advancedSearch('', '', '', '', '', 0, 1).subscribe(data => {
+      if (data.jobs.rows.length > 0) {
+        this.tempJobs.push(...data.jobs.rows);
+      }
+    });
   }
 
   checkJobBookmarked(jobId) {
@@ -301,6 +316,9 @@ export class JobsListComponent implements OnInit {
         if (data.jobs.pager.totalItems < 8) {
           this.belowScroll = false;
           this.reachedPageEnd = true;
+        }
+        if (this.jobs.length == 0) {
+          this.loadJobsForNoResults();
         }
         window.scrollTo(0, 0);
       });

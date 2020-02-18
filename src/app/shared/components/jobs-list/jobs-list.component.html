@@ -175,4 +175,8 @@
   <div class="not_Found">
     <span> Sorry, we didn't find any jobs matching your criteria </span>
   </div>
+
+  <div #jobsListAnchor id="jobsListAnchor" *ngFor="let job of tempJobs; index as i">
+    <app-job [isBookMarked]="job.saved" [Job]="job"></app-job>
+  </div>
 </h3>

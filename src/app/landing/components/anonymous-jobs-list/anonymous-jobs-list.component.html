@@ -177,4 +177,11 @@
   <div class="not_Found">
     <span> Sorry, we didn't find any jobs matching your criteria </span>
   </div>
+
+  <div #jobsListAnchor id="jobsListAnchor" *ngFor="let job of tempJobs; index as i">
+    <app-anonymous-job [isBookMarked]="job.saved" [Job]="job"></app-anonymous-job>
+    <div *ngIf="!(i % 3)">
+      <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
+    </div>
+  </div>
 </h3>

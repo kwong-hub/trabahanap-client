@@ -19,6 +19,8 @@ import { tileLayer, latLng, marker, icon, Point } from 'leaflet';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { Role } from '@app/_models/Role';
 import { ThrowStmt } from '@angular/compiler';
+import { Job } from '@app/_models/Job';
+import { AnonymousService } from '@app/_services/anonymous.service';
 
 @Component({
   selector: 'app-job-detail',
@@ -40,6 +42,7 @@ export class JobDetailComponent implements OnInit {
   showModal: boolean;
   tabs: any = {};
   companyJobs = [];
+  public tempJobs: Job[] = [];
   options = {
     layers: [
       tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -64,7 +67,8 @@ export class JobDetailComponent implements OnInit {
     private authService: AuthenticationService,
     private applicantService: ApplicantService,
     private jobService: JobService,
-    private _location: Location
+    private _location: Location,
+    private anonymousService: AnonymousService
   ) {
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
@@ -157,6 +161,14 @@ export class JobDetailComponent implements OnInit {
     this.tabs[tab] = true;
   }
 
+  loadJobsForNoResults() {
+    this.anonymousService.advancedSearch('', '', '', '', '', 0, 1).subscribe(data => {
+      if (data.jobs.rows.length > 0) {
+        this.tempJobs.push(...data.jobs.rows);
+      }
+    });
+  }
+
   getCompanyJobs() {
     this.tabClicked('otherActive');
     this.companyJobs = [];
@@ -169,6 +181,10 @@ export class JobDetailComponent implements OnInit {
             this.companyJobs.push(job);
           }
         });
+
+        if (this.companyJobs.length == 0) {
+          this.loadJobsForNoResults();
+        }
       },
       err => console.log(err)
     );

@@ -84,7 +84,7 @@
     //color: #555;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: -1.6rem;
       right: 2rem;
@@ -206,8 +206,8 @@
     margin: 0 1rem;
     // transition: all .2s;
     &::before {
-      content: "";
-      font-family: "Font Awesome 5 Free";
+      content: '';
+      font-family: 'Font Awesome 5 Free';
       font-size: 2.6rem;
       display: inline-block;
       color: tomato;
@@ -230,7 +230,7 @@
   background: #eee;
 
   &::before {
-    content: "\2714";
+    content: '\2714';
     transform: translateY(0);
   }
 }
@@ -320,13 +320,11 @@
 
 .not_Found {
   display: flex;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-size: 4vh;
+  font-size: 2rem;
   flex-direction: column;
   align-items: center;
   margin: 1rem;
-  padding: 3rem;
+  padding: 1.5rem;
   color: #555;
   background-color: rgb(255, 255, 255);
   border: 2px solid #ccc;

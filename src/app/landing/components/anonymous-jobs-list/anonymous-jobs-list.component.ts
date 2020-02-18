@@ -19,6 +19,7 @@ export class AnonymousJobsListComponent implements OnInit {
   @Input() resultJobs;
   searchForm: FormGroup;
   public jobs: Job[];
+  public tempJobs: Job[] = [];
   public pager: any;
   public page: any;
   shouldLoad: boolean = true;
@@ -158,7 +159,11 @@ export class AnonymousJobsListComponent implements OnInit {
       this.page == this.resultJobs.pager.totalPages ? this.reachedPageEnd == true : '';
       this.pager = this.resultJobs.pager;
       this.page = this.resultJobs.pager.currentPage + 1;
-      if (this.pager.totalItems < 8) {
+      if (this.pager.totalItems == 0) {
+        this.loadJobsForNoResults();
+        this.belowScroll = false;
+        this.reachedPageEnd = true;
+      } else if (this.pager.totalItems < 8) {
         this.belowScroll = false;
         this.reachedPageEnd = true;
       } else {
@@ -205,7 +210,7 @@ export class AnonymousJobsListComponent implements OnInit {
     this, (this.industries = []);
   }
 
-  loadJobs() {
+  loadJobs(value = null) {
     let elementPositionForScroll = 0;
     window.onscroll = () => {
       var bottomPosition = window.innerHeight + window.pageYOffset;
@@ -253,6 +258,14 @@ export class AnonymousJobsListComponent implements OnInit {
           });
       }
     };
+  }
+
+  loadJobsForNoResults() {
+    this.anonyService.advancedSearch('', '', '', '', '', 0, 1).subscribe(data => {
+      if (data.jobs.rows.length > 0) {
+        this.tempJobs.push(...data.jobs.rows);
+      }
+    });
   }
 
   checkJobBookmarked(jobId) {
