@@ -493,7 +493,7 @@
     align-items: center;
     width: 100%;
     justify-content: center;
-    padding-top: 5rem;
+    padding-top: 6rem;
   }
 
   &__name {
@@ -505,6 +505,25 @@
 
   &__image {
     height: 8rem;
+    max-width: 12rem;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+  }
+
+  &__verified {
+    font-size: 1.5rem;
+    color: #888;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  &__verified-icon {
+    color: #3f7f98;
+    margin-right: 0.5rem;
   }
 }
 

@@ -497,13 +497,31 @@
 
   &__name {
     font-weight: 400;
-    font-size: 3rem;
-    color: dimgray;
-    font-style: italic;
+    color: black;
+    font-size: 2rem;
   }
 
   &__image {
     height: 8rem;
+    max-width: 12rem;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+  }
+
+  &__verified {
+    font-size: 1.5rem;
+    color: #888;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  &__verified-icon {
+    color: #3f7f98;
+    margin-right: 0.5rem;
   }
 }
 

@@ -5,9 +5,14 @@
       alt=""
       class="company_summary__image"
     />
-    <span class="company_summary__name">
-      {{ job?.company_profile.companyName }}
-    </span>
+    <div class="company_summary__right">
+      <span class="company_summary__name">
+        {{ job?.company_profile.companyName }}
+      </span>
+      <span _ngcontent-ujq-c6="" class="company_summary__verified"
+        ><i class="fas fa-check-circle company_summary__verified-icon"></i> Verified</span
+      >
+    </div>
   </div>
   <div class="tabs__container">
     <div class="tabs__border" style="left: 0%">
