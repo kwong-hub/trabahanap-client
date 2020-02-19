@@ -51,6 +51,13 @@ export class AnonymousJobsListComponent implements OnInit {
   industryName;
   showLoader: boolean = false;
 
+  showMoreOptions = {
+    showMoreLocation: false,
+    showMoreJobTitle: false,
+    showMoreJobTypes: false,
+    showMoreSalaryType: false
+  };
+
   employmentType = [
     { name: 'All', value: '' },
     { name: 'Part Time', value: 'Part-Time' },
@@ -321,6 +328,13 @@ export class AnonymousJobsListComponent implements OnInit {
     // this.stateService.pushJobs({ rows: this.jobs, pager: this.pager });
   }
 
+  showMoreOptionsChange(value) {
+    this.showMoreOptions[value] = !this.showMoreOptions[value];
+  }
+
+  mobileSearch(event) {
+    console.log(event);
+  }
   // scrollToPosition() {
   //   setTimeout(() => {
   //     if (this.stateService.jobs) {
