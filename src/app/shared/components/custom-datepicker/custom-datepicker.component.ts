@@ -40,6 +40,7 @@ export class CustomDatepickerComponent implements OnInit {
   @Input() valids: any;
   @Input() disabled: boolean;
   @Input() label: string;
+  @Input() styleObject;
   @Output() onValueChange = new EventEmitter();
   // @Input() range: { min: ""; max: "" };
 

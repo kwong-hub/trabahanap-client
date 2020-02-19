@@ -9,7 +9,9 @@ import { Location } from '@angular/common';
   styleUrls: ['./payment-detail.component.scss']
 })
 export class PaymentDetailComponent implements OnInit {
-  subscription=[]
+  
+  subscription;
+
   constructor(private route:ActivatedRoute,private adminService:AdminService,private _location:Location) { 
     this.route.data.subscribe(res => {
       let data = res.data;

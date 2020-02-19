@@ -64,7 +64,7 @@ export class AddApplicantProfileComponent implements OnInit {
   styleObject = {
     inputContainer: {},
     input: { fontSize: '1.7rem' },
-    inputHeader: { fontSize: '1.7rem', borderBottom: '1px solid #888' },
+    inputHeader: { fontSize: '1.7rem', borderBottom: '1px solid #888', backgroundColor: "white" },
     optionContainer: {
       backgroundColor: '#555',
       top: '3.3rem',

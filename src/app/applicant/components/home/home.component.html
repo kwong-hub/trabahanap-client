@@ -1,7 +1,7 @@
 <div class="sub-module-container">
   <h3 class="sub-module-container__heading">Dashboard</h3>
   <div class="sub-module-container__container">
-    <div class="dashboard-contents-wrapper">
+    <!-- <div class="dashboard-contents-wrapper">
       <div class="dashboard-contents">
         <app-dashboard-item
           class="dashboard-contents__content"
@@ -24,6 +24,35 @@
           [dashboard]="dashboardItem4"
         ></app-dashboard-item>
       </div>
+    </div> -->
+    <div class="img-container">
+      <img src="../../../../assets/img/home/dash-1.jpg" alt="" class="img">
+      <div class="stat stat--jobs">
+        <div class="stat__header">Available Jobs</div>
+        <span class="stat__value">{{ dashboardItem1.value }}</span>
+      </div>
     </div>
+    <div class="img-container">
+      <img src="../../../../assets/img/home/dash-2.jpg" alt="" class="img">
+      <div class="stat stat--companies">
+        <div class="stat__header">Available Companies</div>
+        <span class="stat__value">{{ dashboardItem2.value }}</span>
+      </div>
+    </div>
+    <div class="img-container">
+      <img src="../../../../assets/img/home/dash-3.jpg" alt="" class="img">
+      <div class="stat stat--applied">
+        <div class="stat__header">Jobs Applied</div>
+        <span class="stat__value">{{ dashboardItem3.value }}</span>
+      </div>
+    </div>
+    <div class="img-container">
+      <img src="../../../../assets/img/home/dash-4.jpg" alt="" class="img">
+      <div class="stat stat--viewed">
+        <div class="stat__header">Applications Viewed</div>
+        <span class="stat__value">{{ dashboardItem4.value }}</span>
+      </div>
+    </div>
+
   </div>
 </div>

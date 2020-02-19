@@ -12,6 +12,67 @@
   }
 }
 
+.img-container {
+  width: 30%;
+  min-width: 30rem;
+  margin: 0 auto;
+  position: relative;
+  box-shadow: 0 0 .5rem rgba(white, .5);
+
+  &:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.img {
+  width: 100%;
+}
+
+.stat {
+  position: absolute;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__header {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  &__value {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #eee;
+  }
+
+  &--jobs {
+    top: 15%;
+    left: 40%;
+    // transform: translate(85%, 15px);
+  }
+  &--companies {
+    top: 25%;
+    left: 2%;
+    @media (min-width: 600px) {
+      left: 9%;
+    }
+  }
+  &--applied {
+    top: 15%;
+    left: 40%;
+  }
+  &--viewed {
+    top: 25%;
+    left: 2%;
+    @media (min-width: 600px) {
+      left: 9%;
+    }
+  }
+}
+
 @media only screen and (min-width: 450px) {
   .dashboard-contents {
     &-wrapper {
