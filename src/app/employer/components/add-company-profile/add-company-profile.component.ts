@@ -44,7 +44,7 @@ export class AddCompanyProfileComponent implements OnInit {
   countries = null;
   styleObject = {
     inputContainer: {},
-    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888', backgroundColor: "white" },
     optionContainer: { backgroundColor: '#555', top: '3.3rem', boxShadow: '0px 1px 2px #aaa' },
     option: { fontSize: '1.5rem', borderBottom: '1px solid #ddd', backgroundColor: '#fff' }
   };

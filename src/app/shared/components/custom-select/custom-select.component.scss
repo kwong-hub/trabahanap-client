@@ -18,7 +18,8 @@
       height: 0;
       border: 0.7rem solid transparent;
       border-color: #aa111d transparent transparent transparent;
-      z-index: -1;
+      // z-index: -1;
+      pointer-events: none;
     }
   }
 
