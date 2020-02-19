@@ -5,7 +5,8 @@
   background-image: url('../../../../assets/img/bg.jpg');
   background-attachment: fixed;
   background-size: cover;
-  padding-bottom: 5rem;
+  min-height: 80vh;
+  padding: 2rem 0 0rem;
 }
 .container {
   display: flex;
@@ -17,16 +18,18 @@
   .btn-group {
     display: flex;
     flex-direction: column;
-    margin: 1.8rem 0 0;
+    // margin: 1.8rem 0 0;
+    background-color: white;
+    padding: 1.8rem 0;
 
     .bookmark {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: 700;
       text-transform: uppercase;
       color: #777;
       background-color: transparent;
       border: none;
-      height: 4rem;
+      height: 5rem;
       outline: none;
       border: 1px solid;
       border-radius: 5px;
@@ -59,6 +62,7 @@
       margin-top: 1rem;
       border-radius: 5px;
       font-size: small;
+      height: 5rem;
     }
 
     .saved {
@@ -107,23 +111,6 @@
   &::after {
     right: 0;
     border-right-color: transparent;
-  }
-}
-
-.reports {
-  color: #42597b;
-  white-space: nowrap;
-  font-size: 2rem;
-  padding-right: 0rem;
-  text-decoration: none;
-  margin: 1.5rem 0;
-  position: absolute;
-  top: 1rem;
-  right: 2rem;
-
-  &:hover,
-  &:active {
-    text-decoration: underline;
   }
 }
 
@@ -302,7 +289,31 @@
   &-right {
     display: flex;
     flex-direction: column-reverse;
+    position: relative;
 
+    @media (min-width: 600px) {
+      padding-right: 1rem;
+    }
+    .reports {
+      color: #42597b;
+      white-space: nowrap;
+      font-size: 2rem;
+      padding-right: 0rem;
+      text-decoration: none;
+      margin: 1rem 0 0;
+      align-self: flex-end;
+      order: -1;
+      // position: absolute;
+      // top: 0rem;
+      // right: 2rem;
+    
+      &:hover,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+    
+    
     .map {
       position: relative;
       height: 25rem;
@@ -332,7 +343,7 @@
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: .5rem;
       color: #42597b;
       font-weight: 600;
 
@@ -367,7 +378,7 @@
 
     .btn-group {
       flex-direction: row;
-      width: 60%;
+      // width: 60%;
       padding: 2rem;
       justify-content: space-evenly;
       margin: 0;
@@ -388,17 +399,17 @@
     }
   }
 
-  .reports {
-    padding-left: 2rem;
-    color: #42597b;
-    white-space: nowrap;
-    font-size: 1.8rem;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-weight: 300;
-    margin: 0;
-  }
+  // .reports {
+  //   padding-left: 2rem;
+  //   color: #42597b;
+  //   white-space: nowrap;
+  //   font-size: 1.8rem;
+  //   position: absolute;
+  //   top: 1rem;
+  //   right: 1rem;
+  //   font-weight: 300;
+  //   margin: 0;
+  // }
 
   .details {
     flex-direction: row;
@@ -432,6 +443,9 @@
           margin-bottom: 0.5rem;
         }
       }
+      .reports {
+        order: 0;
+      }
     }
   }
 }
@@ -443,7 +457,7 @@
     position: relative;
     // margin-top: 10rem;
     width: 100%;
-    margin: 5rem auto 4.5rem;
+    margin: 1rem auto 4.4rem;
     // margin-bottom: 5rem;
   }
 
@@ -492,14 +506,19 @@
     display: flex;
     align-items: center;
     width: 100%;
-    justify-content: center;
-    padding-top: 6rem;
+    // justify-content: center;
+    padding: 1rem 2rem;
+    background-color: white;
+    @media (min-width: 600px) {
+      width: 95%;
+      margin: 0 auto; 
+    }
   }
 
   &__name {
     font-weight: 400;
     font-size: 3rem;
-    color: white;
+    color: #333;
     font-style: italic;
   }
 
@@ -565,7 +584,7 @@
   font-size: 2rem;
   flex-direction: column;
   align-items: center;
-  margin: 1rem;
+  // margin: 1rem;
   padding: 1.5rem;
   color: #555;
   background-color: rgb(255, 255, 255);

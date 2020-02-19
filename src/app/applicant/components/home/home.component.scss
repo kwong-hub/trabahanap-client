@@ -27,6 +27,7 @@
 
 .img-container {
   width: 95%;
+  height: 80vh;
   min-width: 30rem;
   margin: 0 auto;
   position: relative;
@@ -34,6 +35,46 @@
 
   &:not(:last-child) {
     margin-bottom: 1.5rem;
+  }
+
+  &--jobs {
+    background-image: url("../../../../assets/img/mob/Mobile_1.jpg");
+    background-size: cover;
+    background-position: 50%;
+
+    @media (min-width: 768px) {
+      background-image: url("../../../../assets/img/home/dash-1.jpg");
+    }
+  }
+
+  &--companies {
+    background-image: url("../../../../assets/img/mob/Mobile_2.jpg");
+    background-size: cover;
+    background-position: 50%;
+
+    @media (min-width: 768px) {
+      background-image: url("../../../../assets/img/home/dash-2.jpg");
+    }
+  }
+
+  &--applied {
+    background-image: url("../../../../assets/img/mob/Mobile_3.jpg");
+    background-size: cover;
+    background-position: 50%;
+
+    @media (min-width: 768px) {
+      background-image: url("../../../../assets/img/home/dash-3.jpg");
+    }
+  }
+
+  &--viewed {
+    background-image: url("../../../../assets/img/mob/Mobile_4.jpg");
+    background-size: cover;
+    background-position: 50%;
+
+    @media (min-width: 768px) {
+      background-image: url("../../../../assets/img/home/dash-4.jpg");
+    }
   }
 }
 
@@ -54,70 +95,96 @@
     font-weight: 700;
     color: white;
     text-shadow: 0 1px rgba(black, .5);
+    display: none;
+    text-transform: uppercase;
+    
+    @media (min-width: 768px) {
+      display: block;
+    }
   }
 
   &__value {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 6rem;
+    font-weight: 900;
     color: #eee;
+    text-shadow: 0 1px rgba(black, .2);
   }
 
   &--jobs {
-    top: 15%;
-    left: 45%;
-    @media (min-width: 600px) {
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @media (min-width: 768px) {
+      top: 15%;
       left: 50%;
+      transform: translateX(0);
+
       .stat {
         &__header {
-          font-size: 4rem;
+          font-size: 5rem;
         }
         &__value {
-          font-size: 3.5rem;
+          font-size: 4rem;
         }
       }
     }
   }
   &--companies {
-    top: 25%;
-    left: 12%;
-    @media (min-width: 600px) {
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @media (min-width: 768px) {
+      top: 25%;
       left: 22%;
+      transform: translateX(0);
+
       .stat {
         &__header {
-          font-size: 4rem;
+          font-size: 5rem;
         }
         &__value {
-          font-size: 3.5rem;
+          font-size: 4rem;
         }
       }
     }
   }
   &--applied {
-    top: 25%;
-    left: 45%;
-    @media (min-width: 600px) {
-      left: 50%;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @media (min-width: 768px) {
+      top: 25%;
+      left: 35%;
+      transform: translateX(0);
+
       .stat {
         &__header {
-          font-size: 4rem;
+          font-size: 5rem;
         }
         &__value {
-          font-size: 3.5rem;
+          font-size: 4rem;
         }
       }
     }
   }
   &--viewed {
-    top: 25%;
-    left: 12%;
-    @media (min-width: 600px) {
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @media (min-width: 768px) {
+      top: 25%;
       left: 22%;
+      transform: translateX(0);
       .stat {
         &__header {
-          font-size: 4rem;
+          font-size: 5rem;
         }
         &__value {
-          font-size: 3.5rem;
+          font-size: 4rem;
         }
       }
     }
