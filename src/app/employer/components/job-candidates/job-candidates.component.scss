@@ -1,5 +1,10 @@
 .job {
   min-width: 60rem;
+  background-image: url("../../../../assets/img/bg.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 80vh;
 }
 
 .job-detail {
@@ -42,6 +47,7 @@
     text-align: center;
     border-radius: 2rem;
     padding: 1rem;
+    background-color: white;
   }
 
   &__headers {

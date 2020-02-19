@@ -1,3 +1,16 @@
+.header {
+  background-color: white;
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: #888;
+  padding: 1rem 2rem .5rem;
+}
+.container {
+  // background-image: url("../../../../assets/img/bg.jpg");
+  // background-attachment: fixed;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+}
 .dashboard-contents {
   width: 100%;
   display: flex;
@@ -13,7 +26,7 @@
 }
 
 .img-container {
-  width: 30%;
+  width: 95%;
   min-width: 30rem;
   margin: 0 auto;
   position: relative;
@@ -40,6 +53,7 @@
     font-size: 2.2rem;
     font-weight: 700;
     color: white;
+    text-shadow: 0 1px rgba(black, .5);
   }
 
   &__value {
@@ -50,25 +64,62 @@
 
   &--jobs {
     top: 15%;
-    left: 40%;
-    // transform: translate(85%, 15px);
+    left: 45%;
+    @media (min-width: 600px) {
+      left: 50%;
+      .stat {
+        &__header {
+          font-size: 4rem;
+        }
+        &__value {
+          font-size: 3.5rem;
+        }
+      }
+    }
   }
   &--companies {
     top: 25%;
-    left: 2%;
+    left: 12%;
     @media (min-width: 600px) {
-      left: 9%;
+      left: 22%;
+      .stat {
+        &__header {
+          font-size: 4rem;
+        }
+        &__value {
+          font-size: 3.5rem;
+        }
+      }
     }
   }
   &--applied {
-    top: 15%;
-    left: 40%;
+    top: 25%;
+    left: 45%;
+    @media (min-width: 600px) {
+      left: 50%;
+      .stat {
+        &__header {
+          font-size: 4rem;
+        }
+        &__value {
+          font-size: 3.5rem;
+        }
+      }
+    }
   }
   &--viewed {
     top: 25%;
-    left: 2%;
+    left: 12%;
     @media (min-width: 600px) {
-      left: 9%;
+      left: 22%;
+      .stat {
+        &__header {
+          font-size: 4rem;
+        }
+        &__value {
+          font-size: 3.5rem;
+        }
+      }
     }
   }
 }

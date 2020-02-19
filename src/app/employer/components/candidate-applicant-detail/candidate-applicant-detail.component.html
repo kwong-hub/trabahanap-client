@@ -1,13 +1,13 @@
 <div *ngIf="applicant && applicant.length != 0" class="sub-module-container">
   <h3 class="sub-module-container__heading">Applicant Details</h3>
 
-  <div class="sub-module-container__container">
+  <div class="sub-module-container__container container">
     <div class="sub-modulte-container__jobs">
       <app-job-employer [Job]="job"></app-job-employer>
     </div>
     <div class="applicant-detail__top">
-      <div *ngIf="applicant.applicantPicture" class="applicnat-detail__image-container">
-        <img [src]="applicant?.applicantPicture" alt="Profile Picture" class="applicant-detail__image" />
+      <div class="applicnat-detail__image-container">
+        <img [src]="applicant.applicantPicture ? applicant.applicantPicture : 'assets/img/anonymous-avatar.png'" alt="Profile Picture" class="applicant-detail__image" />
       </div>
 
       <div class="applicant-detail__infos">

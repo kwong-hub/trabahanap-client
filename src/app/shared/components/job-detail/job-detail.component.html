@@ -1,4 +1,4 @@
-<div style="position: relative;">
+<div class="outer">
   <div class="company_summary__container">
     <img
       [src]="job?.company_profile.companyLogo ? job?.company_profile.companyLogo : 'assets/img/building.png'"
@@ -128,13 +128,13 @@
     </div>
   </div>
 
-  <div *ngIf="tabs?.otherActive" class="container" style="background-color: #DDDDDD">
-    <div *ngIf="companyJobs.length > 0">
+  <div *ngIf="tabs?.otherActive" class="container">
+    <div *ngIf="companyJobs.length > 0" style="background-color: #fff;">
       <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
         <app-job [isBookMarked]="job.saved" [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
       </div>
     </div>
-    <div *ngIf="companyJobs.length == 0">
+    <div *ngIf="companyJobs.length == 0" style="background-color: #fff;">
       <div class="not_Found">
         <span> Sorry, we didn't find any jobs from this company </span>
       </div>
