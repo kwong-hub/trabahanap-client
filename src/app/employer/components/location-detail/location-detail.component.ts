@@ -69,7 +69,7 @@ export class LocationDetailComponent implements OnInit {
       let data = res.data;
       if (data.success) {
         this.location = data.location.location;
-        this.mustBeBranch = !!data.location.heads.length;
+        this.mustBeBranch = !!data.location.heads.length && !this.location.isHeadOffice;
       } else {
         this._location.back();
       }
@@ -229,9 +229,9 @@ export class LocationDetailComponent implements OnInit {
       return;
     }
 
-    let newLocation = { ...this.locationForm.value, latitude: this.latitude, longitude: this.longitude };
+    let newLocation = { ...this.locationForm.value, isHeadOffice: !!this.locationForm.value.isHeadOffice, latitude: this.latitude, longitude: this.longitude };
 
-    if(this.mustBeBranch && newLocation.isHeadOffice && !this.location.isHeadOffice) {
+    if(this.mustBeBranch && newLocation.isHeadOffice) {
       this.toggleConfirmModal = true;
     }
     else {
