@@ -73,21 +73,21 @@ const routes: Routes = [
         canActivate: [EmployerGuard],
         component: ApplicationsListComponent,
         data: { name: 'jobs' },
-        resolve: { data: CompanyApplicationsResolverService }
+        // resolve: { data: CompanyApplicationsResolverService }
       },
       {
         path: 'candidates',
         canActivate: [EmployerGuard],
         component: CandidatesComponent,
         data: { name: 'candidates' },
-        resolve: { candidates: CompanyCandidatesResolverService }
+        // resolve: { candidates: CompanyCandidatesResolverService }
       },
       {
         path: 'filtered_candidates',
         canActivate: [EmployerGuard],
         component: FilteredCandidatesComponent,
         data: { name: 'filtered_candidates' },
-        resolve: { filters: FilteredCandidatesResolverService }
+        // resolve: { filters: FilteredCandidatesResolverService }
       },
       {
         path: 'filtered_candidates/job/:id',
@@ -146,13 +146,13 @@ const routes: Routes = [
         component: IssueDetailsComponent,
         resolve: { data: IssueDetailResolverService }
       },
-      {
-        path: 'plan',
-        canActivate: [EmployerGuard],
-        component: SubscriptionsComponent,
-        data: { name: 'subscription plan' },
-        resolve: { data: SubscriptionResolverService }
-      },
+      // {
+      //   path: 'plan',
+      //   canActivate: [EmployerGuard],
+      //   component: SubscriptionsComponent,
+      //   data: { name: 'subscription plan' },
+      //   resolve: { data: SubscriptionResolverService }
+      // },
       {
         path: 'password',
         canActivate: [EmployerGuard],

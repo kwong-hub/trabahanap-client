@@ -14,13 +14,13 @@
     margin: 1.8rem 0 0;
 
     .bookmark {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: 700;
       text-transform: uppercase;
       color: #777;
       background-color: transparent;
       border: none;
-      height: 4rem;
+      height: 5rem;
       outline: none;
       border: 1px solid;
       border-radius: 5px;
@@ -52,6 +52,7 @@
       margin-top: 1rem;
       border-radius: 5px;
       font-size: small;
+      height: 5rem;
     }
 
     .saved {
@@ -99,23 +100,6 @@
   &::after {
     right: 0;
     border-right-color: white;
-  }
-}
-
-.reports {
-  color: #42597b;
-  white-space: nowrap;
-  font-size: 2rem;
-  padding-right: 0rem;
-  text-decoration: none;
-  margin: 1.5rem 0;
-  position: absolute;
-  top: -3rem;
-  right: 2rem;
-
-  &:hover,
-  &:active {
-    text-decoration: underline;
   }
 }
 
@@ -323,12 +307,29 @@
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: .5rem;
       color: #42597b;
       font-weight: 600;
 
       .expiry {
         color: red;
+      }
+    }
+
+
+    .reports {
+      color: #42597b;
+      white-space: nowrap;
+      font-size: 2rem;
+      padding-right: 0rem;
+      text-decoration: none;
+      margin: 1.5rem 0;
+      align-self: flex-end;
+      order: -1;
+
+      &:hover,
+      &:active {
+        text-decoration: underline;
       }
     }
   }
@@ -384,17 +385,17 @@
     top: 0rem;
     font-size: 2rem;
   }
-  .reports {
-    padding-left: 2rem;
-    color: #42597b;
-    white-space: nowrap;
-    font-size: 1.8rem;
-    position: absolute;
-    top: 0rem;
-    right: 2rem;
-    font-weight: 300;
-    margin: 0;
-  }
+  // .reports {
+  //   padding-left: 2rem;
+  //   color: #42597b;
+  //   white-space: nowrap;
+  //   font-size: 1.8rem;
+  //   position: absolute;
+  //   top: 0rem;
+  //   right: 2rem;
+  //   font-weight: 300;
+  //   margin: 0;
+  // }
 
   .details {
     flex-direction: row;
@@ -427,6 +428,10 @@
         span {
           margin-bottom: 0.5rem;
         }
+      }
+
+      .reports {
+        order: 0;
       }
     }
   }
@@ -491,8 +496,9 @@
   &__container {
     display: flex;
     align-items: center;
-    width: 100%;
-    justify-content: center;
+    width: 95%;
+    justify-content: flex-start;
+    margin: 4rem auto 0;
   }
 
   &__name {

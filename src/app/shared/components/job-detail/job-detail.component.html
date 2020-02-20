@@ -1,4 +1,4 @@
-<div style="position: relative;">
+<div class="outer">
   <div class="company_summary__container">
     <img
       [src]="job?.company_profile.companyLogo ? job?.company_profile.companyLogo : 'assets/img/building.png'"
@@ -103,6 +103,10 @@
         <div class="vacancy text">
           <span>Number of positions: {{ job.vacancies }}</span>
         </div>
+        <a [routerLink]="['/applicant/jobs/report/', job?.id]" class="reports">
+          Report this job
+        <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faExternalLinkAlt"></fa-icon>
+      </a>
       </div>
     </div>
 
@@ -133,7 +137,7 @@
     </div>
   </div>
 
-  <div *ngIf="tabs?.otherActive" class="container" style="background-color: #DDDDDD">
+  <div *ngIf="tabs?.otherActive" class="container">
     <div *ngIf="companyJobs.length > 0">
       <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
         <app-job [isBookMarked]="job.saved" [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
@@ -152,10 +156,7 @@
     <button (click)="goBack()" mat-button class="back">
       <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faArrowLeft"></fa-icon> Back
     </button>
-    <a [routerLink]="['/applicant/jobs/report/', job?.id]" class="reports" href=""
-      >Report this job
-      <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faExternalLinkAlt"></fa-icon>
-    </a>
+
   </div>
 </div>
 

@@ -73,6 +73,11 @@ table {
 }
 
 .job {
+  background-image: url("../../../../assets/img/bg.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 80vh;
   table {
     margin-top: 2rem;
   }

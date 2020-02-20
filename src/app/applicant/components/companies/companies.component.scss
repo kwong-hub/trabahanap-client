@@ -1,5 +1,10 @@
 .container {
   margin-top: 2rem;
+  background-image: url("../../../../assets/img/bg.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 80vh;
 }
 
 .noApplication {
@@ -123,9 +128,7 @@
   border-radius: 5px;
   padding: 2rem;
   background-color: white;
-  &:not(:last-child) {
-    margin-bottom: 1rem;
-  }
+  margin-bottom: 1rem;
 
   &__left {
     display: flex;

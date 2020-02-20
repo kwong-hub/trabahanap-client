@@ -22,7 +22,7 @@
         <ng-container matColumnDef="picture">
           <th mat-header-cell *matHeaderCellDef>Picture</th>
           <td mat-cell *matCellDef="let applicants">
-            <img style="max-width: 6rem" [src]="applicants.applicantPicture" alt="picture" />
+            <img style="max-width: 6rem" [src]="applicants.applicantPicture ? applicants.applicantPicture : 'assets/img/anonymous-avatar.png'" alt="picture" />
           </td>
         </ng-container>
         <!-- Name Column -->

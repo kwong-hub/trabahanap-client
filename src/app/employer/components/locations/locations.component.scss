@@ -1,5 +1,13 @@
 @import "../../../../styles.scss";
 
+.container {
+  background-image: url("../../../../assets/img/bg.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 80vh;
+}
+
 .noLocation {
   display: none;
 
@@ -28,11 +36,11 @@
     color: white;
     border-radius: 50%;
     border: none;
-    box-shadow: 0px 0px 4px #555;
+    box-shadow: 0px 0px 4px #eee;
     transition: all 0.2s;
 
     &:hover {
-      box-shadow: 0 0 5rem rgba(black, 0.2);
+      box-shadow: 0 0 5rem rgba(white, 0.2);
       // transform: translateY(-1px);
       cursor: pointer;
     }

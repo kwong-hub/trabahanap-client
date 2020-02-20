@@ -103,6 +103,11 @@
         <div class="vacancy text">
           <span>Number of positions: {{ job.vacancies }}</span>
         </div>
+
+        <a [routerLink]="['/applicant/jobs/report/', job?.id]" class="reports" href=""
+        >Report this job
+        <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faExternalLinkAlt"></fa-icon>
+      </a>
       </div>
     </div>
 
@@ -162,10 +167,6 @@
     <button (click)="goBack()" mat-button class="back">
       <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faArrowLeft"></fa-icon> Back
     </button>
-    <a [routerLink]="['/applicant/jobs/report/', job?.id]" class="reports" href=""
-      >Report this job
-      <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faExternalLinkAlt"></fa-icon>
-    </a>
   </div>
 </div>
 
