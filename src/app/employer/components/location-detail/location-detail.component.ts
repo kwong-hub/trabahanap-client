@@ -82,8 +82,8 @@ export class LocationDetailComponent implements OnInit {
       picture: [''],
       locationName: ['', Validators.required],
       locationPhoneNumber: ['', Validators.required],
-      email: ['', Validators.required],
-      address: [''],
+      email: ['', [Validators.required, Validators.email]],
+      address: ['', Validators.required],
       cityId: ['', Validators.required],
       regionId: ['', Validators.required],
       countryId: ['', Validators.required],
@@ -231,7 +231,7 @@ export class LocationDetailComponent implements OnInit {
 
     let newLocation = { ...this.locationForm.value, latitude: this.latitude, longitude: this.longitude };
 
-    if(this.mustBeBranch && newLocation.isHeadOffice) {
+    if(this.mustBeBranch && newLocation.isHeadOffice && !this.location.isHeadOffice) {
       this.toggleConfirmModal = true;
     }
     else {
@@ -254,6 +254,7 @@ export class LocationDetailComponent implements OnInit {
           if (data.success) {
             this.editSuccess = true;
           } else {
+            console.log(data)
           }
         },
         error => {
