@@ -16,6 +16,7 @@ import { JobService } from '@app/_services/jobs.service';
 import { StateService } from '@app/_services/state.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmployerService } from '@app/_services/employer.service';
+import { Location } from '@angular/common';
 
 export interface PeriodicElement {
   name: string;
@@ -66,7 +67,8 @@ export class JobsListComponent {
     private route: ActivatedRoute,
     private router: Router,
     private stateService: StateService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -85,14 +87,14 @@ export class JobsListComponent {
       this.openActions = {};
     });
 
-    this.route.queryParams.subscribe(
-      data => {
-        // console.log(data);
-        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
-        this.getServerData(this.matPager);
-      },
-      err => console.log(err)
-    );
+    // this.route.queryParams.subscribe(
+    //   data => {
+    //     // console.log(data);
+    //     this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+    //     this.getServerData(this.matPager);
+    //   },
+    //   err => console.log(err)
+    // );
 
     // this.JobsService.getCompanyJobs(1, this.pager ? this.pager.pageSize : 8)
     //   .subscribe(
@@ -171,12 +173,14 @@ export class JobsListComponent {
         if (success.success == true) {
           this.jobs = success.jobs.rows;
           this.pager = success.jobs.pager;
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { page: this.pager.currentPage },
-            replaceUrl: true,
-            queryParamsHandling: 'merge'
-          });
+          let path = this.location.path();
+          if (path.indexOf('page') >= 0) {
+            path = path.replace(/.$/, this.pager.currentPage.toString());
+            this.location.go(path);
+          } else {
+            path = path.concat(`?page=${this.pager.currentPage}`);
+            this.location.go(path);
+          }
           // this.pager.pages = this.renderedPages();
         }
       },
@@ -198,27 +202,4 @@ export class JobsListComponent {
 
     this.filtered = true;
   }
-
-  // renderedPages(){
-  //   if(this.pager.totalPages <= 5){
-  //     return [0,1,2,3,4].filter(n => n+1 <= this.pager.totalPages);
-  //   }
-  //   let array = [];
-  //   array.push(this.pager.currentPage-1);
-  //   if(this.pager.currentPage+1 > this.pager.totalPages){
-  //     array.unshift(...[this.pager.currentPage-5, this.pager.currentPage-4, this.pager.currentPage-3, this.pager.currentPage-2])
-  //   }else if(this.pager.currentPage+2 > this.pager.totalPages){
-  //     array.unshift(...[this.pager.currentPage-4, this.pager.currentPage-3, this.pager.currentPage-2])
-  //     array.push(this.pager.currentPage);
-  //   }else if(this.pager.currentPage-2 < 0){
-  //     array.push(...[this.pager.currentPage, this.pager.currentPage+1, this.pager.currentPage+2, this.pager.currentPage+3])
-  //   }else if(this.pager.currentPage-3 < 0){
-  //     array.push(...[this.pager.currentPage, this.pager.currentPage+1, this.pager.currentPage+2])
-  //     array.unshift(this.pager.currentPage-2);
-  //   }else{
-  //     array.push(...[this.pager.currentPage, this.pager.currentPage+1]);
-  //     array.unshift(...[this.pager.currentPage-3, this.pager.currentPage-2])
-  //   }
-  //   return array;
-  // }
 }

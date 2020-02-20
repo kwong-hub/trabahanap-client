@@ -3,14 +3,14 @@
   font-size: 2rem;
   text-transform: uppercase;
   color: #888;
-  padding: 1rem 2rem .5rem;
+  padding: 1rem 2rem 0.5rem;
 }
-.container {
-  // background-image: url("../../../../assets/img/bg.jpg");
-  // background-attachment: fixed;
-  // background-repeat: no-repeat;
-  // background-size: cover;
-}
+// .container {
+//   // background-image: url("../../../../assets/img/bg.jpg");
+//   // background-attachment: fixed;
+//   // background-repeat: no-repeat;
+//   // background-size: cover;
+// }
 .dashboard-contents {
   width: 100%;
   display: flex;
@@ -31,49 +31,49 @@
   min-width: 30rem;
   margin: 0 auto;
   position: relative;
-  box-shadow: 0 0 .5rem rgba(white, .5);
+  box-shadow: 0 0 0.5rem rgba(white, 0.5);
 
   &:not(:last-child) {
     margin-bottom: 1.5rem;
   }
 
   &--jobs {
-    background-image: url("../../../../assets/img/mob/Mobile_1.jpg");
+    background-image: url('../../../../assets/img/mob/Mobile_1.jpg');
     background-size: cover;
     background-position: 50%;
 
     @media (min-width: 768px) {
-      background-image: url("../../../../assets/img/home/dash-1.jpg");
+      background-image: url('../../../../assets/img/home/dash-1.jpg');
     }
   }
 
   &--companies {
-    background-image: url("../../../../assets/img/mob/Mobile_2.jpg");
+    background-image: url('../../../../assets/img/mob/Mobile_2.jpg');
     background-size: cover;
     background-position: 50%;
 
     @media (min-width: 768px) {
-      background-image: url("../../../../assets/img/home/dash-2.jpg");
+      background-image: url('../../../../assets/img/home/dash-2.jpg');
     }
   }
 
   &--applied {
-    background-image: url("../../../../assets/img/mob/Mobile_3.jpg");
+    background-image: url('../../../../assets/img/mob/Mobile_3.jpg');
     background-size: cover;
     background-position: 50%;
 
     @media (min-width: 768px) {
-      background-image: url("../../../../assets/img/home/dash-3.jpg");
+      background-image: url('../../../../assets/img/home/dash-3.jpg');
     }
   }
 
   &--viewed {
-    background-image: url("../../../../assets/img/mob/Mobile_4.jpg");
+    background-image: url('../../../../assets/img/mob/Mobile_4.jpg');
     background-size: cover;
     background-position: 50%;
 
     @media (min-width: 768px) {
-      background-image: url("../../../../assets/img/home/dash-4.jpg");
+      background-image: url('../../../../assets/img/home/dash-4.jpg');
     }
   }
 }
@@ -94,10 +94,10 @@
     font-size: 2.2rem;
     font-weight: 700;
     color: white;
-    text-shadow: 0 1px rgba(black, .5);
+    text-shadow: 0 1px rgba(black, 0.5);
     display: none;
     text-transform: uppercase;
-    
+
     @media (min-width: 768px) {
       display: block;
     }
@@ -107,7 +107,7 @@
     font-size: 6rem;
     font-weight: 900;
     color: #eee;
-    text-shadow: 0 1px rgba(black, .2);
+    text-shadow: 0 1px rgba(black, 0.2);
   }
 
   &--jobs {

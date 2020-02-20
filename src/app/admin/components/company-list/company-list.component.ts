@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OtherService } from '@app/_services/other.service';
 import { ThrowStmt } from '@angular/compiler';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-company-list',
@@ -50,7 +51,8 @@ export class CompanyListComponent implements OnInit {
     private adminService: AdminService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     // this.Route.data.subscribe(res => {
     //   let data = res.data;
@@ -137,12 +139,14 @@ export class CompanyListComponent implements OnInit {
             this.companies = data.companies.rows;
             this.pager = data.companies.pager;
             this.companies.length == 0 ? (this.empty = true) : (this.hasValues = true);
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+            let path = this.location.path();
+            if (path.indexOf('page') >= 0) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
           }
           this.countotalJobs();
         });
@@ -153,12 +157,14 @@ export class CompanyListComponent implements OnInit {
             this.companies = success.employers.rows;
             this.pager = success.employers.pager;
             this.companies.length == 0 ? (this.empty = true) : (this.hasValues = true);
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+            let path = this.location.path();
+            if (path.indexOf('page') >= 0) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
             // this.pager.pages = this.renderedPages();
           }
           this.countotalJobs();

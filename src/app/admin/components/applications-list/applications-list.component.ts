@@ -12,6 +12,7 @@ import {
 import { AdminService } from '@app/_services/admin.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-applications-list',
@@ -54,7 +55,8 @@ export class ApplicationsListComponent implements OnInit {
     private adminService: AdminService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     // this.route.data.subscribe(res => {
     //   let data = res.data;
@@ -111,12 +113,14 @@ export class ApplicationsListComponent implements OnInit {
             this.pager = success.applications.pager;
 
             this.applications.length == 0 ? (this.empty = true) : (this.hasValues = true);
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+            let path = this.location.path();
+            if (path.indexOf('page') >= 0) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
             // this.pager.pages = this.renderedPages();
           }
         },
@@ -131,12 +135,14 @@ export class ApplicationsListComponent implements OnInit {
           this.pager = data.applications.pager;
 
           this.applications.length == 0 ? (this.empty = true) : (this.hasValues = true);
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { page: this.pager.currentPage },
-            replaceUrl: true,
-            queryParamsHandling: 'merge'
-          });
+          let path = this.location.path();
+          if (path.indexOf('page') >= 0) {
+            path = path.replace(/.$/, this.pager.currentPage.toString());
+            this.location.go(path);
+          } else {
+            path = path.concat(`?page=${this.pager.currentPage}`);
+            this.location.go(path);
+          }
         });
     }
   }

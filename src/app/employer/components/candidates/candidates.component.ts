@@ -11,13 +11,13 @@ export class CandidatesComponent implements OnInit {
   rows: any;
 
   constructor(private Route: ActivatedRoute) {
-    // this.Route.data.subscribe(res => {
-    //   let candidates = res.candidates;
-    //   if (candidates.success) {
-    //     this.rows = candidates.applications.rows;
-    //     this.pager = candidates.applications.pager;
-    //   }
-    // });
+    this.Route.data.subscribe(res => {
+      let candidates = res.candidates;
+      if (candidates.success) {
+        this.rows = candidates.applications.rows;
+        this.pager = candidates.applications.pager;
+      }
+    });
   }
 
   ngOnInit() {}

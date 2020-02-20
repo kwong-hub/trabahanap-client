@@ -12,6 +12,7 @@ import {
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-admin-staff-list',
@@ -35,7 +36,7 @@ export class AdminStaffListComponent implements OnInit {
   pager: any;
   displayedColumns: string[] = ['firstName', 'email', 'phoneNumber', 'status', 'action'];
 
-  constructor(private adminService: AdminService, private route: ActivatedRoute) {
+  constructor(private adminService: AdminService, private route: ActivatedRoute, private location: Location) {
     this.route.data.subscribe(res => {
       let data = res.data;
       if (data.success) {
@@ -53,6 +54,14 @@ export class AdminStaffListComponent implements OnInit {
         if (success.success == true) {
           this.staffs = success.staffs.rows;
           this.pager = success.staffs.pager;
+          let path = this.location.path();
+          if (path.indexOf('page') >= 0) {
+            path = path.replace(/.$/, this.pager.currentPage.toString());
+            this.location.go(path);
+          } else {
+            path = path.concat(`?page=${this.pager.currentPage}`);
+            this.location.go(path);
+          }
           // this.pager.pages = this.renderedPages();
         }
       },

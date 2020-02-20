@@ -4,6 +4,7 @@ import { ApplicantService } from '@app/_services/applicant.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { faSlidersH, faToolbox, faMapMarkerAlt, faClock } from '@fortawesome/free-solid-svg-icons';
 import { JobService } from '@app/_services/jobs.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-companies',
@@ -50,15 +51,20 @@ export class CompaniesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private jobService: JobService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
-    this.route.queryParams.subscribe(
-      data => {
-        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
-        this.getServerData(this.matPager);
-      },
-      err => console.log(err)
-    );
+    this.route.data.subscribe(data => {
+      this.jobs = data.jobs.rows;
+      this.pager = data.jobs.pager;
+    });
+    // this.route.queryParams.subscribe(
+    //   data => {
+    //     this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+    //     this.getServerData(this.matPager);
+    //   },
+    //   err => console.log(err)
+    // );
   }
 
   ngOnInit() {
@@ -99,12 +105,14 @@ export class CompaniesComponent implements OnInit {
         if (data.success == true) {
           this.jobs = data.jobs.rows;
           this.pager = data.jobs.pager;
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { page: this.pager.currentPage },
-            replaceUrl: true,
-            queryParamsHandling: 'merge'
-          });
+          let path = this.location.path();
+          if (path.indexOf('page') >= 0) {
+            path = path.replace(/.$/, this.pager.currentPage.toString());
+            this.location.go(path);
+          } else {
+            path = path.concat(`?page=${this.pager.currentPage}`);
+            this.location.go(path);
+          }
         }
       },
       err => console.log(err)
