@@ -199,6 +199,12 @@ export class AddCompanyProfileComponent implements OnInit {
   }
 
   fileChanged(value, name) {
+    let size = value.size;
+    if(size > 5000000){
+      this.addCompanyProfileForm.controls['businessLicense'].setValue('');
+      this.addCompanyProfileForm.controls['businessLicense'].setErrors({maxSize:true})
+      return;
+    }
     this.formData.append(name, value, value.name);
   }
 
