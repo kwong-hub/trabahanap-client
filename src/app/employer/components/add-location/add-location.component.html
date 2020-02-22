@@ -170,7 +170,9 @@
   </div>
 
   <div class="map-container">
-    <div *ngIf="showMap" style="height: 100%;" leaflet [leafletOptions]="options" (leafletClick)="mapClicked($event)">
+    <div *ngIf="showMap" style="height: 100%;" leaflet 
+      [leafletOptions]="options" [leafletLayers]="manualMarker"
+      (leafletClick)="mapClicked($event)">
       <div *ngIf="locationTracked" [leafletLayer]="marker"></div>
     </div>
   </div>
