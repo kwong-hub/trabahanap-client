@@ -60,7 +60,7 @@ import { StateService } from '@app/_services/state.service';
     AboutusComponent,
     TermsComponent,
     CustomNotificationComponent,
-    HomeSectionFourComponent
+    HomeSectionFourComponent,
   ],
   imports: [
     CommonModule,
