@@ -32,6 +32,12 @@ export class EditBusinessLicenseModalComponent implements OnInit {
   }
 
   fileChanged(value, name) {
+    let size = value.size;
+    if(size > 5000000){
+      this.updateBusinessLicenseForm.controls['businessLicense'].setValue('');
+      this.updateBusinessLicenseForm.controls['businessLicense'].setErrors({maxSize:true})
+      return;
+    }
     this.formData.append(name, value, value.name);
   }
 
@@ -50,7 +56,7 @@ export class EditBusinessLicenseModalComponent implements OnInit {
     this.employerService.chnageBusinessLicense(this.formData).subscribe(
       data => {
         this.loading = false;
-        console.log(data)
+        //console.log(data)
         if (data.success) {
           this.formData.delete("businessLicense");
           this.updateBusinessLicenseForm.controls["businessLicense"].setValue("");

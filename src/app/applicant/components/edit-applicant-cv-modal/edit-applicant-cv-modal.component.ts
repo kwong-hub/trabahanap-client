@@ -40,6 +40,7 @@ export class EditApplicantCvModalComponent implements OnInit {
 
   fileChanged(value, name) {
     let type = value.type;
+    let size = value.size;
     this.submitted = true;
     if(!(type === 'application/doc' || type === 'application/ms-doc' || type === 'application/msword' || 
       type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || type === 'application/pdf')) {
@@ -47,6 +48,13 @@ export class EditApplicantCvModalComponent implements OnInit {
         this.updateCVForm.controls['cv'].setErrors({invalid: true})
         return;
       }
+
+    if(size > 4000000){
+      this.updateCVForm.controls['cv'].setValue('');
+      this.updateCVForm.controls['cv'].setErrors({maxSize:true})
+      return;
+    }
+
     this.formData.append(name, value, value.name);
   }
 
@@ -69,6 +77,8 @@ export class EditApplicantCvModalComponent implements OnInit {
           this.applicantChanged.emit(success.applicantProfile);
           this.loading = false;
           this.formData = new FormData()
+        }else{
+          this.loading = false;
         }
       },
       err => {

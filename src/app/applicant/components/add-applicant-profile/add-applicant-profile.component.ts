@@ -113,9 +113,9 @@ export class AddApplicantProfileComponent implements OnInit {
   tempImg: string;
   loading: boolean;
   success: boolean;
-  defaultLimit = { max: '45', min: '0' };
+  defaultLimit = { max: '40', min: '0' };
   numberRange = { max: '20', min: '10' };
-  bigLimit = { max: '60', min: '6' };
+  bigLimit = { max: '70', min: '6' };
   fileTypeError: boolean;
   formError: boolean;
   constructor(
@@ -199,12 +199,20 @@ export class AddApplicantProfileComponent implements OnInit {
   fileChanged(value, name) {
     this.fileTypeError = false;
     if(name === 'cv') {
+      let size = value.size;
       let type = value.type;
       if(!(type === 'application/doc' || type === 'application/ms-doc' || type === 'application/msword' || 
         type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || type === 'application/pdf')) {
           this.addApplicantProfileForm.controls['cv'].setValue('');
           this.fileTypeError = true;
           this.addApplicantProfileForm.controls['cv'].setErrors({invalid: true})
+          return;
+        }
+
+        if(size > 4000000){
+          this.addApplicantProfileForm.controls['cv'].setValue('');
+          this.fileTypeError = true;
+          this.addApplicantProfileForm.controls['cv'].setErrors({maxSize:true})
           return;
         }
     }
@@ -282,6 +290,7 @@ export class AddApplicantProfileComponent implements OnInit {
     this.applicantService.addApplicantProfileWithCV(this.formData).subscribe(
       data => {
         this.loading = false;
+        
         if (data.success) {
           this.success = true;
           this.submitted = false;

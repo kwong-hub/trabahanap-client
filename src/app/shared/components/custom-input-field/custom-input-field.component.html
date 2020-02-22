@@ -18,13 +18,13 @@
     [minlength]="limit?.min"
     [maxlength]="limit?.max"
     [formControlName]="name"
-    [ngClass]="{ 'is-invalid': submitted && input.status == 'INVALID' }"
+    [ngClass]="{ 'is-invalid': submitted && input.status == 'INVALID'}"
   />
   <label class="form__label" [for]="id" [ngStyle]="styleObject?.label">{{
     label
   }}</label>
   <div
-    *ngIf="submitted && input.status == 'INVALID'"
+    *ngIf="submitted && input.status == 'INVALID' && !(input?.errors?.maxlength.requiredLength) "
     class="invalid-feedback"
     [ngStyle]="styleObject?.feedbackContainer"
   >
@@ -35,4 +35,16 @@
       {{ label }} is not valid
     </div>
   </div>
+  <div
+  *ngIf="submitted && input.status == 'INVALID' && input?.errors?.maxlength"
+  class="invalid-feedback"
+  [ngStyle]="styleObject?.feedbackContainer"
+>
+  <div
+    class="invalid-feedback__message"
+    [ngStyle]="styleObject?.feedbackMessage"
+  >
+    Should be less than {{ input?.errors?.maxlength.requiredLength }} Characters.
+  </div>
+</div>
 </div>
