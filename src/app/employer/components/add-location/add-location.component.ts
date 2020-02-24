@@ -9,6 +9,7 @@ import { AuthenticationService } from '@app/_services/authentication-service.ser
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-add-company-location',
@@ -33,6 +34,7 @@ export class AddLocationComponent implements OnInit {
   locationTracked: boolean = false;
   showMap: boolean = false;
   marker;
+  manualMarker: L.Layer[] = [];
   latitude;
   longitude;
   formData = new FormData();
@@ -72,7 +74,6 @@ export class AddLocationComponent implements OnInit {
       }
     })
     this.hasLocations = this.authenticationService.currentUserValue.company_profile.hasLocations;
-    console.log("must be branch", this.mustBeBranch)
   }
 
   ngOnInit() {
@@ -116,15 +117,14 @@ export class AddLocationComponent implements OnInit {
         },
         err => {
           this.showMap = true;
-          let { latitude, longitude } = {
-            latitude: 14.6042,
-            longitude: 120.9822
-          };
-          ({ latitude: this.latitude, longitude: this.longitude } = {
-            latitude: 14.6042,
-            longitude: 120.9822
-          });
-          console.log(err);
+          // let { latitude, longitude } = {
+          //   latitude: 14.6042,
+          //   longitude: 120.9822
+          // };
+          // ({ latitude: this.latitude, longitude: this.longitude } = {
+          //   latitude: 14.6042,
+          //   longitude: 120.9822
+          // });
         }
       );
     } else {
@@ -189,7 +189,29 @@ export class AddLocationComponent implements OnInit {
 
   mapClicked(e) {
     let { lat, lng } = e.latlng;
-    this.marker.setLatLng(new LatLng(lat, lng));
+    if(this.marker) {
+      console.log("presumably marker")
+      this.marker.setLatLng(new LatLng(lat, lng));
+    }
+    else {
+      console.log("no marker")
+      this.manualMarker = [];
+      let newMarker = marker([lat, lng], {
+        icon: icon({
+          iconSize: [22, 38],
+          iconAnchor: [13, 41],
+          iconUrl: 'assets/marker-icon.png',
+          shadowUrl: 'assets/marker-shadow.png'
+        }),
+        draggable: true
+      });
+
+      newMarker.on('dragend', e => {
+        ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
+      });
+      this.manualMarker.push(newMarker);
+    }
+
     ({ lat: this.latitude, lng: this.longitude } = e.latlng);
   }
 
@@ -205,7 +227,6 @@ export class AddLocationComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.locationError = false;
     this.locationAdded = false;
     if (this.locationForm.invalid) {
       return;
@@ -226,6 +247,9 @@ export class AddLocationComponent implements OnInit {
 
     if (!this.latitude) {
       this.locationError = true;
+      setTimeout(() => {
+        this.locationError = false;
+      }, 4750);
       return;
     }
     this.formData.append('latitude', this.latitude);

@@ -1,16 +1,16 @@
-import { StateService } from '@app/_services/state.service';
-import { AuthenticationService } from '@app/_services/authentication-service.service';
-import { Job } from '../../../_models/Job';
-import { JobService } from './../../../_services/jobs.service';
-import { Component, OnInit, EventEmitter, ViewChild, ElementRef, Input, HostListener, Renderer2 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
-// import  'rxjs/add/operator/filter';
-import { filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/internal/Observable';
-import { Subject } from 'rxjs';
+import { Job } from '@app/_models/Job';
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { Observable, Subject } from 'rxjs';
+import { JobService } from '@app/_services/jobs.service';
 import { AnonymousService } from '@app/_services/anonymous.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '@app/_services/authentication-service.service';
+import { StateService } from '@app/_services/state.service';
+import { LocationService } from '@app/_services/location.service';
+import { Location } from '@angular/common';
 import { ThrowStmt } from '@angular/compiler';
 
 @Component({
@@ -21,6 +21,8 @@ import { ThrowStmt } from '@angular/compiler';
 export class JobsListComponent implements OnInit {
   @Input() resultJobs;
   searchForm: FormGroup;
+  mobileSearchForm: FormGroup;
+  desktopSearchForm: FormGroup;
   public jobs: Job[];
   public tempJobs: Job[] = [];
   public pager: any;
@@ -37,7 +39,6 @@ export class JobsListComponent implements OnInit {
   salaryRangeName;
   industries = [];
   SalaryRange = [
-    { name: 'All', value: '' },
     { name: 'Below 18,000', value: '<18000' },
     { name: '18,000-25,000', value: '18000-25000' },
     { name: '25,001-40,000', value: '25001-40000' },
@@ -45,7 +46,48 @@ export class JobsListComponent implements OnInit {
     { name: '60,001-80,000', value: '60001-80000' },
     { name: '>80,000', value: '>80000' }
   ];
-  defaultLimit = { max: '50', min: '0' };
+
+  localCities = [
+    'Makati',
+    'Quezon City',
+    'Manila',
+    'San Juan',
+    'Rizal',
+    'Muntinlupa',
+    'Pasig',
+    'Bulacan',
+    'Taguig',
+    'Pasay',
+    'Malabon',
+    'Laguna',
+    'Mandaluyong',
+    'Caloocan',
+    'Pangasinan',
+    'Iloilo',
+    'Pampanga',
+    'Cebu City'
+  ];
+
+  localJobTitle = [
+    'Office Staff',
+    'Driver',
+    'Sales Manager',
+    'Data Encoder',
+    'Warehouse Crew',
+    'Service Crew',
+    'Cashier',
+    'Factory Worker',
+    'Electrician',
+    'Health Care',
+    'Accounting',
+    'Call Center',
+    'Marketing',
+    'Clerk',
+    'Human Resource',
+    'Construction',
+    'Logistic',
+    'Computers'
+  ];
   educationAttainment = [];
   key = '';
   city = '';
@@ -54,9 +96,21 @@ export class JobsListComponent implements OnInit {
   cityName;
   industryName;
   showLoader: boolean = false;
+  salaryRangeValue = '';
+  employmentTypeValue = '';
+  queryValue = '';
+  locationValue = '';
+
+  showMoreOptions = {
+    showMoreLocation: false,
+    showMoreJobTitle: false,
+    showMoreJobTypes: false,
+    showMoreSalaryType: false
+  };
+
+  showNotFound = false;
 
   employmentType = [
-    { name: 'All', value: '' },
     { name: 'Part Time', value: 'Part-Time' },
     { name: 'Full Time', value: 'Full-Time' },
     { name: 'Project Based', value: 'Project-Based' },
@@ -91,12 +145,15 @@ export class JobsListComponent implements OnInit {
   private industrySearchTerms = new Subject<string>();
   showOptions: boolean;
   showOptionsIndustry: boolean;
+  showMobileSearch = false;
+  mobileSearchInfo = '';
   //scrolled = new EventEmitter();
 
   @ViewChild('anchor', { static: false }) anchor: ElementRef<HTMLElement>;
   @ViewChild('jobsListAnchor', { static: false }) jobsListAnchor: ElementRef<HTMLElement>;
   openActions: {};
   compId: any;
+  adsModal: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -105,13 +162,16 @@ export class JobsListComponent implements OnInit {
     private route: ActivatedRoute,
     private host: ElementRef,
     private authService: AuthenticationService,
-    private stateService: StateService
+    private stateService: StateService,
+    private locationService: LocationService,
+    private location: Location
   ) {}
 
   ngOnInit() {
     if (this.stateService.jobs) {
       this.resultJobs = this.stateService.jobs;
     }
+    // console.log(this.employmentType);
     this.searchForm = this.formBuilder.group({
       query: ['', Validators.nullValidator],
       city: ['', Validators.nullValidator],
@@ -119,6 +179,16 @@ export class JobsListComponent implements OnInit {
       employmentType: ['', Validators.nullValidator],
       SalaryRange: ['', Validators.nullValidator],
       pwd: [false]
+    });
+
+    this.mobileSearchForm = this.formBuilder.group({
+      query: [''],
+      location: ['']
+    });
+
+    this.desktopSearchForm = this.formBuilder.group({
+      query: [''],
+      location: ['']
     });
 
     let elem = document.getElementsByClassName('overlay');
@@ -173,6 +243,8 @@ export class JobsListComponent implements OnInit {
       }
     }
 
+    this.getCities();
+
     // this.scrollToPosition();
   }
 
@@ -187,6 +259,34 @@ export class JobsListComponent implements OnInit {
       this.cities = data.cities;
       this.showOptions = true;
     });
+  }
+
+  getCities() {
+    this.locationService.getAllCities().subscribe(
+      response => {
+        const cities = response.cities;
+        this.cities = [];
+        cities.map(city => {
+          this.cities.push({ name: city.cityName, value: city.id });
+        });
+      },
+      error => console.log(error)
+    );
+  }
+
+  mobileFilterChange(value, name) {
+    if (name == 'city') {
+      this.locationValue = value;
+    } else if (name == 'salary') {
+      this.salaryRangeValue = value;
+    } else if (name == 'empType') {
+      this.employmentTypeValue = value;
+    } else if ((name = 'jobType')) {
+      this.queryValue = value;
+    }
+
+    this.AdvancedSearch();
+    // this.showMobileSearch = true;
   }
 
   fetchIndustries(term: string): void {
@@ -212,13 +312,7 @@ export class JobsListComponent implements OnInit {
     this, (this.industries = []);
   }
 
-  getSavedJobIds(jobs) {
-    jobs.map(job => {
-      this.savedJobIds.push(job.id);
-    });
-  }
-
-  loadJobs() {
+  loadJobs(value = null) {
     let elementPositionForScroll = 0;
     window.onscroll = () => {
       var bottomPosition = window.innerHeight + window.pageYOffset;
@@ -240,11 +334,11 @@ export class JobsListComponent implements OnInit {
 
         this.anonyService
           .advancedSearch(
-            val.query || '',
+            this.queryValue || val.query || this.key || '',
             this.industryName || '',
-            val.employmentType || '',
-            val.SalaryRange || '',
-            this.cityName || '',
+            this.employmentTypeValue || val.employmentType || '',
+            this.salaryRangeValue || val.SalaryRange || '',
+            this.locationValue || this.cityName || this.city || '',
             val.pwd ? 1 : 0,
             this.page
           )
@@ -261,8 +355,6 @@ export class JobsListComponent implements OnInit {
                   this.reachedPageEnd = true;
                   this.belowScroll = false;
                 }
-              } else {
-                this.loadJobsForNoResults();
               }
             }
           });
@@ -271,11 +363,19 @@ export class JobsListComponent implements OnInit {
   }
 
   loadJobsForNoResults() {
+    if (this.tempJobs.length != 0) {
+      return;
+    }
     this.anonyService.advancedSearch('', '', '', '', '', 0, 1).subscribe(data => {
       if (data.jobs.rows.length > 0) {
         this.tempJobs.push(...data.jobs.rows);
+        this.showNotFound = true;
       }
     });
+  }
+
+  hideNotFound() {
+    this.showNotFound = false;
   }
 
   checkJobBookmarked(jobId) {
@@ -298,14 +398,14 @@ export class JobsListComponent implements OnInit {
 
   AdvancedSearch() {
     var val = this.searchForm.value;
-
+    this.updateUrl();
     this.anonyService
       .advancedSearch(
-        val.query || '',
+        this.queryValue || val.query || '',
         this.industryName || '',
-        val.employmentType || '',
-        val.SalaryRange || '',
-        this.cityName || '',
+        this.employmentTypeValue || val.employmentType || '',
+        this.salaryRangeValue || val.SalaryRange || '',
+        this.locationValue || this.cityName || '',
         val.pwd ? 1 : 0,
         1
       )
@@ -313,12 +413,15 @@ export class JobsListComponent implements OnInit {
         this.filterHidden = true;
         this.filtered = true;
         this.jobs = data.jobs.rows;
+        if (this.jobs.length == 0) {
+          this.loadJobsForNoResults();
+        }
         if (data.jobs.pager.totalItems < 8) {
           this.belowScroll = false;
           this.reachedPageEnd = true;
-        }
-        if (this.jobs.length == 0) {
-          this.loadJobsForNoResults();
+        } else {
+          this.belowScroll = true;
+          this.reachedPageEnd = false;
         }
         window.scrollTo(0, 0);
       });
@@ -326,15 +429,101 @@ export class JobsListComponent implements OnInit {
     //this.searchForm.reset();
   }
 
+  toggleAds($event) {
+    this.adsModal = !this.adsModal;
+  }
+
   ngOnDestroy() {
     // this.stateService.pushJobs({ rows: this.jobs, pager: this.pager });
   }
 
+  showMoreOptionsChange(value) {
+    this.showMoreOptions[value] = !this.showMoreOptions[value];
+  }
+
+  mobileSearchToggle(event) {
+    this.showMobileSearch = !this.showMobileSearch;
+    this.mobileSearchInfo = '';
+  }
   // scrollToPosition() {
   //   setTimeout(() => {
   //     if (this.stateService.jobs) {
-  //       window.scrollTo(0, document.body.scrollHeight - window.innerHeight / 2);
+  //       window.scrollTo(0, document.body.scrollHeight - window.innerHeight);
   //     }
   //   }, 100);
   // }
+
+  mobileSearchSubmit() {
+    let { query, location } = this.mobileSearchForm.value;
+    if (!query && !location) {
+      this.mobileSearchInfo = 'Fill search value first';
+      return;
+    }
+    this.mobileSearchInfo = '';
+    this.locationValue = '';
+    this.employmentTypeValue = '';
+    this.salaryRangeValue = '';
+
+    this.queryValue = query;
+    this.locationValue = location;
+    this.AdvancedSearch();
+
+    this.showMobileSearch = false;
+  }
+
+  decktopSearchSubmit() {
+    let { query, location } = this.desktopSearchForm.value;
+    // if (!query && !location) {
+    //   this.mobileSearchInfo = 'Fill search value first';
+    //   return;
+    // }
+    this.mobileSearchInfo = '';
+    this.locationValue = '';
+    this.employmentTypeValue = '';
+    this.salaryRangeValue = '';
+
+    this.queryValue = query;
+    this.locationValue = location;
+    this.AdvancedSearch();
+  }
+
+  updateUrl() {
+    let path = this.location.path();
+    let root = path.split('?')[0];
+    let newSearch = `?key=${this.queryValue}&city=${this.locationValue}`;
+    path = root.concat(newSearch);
+    this.location.go(path);
+  }
+
+  getTopCities() {
+    return this.localCities.slice(0, 4);
+  }
+
+  getRemainingCities() {
+    return this.localCities.slice(4);
+  }
+
+  getTopSalRange() {
+    return this.SalaryRange.slice(0, 2);
+  }
+
+  getRemainingSalRange() {
+    return this.SalaryRange.slice(2);
+  }
+
+  getTopEmpType() {
+    return this.employmentType.slice(0, 2);
+  }
+
+  getRemainingEmpType() {
+    return this.employmentType.slice(2);
+  }
+
+  getTopJobTitle() {
+    return this.localJobTitle.slice(0, 5);
+  }
+
+  getRemainingJobTitle() {
+    return this.localJobTitle.slice(5);
+  }
 }
