@@ -2,9 +2,6 @@
   margin-top: 8rem;
 }
 .outer {
-  background-image: url('../../../../assets/img/bg.jpg');
-  background-attachment: fixed;
-  background-size: cover;
   min-height: 80vh;
   padding: 2rem 0 1rem;
   position: relative;
@@ -119,7 +116,7 @@
   display: flex;
   flex-direction: column;
   background-color: white;
-  
+
   .text {
     color: black;
     font-size: 1.5rem;
@@ -307,14 +304,13 @@
       // position: absolute;
       // top: 0rem;
       // right: 2rem;
-    
+
       &:hover,
       &:active {
         text-decoration: underline;
       }
     }
-    
-    
+
     .map {
       position: relative;
       height: 25rem;
@@ -344,7 +340,7 @@
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
       color: #42597b;
       font-weight: 600;
 
@@ -558,7 +554,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     background-color: white;
-
   }
 
   &__detail {
@@ -598,6 +593,32 @@
   box-shadow: 0 10px 55px rgba(255, 255, 255, 0.1);
 }
 
+.main-container {
+  position: relative;
+  background-image: url('../../../../assets/img/bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  &__left {
+    width: 100%;
+  }
+
+  &__right {
+    width: 20%;
+    display: none;
+    min-height: 90vh;
+    position: absolute;
+    right: -1.2rem;
+    margin: 1.5rem;
+    margin-top: 0.5rem;
+    top: 6.5rem;
+    background-image: url('../../../../assets/img/ad-1.jpg');
+    background-repeat: no-repeat;
+    background-position: fixed;
+    background-size: 100% 100%;
+  }
+}
+
 @media only screen and (min-width: 500px) {
   .tabs {
     &__container {
@@ -607,6 +628,15 @@
     &__tab {
       padding: 1rem 3rem;
       font-size: 1.8rem;
+    }
+  }
+  .main-container {
+    &__left {
+      width: 80%;
+    }
+
+    &__right {
+      display: block;
     }
   }
 }

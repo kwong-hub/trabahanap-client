@@ -1,163 +1,177 @@
-<div class="outer">
-  <div class="company_summary__container">
-    <img
-      [src]="job?.company_profile.companyLogo ? job?.company_profile.companyLogo : 'assets/img/building.png'"
-      alt=""
-      class="company_summary__image"
-    />
-    <div class="company_summary__right">
-      <span class="company_summary__name">
-        {{ job?.company_profile.companyName }}
-      </span>
-      <span _ngcontent-ujq-c6="" class="company_summary__verified"
-        ><i class="fas fa-check-circle company_summary__verified-icon"></i> Verified</span
-      >
-    </div>
-  </div>
-  <div class="tabs__container">
-    <div class="tabs__border" style="left: 0%">
-      <div (click)="tabClicked('detailActive')" class="tabs__tab" [class.tabs__tab--active]="tabs?.detailActive">
-        <fa-icon [icon]="faBookOpen"></fa-icon><span class="tabs__text">Detail</span>
+<div class="main-container">
+  <div class="main-container__left" style="position: relative; padding: 1rem;">
+    <div class="outer">
+      <div class="company_summary__container">
+        <img
+          [src]="job?.company_profile.companyLogo ? job?.company_profile.companyLogo : 'assets/img/building.png'"
+          alt=""
+          class="company_summary__image"
+        />
+        <div class="company_summary__right">
+          <span class="company_summary__name">
+            {{ job?.company_profile.companyName }}
+          </span>
+          <span _ngcontent-ujq-c6="" class="company_summary__verified"
+            ><i class="fas fa-check-circle company_summary__verified-icon"></i> Verified</span
+          >
+        </div>
       </div>
-    </div>
-    <div class="tabs__border" style="left: 33.3%">
-      <div (click)="tabClicked('companyActive')" class="tabs__tab" [class.tabs__tab--active]="tabs?.companyActive">
-        <fa-icon [icon]="faBuilding"></fa-icon><span class="tabs__text">Company</span>
-      </div>
-    </div>
-    <div class="tabs__border" style="left: 66.7%">
-      <div (click)="getCompanyJobs()" class="tabs__tab" [class.tabs__tab--active]="tabs?.otherActive">
-        <fa-icon [icon]="faListUl"></fa-icon><span class="tabs__text">Other Jobs</span>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="job && tabs?.detailActive" class="container" [class.lowered]="lower">
-    <div class="details">
-      <div class="details-left">
-        <div class="details-left__header">
-          <div class="header-content">
-            <h2 class="title">{{ job.jobTitle }}</h2>
-
-            <span class="verified text">
-              <fa-icon style="color: #3F7F9B; font-size: 1.2rem;" [icon]="faCheckCircle"></fa-icon>
-              Verified
-            </span>
+      <div class="tabs__container">
+        <div class="tabs__border" style="left: 0%">
+          <div (click)="tabClicked('detailActive')" class="tabs__tab" [class.tabs__tab--active]="tabs?.detailActive">
+            <fa-icon [icon]="faBookOpen"></fa-icon><span class="tabs__text">Detail</span>
           </div>
         </div>
-
-        <div class="details-left__body">
-          <div class="location">
-            <fa-icon style="color: #71171C; font-size: 2rem; margin-right: .8rem;" [icon]="faMapMarkerAlt"></fa-icon>
-            <span class="text">{{ job.location.city.cityName + ', ' + job.location.region.regionName }}</span>
-          </div>
-          <div class="overflow__gradient">
-            <p class="description">
-              {{ job.jobDescription }}
-            </p>
+        <div class="tabs__border" style="left: 33.3%">
+          <div (click)="tabClicked('companyActive')" class="tabs__tab" [class.tabs__tab--active]="tabs?.companyActive">
+            <fa-icon [icon]="faBuilding"></fa-icon><span class="tabs__text">Company</span>
           </div>
         </div>
+        <div class="tabs__border" style="left: 66.7%">
+          <div (click)="getCompanyJobs()" class="tabs__tab" [class.tabs__tab--active]="tabs?.otherActive">
+            <fa-icon [icon]="faListUl"></fa-icon><span class="tabs__text">Other Jobs</span>
+          </div>
+        </div>
+      </div>
 
-        <div class="details-left__bottom">
-          <div class="sal-tags">
-            <div *ngIf="applicant" class="salary text">Salary range: {{ job.salaryRange }}</div>
-            <div *ngIf="!applicant" class="noSalary text">
-              Login as applicant to see this job's salary range
+      <div *ngIf="job && tabs?.detailActive" class="container" [class.lowered]="lower">
+        <div class="details">
+          <div class="details-left">
+            <div class="details-left__header">
+              <div class="header-content">
+                <h2 class="title">{{ job.jobTitle }}</h2>
+
+                <span class="verified text">
+                  <fa-icon style="color: #3F7F9B; font-size: 1.2rem;" [icon]="faCheckCircle"></fa-icon>
+                  Verified
+                </span>
+              </div>
             </div>
-            <div class="tags-container">
-              <!-- <span style="display: flex; align-items: center;" class="text">
+
+            <div class="details-left__body">
+              <div class="location">
+                <fa-icon
+                  style="color: #71171C; font-size: 2rem; margin-right: .8rem;"
+                  [icon]="faMapMarkerAlt"
+                ></fa-icon>
+                <span class="text">{{ job.location.city.cityName + ', ' + job.location.region.regionName }}</span>
+              </div>
+              <div class="overflow__gradient">
+                <p class="description">
+                  {{ job.jobDescription }}
+                </p>
+              </div>
+            </div>
+
+            <div class="details-left__bottom">
+              <div class="sal-tags">
+                <div *ngIf="applicant" class="salary text">Salary range: {{ job.salaryRange }}</div>
+                <div *ngIf="!applicant" class="noSalary text">
+                  Login as applicant to see this job's salary range
+                </div>
+                <div class="tags-container">
+                  <!-- <span style="display: flex; align-items: center;" class="text">
               <fa-icon style="color: #42597B; font-size: 2.5rem; margin-right: .5rem;" [icon]="faTag"></fa-icon>
               Tags
             </span> -->
-              <div class="tags">
-                <span class="tags__item"><fa-icon class="icon" [icon]="faToolbox"></fa-icon> {{ job.industry }}</span>
-                <span class="tags__item"
-                  ><fa-icon class="icon" [icon]="faClock"></fa-icon> {{ job.employmentType }}</span
-                >
-                <div *ngIf="job.pwd" class="tags__item">
-                  <i style="margin-right: .5rem; color: #d64e4e;" class="fab fa-accessible-icon"></i>PwD-Friendly
+                  <div class="tags">
+                    <span class="tags__item"
+                      ><fa-icon class="icon" [icon]="faToolbox"></fa-icon> {{ job.industry }}</span
+                    >
+                    <span class="tags__item"
+                      ><fa-icon class="icon" [icon]="faClock"></fa-icon> {{ job.employmentType }}</span
+                    >
+                    <div *ngIf="job.pwd" class="tags__item">
+                      <i style="margin-right: .5rem; color: #d64e4e;" class="fab fa-accessible-icon"></i>PwD-Friendly
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              <!-- <div class="img-container">
+                    <img src="https://th-employer-logo.s3.us-west-2.amazonaws.com/1573720083961company-logo.jpeg" alt="@company_logo" class="image">
+                </div> -->
             </div>
           </div>
 
-          <!-- <div class="img-container">
-                    <img src="https://th-employer-logo.s3.us-west-2.amazonaws.com/1573720083961company-logo.jpeg" alt="@company_logo" class="image">
-                </div> -->
-        </div>
-      </div>
+          <div class="details-right">
+            <div class="map">
+              <div style="height: 100%;" leaflet [leafletOptions]="options">
+                <div *ngIf="marker" [leafletLayer]="marker"></div>
+              </div>
+            </div>
 
-      <div class="details-right">
-        <div class="map">
-          <div style="height: 100%;" leaflet [leafletOptions]="options">
-            <div *ngIf="marker" [leafletLayer]="marker"></div>
+            <div class="dates-container text">
+              <span class="start">Posted {{ job.applicationStartDate | dateAgo }}</span>
+              <span *ngIf="job.applied" class="start">Applied date: {{ job.appliedDate | date: 'longDate' }}</span>
+              <span class="expiry">Ends at: {{ job.applicationEndDate | date: 'longDate' }}</span>
+            </div>
+
+            <div class="vacancy text">
+              <span>Number of positions: {{ job.vacancies }}</span>
+            </div>
+            <a [routerLink]="['/applicant/jobs/report/', job?.id]" class="reports">
+              Report this job
+              <fa-icon
+                style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;"
+                [icon]="faExternalLinkAlt"
+              ></fa-icon>
+            </a>
           </div>
         </div>
 
-        <div class="dates-container text">
-          <span class="start">Posted {{ job.applicationStartDate | dateAgo }}</span>
-          <span *ngIf="job.applied" class="start">Applied date: {{ job.appliedDate | date: 'longDate' }}</span>
-          <span class="expiry">Ends at: {{ job.applicationEndDate | date: 'longDate' }}</span>
+        <div *ngIf="!job.applied && (userRole === 'APPLICANT' || userRole === '')" class="btn-group">
+          <button (click)="bookmarkJob(job.id)" [class.bookmark--saved]="bookmarked" class="bookmark">
+            <span class="bookmark__text">
+              {{ bookmarked ? 'SAVED' : 'SAVE JOB' }}
+            </span>
+            <i class="bookmark__icon far fa-heart"></i>
+          </button>
+
+          <button *ngIf="!job.applied" (click)="apply(job.id)" class="apply th-btn th-btn--primary">
+            MAG-APPLY
+          </button>
+          <!-- If already applied, show this button -->
         </div>
 
-        <div class="vacancy text">
-          <span>Number of positions: {{ job.vacancies }}</span>
+        <button *ngIf="job.applied" class="applied th-btn">
+          Already Applied
+        </button>
+      </div>
+
+      <div *ngIf="tabs?.companyActive" class="container">
+        <div class="company__container">
+          <div class="company__detail company__description">
+            Description: {{ job?.company_profile.companyDescription }}
+          </div>
+          <div class="company__detail company__address">Address: {{ job?.company_profile.companyAddress }}</div>
+          <div class="company__detail company__industry-type">Industry: {{ job?.company_profile.industryType }}</div>
         </div>
-        <a [routerLink]="['/applicant/jobs/report/', job?.id]" class="reports">
-          Report this job
-        <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faExternalLinkAlt"></fa-icon>
-      </a>
       </div>
-    </div>
 
-    <div *ngIf="!job.applied && (userRole === 'APPLICANT' || userRole === '')" class="btn-group">
-      <button (click)="bookmarkJob(job.id)" [class.bookmark--saved]="bookmarked" class="bookmark">
-        <span class="bookmark__text">
-          {{ bookmarked ? 'SAVED' : 'SAVE JOB' }}
-        </span>
-        <i class="bookmark__icon far fa-heart"></i>
-      </button>
-
-      <button *ngIf="!job.applied" (click)="apply(job.id)" class="apply th-btn th-btn--primary">
-        MAG-APPLY
-      </button>
-      <!-- If already applied, show this button -->
-    </div>
-
-    <button *ngIf="job.applied" class="applied th-btn">
-      Already Applied
-    </button>
-  </div>
-
-  <div *ngIf="tabs?.companyActive" class="container">
-    <div class="company__container">
-      <div class="company__detail company__description">Description: {{ job?.company_profile.companyDescription }}</div>
-      <div class="company__detail company__address">Address: {{ job?.company_profile.companyAddress }}</div>
-      <div class="company__detail company__industry-type">Industry: {{ job?.company_profile.industryType }}</div>
-    </div>
-  </div>
-
-  <div *ngIf="tabs?.otherActive" class="container">
-    <div *ngIf="companyJobs.length > 0">
-      <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
-        <app-job [isBookMarked]="job.saved" [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
+      <div *ngIf="tabs?.otherActive" class="container">
+        <div *ngIf="companyJobs.length > 0">
+          <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
+            <app-job [isBookMarked]="job.saved" [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
+          </div>
+        </div>
+        <div *ngIf="companyJobs.length == 0">
+          <div class="not_Found">
+            <span> Sorry, we didn't find any jobs from this company </span>
+          </div>
+          <div (click)="tabClicked('detailActive')" *ngFor="let job of tempJobs">
+            <app-job [isBookMarked]="job.saved" [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
+          </div>
+        </div>
       </div>
-    </div>
-    <div *ngIf="companyJobs.length == 0">
-      <div class="not_Found">
-        <span> Sorry, we didn't find any jobs from this company </span>
-      </div>
-      <div (click)="tabClicked('detailActive')" *ngFor="let job of tempJobs">
-        <app-job [isBookMarked]="job.saved" [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
+      <div style="display: flex; justify-content: space-between;">
+        <button (click)="goBack()" mat-button class="back">
+          <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faArrowLeft"></fa-icon> Back
+        </button>
       </div>
     </div>
   </div>
-  <div style="display: flex; justify-content: space-between;">
-    <button (click)="goBack()" mat-button class="back">
-      <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faArrowLeft"></fa-icon> Back
-    </button>
-
-  </div>
+  <div class="main-container__right"></div>
 </div>
 
 <!-- <div *ngIf="job.applied || !(userRole === 'APPLICANT' || userRole === '')" class="btn-group">
