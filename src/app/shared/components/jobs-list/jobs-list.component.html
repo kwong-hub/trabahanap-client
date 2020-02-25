@@ -1,184 +1,6 @@
 <div id="overlay" class="overlay" [class.active]="!filterHidden"></div>
 <div class="jobs__container">
-  <div class="jobs__container--left">
-    <div class="jobs__filters">
-      <div class="jobs__selected-filters">
-        <div class="jobs__selected-filters-header">Selected Filters</div>
-        <div *ngIf="queryValue" class="jobs__selected-filter">
-          {{ queryValue }}
-          <i (click)="mobileFilterChange('', 'jobType')" class="fas fa-times jobs__selected-filter-icon"></i>
-        </div>
-        <div *ngIf="salaryRangeValue" class="jobs__selected-filter">
-          {{ salaryRangeValue }}
-          <i (click)="mobileFilterChange('', 'salary')" class="fas fa-times jobs__selected-filter-icon"></i>
-        </div>
-        <div *ngIf="employmentTypeValue" class="jobs__selected-filter">
-          {{ employmentTypeValue
-          }}<i (click)="mobileFilterChange('', 'empType')" class="fas fa-times jobs__selected-filter-icon"></i>
-        </div>
-        <div *ngIf="locationValue" class="jobs__selected-filter">
-          {{ locationValue }}
-          <i (click)="mobileFilterChange('', 'city')" class="fas fa-times jobs__selected-filter-icon"></i>
-        </div>
-        <div *ngIf="!queryValue && !salaryRangeValue && !employmentTypeValue && !locationValue" class="jobs__no-flters">
-          No selected filters
-        </div>
-      </div>
-      <div class="jobs__city-filters">
-        <div class="jobs__filters-heading">Filter By Job Type</div>
-        <ul class="jobs__filters">
-          <li
-            (click)="mobileFilterChange(emp.value, 'empType')"
-            *ngFor="let emp of getTopEmpType()"
-            class="jobs__filter"
-            [class.jobs__filter--active]="employmentTypeValue == emp.value"
-          >
-            <i class="fas fa-chevron-right jobs__list-icon"></i>{{ emp.name }}
-          </li>
-          <div class="jobs__filters" [class.jobs__filters-hide]="!showMoreOptions.showMoreJobType">
-            <li
-              (click)="mobileFilterChange(emp.value, 'empType')"
-              *ngFor="let emp of getRemainingEmpType()"
-              class="jobs__filter"
-              [class.jobs__filter--active]="employmentTypeValue == emp.value"
-            >
-              <i class="fas fa-chevron-right jobs__list-icon"></i>{{ emp.name }}
-            </li>
-          </div>
-          <div
-            (click)="showMoreOptionsChange('showMoreJobType')"
-            *ngIf="!showMoreOptions.showMoreJobType"
-            class="jobs__show-more"
-          >
-            <i class="fas fa-plus-circle jobs__show-more-icon"></i> Show More &raquo;
-          </div>
-          <div
-            (click)="showMoreOptionsChange('showMoreJobType')"
-            *ngIf="showMoreOptions.showMoreJobType"
-            class="jobs__show-more"
-          >
-            <i class="fas fa-minus-circle jobs__show-more-icon"></i> Show Less &laquo;
-          </div>
-        </ul>
-      </div>
-      <div class="jobs__city-filters">
-        <div class="jobs__filters-heading">Filter By Job Salary</div>
-        <ul class="jobs__filters">
-          <li
-            (click)="mobileFilterChange(sal.value, 'salary')"
-            *ngFor="let sal of getTopSalRange()"
-            class="jobs__filter"
-            [class.jobs__filter--active]="salaryRangeValue == sal.value"
-          >
-            <i class="fas fa-chevron-right jobs__list-icon"></i>{{ sal.name }}
-          </li>
-          <div class="jobs__filters" [class.jobs__filters-hide]="!showMoreOptions.showMoreSalaryType">
-            <li
-              (click)="mobileFilterChange(sal.value, 'salary')"
-              *ngFor="let sal of getRemainingSalRange()"
-              class="jobs__filter"
-              [class.jobs__filter--active]="salaryRangeValue == sal.value"
-            >
-              <i class="fas fa-chevron-right jobs__list-icon"></i>{{ sal.name }}
-            </li>
-          </div>
-          <div
-            (click)="showMoreOptionsChange('showMoreSalaryType')"
-            *ngIf="!showMoreOptions.showMoreSalaryType"
-            class="jobs__show-more"
-          >
-            <i class="fas fa-plus-circle jobs__show-more-icon"></i> Show More &raquo;
-          </div>
-          <div
-            (click)="showMoreOptionsChange('showMoreSalaryType')"
-            *ngIf="showMoreOptions.showMoreSalaryType"
-            class="jobs__show-more"
-          >
-            <i class="fas fa-minus-circle jobs__show-more-icon"></i> Show Less &laquo;
-          </div>
-        </ul>
-      </div>
-      <div class="jobs__city-filters">
-        <!-- <div class="jobs__filter-partition"></div> -->
-        <div class="jobs__filters-heading">Filter By City</div>
-        <ul class="jobs__filters">
-          <li
-            (click)="mobileFilterChange(city, 'city')"
-            *ngFor="let city of getTopCities()"
-            class="jobs__filter"
-            [class.jobs__filter--active]="locationValue == city"
-          >
-            <i class="fas fa-chevron-right jobs__list-icon"></i>{{ city }}
-          </li>
-          <div class="jobs__filters" [class.jobs__filters-hide]="!showMoreOptions.showMoreLocation">
-            <li
-              (click)="mobileFilterChange(city, 'city')"
-              *ngFor="let city of getRemainingCities()"
-              class="jobs__filter"
-              [class.jobs__filter--active]="locationValue == city"
-            >
-              <i class="fas fa-chevron-right jobs__list-icon"></i>{{ city }}
-            </li>
-          </div>
-          <div
-            (click)="showMoreOptionsChange('showMoreLocation')"
-            *ngIf="!showMoreOptions.showMoreLocation"
-            class="jobs__show-more"
-          >
-            <i class="fas fa-plus-circle jobs__show-more-icon"></i> Show More &raquo;
-          </div>
-          <div
-            (click)="showMoreOptionsChange('showMoreLocation')"
-            *ngIf="showMoreOptions.showMoreLocation"
-            class="jobs__show-more"
-          >
-            <i class="fas fa-minus-circle jobs__show-more-icon"></i> Show Less &laquo;
-          </div>
-        </ul>
-      </div>
-      <div class="jobs__job-type-filters">
-        <!-- <div class="jobs__filter-partition"></div> -->
-        <div class="jobs__filters-heading">Filter By Job Title</div>
-        <ul class="jobs__filters">
-          <li
-            (click)="mobileFilterChange(jobType, 'jobType')"
-            *ngFor="let jobType of getTopJobTitle()"
-            class="jobs__filter"
-            [class.jobs__filter--active]="queryValue == jobType"
-          >
-            <i class="fas fa-chevron-right jobs__list-icon"></i>{{ jobType }}
-          </li>
-
-          <div class="jobs__filters" [class.jobs__filters-hide]="!showMoreOptions.showMoreJobTitle">
-            <li
-              (click)="mobileFilterChange(jobType, 'jobType')"
-              *ngFor="let jobType of getRemainingJobTitle()"
-              class="jobs__filter"
-              [class.jobs__filter--active]="queryValue == jobType"
-            >
-              <i class="fas fa-chevron-right jobs__list-icon"></i>{{ jobType }}
-            </li>
-          </div>
-
-          <div
-            (click)="showMoreOptionsChange('showMoreJobTitle')"
-            *ngIf="!showMoreOptions.showMoreJobTitle"
-            class="jobs__show-more"
-          >
-            <i class="fas fa-plus-circle jobs__show-more-icon"></i> Show More &raquo;
-          </div>
-          <div
-            (click)="showMoreOptionsChange('showMoreJobTitle')"
-            *ngIf="showMoreOptions.showMoreJobTitle"
-            class="jobs__show-more"
-          >
-            <i class="fas fa-minus-circle jobs__show-more-icon"></i> Show Less &laquo;
-          </div>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="jobs__container--center">
+  <div class="jobs__container--left-center">
     <form
       class="jobs__search"
       method="GET"
@@ -210,6 +32,7 @@
           [value]="salaryRangeValue"
         >
           <option value="">Salary Range</option>
+          <option value="">All</option>
           <option *ngFor="let sal of SalaryRange" [value]="sal.value">{{ sal.name }}</option>
         </select>
         <select
@@ -219,6 +42,7 @@
           [value]="employmentTypeValue"
         >
           <option value="">Employment Type</option>
+          <option value="">All</option>
           <option *ngFor="let emp of employmentType" [value]="emp.value">{{ emp.name }}</option>
         </select>
         <select
@@ -228,6 +52,7 @@
           [value]="locationValue"
         >
           <option value="">City</option>
+          <option value="">All</option>
           <option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</option>
         </select>
       </div>
@@ -245,32 +70,218 @@
         <button type="submit" class="th-btn th-btn--primary jobs__search-button">Search</button>
       </div>
     </form>
-    <h3 *ngIf="jobs && jobs.length == 0">
-      <div *ngIf="showNotFound" class="not_Found">
-        <span (click)="hideNotFound()" class="not_Found__close"><i class="fas fa-times"></i></span>
-        <span> Sorry, we didn't find any jobs matching your criteria </span>
-      </div>
+    <div style="width: 100%; position: relative; display: flex; background-color: #fff;">
+      <div class="jobs__container--left">
+        <div class="jobs__filters">
+          <div class="jobs__selected-filters">
+            <div class="jobs__selected-filters-header">Selected Filters</div>
+            <div *ngIf="queryValue" class="jobs__selected-filter">
+              {{ queryValue }}
+              <i (click)="mobileFilterChange('', 'jobType')" class="fas fa-times jobs__selected-filter-icon"></i>
+            </div>
+            <div *ngIf="salaryRangeValue" class="jobs__selected-filter">
+              {{ salaryRangeValue }}
+              <i (click)="mobileFilterChange('', 'salary')" class="fas fa-times jobs__selected-filter-icon"></i>
+            </div>
+            <div *ngIf="employmentTypeValue" class="jobs__selected-filter">
+              {{ employmentTypeValue
+              }}<i (click)="mobileFilterChange('', 'empType')" class="fas fa-times jobs__selected-filter-icon"></i>
+            </div>
+            <div *ngIf="locationValue" class="jobs__selected-filter">
+              {{ locationValue }}
+              <i (click)="mobileFilterChange('', 'city')" class="fas fa-times jobs__selected-filter-icon"></i>
+            </div>
+            <div
+              *ngIf="!queryValue && !salaryRangeValue && !employmentTypeValue && !locationValue"
+              class="jobs__no-flters"
+            >
+              No selected filters
+            </div>
+          </div>
+          <div class="jobs__city-filters">
+            <div class="jobs__filters-heading">Filter By Job Type</div>
+            <ul class="jobs__filters">
+              <li
+                (click)="mobileFilterChange(emp.value, 'empType')"
+                *ngFor="let emp of getTopEmpType()"
+                class="jobs__filter"
+                [class.jobs__filter--active]="employmentTypeValue == emp.value"
+              >
+                <i class="fas fa-chevron-right jobs__list-icon"></i>{{ emp.name }}
+              </li>
+              <div class="jobs__filters" [class.jobs__filters-hide]="!showMoreOptions.showMoreJobType">
+                <li
+                  (click)="mobileFilterChange(emp.value, 'empType')"
+                  *ngFor="let emp of getRemainingEmpType()"
+                  class="jobs__filter"
+                  [class.jobs__filter--active]="employmentTypeValue == emp.value"
+                >
+                  <i class="fas fa-chevron-right jobs__list-icon"></i>{{ emp.name }}
+                </li>
+              </div>
+              <div
+                (click)="showMoreOptionsChange('showMoreJobType')"
+                *ngIf="!showMoreOptions.showMoreJobType"
+                class="jobs__show-more"
+              >
+                <i class="fas fa-plus-circle jobs__show-more-icon"></i> Show More &raquo;
+              </div>
+              <div
+                (click)="showMoreOptionsChange('showMoreJobType')"
+                *ngIf="showMoreOptions.showMoreJobType"
+                class="jobs__show-more"
+              >
+                <i class="fas fa-minus-circle jobs__show-more-icon"></i> Show Less &laquo;
+              </div>
+            </ul>
+          </div>
+          <div class="jobs__city-filters">
+            <div class="jobs__filters-heading">Filter By Job Salary</div>
+            <ul class="jobs__filters">
+              <li
+                (click)="mobileFilterChange(sal.value, 'salary')"
+                *ngFor="let sal of getTopSalRange()"
+                class="jobs__filter"
+                [class.jobs__filter--active]="salaryRangeValue == sal.value"
+              >
+                <i class="fas fa-chevron-right jobs__list-icon"></i>{{ sal.name }}
+              </li>
+              <div class="jobs__filters" [class.jobs__filters-hide]="!showMoreOptions.showMoreSalaryType">
+                <li
+                  (click)="mobileFilterChange(sal.value, 'salary')"
+                  *ngFor="let sal of getRemainingSalRange()"
+                  class="jobs__filter"
+                  [class.jobs__filter--active]="salaryRangeValue == sal.value"
+                >
+                  <i class="fas fa-chevron-right jobs__list-icon"></i>{{ sal.name }}
+                </li>
+              </div>
+              <div
+                (click)="showMoreOptionsChange('showMoreSalaryType')"
+                *ngIf="!showMoreOptions.showMoreSalaryType"
+                class="jobs__show-more"
+              >
+                <i class="fas fa-plus-circle jobs__show-more-icon"></i> Show More &raquo;
+              </div>
+              <div
+                (click)="showMoreOptionsChange('showMoreSalaryType')"
+                *ngIf="showMoreOptions.showMoreSalaryType"
+                class="jobs__show-more"
+              >
+                <i class="fas fa-minus-circle jobs__show-more-icon"></i> Show Less &laquo;
+              </div>
+            </ul>
+          </div>
+          <div class="jobs__city-filters">
+            <!-- <div class="jobs__filter-partition"></div> -->
+            <div class="jobs__filters-heading">Filter By City</div>
+            <ul class="jobs__filters">
+              <li
+                (click)="mobileFilterChange(city, 'city')"
+                *ngFor="let city of getTopCities()"
+                class="jobs__filter"
+                [class.jobs__filter--active]="locationValue == city"
+              >
+                <i class="fas fa-chevron-right jobs__list-icon"></i>{{ city }}
+              </li>
+              <div class="jobs__filters" [class.jobs__filters-hide]="!showMoreOptions.showMoreLocation">
+                <li
+                  (click)="mobileFilterChange(city, 'city')"
+                  *ngFor="let city of getRemainingCities()"
+                  class="jobs__filter"
+                  [class.jobs__filter--active]="locationValue == city"
+                >
+                  <i class="fas fa-chevron-right jobs__list-icon"></i>{{ city }}
+                </li>
+              </div>
+              <div
+                (click)="showMoreOptionsChange('showMoreLocation')"
+                *ngIf="!showMoreOptions.showMoreLocation"
+                class="jobs__show-more"
+              >
+                <i class="fas fa-plus-circle jobs__show-more-icon"></i> Show More &raquo;
+              </div>
+              <div
+                (click)="showMoreOptionsChange('showMoreLocation')"
+                *ngIf="showMoreOptions.showMoreLocation"
+                class="jobs__show-more"
+              >
+                <i class="fas fa-minus-circle jobs__show-more-icon"></i> Show Less &laquo;
+              </div>
+            </ul>
+          </div>
+          <div class="jobs__job-type-filters">
+            <!-- <div class="jobs__filter-partition"></div> -->
+            <div class="jobs__filters-heading">Filter By Job Title</div>
+            <ul class="jobs__filters">
+              <li
+                (click)="mobileFilterChange(jobType, 'jobType')"
+                *ngFor="let jobType of getTopJobTitle()"
+                class="jobs__filter"
+                [class.jobs__filter--active]="queryValue == jobType"
+              >
+                <i class="fas fa-chevron-right jobs__list-icon"></i>{{ jobType }}
+              </li>
 
-      <div id="jobsListAnchor" *ngFor="let job of tempJobs; index as i">
-        <app-job [isBookMarked]="job.saved" [Job]="job"></app-job>
-        <!-- <div *ngIf="!(i % 3)">
-          <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
-        </div> -->
+              <div class="jobs__filters" [class.jobs__filters-hide]="!showMoreOptions.showMoreJobTitle">
+                <li
+                  (click)="mobileFilterChange(jobType, 'jobType')"
+                  *ngFor="let jobType of getRemainingJobTitle()"
+                  class="jobs__filter"
+                  [class.jobs__filter--active]="queryValue == jobType"
+                >
+                  <i class="fas fa-chevron-right jobs__list-icon"></i>{{ jobType }}
+                </li>
+              </div>
+
+              <div
+                (click)="showMoreOptionsChange('showMoreJobTitle')"
+                *ngIf="!showMoreOptions.showMoreJobTitle"
+                class="jobs__show-more"
+              >
+                <i class="fas fa-plus-circle jobs__show-more-icon"></i> Show More &raquo;
+              </div>
+              <div
+                (click)="showMoreOptionsChange('showMoreJobTitle')"
+                *ngIf="showMoreOptions.showMoreJobTitle"
+                class="jobs__show-more"
+              >
+                <i class="fas fa-minus-circle jobs__show-more-icon"></i> Show Less &laquo;
+              </div>
+            </ul>
+          </div>
+        </div>
       </div>
-    </h3>
-    <div *ngIf="jobs" class="job-list-container">
-      <div id="jobsListAnchor" *ngFor="let job of jobs; index as i">
-        <app-job [isBookMarked]="job.saved" [Job]="job"></app-job>
-        <!-- <div *ngIf="!(i % 3)">
-          <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
-        </div> -->
-      </div>
-      <div #anchor *ngIf="!reachedPageEnd && belowScroll && !(jobs && jobs.length == 0)">
-        <app-job-skeleton></app-job-skeleton>
-        <app-job-skeleton></app-job-skeleton>
+      <div class="jobs__container--center">
+        <h3 *ngIf="jobs && jobs.length == 0">
+          <div *ngIf="showNotFound" class="not_Found">
+            <span (click)="hideNotFound()" class="not_Found__close"><i class="fas fa-times"></i></span>
+            <span> Sorry, we didn't find any jobs matching your criteria </span>
+          </div>
+
+          <div id="jobsListAnchor" *ngFor="let job of tempJobs; index as i">
+            <app-job [isBookMarked]="job.saved" [Job]="job"></app-job>
+            <!-- <div *ngIf="!(i % 3)">
+              <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
+            </div> -->
+          </div>
+        </h3>
+        <div *ngIf="jobs" class="job-list-container">
+          <div id="jobsListAnchor" *ngFor="let job of jobs; index as i">
+            <app-job [isBookMarked]="job.saved" [Job]="job"></app-job>
+            <!-- <div *ngIf="!(i % 3)">
+              <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
+            </div> -->
+          </div>
+          <div #anchor *ngIf="!reachedPageEnd && belowScroll && !(jobs && jobs.length == 0)">
+            <app-job-skeleton></app-job-skeleton>
+            <app-job-skeleton></app-job-skeleton>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
   <div class="jobs__container--right"></div>
 </div>
 
