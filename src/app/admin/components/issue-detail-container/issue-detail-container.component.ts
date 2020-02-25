@@ -24,6 +24,7 @@ export class IssueDetailContainerComponent implements OnInit {
   ) {
     this.route.data.subscribe(res => {
       let data = res.data;
+      console.log(data)
       if (data.success) {
         this.issue = data.issue;
       } else {

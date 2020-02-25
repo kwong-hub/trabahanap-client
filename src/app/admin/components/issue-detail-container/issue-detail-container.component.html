@@ -3,6 +3,19 @@
   <div class="sub-module-container__container container">
     <div class="details">
       <div class="detail">
+        <div class="detail__label">Submitted By</div>
+        <div *ngIf="issue.companyProfileId" class="detail__value">
+          <a [routerLink]="['../../../../employers/details', issue.companyProfileId]" class="text">
+            {{ issue.company_profile.companyName }}
+          </a>
+        </div>
+        <div *ngIf="issue.ApplicantProfileId" class="detail__value">
+          <a class="text" [routerLink]="['../../../../applicants/details', issue.applicant_profile.userId]">
+            {{ issue.applicant_profile.user.firstName + ' ' + issue.applicant_profile.user.lastName }}
+          </a>
+        </div>
+      </div>
+      <div class="detail">
         <div class="detail__label">Issue Type</div>
         <div class="detail__value">
           <p class="text">{{ issue.issueType }} related</p>

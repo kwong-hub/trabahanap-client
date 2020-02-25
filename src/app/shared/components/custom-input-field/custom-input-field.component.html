@@ -24,7 +24,7 @@
     label
   }}</label>
   <div
-    *ngIf="submitted && input.status == 'INVALID' && !(input?.errors?.maxlength.requiredLength) "
+    *ngIf="submitted && input.status == 'INVALID' && !(input?.errors?.maxlength?.requiredLength) "
     class="invalid-feedback"
     [ngStyle]="styleObject?.feedbackContainer"
   >

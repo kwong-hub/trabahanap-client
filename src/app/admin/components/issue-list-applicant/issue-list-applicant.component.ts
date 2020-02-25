@@ -11,7 +11,8 @@ import { Location } from '@angular/common';
 })
 export class IssueListApplicantComponent implements OnInit {
   issues: any = [];
-  displayedColumns: string[] = ['issueReason', 'issueType', 'name', 'email', 'action'];
+  displayedColumns: string[] = ['issueReason', 'issueType', 'name', 
+    'email', 'createdAt', 'responseDate', 'action'];
   faReply = faReply;
   faTimes = faTimes;
   selectedIssue: any;

@@ -26,7 +26,7 @@
             type="text"
             name="locationName"
             [formGroup]="locationForm"
-            [limit] ="defaultLimit"
+            [limit]="defaultLimit"
           >
           </shared-custom-input-field>
         </div>
@@ -41,7 +41,7 @@
             type="email"
             name="email"
             [formGroup]="locationForm"
-            [limit] ="defaultLimit"
+            [limit]="defaultLimit"
           >
           </shared-custom-input-field>
         </div>
@@ -56,7 +56,7 @@
             type="tel"
             name="locationPhoneNumber"
             [formGroup]="locationForm"
-            [limit] ="numberRange"
+            [limit]="numberRange"
           >
           </shared-custom-input-field>
 
@@ -69,7 +69,7 @@
             type="address"
             name="address"
             [formGroup]="locationForm"
-            [limit] ="defaultLimit"
+            [limit]="defaultLimit"
           >
           </shared-custom-input-field>
         </div>
@@ -170,7 +170,7 @@
   </div>
 
   <div class="map-container">
-    <div *ngIf="showMap" style="height: 100%;" leaflet 
+    <div *ngIf="showMap" style="height: 100%;" leaflet (leafletMapReady)="onMapReady($event)"
       [leafletOptions]="options" [leafletLayers]="manualMarker"
       (leafletClick)="mapClicked($event)">
       <div *ngIf="locationTracked" [leafletLayer]="marker"></div>
