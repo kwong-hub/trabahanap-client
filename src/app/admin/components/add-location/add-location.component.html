@@ -206,7 +206,7 @@
     <div
       *ngIf="showMap"
       style="height: 100%;"
-      leaflet
+      leaflet (leafletMapReady)="onMapReady($event)"
       [leafletOptions]="options"
       (leafletClick)="mapClicked($event)"
     >

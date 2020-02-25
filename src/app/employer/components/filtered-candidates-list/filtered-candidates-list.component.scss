@@ -211,21 +211,21 @@ th.mat-sort-header-sorted {
   background-color: white;
 
 }
+
 .filter {
   display: flex;
   flex-direction: row;
-  //align-items: flex-end;
   width: 100%;
   margin: 0 auto;
   position: fixed;
-  top: 6.5rem;
+  top: 6rem;
+  position: fixed;
+  left: 0;
   z-index: 2;
-  // margin-left: 1.2rem;
-  background-color: white;
   padding: 1.8rem 2rem;
 
-  //padding-right: 2rem;
-  margin-left: -7rem;
+  background-color: white;
+
   justify-content: flex-end;
 
   &__header {
@@ -236,20 +236,19 @@ th.mat-sort-header-sorted {
   }
   &__heading {
     color: #888;
-    margin: 0 5%;
+    margin: 0 5rem;
     font-size: 2rem;
     text-transform: uppercase;
     position: absolute;
-    bottom: 0.7rem;
+    bottom: 0;
     left: 1rem;
   }
 
   &__content {
-    min-width: 30rem;
-    background-color: white;
-    width: 26%;
+    background-color: #ddd;
+    min-width: 25%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     // max-height: 30rem;
     transition: 0.3s all;
@@ -269,7 +268,7 @@ th.mat-sort-header-sorted {
       top: -1.6rem;
       right: 2rem;
       border: 8px solid transparent;
-      border-bottom-color: white;
+      border-bottom-color: #ddd;
     }
   }
 
@@ -284,6 +283,7 @@ th.mat-sort-header-sorted {
     // overflow: visible;
   }
 }
+
 
 // .form {
 //   display: flex;
@@ -319,3 +319,44 @@ th.mat-sort-header-sorted {
   box-shadow: 0 10px 55px rgba(255, 255, 255, 0.1);
 }
 
+
+@media screen and (max-width: 760px) {
+  .responsive__table{
+    flex-wrap: nowrap;
+    overflow: scroll;
+    margin: 0 -2rem;
+  
+  }
+  table{
+    margin: 2rem -2rem 0 0rem;
+    //padding: 0.5rem;
+  }
+  .paginator{
+    margin: 0rem -2rem 0 -2rem;
+  }
+  .th_hide{
+    // background-color: #333;
+    display: none;
+  }
+  .td_limit{
+    max-width: 5rem;
+    overflow: hidden;
+  }
+
+
+  .th_limit{
+    max-width: 8rem;
+    overflow: visible;
+  }
+
+  .td_status{
+    max-width: 5px;
+
+  }
+  .filter__heading{
+    margin:0 2rem;
+  }
+  .tag{
+    float: right;
+  }
+}

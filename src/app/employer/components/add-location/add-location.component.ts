@@ -9,6 +9,7 @@ import { AuthenticationService } from '@app/_services/authentication-service.ser
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch';
 import * as L from 'leaflet';
 
 @Component({
@@ -58,6 +59,7 @@ export class AddLocationComponent implements OnInit {
   hasLocations: boolean;
   mustBeBranch: boolean;
   toggleConfirmModal: boolean;
+  map: any;
 
   constructor(
     private formBuilder: FormBuilder, private employerService: EmployerService,
@@ -190,11 +192,9 @@ export class AddLocationComponent implements OnInit {
   mapClicked(e) {
     let { lat, lng } = e.latlng;
     if(this.marker) {
-      console.log("presumably marker")
       this.marker.setLatLng(new LatLng(lat, lng));
     }
     else {
-      console.log("no marker")
       this.manualMarker = [];
       let newMarker = marker([lat, lng], {
         icon: icon({
@@ -215,6 +215,45 @@ export class AddLocationComponent implements OnInit {
     ({ lat: this.latitude, lng: this.longitude } = e.latlng);
   }
 
+  onMapReady(map: L.Map) {
+    this.map = map;
+
+    const provider = new OpenStreetMapProvider();
+    
+    const searchControl = new GeoSearchControl({
+      provider: provider,
+      autoCompleteDelay: 300,
+      autoClose: true,
+      showMarker: false,
+    });
+    this.map.addControl(searchControl);
+    searchControl.getContainer().onclick = e => { e.stopPropagation(); };
+    this.map.on('geosearch/showlocation', (e) => {
+      let { lat, lng } = e.marker._latlng;
+      if(this.marker) {
+        this.marker.setLatLng(new LatLng(lat, lng));
+      }
+      else {
+        this.manualMarker = [];
+        let newMarker = marker([lat, lng], {
+          icon: icon({
+            iconSize: [22, 38],
+            iconAnchor: [13, 41],
+            iconUrl: 'assets/marker-icon.png',
+            shadowUrl: 'assets/marker-shadow.png'
+          }),
+          draggable: true
+        });
+  
+        newMarker.on('dragend', e => {
+          ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
+        });
+        this.manualMarker.push(newMarker);
+      }
+      ({ lat: this.latitude, lng: this.longitude } = e.marker._latlng);
+    })
+  }
+  
   confirmAction() {
     this.toggleConfirmModal = false;
     this.mustBeBranch = false;

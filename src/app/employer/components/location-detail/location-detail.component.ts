@@ -7,6 +7,8 @@ import { marker, icon, Point, tileLayer, latLng, LatLng } from 'leaflet';
 import { faEdit, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons';
 import _ from 'lodash';
 import { LocationService } from '@app/_services/location.service';
+import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-location-detail',
@@ -57,6 +59,7 @@ export class LocationDetailComponent implements OnInit {
   numberRange ={max:'18',min:'10'};
   mustBeBranch: boolean;
   toggleConfirmModal: boolean;
+  map: any;
 
   constructor(
     private employerService: EmployerService,
@@ -194,6 +197,26 @@ export class LocationDetailComponent implements OnInit {
 
   goBack() {
     this._location.back();
+  }
+
+  onMapReady(map: L.Map) {
+    this.map = map;
+
+    const provider = new OpenStreetMapProvider();
+    
+    const searchControl = new GeoSearchControl({
+      provider: provider,
+      autoCompleteDelay: 300,
+      autoClose: true,
+      showMarker: false,
+    });
+    this.map.addControl(searchControl);
+    searchControl.getContainer().onclick = e => { e.stopPropagation(); };
+    this.map.on('geosearch/showlocation', (e) => {
+      let { lat, lng } = e.marker._latlng;
+      this.marker.setLatLng(new LatLng(lat, lng));
+      ({ lat: this.latitude, lng: this.longitude } = e.marker._latlng);
+    })
   }
 
   mapClicked(e) {

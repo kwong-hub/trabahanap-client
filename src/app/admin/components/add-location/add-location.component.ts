@@ -6,6 +6,8 @@ import { LocationService } from '@app/_services/location.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { tileLayer, latLng, marker, icon, Point, LatLng } from 'leaflet';
 import { Location } from '@angular/common';
+import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-add-location',
@@ -57,6 +59,7 @@ export class AddLocationComponent implements OnInit {
   cities: any;
   defaultLimit = { max: '35', min: '0' };
   bigLimit = { max: '100', min: '6' };
+  map: any;
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,
@@ -148,6 +151,26 @@ export class AddLocationComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+
+  onMapReady(map: L.Map) {
+    this.map = map;
+
+    const provider = new OpenStreetMapProvider();
+    
+    const searchControl = new GeoSearchControl({
+      provider: provider,
+      autoCompleteDelay: 300,
+      autoClose: true,
+      showMarker: false,
+    });
+    this.map.addControl(searchControl);
+    searchControl.getContainer().onclick = e => { e.stopPropagation(); };
+    this.map.on('geosearch/showlocation', (e) => {
+      let { lat, lng } = e.marker._latlng;
+      this.marker.setLatLng(new LatLng(lat, lng));
+      ({ lat: this.latitude, lng: this.longitude } = e.marker._latlng);
+    })
   }
 
   mapClicked(e) {

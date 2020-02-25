@@ -22,7 +22,7 @@ export class IssuesComponent implements OnInit {
   constructor(private Route: ActivatedRoute) {
     this.Route.data.subscribe(res => {
       let data = res.data;
-      console.log(data)
+      // console.log(data)
       if(data.success) {
         let stats = data.stats;
         ({ employerIssues: this.employerIssues, 
