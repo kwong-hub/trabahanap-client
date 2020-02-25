@@ -13,6 +13,12 @@ import { LocationService } from '@app/_services/location.service';
 import { Location } from '@angular/common';
 import { ThrowStmt } from '@angular/compiler';
 
+let capitalize = function(str) {
+  return str.replace(/\w\S*/g, function(txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+};
+
 @Component({
   selector: 'app-anonymous-jobs-list',
   templateUrl: './anonymous-jobs-list.component.html',
@@ -168,6 +174,29 @@ export class AnonymousJobsListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    let path = this.location.path();
+    let query = path.split('?')[1];
+    if (query) {
+      let queryValues = query.split('&');
+
+      if (queryValues[0] && queryValues[0].split('=')[0] == 'key' && queryValues[0].split('=')[1]) {
+        this.queryValue = capitalize(
+          queryValues[0]
+            .split('=')[1]
+            .replace('%20', ' ')
+            .toString()
+        );
+      }
+
+      if (queryValues[1] && queryValues[1].split('=')[0] == 'city' && queryValues[1].split('=')[1]) {
+        this.locationValue = capitalize(
+          queryValues[1]
+            .split('=')[1]
+            .replace('%20', ' ')
+            .toString()
+        );
+      }
+    }
     if (this.stateService.jobs) {
       this.resultJobs = this.stateService.jobs;
     }
@@ -235,7 +264,7 @@ export class AnonymousJobsListComponent implements OnInit {
         this.loadJobsForNoResults();
         this.belowScroll = false;
         this.reachedPageEnd = true;
-      } else if (this.pager.totalItems < 8) {
+      } else if (this.pager.totalItems <= 8) {
         this.belowScroll = false;
         this.reachedPageEnd = true;
       } else {
@@ -416,7 +445,7 @@ export class AnonymousJobsListComponent implements OnInit {
         if (this.jobs.length == 0) {
           this.loadJobsForNoResults();
         }
-        if (data.jobs.pager.totalItems < 8) {
+        if (data.jobs.pager.totalItems <= 8) {
           this.belowScroll = false;
           this.reachedPageEnd = true;
         } else {
@@ -464,8 +493,8 @@ export class AnonymousJobsListComponent implements OnInit {
     this.employmentTypeValue = '';
     this.salaryRangeValue = '';
 
-    this.queryValue = query;
-    this.locationValue = location;
+    this.queryValue = capitalize(query);
+    this.locationValue = capitalize(location);
     this.AdvancedSearch();
 
     this.showMobileSearch = false;
@@ -482,8 +511,8 @@ export class AnonymousJobsListComponent implements OnInit {
     this.employmentTypeValue = '';
     this.salaryRangeValue = '';
 
-    this.queryValue = query;
-    this.locationValue = location;
+    this.queryValue = capitalize(query);
+    this.locationValue = capitalize(location);
     this.AdvancedSearch();
   }
 
