@@ -1,7 +1,7 @@
 <div class="sub-module-container">
   <div class="overlay" [class.active]="!filterHidden"></div>
   <div class="sub-module-container__container job">
-    <div class="filter">
+    <div class="filter" [class.active]="!filterHidden">
       <h3 class="filter__heading">Applications</h3>
       <div (click)="toggleFilter($event)" class="filter__header">
         <fa-icon class="filter__icon" [icon]="faSlidersH"></fa-icon>Filter
@@ -9,35 +9,16 @@
       <div class="filter__content" [class.filter__hide]="filterHidden">
         <form action="#" (ngSubmit)="filterApplications()" class="form" [formGroup]="searchForm" autocomplete="off">
           <div class="sub-container">
-            <shared-custom-input-field
-              class="input-element-type-2"
-              [formGroup]="searchForm"
-              name="applicantName"
-              defaultValue=""
-              label="Applicant"
-              placeholder="Enter Search Applicant"
-              [input]="searchForm.controls['applicantName']"
-              type="text"
-              [submitted]="false"
-              [disabled]="false"
-              [limit]="defaultLimit"
-            >
+            <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="applicantName"
+              defaultValue="" label="Applicant" placeholder="Enter Search Applicant"
+              [input]="searchForm.controls['applicantName']" type="text" [submitted]="false" [disabled]="false"
+              [limit]="defaultLimit">
             </shared-custom-input-field>
           </div>
           <div class="sub-container">
-            <shared-custom-input-field
-              class="input-element-type-2"
-              [formGroup]="searchForm"
-              name="jobtitle"
-              defaultValue=""
-              label="Jobs"
-              placeholder="Enter Search Jobs"
-              [input]="searchForm.controls['jobtitle']"
-              type="text"
-              [submitted]="false"
-              [disabled]="false"
-              [limit]="defaultLimit"
-            >
+            <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="jobtitle"
+              defaultValue="" label="Jobs" placeholder="Enter Search Jobs" [input]="searchForm.controls['jobtitle']"
+              type="text" [submitted]="false" [disabled]="false" [limit]="defaultLimit">
             </shared-custom-input-field>
           </div>
           <!-- <div class="sub-container">
@@ -54,94 +35,85 @@
         </form>
       </div>
     </div>
+    <div class="responsive__table">
+      <table *ngIf="applications && applications.length > 0" mat-table [dataSource]="applications"
+        class="mat-elevation-z3">
+        <ng-container matColumnDef="picture">
+          <th class="th_hide" mat-header-cell *matHeaderCellDef>Picture</th>
+          <td class="th_hide" mat-cell *matCellDef="let applications">
+            <img class="img"
+              [src]="applications.applicantPicture ? applications.applicantPicture : 'assets/img/anonymous-avatar.png'"
+              alt="picture" />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="jobtitle">
+          <th mat-header-cell *matHeaderCellDef>Job Title</th>
+          <td mat-cell *matCellDef="let applications">
+            {{ applications.jobTitle }}
+          </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
+          <td mat-cell *matCellDef="let applications">
+            {{ applications.firstName + ' ' + applications.lastName }}
+          </td>
+        </ng-container>
 
-    <table
-      *ngIf="applications && applications.length > 0"
-      mat-table
-      [dataSource]="applications"
-      class="mat-elevation-z3"
-    >
-      <ng-container matColumnDef="picture">
-        <th mat-header-cell *matHeaderCellDef>Picture</th>
-        <td mat-cell *matCellDef="let applications">
-          <img
-            class="img"
-            [src]="applications.applicantPicture ? applications.applicantPicture : 'assets/img/anonymous-avatar.png'"
-            alt="picture"
-          />
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="jobtitle">
-        <th mat-header-cell *matHeaderCellDef>Job Title</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.jobTitle }}
-        </td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.firstName + ' ' + applications.lastName }}
-        </td>
-      </ng-container>
+        <!-- Email Column -->
+        <ng-container matColumnDef="vacancies">
+          <th class="th_hide" mat-header-cell *matHeaderCellDef>No. Vacancies</th>
+          <td class="th_hide" mat-cell *matCellDef="let applications">
+            {{ applications.vacancies }}
+          </td>
+        </ng-container>
 
-      <!-- Email Column -->
-      <ng-container matColumnDef="vacancies">
-        <th mat-header-cell *matHeaderCellDef>No. Vacancies</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.vacancies }}
-        </td>
-      </ng-container>
+        <!-- Name Column -->
 
-      <!-- Name Column -->
+        <!-- Name Column -->
+        <ng-container matColumnDef="applicationDate">
+          <th class="th_limit" mat-header-cell *matHeaderCellDef>Applied Date</th>
+          <td class="th_limit"  mat-cell *matCellDef="let applications">
+            {{ applications.applicationDate | date: 'longDate' }}
+          </td>
+        </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="applicationDate">
-        <th mat-header-cell *matHeaderCellDef>Applied Date</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.applicationDate | date: 'longDate' }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="hired">
+          <th mat-header-cell *matHeaderCellDef>Hired</th>
+          <td mat-cell *matCellDef="let applications">
+            <div *ngIf="applications.hired" class="tag tag--verified">
+              <fa-icon class="tag--verified--icon" [icon]="faCheckCircle"></fa-icon>
+            </div>
+            <div *ngIf="!applications.hired" class="tag tag--unverified"></div>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="hired">
-        <th mat-header-cell *matHeaderCellDef>Hired</th>
-        <td mat-cell *matCellDef="let applications">
-          <div *ngIf="applications.hired" class="tag tag--verified">
-            <fa-icon class="tag--verified--icon" [icon]="faCheckCircle"></fa-icon>
-          </div>
-          <div *ngIf="!applications.hired" class="tag tag--unverified"></div>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="detail">
+          <th class="td_limit"  mat-header-cell *matHeaderCellDef>Show Detail</th>
+          <td class="td_limit"  mat-cell style="min-width: 8rem;" *matCellDef="let applications">
+            <button (click)="showApplicantDetail(applications)" class="detail">
+              Detail
+            </button>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="detail">
-        <th mat-header-cell *matHeaderCellDef>Show Detail</th>
-        <td mat-cell style="min-width: 8rem;" *matCellDef="let applications">
-          <button (click)="showApplicantDetail(applications)" class="detail">
-            Detail
-          </button>
-        </td>
-      </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-
-    <h3 *ngIf="applications && applications.length == 0">
-      <div class="not_Found">
-        <span>
-          Sorry, we didn't find any Applications matching your criteria
-        </span>
+      <h3 *ngIf="applications && applications.length == 0">
+        <div class="not_Found">
+          <span>
+            Sorry, we didn't find any Applications matching your criteria
+          </span>
+        </div>
+      </h3>
+      <div class="paginator">
+        <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize" [pageSizeOptions]="[5, 8, 10, 25, 100]"
+          [pageIndex]="pager?.currentPage - 1" (page)="getServerData($event)">
+        </mat-paginator>
       </div>
-    </h3>
-    <div class="paginator">
-      <mat-paginator
-        [length]="pager?.totalItems"
-        [pageSize]="pager?.pageSize"
-        [pageSizeOptions]="[5, 8, 10, 25, 100]"
-        [pageIndex]="pager?.currentPage - 1"
-        (page)="getServerData($event)"
-      >
-      </mat-paginator>
     </div>
+
   </div>
 </div>

@@ -116,19 +116,18 @@ th.mat-sort-header-sorted {
 .filter {
   display: flex;
   flex-direction: row;
-  //align-items: flex-end;
   width: 100%;
   margin: 0 auto;
   position: fixed;
-  top: 6.5rem;
+  top: 6rem;
+  position: fixed;
+  left: 0;
   z-index: 2;
-  // margin-left: 1.2rem;
-  background-color: white;
   padding: 1.8rem 2rem;
 
-  //padding-right: 2rem;
-  margin-left: -7rem;
-  justify-content: space-between;
+  background-color: white;
+
+  justify-content: flex-end;
 
   &__header {
     color: #555;
@@ -138,15 +137,17 @@ th.mat-sort-header-sorted {
   }
   &__heading {
     color: #888;
-    margin: 0 5%;
+    margin: 0 6rem;
     font-size: 2rem;
     text-transform: uppercase;
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
   }
 
   &__content {
-    min-width: 30rem;
-    background-color: white;
-    width: 23%;
+    background-color: #ddd;
+    min-width: 25%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -168,7 +169,7 @@ th.mat-sort-header-sorted {
       top: -1.6rem;
       right: 2rem;
       border: 8px solid transparent;
-      border-bottom-color: white;
+      border-bottom-color: #ddd;
     }
   }
 
@@ -183,6 +184,7 @@ th.mat-sort-header-sorted {
     // overflow: visible;
   }
 }
+
 
 .form {
   display: flex;
@@ -223,3 +225,91 @@ th.mat-sort-header-sorted {
   }
 }
 
+
+@media screen and (max-width: 760px) {
+  .responsive__table{
+    flex-wrap: nowrap;
+    overflow: scroll;
+    margin: 0 -2rem;
+  
+  }
+ 
+  .th_hide{
+    // background-color: #333;
+    display: none;
+  }
+
+  .td_limit{
+    max-width: 5px;
+    overflow: visible;
+  }
+
+  .td_status{
+    max-width: 5px;
+
+  }
+  .tag{
+    float: right;
+  }
+}
+
+
+
+
+// @media screen and (max-width: 760px) {
+//   .mat-table {
+//     border: 0;
+//     vertical-align: middle
+//   }
+
+//   .mat-table caption {
+//     font-size: 1em;
+//   }
+  
+//   .mat-table .mat-header-cell {
+    
+//     border: 10px solid;
+//     clip: rect(0 0 0 0);
+//     height: 1px;
+//     margin: -1px;
+//     padding: 0;
+//     position: absolute;
+//     width: 1px;
+//   }
+  
+//   .mat-table .mat-row {
+//     border-bottom: 5px solid #ddd;
+//     display: block;
+//   }
+//   /*
+//   .mat-table .mat-row:nth-child(even) {background: #CCC}
+//   .mat-table .mat-row:nth-child(odd) {background: #FFF}
+//   */
+//   .mat-table .mat-cell {
+//     border-bottom: 1px solid #ddd;
+//     display: block;
+//     font-size: 1em;
+//     text-align: right;
+//     font-weight: bold;
+//     height:30px;
+//     margin-bottom: 4%;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+//   }
+//   .mat-table .mat-cell:before {
+//     /*
+//     * aria-label has no advantage, it won't be read inside a table
+//     content: at                                                                                                                                                                             tr(aria-label);
+//     */
+//     content: attr(data-label);
+//     float: left;
+//     text-transform: uppercase;
+//     font-weight: normal;
+    
+//     font-size: .85em;
+//   }
+//   .mat-table .mat-cell:last-child {
+//     border-bottom: 0;
+//   }
+//     .mat-table .mat-cell:first-child {
+//     margin-top: 4%;
+//   }
+// }
