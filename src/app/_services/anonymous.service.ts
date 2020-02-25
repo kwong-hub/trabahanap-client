@@ -48,6 +48,7 @@ export class AnonymousService {
     );
   }
   advancedSearch(key, industry, employtype, salaryRange, cityName, pwd, page) {
+    console.log("again")
     return this.http.get<any>(
       `${environment.apiUrl}/search/advanced?search=${key}&et=${employtype}&industry=${industry}&sr=${salaryRange}&ct=${cityName}&pwd=${pwd}&page=${page}`
     );
