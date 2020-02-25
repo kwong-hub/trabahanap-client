@@ -110,7 +110,7 @@ export class JobsListComponent implements OnInit {
   showMoreOptions = {
     showMoreLocation: false,
     showMoreJobTitle: false,
-    showMoreJobTypes: false,
+    showMoreJobType: false,
     showMoreSalaryType: false
   };
 

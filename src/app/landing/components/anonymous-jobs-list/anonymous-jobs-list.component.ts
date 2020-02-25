@@ -110,7 +110,7 @@ export class AnonymousJobsListComponent implements OnInit {
   showMoreOptions = {
     showMoreLocation: false,
     showMoreJobTitle: false,
-    showMoreJobTypes: false,
+    showMoreJobType: false,
     showMoreSalaryType: false
   };
 
