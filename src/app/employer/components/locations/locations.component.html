@@ -18,8 +18,8 @@
       <table *ngIf="!noLocation" mat-table [dataSource]="locations" class="mat-elevation-z3">
         <!-- Image Column -->
         <ng-container matColumnDef="picture">
-          <th mat-header-cell *matHeaderCellDef>Location Image</th>
-          <td mat-cell *matCellDef="let location">
+          <th class="th_hide" mat-header-cell *matHeaderCellDef>Location Image</th>
+          <td class="th_hide" mat-cell *matCellDef="let location">
             <img style="margin: 0.5rem 0; height: 5rem;" [src]="
               location.picture ? location.picture : 'assets/img/building.png'
             " alt="" class="logo" />

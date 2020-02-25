@@ -64,90 +64,104 @@
       </div>
     </div>
 
-    <table *ngIf="hasValues" mat-table [dataSource]="applications" class="mat-elevation-z3">
-      <!-- Name Column -->
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.firstName + ' ' + applications.lastName }}
-        </td>
-      </ng-container>
+    <div  *ngIf="hasValues" >
+      <table mat-table [dataSource]="applications" class="mat-elevation-z3">
+        <!-- Name Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
+          <td mat-cell *matCellDef="let applications">
+            {{ applications.firstName + ' ' + applications.lastName }}
+          </td>
+        </ng-container>
+  
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Applicant Email</th>
+          <td mat-cell *matCellDef="let applications">
+            {{ applications.email }}
+          </td>
+        </ng-container>
+  
+        <!-- Phone Number Column -->
+        <ng-container matColumnDef="phoneNumber">
+          <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+          <td mat-cell *matCellDef="let applications">
+            {{ applications.phoneNumber }}
+          </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="jobtitle">
+          <th mat-header-cell *matHeaderCellDef>Job Title</th>
+          <td mat-cell *matCellDef="let applications">
+            {{ applications.jobTitle }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="Employeer">
+          <th mat-header-cell *matHeaderCellDef>Employeer</th>
+          <td mat-cell *matCellDef="let applications">
+            {{ applications.companyName }}
+          </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="applicationDate">
+          <th mat-header-cell *matHeaderCellDef>Applied Date</th>
+          <td mat-cell *matCellDef="let applications">
+            {{ applications.applicationDate | date: 'longDate' }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="hired">
+          <th mat-header-cell *matHeaderCellDef>Hired</th>
+  
+          <td mat-cell *matCellDef="let applications">
+            <div>
+              <input class=" tag tag--verified" type="checkbox" name="check" [(ngModel)]="applications.hired" disabled />
+            </div>
+  
+            <!-- <div *ngIf="applications.hired" class="tag tag--verified">
+                          <fa-icon class="tag--verified--icon" [icon]="faCheckCircle"></fa-icon>
+                      </div>
+                      <div *ngIf="!applications.hired" class="tag tag--unverified">
+  
+                      </div> -->
+          </td>
+        </ng-container>
+  
+        <!-- //Actions Column -->
+        <!-- <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>Actions</th>
+                  <td mat-cell *matCellDef="let applications">
+                      <button mat-button [matMenuTriggerFor]="menu">
+                          <fa-icon style="color: tomato" [icon]="faEllipsisV"></fa-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                          <button mat-menu-item>
+                              <fa-icon class="menu-icon" [icon]="faArrowCircleRight"></fa-icon>
+                              Details
+                          </button>
+                      </mat-menu>
+                  </td>
+              </ng-container> -->
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
 
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Applicant Email</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.email }}
-        </td>
-      </ng-container>
-
-      <!-- Phone Number Column -->
-      <ng-container matColumnDef="phoneNumber">
-        <th mat-header-cell *matHeaderCellDef>Phone Number</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.phoneNumber }}
-        </td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="jobtitle">
-        <th mat-header-cell *matHeaderCellDef>Job Title</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.jobTitle }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Employeer">
-        <th mat-header-cell *matHeaderCellDef>Employeer</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.companyName }}
-        </td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="applicationDate">
-        <th mat-header-cell *matHeaderCellDef>Applied Date</th>
-        <td mat-cell *matCellDef="let applications">
-          {{ applications.applicationDate | date: 'longDate' }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="hired">
-        <th mat-header-cell *matHeaderCellDef>Hired</th>
-
-        <td mat-cell *matCellDef="let applications">
-          <div>
-            <input class=" tag tag--verified" type="checkbox" name="check" [(ngModel)]="applications.hired" disabled />
-          </div>
-
-          <!-- <div *ngIf="applications.hired" class="tag tag--verified">
-                        <fa-icon class="tag--verified--icon" [icon]="faCheckCircle"></fa-icon>
-                    </div>
-                    <div *ngIf="!applications.hired" class="tag tag--unverified">
-
-                    </div> -->
-        </td>
-      </ng-container>
-
-      <!-- //Actions Column -->
-      <!-- <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef>Actions</th>
-                <td mat-cell *matCellDef="let applications">
-                    <button mat-button [matMenuTriggerFor]="menu">
-                        <fa-icon style="color: tomato" [icon]="faEllipsisV"></fa-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                            <fa-icon class="menu-icon" [icon]="faArrowCircleRight"></fa-icon>
-                            Details
-                        </button>
-                    </mat-menu>
-                </td>
-            </ng-container> -->
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+      <div class="paginator">
+        <mat-paginator
+          [length]="pager?.totalItems"
+          [pageSize]="pager?.pageSize"
+          [pageSizeOptions]="[5, 8, 10, 25, 100]"
+          (page)="getServerData($event)"
+          [pageIndex]="pager?.currentPage - 1"
+        >
+        </mat-paginator>
+      </div>
+    </div>
+   
 
     <h3 *ngIf="empty">
       <div class="not_Found">
@@ -157,15 +171,6 @@
       </div>
     </h3>
 
-    <div class="paginator">
-      <mat-paginator
-        [length]="pager?.totalItems"
-        [pageSize]="pager?.pageSize"
-        [pageSizeOptions]="[5, 8, 10, 25, 100]"
-        (page)="getServerData($event)"
-        [pageIndex]="pager?.currentPage - 1"
-      >
-      </mat-paginator>
-    </div>
+  
   </div>
 </div>
