@@ -442,6 +442,7 @@ export class JobsListComponent implements OnInit {
         this.filterHidden = true;
         this.filtered = true;
         this.jobs = data.jobs.rows;
+        this.showNotFound = true;
         if (this.jobs.length == 0) {
           this.loadJobsForNoResults();
         }
