@@ -465,6 +465,7 @@ export class JobsListComponent implements OnInit {
 
   ngOnDestroy() {
     // this.stateService.pushJobs({ rows: this.jobs, pager: this.pager });
+    window.onscroll = null;
   }
 
   showMoreOptionsChange(value) {
