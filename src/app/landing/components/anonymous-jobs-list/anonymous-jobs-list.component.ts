@@ -211,13 +211,12 @@ export class AnonymousJobsListComponent implements OnInit {
     });
 
     this.mobileSearchForm = this.formBuilder.group({
-      query: [''],
-      location: ['']
+      query: [this.queryValue],
+      location: [this.locationValue]
     });
-
     this.desktopSearchForm = this.formBuilder.group({
-      query: [''],
-      location: ['']
+      query: [this.queryValue],
+      location: [this.locationValue]
     });
 
     let elem = document.getElementsByClassName('overlay');
