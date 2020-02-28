@@ -5,12 +5,12 @@
   color: #888;
   padding: 1rem 2rem .5rem;
 }
-.container {
-  // background-image: url("../../../../assets/img/bg.jpg");
-  // background-attachment: fixed;
-  // background-repeat: no-repeat;
-  // background-size: cover;
-}
+// .container {
+//   // background-image: url("../../../../assets/img/bg.jpg");
+//   // background-attachment: fixed;
+//   // background-repeat: no-repeat;
+//   // background-size: cover;
+// }
 .dashboard-contents {
   width: 100%;
   display: flex;
@@ -89,6 +89,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   &__header {
     font-size: 2.2rem;
