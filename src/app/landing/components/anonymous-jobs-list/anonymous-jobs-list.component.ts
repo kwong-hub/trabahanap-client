@@ -211,13 +211,12 @@ export class AnonymousJobsListComponent implements OnInit {
     });
 
     this.mobileSearchForm = this.formBuilder.group({
-      query: [''],
-      location: ['']
+      query: [this.queryValue],
+      location: [this.locationValue]
     });
-
     this.desktopSearchForm = this.formBuilder.group({
-      query: [''],
-      location: ['']
+      query: [this.queryValue],
+      location: [this.locationValue]
     });
 
     let elem = document.getElementsByClassName('overlay');
@@ -442,6 +441,7 @@ export class AnonymousJobsListComponent implements OnInit {
         this.filterHidden = true;
         this.filtered = true;
         this.jobs = data.jobs.rows;
+        this.showNotFound = true;
         if (this.jobs.length == 0) {
           this.loadJobsForNoResults();
         }
