@@ -86,7 +86,7 @@ export class LandingJobDetailComponent implements OnInit {
 
   ngOnInit() {
     // let id = this.Route.snapshot.params.id;
-    this.bookmarked = this.job.saved;
+    this.bookmarked = this.job ? this.job.saved : null;
     if (this.job.location) {
       let { latitude, longitude } = this.job.location;
       this.options.center = latLng(latitude, longitude);
