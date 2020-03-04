@@ -72,11 +72,16 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="applicationDate">
-          <th class="th_limit" mat-header-cell *matHeaderCellDef>Applied Date</th>
-          <td class="th_limit"  mat-cell *matCellDef="let applications">
-            {{ applications.applicationDate | date: 'longDate' }}
-          </td>
+            <th mat-header-cell *matHeaderCellDef>Applied Date</th>
+            <td  mat-cell *matCellDef="let applications">
+              <span class="th_visibe" >   {{ applications.applicationDate | date: 'shortDate' }} </span>
+              <span class="th_hide"> {{ applications.applicationDate | date: 'longDate' }} </span>
+            </td>
         </ng-container>
+
+        
+
+
 
         <ng-container matColumnDef="hired">
           <th mat-header-cell *matHeaderCellDef>Hired</th>

@@ -181,6 +181,10 @@ table {
   box-shadow: 0 10px 55px rgba(255, 255, 255, 0.1);
 }
 
+.th_visibe{
+  display: none;
+}
+
 @media screen and (max-width: 760px) {
   .responsive__table{
     flex-wrap: nowrap;
@@ -197,6 +201,10 @@ table {
   .th_hide{
     // background-color: #333;
     display: none;
+  }
+  .th_visibe{
+    // background-color: #333;
+    display: block;
   }
   .td_limit{
     max-width: 12rem;

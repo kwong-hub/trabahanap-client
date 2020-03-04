@@ -1,4 +1,4 @@
-@import "../../../../assets/scss/abstracts/variables";
+@import '../../../../assets/scss/abstracts/variables';
 
 .container {
   margin-top: 5.5rem;
@@ -10,12 +10,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("../../../../assets/img/mobile.jpg");
+  background-image: url('../../../../assets/img/mobile.jpg');
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  // background-attachment: fixed;
   background-size: cover;
   // background-position: 75.5%;
   background-position: center;
+  background-position-x: 50%;
+  background-position-y: 0%;
 
   &__header {
     color: white;
@@ -138,7 +140,7 @@
     transition: all 0.2s;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       width: 100%;
       transform: scaleX(0);
@@ -237,7 +239,7 @@
 
 @media only screen and (min-width: 650px) {
   .search {
-    background-image: url("../../../../assets/img/website-header-new.jpg");
+    background-image: url('../../../../assets/img/website-header-new.jpg');
     background-position: center;
 
     .form {
