@@ -22,7 +22,7 @@ import { Location } from '@angular/common';
 })
 export class CompanyListComponent implements OnInit {
   companies = [];
-  displayedColumns: string[] = ['companyLogo', 'companyName', 'totalJobs', 'status', 'action'];
+  displayedColumns: string[] = ['companyLogo', 'companyName', 'totalJobs', 'status', 'createdAt', 'action'];
   searchForm: FormGroup;
   faPlus = faPlus;
   faEllipsisV = faEllipsisV;

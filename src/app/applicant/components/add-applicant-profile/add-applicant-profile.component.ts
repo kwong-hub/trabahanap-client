@@ -76,6 +76,21 @@ export class AddApplicantProfileComponent implements OnInit {
       backgroundColor: '#fff'
     }
   };
+  styleObjectMonth = {
+    inputContainer: { margin: "0" },
+    input: { fontSize: '1.7rem' },
+    inputHeader: { fontSize: '1.7rem', borderBottom: '1px solid #888', backgroundColor: "white" },
+    optionContainer: {
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
+    },
+    option: {
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
+    }
+  };
   monthStyle = {
     inputContainer: { margin: '0' },
     inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
@@ -98,7 +113,7 @@ export class AddApplicantProfileComponent implements OnInit {
     feedbackMessage: {}
   };
   
-  cvFileTypes = '.pdf,.doc,.docx';
+  cvFileTypes = '.pdf,.doc,.docx, .png, .jpg, jpeg';
   profilePictureFileTypes = '.png, .jpg, jpeg';
   inputType: string = 'file';
   showLoader = false;
@@ -118,6 +133,8 @@ export class AddApplicantProfileComponent implements OnInit {
   bigLimit = { max: '70', min: '6' };
   fileTypeError: boolean;
   formError: boolean;
+  isDocument: boolean;
+  isImage: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private locationService: LocationService,
@@ -201,11 +218,12 @@ export class AddApplicantProfileComponent implements OnInit {
     if(name === 'cv') {
       let size = value.size;
       let type = value.type;
-      if(!(type === 'application/doc' || type === 'application/ms-doc' || type === 'application/msword' || 
-        type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || type === 'application/pdf')) {
+      if(type !== 'application/doc' && type !== 'application/ms-doc' && type !== 'application/msword' && 
+      type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' && type !== 'application/pdf' && 
+      type !== 'image/png' && type !== 'image/jpg' && type !== 'image/jpeg') {
           this.addApplicantProfileForm.controls['cv'].setValue('');
           this.fileTypeError = true;
-          this.addApplicantProfileForm.controls['cv'].setErrors({invalid: true})
+          this.addApplicantProfileForm.controls['cv'].setErrors({format: true})
           return;
         }
 
@@ -460,6 +478,18 @@ export class AddApplicantProfileComponent implements OnInit {
     this.success = false;
     event.stopPropagation();
     this.showCVPreview = !this.showCVPreview;
+    if(this.showCVPreview) {
+      let ext = this.applicantProfile.cv.split('.').pop();
+      if(ext === 'pdf' || ext === 'doc' || ext === 'docx') {
+        console.log(ext)
+        this.isDocument = true;
+        this.isImage = false;
+      }
+      else {
+        this.isImage = true;
+        this.isDocument = false;
+      }
+    }
   }
 
   toggleCVModal() {

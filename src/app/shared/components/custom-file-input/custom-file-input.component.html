@@ -11,14 +11,16 @@
     [ngClass]="{ 'is-invalid': submitted && input.status == 'INVALID' }"
   />
   <label class="form__label" [for]="name">{{ label }}</label>
-  <div *ngIf="submitted && input.status == 'INVALID' && !input?.errors?.maxSize" class="invalid-feedback">
+  <div *ngIf="submitted && input.status == 'INVALID' && !input?.errors?.maxSize && !input?.errors?.format" class="invalid-feedback">
     <div class="invalid-feedback__message">{{ label }} is not valid</div>
+  </div>
+
+  <div *ngIf="input?.errors?.format" class="invalid-feedback">
+    <div class="invalid-feedback__message">Invalid file format</div>
   </div>
 
   <div *ngIf="input?.errors?.maxSize" class="invalid-feedback">
     <div class="invalid-feedback__message">Maximum size allowed is 4Mb,</div>
   </div>
 
-
-  
 </div>

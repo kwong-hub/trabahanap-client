@@ -30,7 +30,7 @@ export class ApplicantListComponent implements OnInit {
   faCheckCircle = faCheckCircle;
   faTimesCircle = faTimesCircle;
   applicants = [];
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'status', 'action'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'status', 'createdAt', 'action'];
   public pager: any;
   public page: any;
   searchForm: FormGroup;

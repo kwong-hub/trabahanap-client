@@ -12,7 +12,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 })
 export class EditApplicantCvModalComponent implements OnInit {
   faTimes = faTimes;
-  CVFileTypes = '.pdf,.doc,.docx';
+  CVFileTypes = '.pdf,.doc,.docx, .png, .jpg, jpeg';
 
   updateCVForm: FormGroup;
   formData = new FormData();
@@ -36,16 +36,17 @@ export class EditApplicantCvModalComponent implements OnInit {
       cv: ['', Validators.required]
     });
   }
-  "     "
+
 
   fileChanged(value, name) {
     let type = value.type;
     let size = value.size;
     this.submitted = true;
-    if(!(type === 'application/doc' || type === 'application/ms-doc' || type === 'application/msword' || 
-      type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || type === 'application/pdf')) {
+    if(type !== 'application/doc' && type !== 'application/ms-doc' && type !== 'application/msword' && 
+      type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' && type !== 'application/pdf' && 
+      type !== 'image/png' && type !== 'image/jpg' && type !== 'image/jpeg') {
         this.updateCVForm.controls['cv'].setValue('');
-        this.updateCVForm.controls['cv'].setErrors({invalid: true})
+        this.updateCVForm.controls['cv'].setErrors({format: true})
         return;
       }
 
