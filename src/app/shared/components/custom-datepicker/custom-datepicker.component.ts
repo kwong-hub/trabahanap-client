@@ -58,11 +58,11 @@ export class CustomDatepickerComponent implements OnInit {
     document.addEventListener('click', () => {
       this.active = false;
     });
-    if (this.defaultValue) {
+    if (this.defaultValue && this.defaultValue !== 'null') {
       this.inputDate = this.defaultValue;
       const [year, month, day] = this.inputDate.split('-');
       this.updateInput(year, month, day);
-    } else {
+    } else if(!this.defaultValue) {
       const d = new Date();
       const year = d.getFullYear();
       const month = d.getMonth() + 1;

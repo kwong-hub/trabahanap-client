@@ -69,7 +69,8 @@ export class CompanyListComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       companyName: ['', Validators.nullValidator],
       industry: ['', Validators.nullValidator],
-      verify: [false]
+      verify: [false],
+      registrationDate: ['', Validators.nullValidator]
     });
 
     let elem = document.getElementsByClassName('overlay');
@@ -134,7 +135,7 @@ export class CompanyListComponent implements OnInit {
     if (this.filtered) {
       var val = this.searchForm.value;
       this.adminService
-        .getFilterEmployers(val.companyName, val.industry,!val.verify, page.pageIndex + 1, page.pageSize)
+        .getFilterEmployers(val.companyName, val.industry,!val.verify, val.registrationDate, page.pageIndex + 1, page.pageSize)
         .subscribe(data => {
           if (data) {
             this.companies = data.companies.rows;
@@ -184,12 +185,12 @@ export class CompanyListComponent implements OnInit {
     var val = this.searchForm.value;
     console.log(val)
     this.filterHidden = true;
-    this.adminService.getFilterEmployers(val.companyName, val.industry, !val.verify,this.page || 1, 8).subscribe(data => {
-      if (data) {
-        this.companies = data.companies.rows;
-        this.pager = data.companies.pager;
-      }
-      this.countotalJobs();
+    this.adminService.getFilterEmployers(val.companyName, val.industry, !val.verify, val.registrationDate, this.page || 1, 8).subscribe(data => {
+    if (data) {
+      this.companies = data.companies.rows;
+      this.pager = data.companies.pager;
+    }
+    this.countotalJobs();
     });
 
     this.filtered = true;
@@ -221,5 +222,9 @@ export class CompanyListComponent implements OnInit {
     let value = this.openActions[id];
     this.openActions = {};
     this.openActions[id] = !value;
+  }
+
+  customValueChanged(value, name) {
+    this.searchForm.controls[name].setValue(value);
   }
 }

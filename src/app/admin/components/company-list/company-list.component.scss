@@ -1,6 +1,11 @@
 .container {
   padding: 2rem;
 }
+
+.calendars {
+  font-size: 1.5rem;
+}
+
 table {
   width: 100%;
   margin: 1.5rem 0;
@@ -41,7 +46,7 @@ table {
   &__label {
     display: flex;
     justify-content: center;
-    margin: 2rem 0;
+    margin: 1rem 0 2rem;
     cursor: pointer;
   }
 
@@ -186,7 +191,7 @@ table {
       top: -1.6rem;
       right: 2rem;
       border: 8px solid transparent;
-      border-bottom-color: #ddd;
+      border-bottom-color: #fff;
     }
   }
 
@@ -278,8 +283,8 @@ table {
 
 .add_employer_floating {
   position: fixed;
-  right: 4rem;
-  bottom: 7rem;
+  right: 5rem;
+  bottom: 5rem;
   font-size: 2rem;
   // z-index: 1000;
 

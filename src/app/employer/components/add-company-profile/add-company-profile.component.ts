@@ -3,16 +3,7 @@ import { AuthenticationService } from '@app/_services/authentication-service.ser
 import { EmployerService } from './../../../_services/employer.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  faCheck,
-  faUserPlus,
-  faIdCard,
-  faCloudUploadAlt,
-  faUserCheck,
-  faEyeDropper,
-  faEdit,
-  faCamera
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faUserPlus, faIdCard, faCloudUploadAlt, faUserCheck, faEyeDropper, faEdit, faCamera } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import _ from 'lodash';
@@ -106,7 +97,7 @@ export class AddCompanyProfileComponent implements OnInit {
     this.inputType = this.companyProfile ? 'text' : 'file';
 
     this.addCompanyProfileForm = this.formBuilder.group({
-      zipcode: ['', [Validators.min(10000), Validators.max(99999)]],
+      zipcode: ['', [Validators.min(1000), Validators.max(9999)]],
       companyName: ['', Validators.required],
       contactPerson: ['', Validators.required],
       contactNumber: ['', Validators.required],
