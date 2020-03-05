@@ -626,10 +626,9 @@
   &__filters-mobile {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-start;
     width: 100%;
-    flex-wrap: wrap;
-    // background-color: #fff;
+    overflow-x: scroll;
   }
 
   &__filter-mobile {
@@ -788,6 +787,10 @@
   .jobs {
     &__search {
       justify-content: center;
+    }
+
+    &__filter-mobile {
+      min-width: 25%;
     }
   }
 

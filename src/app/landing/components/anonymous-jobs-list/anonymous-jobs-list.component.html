@@ -26,7 +26,6 @@
       </div>
       <div class="jobs__filters-mobile">
         <select
-          style="width:35%"
           (change)="mobileFilterChange($event.target.value, 'salary')"
           class="jobs__filter-mobile"
           [value]="salaryRangeValue"
@@ -36,7 +35,6 @@
           <option *ngFor="let sal of SalaryRange" [value]="sal.value">{{ sal.name }}</option>
         </select>
         <select
-          style="width:35%"
           (change)="mobileFilterChange($event.target.value, 'empType')"
           class="jobs__filter-mobile"
           [value]="employmentTypeValue"
@@ -48,12 +46,20 @@
         <select
           (change)="mobileFilterChange($event.target.value, 'city')"
           class="jobs__filter-mobile"
-          style="width:25%"
           [value]="locationValue"
         >
           <option value="">City</option>
           <option value="">All</option>
-          <option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</option>
+          <option *ngFor="let city of localCities" [value]="city">{{ city }}</option>
+        </select>
+        <select
+          (change)="mobileFilterChange($event.target.value, 'jobType')"
+          class="jobs__filter-mobile"
+          [value]="queryValue"
+        >
+          <option value="">Job Type</option>
+          <option value="">All</option>
+          <option *ngFor="let job of localJobTitle" [value]="job">{{ job }}</option>
         </select>
       </div>
       <div class="jobs__main-location-container">
