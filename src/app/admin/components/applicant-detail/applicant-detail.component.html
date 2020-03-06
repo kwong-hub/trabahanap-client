@@ -65,10 +65,27 @@
         </div>
 
         <div class="detail">
+          <div class="detail__label">Current Occupation</div>
+          <div class="detail__value">
+            <p *ngIf="applicant?.currentOccopation" class="text">{{ applicant?.currentOccopation }}</p>
+            <p *ngIf="!applicant?.currentOccopation" class="text text--blurred">Not provided</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-group">
+        <div class="detail">
           <div class="detail__label">Address</div>
           <div class="detail__value">
             <p *ngIf="applicant?.address" class="text">{{ applicant?.address }}</p>
             <p *ngIf="!applicant?.address" class="text text--blurred">Not provided</p>
+          </div>
+        </div>
+
+        <div class="detail">
+          <div class="detail__label">Registration Date</div>
+          <div class="detail__value">
+            <p class="text">{{ applicant?.createdAt | date: "fullDate" }}</p>
           </div>
         </div>
       </div>
@@ -83,15 +100,6 @@
         </div>
       </div>
 
-      <div class="details-group">
-        <div class="detail">
-          <div class="detail__label">Current Occopation</div>
-          <div class="detail__value">
-            <p *ngIf="applicant?.currentOccopation" class="text">{{ applicant?.currentOccopation }}</p>
-            <p *ngIf="!applicant?.currentOccopation" class="text text--blurred">Not provided</p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

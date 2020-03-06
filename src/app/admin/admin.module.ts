@@ -13,7 +13,11 @@ import {
   MatPaginatorModule,
   MatButtonModule,
   MatMenuModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatNativeDateModule,
+  MatInputModule
 } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { IssuesComponent } from './components/issues/issues.component';
@@ -118,7 +122,11 @@ import { EmployerPaymentInformationComponent } from './components/employer-payme
     MatExpansionModule,
     LeafletModule,
     MatProgressBarModule,
-    PipesModule
+    PipesModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

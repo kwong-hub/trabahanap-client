@@ -11,7 +11,7 @@
                 <div class="list-group" *ngIf='cityCount'>
                     <ul class="list" *ngFor="let cityc of cityCount">
                         <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: cityc.cityName}"
-                            class="link">{{cityc.cityName }} ( {{ cityc.count }}) </a></li>
+                            class="link">{{cityc.cityName }} ({{ cityc.count }}) </a></li>
                         <!-- <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'makati'}"
                             class="link">Makati</a></li>
                         <li class="list-item"><a [routerLink]="['/search/jobs']" [queryParams]="{city: 'quezon'}"

@@ -187,14 +187,14 @@
           [limit] ="bigLimit"
         ></shared-custom-input-field>
       </div>
-      <div class="sub-container">
+      <div class="sub-container rowed">
         <shared-custom-select
           [valid]="addApplicantProfileForm.controls['month']?.status"
           (onValueChange)="selectChanged($event, 'month')"
           name="month"
           label="Birth Month"
           [defaultValue]="applicantProfile?.month"
-          [styleObject]="styleObject"
+          [styleObject]="styleObjectMonth"
           class="input-element-type-3"
           placeholder="Month"
           [options]="monthOptions"
@@ -360,10 +360,19 @@
   </div>
 </div>
 
+<div class="overlay" [class.active]="showCVPreview && isImage">
+  <!-- <div (click)="onLicensePreview()" class="overlay__close">
+        <fa-icon class="overlay__close-icon" [icon]="faTimes"></fa-icon>
+    </div> -->
+</div>
+
+<img *ngIf="isImage" (click)="onCVPreview($event)" [src]="applicantProfile?.cv" alt="" 
+  class="modalImage" [class.active]="showCVPreview && isImage" />
+
 <ngx-doc-viewer
   [url]="applicantProfile?.cv"
   viewer="google"
-  *ngIf="showCVPreview"
+  *ngIf="showCVPreview && isDocument"
   style="position: fixed;top:6rem;left:0;right: 0;bottom:0;z-index:11000;"
 ></ngx-doc-viewer>
 <div

@@ -44,7 +44,7 @@ export class LandingJobDetailComponent implements OnInit {
   public tempJobs: Job[] = [];
   options = {
     layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '...'
       })
