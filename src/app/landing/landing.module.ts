@@ -35,6 +35,7 @@ import { PipesModule } from '@app/pipes/pipes.module';
 import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
 import { HomeSectionFourComponent } from './components/home-section-four/home-section-four.component';
 import { StateService } from '@app/_services/state.service';
+import { LandingCustomSubmitComponent } from './components/landing-custom-submit/landing-custom-submit.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { StateService } from '@app/_services/state.service';
     TermsComponent,
     CustomNotificationComponent,
     HomeSectionFourComponent,
+    LandingCustomSubmitComponent,
   ],
   imports: [
     CommonModule,

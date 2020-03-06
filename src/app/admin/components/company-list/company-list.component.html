@@ -35,12 +35,6 @@
               type="text"
               [submitted]="false"
           ></shared-custom-datepicker>
-          <!-- <mat-form-field>
-            <input matInput [matDatepicker]="myDatepicker" formControlName="registrationDate">
-            <mat-label>Choose registration date</mat-label>
-            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-            <mat-datepicker #myDatepicker></mat-datepicker>
-          </mat-form-field> -->
           </div>
 
           <div class="form__group--btn">
@@ -63,13 +57,13 @@
       </div>
     </div>
 
-    <h3 *ngIf="empty">
+    <h3 *ngIf="companies.length === 0">
       <div class="not_Found">
         <span> Sorry, we didn't find any Company matching your criteria </span>
       </div>
     </h3>
 
-    <table *ngIf="hasValues" mat-table [dataSource]="companies" class="mat-elevation-z3">
+    <table *ngIf="companies.length > 0" mat-table [dataSource]="companies" class="mat-elevation-z3">
       <!-- Name Column -->
       <ng-container matColumnDef="companyLogo">
         <th mat-header-cell *matHeaderCellDef>Company Logo</th>

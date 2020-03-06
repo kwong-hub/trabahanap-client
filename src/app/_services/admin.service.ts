@@ -82,8 +82,8 @@ export class AdminService {
   getFilterEmployers(companyName, industry,verify, registrationDate, page, pageSize) {
     return this.http.get<any>(`${environment.apiUrl}/admin/filter/employers?companyName=${companyName}&industry=${industry}&verify=${verify}&registrationDate=${registrationDate}&page=${page}&pageSize=${pageSize}`);
   }
-  getFilterApplicants(name, email, page, pageSize) {
-    return this.http.get<any>(`${environment.apiUrl}/admin/filter/applicants?name=${name}&email=${email}&page=${page}&pageSize=${pageSize}`);
+  getFilterApplicants(name, email, registrationDate, page, pageSize) {
+    return this.http.get<any>(`${environment.apiUrl}/admin/filter/applicants?name=${name}&email=${email}&registrationDate=${registrationDate}&page=${page}&pageSize=${pageSize}`);
   }
   getCompanyLocation(page, pageSize, id): Observable<any> {
     return this.http.get<any>(
