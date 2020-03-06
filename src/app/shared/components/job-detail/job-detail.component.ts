@@ -59,6 +59,8 @@ export class JobDetailComponent implements OnInit {
   bookmarked: boolean;
   userRole: string;
   lower: boolean;
+  loading: boolean;
+  applyBtn = {btn: {borderRadius: '5px', width: '100%', height: '5rem', padding: '0 6rem', marginTop: '1rem'}}
   // imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
 
   constructor(
@@ -116,13 +118,16 @@ export class JobDetailComponent implements OnInit {
       return false; // to prevent reload
     }
     this.showModal = false;
+    this.loading = true;
     this.applicantService.applyToJob(this.job.id).subscribe(
       data => {
+        this.loading = false;
         if (data.success) {
           this.showModal = true;
         }
       },
       error => {
+        this.loading = false;
         console.log(error);
       }
     );

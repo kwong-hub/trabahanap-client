@@ -69,7 +69,7 @@ export class CompanyListComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       companyName: ['', Validators.nullValidator],
       industry: ['', Validators.nullValidator],
-      verify: [false],
+      verify: [''],
       registrationDate: ['', Validators.nullValidator]
     });
 
@@ -183,9 +183,8 @@ export class CompanyListComponent implements OnInit {
 
   filterEmployers() {
     var val = this.searchForm.value;
-    console.log(val)
     this.filterHidden = true;
-    this.adminService.getFilterEmployers(val.companyName, val.industry, !val.verify, val.registrationDate, this.page || 1, 8).subscribe(data => {
+    this.adminService.getFilterEmployers(val.companyName, val.industry, val.verify, val.registrationDate, this.page || 1, 8).subscribe(data => {
     if (data) {
       this.companies = data.companies.rows;
       this.pager = data.companies.pager;

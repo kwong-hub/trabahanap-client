@@ -128,9 +128,11 @@
             <i class="bookmark__icon far fa-heart"></i>
           </button>
 
-          <button *ngIf="!job.applied" (click)="apply(job.id)" class="apply th-btn th-btn--primary">
+          <!-- <button *ngIf="!job.applied" (click)="apply(job.id)" class="apply th-btn th-btn--primary">
             MAG-APPLY
-          </button>
+          </button> -->
+          <app-custom-submit-button *ngIf="!job.applied" text="MAG-APPLY" [loading]="loading"
+            (click)="apply(job.id)" [styleObject]="applyBtn"></app-custom-submit-button>
           <!-- If already applied, show this button -->
         </div>
 

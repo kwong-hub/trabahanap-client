@@ -1,5 +1,5 @@
 <div class="sub-module-container">
-  <h3 *ngIf="empty">
+  <h3 *ngIf="applicants.length === 0">
     <div class="not_Found">
       <span> Sorry, we didn't find any Applicants matching your criteria </span>
     </div>
@@ -35,6 +35,7 @@
             >
             </shared-custom-input-field>
           </div>
+
           <div class="sub-container">
             <shared-custom-input-field
               class="input-element-type-2"
@@ -50,6 +51,20 @@
               [limit]="defaultLimit"
             >
             </shared-custom-input-field>
+          </div>
+
+          <div class="sub-container calendars">
+            <shared-custom-datepicker
+              class="input-element-type-1 job__custom-select"
+              [formGroup]="searchForm"
+              name="registrationDate"
+              defaultValue="null"
+              placeholder="Registration Date"
+              label="Registration Date"
+              (onValueChange)="customValueChanged($event, 'registrationDate')"
+              type="text"
+              [submitted]="false"
+          ></shared-custom-datepicker>
           </div>
           <div class="form__group--btn">
             <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
@@ -67,7 +82,8 @@
       </button>
 
     </div> -->
-    <table *ngIf="hasValues" mat-table [dataSource]="applicants" class="mat-elevation-z3">
+
+    <table *ngIf="applicants.length > 0" mat-table [dataSource]="applicants" class="mat-elevation-z3">
       <!-- Name Column -->
       <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef>First Name</th>

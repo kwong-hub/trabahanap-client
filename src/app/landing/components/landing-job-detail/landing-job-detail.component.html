@@ -123,9 +123,11 @@
           <i class="bookmark__icon far fa-heart"></i>
         </button>
 
-        <button *ngIf="!job.applied" (click)="apply(job.id)" class="apply th-btn th-btn--primary">
+        <!-- <button *ngIf="!job.applied" (click)="apply(job.id)" class="apply th-btn th-btn--primary">
           MAG-APPLY
-        </button>
+        </button> -->
+        <landing-custom-submit *ngIf="!job.applied" text="MAG-APPLY" [loading]="loading"
+            (click)="apply(job.id)" [styleObject]="applyBtn"></landing-custom-submit>
         <!-- If already applied, show this button -->
       </div>
 
@@ -184,10 +186,10 @@
       </button>
     </div> -->
 
-<!-- <app-custom-notification
+<landing-custom-notification
   [show]="showModal"
   type="success"
   callback="applicant/applications"
   text="Application Submitted Successfully"
 >
-</app-custom-notification> -->
+</landing-custom-notification>

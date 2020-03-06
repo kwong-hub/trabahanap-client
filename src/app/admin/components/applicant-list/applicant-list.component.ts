@@ -66,7 +66,8 @@ export class ApplicantListComponent implements OnInit {
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
       name: ['', Validators.nullValidator],
-      email: ['', Validators.nullValidator]
+      email: ['', Validators.nullValidator],
+      registrationDate: ['', Validators.nullValidator]
     });
 
     let elem = document.getElementsByClassName('overlay');
@@ -109,12 +110,13 @@ export class ApplicantListComponent implements OnInit {
       );
     } else {
       var val = this.searchForm.value;
-      this.adminService.getFilterApplicants(val.name, val.email, page.pageIndex + 1, page.pageSize).subscribe(data => {
-        this.applicants = data.applicants.rows;
-        // data.applicants.rows.forEach(apps => {
-        //   this.applicants.push(apps.user)
-        // });
-        this.pager = data.applicants.pager;
+      this.adminService.getFilterApplicants(val.name, val.email, val.registrationDate, page.pageIndex + 1, page.pageSize)
+        .subscribe(data => {
+          this.applicants = data.applicants.rows;
+          // data.applicants.rows.forEach(apps => {
+          //   this.applicants.push(apps.user)
+          // });
+          this.pager = data.applicants.pager;
       });
     }
   }
@@ -127,7 +129,7 @@ export class ApplicantListComponent implements OnInit {
   filterApplicants() {
     var val = this.searchForm.value;
     this.filterHidden = true;
-    this.adminService.getFilterApplicants(val.name || '', val.email || '', this.page || 1, 10).subscribe(data => {
+    this.adminService.getFilterApplicants(val.name || '', val.email || '', val.registrationDate, this.page || 1, 10).subscribe(data => {
       this.applicants = data.applicants.rows;
       this.pager = data.applicants.pager;
     });
@@ -150,22 +152,8 @@ export class ApplicantListComponent implements OnInit {
       }
     );
   }
-  // getUnVerifiedUsers(){
-  //   this.adminService.unVerifiedUser().subscribe(
-  //     data =>{
-
-  //       console.log(data)
-  //     }
-  //   )
-  // }
-  // VerifyApplicants(){
-  //   this.adminService.verifyUser().subscribe(
-  //     data =>{
-  //       if(data.success){
-  //         console.log(data)
-  //       }
-
-  //     }
-  //   )
-  // }
+  
+  customValueChanged(value, name) {
+    this.searchForm.controls[name].setValue(value);
+  }
 }
