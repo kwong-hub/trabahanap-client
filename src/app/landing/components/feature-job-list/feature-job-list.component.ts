@@ -5,6 +5,19 @@ import { AuthService } from 'angularx-social-login';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { JobService } from '@app/_services/jobs.service';
 import { AnonymousService } from '@app/_services/anonymous.service';
+import { Location } from '@angular/common';
+import {
+  faCheckCircle,
+  faMapMarkerAlt,
+  faTag,
+  faExternalLinkAlt,
+  faToolbox,
+  faClock,
+  faArrowLeft,
+  faBookOpen,
+  faBuilding,
+  faListUl
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-feature-job-list',
@@ -12,6 +25,16 @@ import { AnonymousService } from '@app/_services/anonymous.service';
   styleUrls: ['./feature-job-list.component.scss']
 })
 export class FeatureJobListComponent implements OnInit {
+  faToolbox = faToolbox;
+  faClock = faClock;
+  faCheckCircle = faCheckCircle;
+  faMapMarkerAlt = faMapMarkerAlt;
+  faTag = faTag;
+  faExternalLinkAlt = faExternalLinkAlt;
+  faArrowLeft = faArrowLeft;
+  faBookOpen = faBookOpen;
+  faBuilding = faBuilding;
+  faListUl = faListUl;
   showLoader: boolean = false;
   jobs: any;
   public pager: any;
@@ -24,7 +47,7 @@ export class FeatureJobListComponent implements OnInit {
   company: any;
   belowScroll: boolean = true;
   imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
-
+  tabs: any = {};
   @ViewChild('anchor', { static: false }) anchor: ElementRef<HTMLElement>;
   @ViewChild('jobsListAnchor', { static: false }) jobsListAnchor: ElementRef<HTMLElement>;
   pramsKey: any;
@@ -36,7 +59,8 @@ export class FeatureJobListComponent implements OnInit {
     private anonyService: AnonymousService,
     private Route: ActivatedRoute,
     private JobService: JobService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private _location: Location,
   ) {
     this.Route.data.subscribe(res => {
       let data = res.data;
@@ -82,14 +106,17 @@ export class FeatureJobListComponent implements OnInit {
       this.pramsKey = { ...params };
       this.compId = this.pramsKey.params.companyId;
     });
-
+    this.tabClicked('detailActive');
     this.anonyService.getCompanyByProfileId(this.compId).subscribe(data => {
       if (data.success) {
         this.company = data.employers.company;
       }
     });
   }
-
+  tabClicked(tab) {
+    this.tabs = {};
+    this.tabs[tab] = true;
+  }
   getSavedJobIds(jobs) {
     jobs.map(job => {
       this.savedJobIds.push(job.id);
@@ -98,7 +125,13 @@ export class FeatureJobListComponent implements OnInit {
   checkJobBookmarked(jobId) {
     return this.savedJobIds.includes(jobId);
   }
-
+  goBack() {
+    this._location.back();
+  }
+  ngOnDestroy() {
+    // this.stateService.pushJobs({ rows: this.jobs, pager: this.pager });
+    window.onscroll = null;
+  }
   loadJobs() {
     let elementPositionForScroll = 0;
     window.onscroll = () => {
