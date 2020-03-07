@@ -57,13 +57,13 @@
       </div>
     </div>
 
-    <h3 *ngIf="companies.length === 0">
+    <h3 *ngIf="empty">
       <div class="not_Found">
         <span> Sorry, we didn't find any Company matching your criteria </span>
       </div>
     </h3>
 
-    <table *ngIf="companies.length > 0" mat-table [dataSource]="companies" class="mat-elevation-z3">
+    <table *ngIf="hasValues" mat-table [dataSource]="companies" class="mat-elevation-z3">
       <!-- Name Column -->
       <ng-container matColumnDef="companyLogo">
         <th mat-header-cell *matHeaderCellDef>Company Logo</th>
@@ -158,7 +158,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <div class="paginator">
+    <div *ngIf="hasValues" class="paginator">
       <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize" [pageSizeOptions]="[5, 8, 10, 25, 100]"
         [pageIndex]="pager?.currentPage - 1" (page)="getServerData($event)">
       </mat-paginator>
