@@ -62,7 +62,7 @@ import { LandingCustomSubmitComponent } from './components/landing-custom-submit
     TermsComponent,
     CustomNotificationComponent,
     HomeSectionFourComponent,
-    LandingCustomSubmitComponent,
+    LandingCustomSubmitComponent
   ],
   imports: [
     CommonModule,

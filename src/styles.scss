@@ -4,15 +4,15 @@ $check-width: $check-height/2;
 $success-color: #50e83e;
 $error-color: #ff0000;
 
-@import "assets/scss/base/reset";
-@import "assets/scss/abstracts/variables";
-@import "assets/scss/base/typography";
-@import "assets/scss/components/buttons";
-@import "assets/scss/components/inputs";
-@import "assets/scss/layouts/grid";
-@import "assets/scss/layouts/container";
+@import 'assets/scss/base/reset';
+@import 'assets/scss/abstracts/variables';
+@import 'assets/scss/base/typography';
+@import 'assets/scss/components/buttons';
+@import 'assets/scss/components/inputs';
+@import 'assets/scss/layouts/grid';
+@import 'assets/scss/layouts/container';
 // @import "assets/scss/layouts/header";
-@import "assets/scss/layouts/footer";
+@import 'assets/scss/layouts/footer';
 // @import 'assets/scss/pages';
 // @import 'assets/scss/utils';
 
@@ -37,7 +37,6 @@ $error-color: #ff0000;
   &__container {
     height: 100%;
     padding: 2rem 2.5rem;
-    
   }
 }
 
@@ -58,7 +57,7 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 @keyframes popOut {
@@ -72,10 +71,10 @@ body {
     visibility: visible;
   }
   85% {
-      transform: translate(-40%, 0%);
-      opacity: 1;
-      visibility: visible;
-    }
+    transform: translate(-40%, 0%);
+    opacity: 1;
+    visibility: visible;
+  }
   100% {
     transform: translate(-40%, 200%);
     opacity: 0;

@@ -3,7 +3,16 @@ import { AuthenticationService } from '@app/_services/authentication-service.ser
 import { EmployerService } from './../../../_services/employer.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { faCheck, faUserPlus, faIdCard, faCloudUploadAlt, faUserCheck, faEyeDropper, faEdit, faCamera } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faUserPlus,
+  faIdCard,
+  faCloudUploadAlt,
+  faUserCheck,
+  faEyeDropper,
+  faEdit,
+  faCamera
+} from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import _ from 'lodash';
@@ -35,13 +44,14 @@ export class AddCompanyProfileComponent implements OnInit {
   countries = null;
   styleObject = {
     inputContainer: {},
-    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888', backgroundColor: "white" },
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888', backgroundColor: 'white' },
     optionContainer: { backgroundColor: '#555', top: '3.3rem', boxShadow: '0px 1px 2px #aaa' },
     option: { fontSize: '1.5rem', borderBottom: '1px solid #ddd', backgroundColor: '#fff' }
   };
   submitStyle = { btn: { width: '100%' } };
   formErrors = ['Please fill in all the required inputs.'];
   serverErrors = false;
+  serverErrorsMessage = '';
   hasProfile = false;
   companyProfile: any;
   inputType: string;
@@ -69,7 +79,7 @@ export class AddCompanyProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
     private router: Router,
-    private route:ActivatedRoute,
+    private route: ActivatedRoute,
     private authService: AuthenticationService,
     private locationService: LocationService,
     private anonyService: AnonymousService
@@ -77,15 +87,14 @@ export class AddCompanyProfileComponent implements OnInit {
     this.route.data.subscribe(res => {
       let data = res.data;
       if (data.success) {
-        if(data.employer.company_profile){
-         // this.inputType = data.employer.company_profile;
-          this.companyProfile=data.employer.company_profile ;
+        if (data.employer.company_profile) {
+          // this.inputType = data.employer.company_profile;
+          this.companyProfile = data.employer.company_profile;
         }
       } else {
-        return false; 
+        return false;
       }
     });
-
   }
 
   ngOnInit() {
@@ -191,9 +200,9 @@ export class AddCompanyProfileComponent implements OnInit {
 
   fileChanged(value, name) {
     let size = value.size;
-    if(size > 5000000){
+    if (size > 5000000) {
       this.addCompanyProfileForm.controls['businessLicense'].setValue('');
-      this.addCompanyProfileForm.controls['businessLicense'].setErrors({maxSize:true})
+      this.addCompanyProfileForm.controls['businessLicense'].setErrors({ maxSize: true });
       return;
     }
     this.formData.append(name, value, value.name);
@@ -278,13 +287,12 @@ export class AddCompanyProfileComponent implements OnInit {
   onLicensePreview() {
     this.showLicensePreview = !this.showLicensePreview;
     this.success = false; // to make the notification available for the next display
-    if(this.showLicensePreview) {
+    if (this.showLicensePreview) {
       let ext = this.companyProfile.businessLicense.split('.').pop();
-      if(ext === 'pdf' || ext === 'doc' || ext === 'docx') {
+      if (ext === 'pdf' || ext === 'doc' || ext === 'docx') {
         this.isDocument = true;
         this.isImage = false;
-      }
-      else {
+      } else {
         this.isImage = true;
         this.isDocument = false;
       }
@@ -313,7 +321,7 @@ export class AddCompanyProfileComponent implements OnInit {
   get f() {
     return this.addCompanyProfileForm.controls;
   }
-  
+
   onSubmit() {
     this.submitted = true;
     if (this.addCompanyProfileForm.invalid) {
@@ -334,7 +342,7 @@ export class AddCompanyProfileComponent implements OnInit {
         this.loading = false;
         if (response.success) {
           this.success = true;
-          this.companyProfile=response.companyProfile.company_profile;
+          this.companyProfile = response.companyProfile.company_profile;
           this.authService.updateCurrentUser(response.companyProfile);
           // this.updateInputes();
         } else if (response.validationError && typeof response.validationError == 'object') {
@@ -345,6 +353,12 @@ export class AddCompanyProfileComponent implements OnInit {
           return (this.serverErrors = true);
         } else if (response.validationError) {
           this.formErrors[0] = response.validationError;
+        } else {
+          if (response.error) {
+            this.serverErrorsMessage = response.error;
+          } else {
+            console.log(response);
+          }
         }
       },
       error => {
@@ -384,25 +398,26 @@ export class AddCompanyProfileComponent implements OnInit {
           this.updateInputes();
           this.formData = new FormData();
           this.submitted = false;
-        }
-
-        else if (response.validationError && typeof response.validationError == 'object') {
+        } else if (response.validationError && typeof response.validationError == 'object') {
           this.submitted = false;
           this.formErrors = this.formErrors.slice(1);
           _.map(response.validationError, (value, key) => {
             this.formErrors.push(value);
           });
           return (this.serverErrors = true);
-        }
-        else if (response.validationError) {
+        } else if (response.validationError) {
           this.formErrors[0] = response.validationError;
           this.submitted = false;
-        }
-        else if (response.message) {
+        } else if (response.message) {
           this.formErrors[0] = 'something is wrong try again letter.';
           this.submitted = false;
+        } else {
+          if (response.error) {
+            this.serverErrorsMessage = response.error;
+          } else {
+            console.log(response);
+          }
         }
-        else { console.log(response) }
         this.loading = false;
       },
       error => {

@@ -152,6 +152,12 @@
       </div>
 
       <div *ngIf="tabs?.otherActive" class="container">
+        <mat-progress-bar
+          *ngIf="companyJobs.length == 0 && tempJobs.length == 0"
+          color="warn"
+          class="progress"
+          mode="indeterminate"
+        ></mat-progress-bar>
         <div *ngIf="companyJobs.length > 0">
           <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
             <app-job [isBookMarked]="job.saved" [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>

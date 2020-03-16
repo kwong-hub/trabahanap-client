@@ -619,6 +619,13 @@
   }
 }
 
+.progress {
+  position: fixed;
+  top: 5.5rem;
+  z-index: 1000;
+  height: 3px;
+}
+
 @media only screen and (min-width: 500px) {
   .tabs {
     &__container {
