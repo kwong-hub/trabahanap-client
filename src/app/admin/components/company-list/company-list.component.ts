@@ -135,7 +135,7 @@ export class CompanyListComponent implements OnInit {
     if (this.filtered) {
       var val = this.searchForm.value;
       this.adminService
-        .getFilterEmployers(val.companyName, val.industry,!val.verify, val.registrationDate, page.pageIndex + 1, page.pageSize)
+        .getFilterEmployers(val.companyName, val.industry,val.verify, val.registrationDate, page.pageIndex + 1, page.pageSize)
         .subscribe(data => {
           if (data) {
             this.companies = data.companies.rows;

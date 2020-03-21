@@ -63,9 +63,9 @@
       <h4 *ngIf="companyProfile" class="form__title">Your Company's Profile</h4>
     </div>
     <div class="add-company-profile">
-      <!-- <div *ngIf="(submitted && addCompanyProfileForm.invalid) || serverErrors" class="form__error">
-        <p *ngFor="let err of formErrors"><fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ err }}</p>
-      </div> -->
+      <div *ngIf="serverErrorsMessage != ''" class="form__error">
+        <p><fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ serverErrorsMessage }}</p>
+      </div>
       <div class="sub-container">
         <shared-custom-input-field
           class="input-element-type-2"
