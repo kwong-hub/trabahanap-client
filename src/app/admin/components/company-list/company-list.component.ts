@@ -87,19 +87,6 @@ export class CompanyListComponent implements OnInit {
       err => console.log(err)
     );
 
-    // this.adminService.getAllEmployers(1, this.pager ? this.pager.pageSize : 8)
-    //   .subscribe(
-    //     data => {
-    //       if (data.success) {
-    //         this.companies = data.employers.rows;
-    //         this.pager = data.employers.pager;
-    //       }
-    //       this.countotalJobs();
-    //     },
-    //     error => {
-    //       console.log(error)
-    //     }
-    //   )
   }
 
   verifyCompany(id) {
