@@ -127,7 +127,7 @@ export class CompanyListComponent implements OnInit {
           if (data) {
             this.companies = data.companies.rows;
             this.pager = data.companies.pager;
-            this.companies.length == 0 ? (this.empty = true) : (this.hasValues = true);
+            this.companies.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
             let path = this.location.path();
             if (path.indexOf('page') >= 0) {
               path = path.replace(/.$/, this.pager.currentPage.toString());
@@ -145,7 +145,7 @@ export class CompanyListComponent implements OnInit {
           if (success.success == true) {
             this.companies = success.employers.rows;
             this.pager = success.employers.pager;
-            this.companies.length == 0 ? (this.empty = true) : (this.hasValues = true);
+            this.companies.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
             let path = this.location.path();
             if (path.indexOf('page') >= 0) {
               path = path.replace(/.$/, this.pager.currentPage.toString());
@@ -175,6 +175,7 @@ export class CompanyListComponent implements OnInit {
     if (data) {
       this.companies = data.companies.rows;
       this.pager = data.companies.pager;
+      this.companies.length === 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
     }
     this.countotalJobs();
     });

@@ -93,7 +93,7 @@
       
     </div>
 
-    <div *ngIf="jobs && tabs?.detailActive" class="container" [class.lowered]="lower">
+    <div *ngIf="jobs && tabs?.detailActive" class="container">
       <div *ngIf="jobs.length > 0" style="background-color: #ddd;">
         <div (click)="tabClicked('detailActive')" *ngFor="let job of jobs">
           <app-anonymous-job

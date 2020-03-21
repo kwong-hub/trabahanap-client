@@ -1,5 +1,5 @@
 <div class="sub-module-container">
-  <h3 *ngIf="applicants.length === 0">
+  <h3 *ngIf="empty">
     <div class="not_Found">
       <span> Sorry, we didn't find any Applicants matching your criteria </span>
     </div>
@@ -83,7 +83,7 @@
 
     </div> -->
 
-    <table *ngIf="applicants.length > 0" mat-table [dataSource]="applicants" class="mat-elevation-z3">
+    <table *ngIf="hasValues" mat-table [dataSource]="applicants" class="mat-elevation-z3">
       <!-- Name Column -->
       <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef>First Name</th>
@@ -150,7 +150,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <div *ngIf="applicants.length > 0" class="paginator">
+    <div *ngIf="hasValues" class="paginator">
       <mat-paginator
         [length]="pager?.totalItems"
         [pageSize]="pager?.pageSize"

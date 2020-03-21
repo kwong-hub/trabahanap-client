@@ -95,7 +95,7 @@ export class ApplicantListComponent implements OnInit {
               this.applicants.push(apps.user);
             });
             this.pager = success.applicants.pager;
-            this.applicants.length == 0 ? (this.empty = true) : (this.hasValues = true);
+            this.applicants.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
             let path = this.location.path();
             if (path.indexOf('page') >= 0) {
               path = path.replace(/.$/, this.pager.currentPage.toString());
@@ -132,6 +132,7 @@ export class ApplicantListComponent implements OnInit {
     this.adminService.getFilterApplicants(val.name || '', val.email || '', val.registrationDate, this.page || 1, 10).subscribe(data => {
       this.applicants = data.applicants.rows;
       this.pager = data.applicants.pager;
+      this.applicants.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
     });
 
     this.filtered = true;
