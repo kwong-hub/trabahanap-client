@@ -28,7 +28,7 @@ export class AdvertisementListComponent implements OnInit {
   faCheckCircle = faCheckCircle;
   faTimesCircle = faTimesCircle;
   ads = [];
-  displayedColumns: string[] = ['title', 'image', 'adsStart', 'adsEnd', 'status', 'action'];
+  displayedColumns: string[] = ['title', 'image', 'orientation', 'adsStart', 'adsEnd', 'status', 'action'];
   public pager: any;
   public page: any;
   searchForm: FormGroup;
@@ -48,6 +48,7 @@ export class AdvertisementListComponent implements OnInit {
   ngOnInit() {}
 
   activateAds(id) {
+    // console.log(id);
     this.adminService.deactivateAds(id).subscribe(
       data => {
         this.ads.forEach(ads => {

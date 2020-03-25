@@ -324,6 +324,7 @@ export class AddCompanyProfileComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.serverErrorsMessage = '';
     if (this.addCompanyProfileForm.invalid) {
       return;
     }
@@ -339,6 +340,7 @@ export class AddCompanyProfileComponent implements OnInit {
 
     this.employerService.addCompanyProfileWithFile(this.formData).subscribe(
       response => {
+        console.log(response);
         this.loading = false;
         if (response.success) {
           this.success = true;
@@ -370,6 +372,7 @@ export class AddCompanyProfileComponent implements OnInit {
 
   onEdit() {
     this.submitted = true;
+    this.serverErrorsMessage = '';
     if (this.addCompanyProfileForm.invalid) {
       return;
     }

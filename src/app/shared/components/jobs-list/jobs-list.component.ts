@@ -12,6 +12,7 @@ import { StateService } from '@app/_services/state.service';
 import { LocationService } from '@app/_services/location.service';
 import { Location } from '@angular/common';
 import { ThrowStmt } from '@angular/compiler';
+import { AdvertisementService } from '@app/_services/advertisement.service';
 
 let capitalize = function(str) {
   return str.replace(/\w\S*/g, function(txt) {
@@ -161,6 +162,10 @@ export class JobsListComponent implements OnInit {
   compId: any;
   adsModal: boolean;
 
+  vrAdvertisements = [];
+  currentVirticalAd = '';
+  currentVirticalAdLink = '';
+
   constructor(
     private formBuilder: FormBuilder,
     private JobsService: JobService,
@@ -170,7 +175,8 @@ export class JobsListComponent implements OnInit {
     private authService: AuthenticationService,
     private stateService: StateService,
     private locationService: LocationService,
-    private location: Location
+    private location: Location,
+    private advertisementService: AdvertisementService
   ) {}
 
   ngOnInit() {
@@ -273,6 +279,20 @@ export class JobsListComponent implements OnInit {
     }
 
     this.getCities();
+    this.getAdvertisments();
+    let count = 0;
+    let x = setInterval(() => {
+      if (this.vrAdvertisements.length == 0) {
+        clearInterval(x);
+      } else {
+        if (count == this.vrAdvertisements.length) {
+          count = 0;
+        }
+        this.currentVirticalAd = this.vrAdvertisements[count].image;
+        this.currentVirticalAdLink = this.vrAdvertisements[count].websiteURL;
+        count++;
+      }
+    }, 2000);
 
     // this.scrollToPosition();
   }
@@ -556,5 +576,21 @@ export class JobsListComponent implements OnInit {
 
   getRemainingJobTitle() {
     return this.localJobTitle.slice(5);
+  }
+
+  getAdvertisments() {
+    this.advertisementService.getVertialAdvertisement().subscribe(
+      data => {
+        if (data.success) {
+          this.vrAdvertisements = data.ads;
+          console.log(this.vrAdvertisements);
+          if (this.vrAdvertisements.length) {
+            this.currentVirticalAd = this.vrAdvertisements[0].image;
+            this.currentVirticalAdLink = this.vrAdvertisements[0].websiteURL;
+          }
+        }
+      },
+      err => console.log(err)
+    );
   }
 }

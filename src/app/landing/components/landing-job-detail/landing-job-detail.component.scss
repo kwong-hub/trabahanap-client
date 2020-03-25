@@ -341,101 +341,6 @@
   font-size: 2rem;
 }
 
-@media only screen and (min-width: 400px) {
-  .details {
-    &-right {
-      .dates-container {
-        flex-direction: row;
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 800px) {
-  .container {
-    // padding: 0;
-    padding: 2.5rem 3rem;
-
-    .btn-group {
-      flex-direction: row;
-      width: 60%;
-      padding: 2rem;
-      justify-content: space-evenly;
-      margin: 0;
-
-      .save {
-        width: 45%;
-      }
-
-      .apply {
-        width: 45%;
-        margin-top: 0;
-      }
-
-      .applied {
-        width: 45%;
-        margin-top: 0;
-      }
-    }
-  }
-  .back {
-    position: absolute;
-    left: 0rem;
-    top: 0rem;
-    font-size: 2rem;
-  }
-  // .reports {
-  //   padding-left: 2rem;
-  //   color: #42597b;
-  //   white-space: nowrap;
-  //   font-size: 1.8rem;
-  //   position: absolute;
-  //   top: 0rem;
-  //   right: 2rem;
-  //   font-weight: 300;
-  //   margin: 0;
-  // }
-
-  .details {
-    flex-direction: row;
-    justify-content: space-between;
-
-    &-left {
-      width: 60%;
-
-      .tags-container {
-        justify-content: flex-start;
-      }
-    }
-
-    &-right {
-      width: 35%;
-      flex-direction: column;
-
-      .map {
-        height: 30rem;
-        margin-bottom: 1.5rem;
-        margin-top: 5rem;
-        // border-top: none;
-        // border-right: none;
-        // border-top-left-radius: 0;
-      }
-
-      .dates-container {
-        flex-direction: column;
-        // align-items: center;
-        span {
-          margin-bottom: 0.5rem;
-        }
-      }
-
-      .reports {
-        order: 0;
-      }
-    }
-  }
-}
-
 .tabs {
   &__container {
     display: flex;
@@ -575,25 +480,22 @@
 }
 
 .container {
+  display: flex;
   position: relative;
   &__left {
     width: 100%;
   }
 
   &__right {
-    width: 20%;
-    display: none;
     min-height: 90vh;
+    display: none;
+    width: 20%;
     position: absolute;
     right: -1.2rem;
+    margin-left: 2rem;
     margin: 1.5rem;
     margin-top: 0.5rem;
-    top: 6rem;
-    background-image: url('../../../../assets/img/ad-1.jpg');
-    background-repeat: no-repeat;
-    background-position: fixed;
-    background-size: 100% 100%;
-    z-index: -1;
+    top: 0rem;
   }
 }
 
@@ -602,6 +504,29 @@
   top: 5.5rem;
   z-index: 1000;
   height: 3px;
+}
+
+.advertisement {
+  &__container {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    // border: 2px solid red;
+  }
+
+  &__image {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 400px) {
+  .details {
+    &-right {
+      .dates-container {
+        flex-direction: row;
+      }
+    }
+  }
 }
 
 @media only screen and (min-width: 500px) {
@@ -618,11 +543,84 @@
 
   .container {
     &__left {
-      width: 80%;
+      width: 75%;
     }
 
     &__right {
       display: block;
+    }
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .container {
+    // padding: 0;
+
+    .btn-group {
+      flex-direction: row;
+      width: 60%;
+      padding: 2rem;
+      justify-content: space-evenly;
+      margin: 0;
+
+      .save {
+        width: 45%;
+      }
+
+      .apply {
+        width: 45%;
+        margin-top: 0;
+      }
+
+      .applied {
+        width: 45%;
+        margin-top: 0;
+      }
+    }
+  }
+  .back {
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+    font-size: 2rem;
+  }
+
+  .details {
+    flex-direction: row;
+    justify-content: space-between;
+
+    &-left {
+      width: 60%;
+
+      .tags-container {
+        justify-content: flex-start;
+      }
+    }
+
+    &-right {
+      width: 35%;
+      flex-direction: column;
+
+      .map {
+        height: 30rem;
+        margin-bottom: 1.5rem;
+        margin-top: 5rem;
+        // border-top: none;
+        // border-right: none;
+        // border-top-left-radius: 0;
+      }
+
+      .dates-container {
+        flex-direction: column;
+        // align-items: center;
+        span {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      .reports {
+        order: 0;
+      }
     }
   }
 }

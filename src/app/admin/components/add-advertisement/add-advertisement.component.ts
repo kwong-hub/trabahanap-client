@@ -71,12 +71,14 @@ export class AddAdvertisementComponent implements OnInit {
   }
 
   ngOnInit() {
+    const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.addAdsForm = this.formBuilder.group({
       title: ['', Validators.required],
       adsEnd: ['', Validators.required],
       adsStart: ['', Validators.required],
       image: ['', Validators.required],
-      websiteURL: ['', Validators.required]
+      websiteURL: ['', Validators.pattern(reg)],
+      orientation: ['', Validators.required]
     });
   }
   dateChanged(value, name) {
@@ -90,6 +92,10 @@ export class AddAdvertisementComponent implements OnInit {
   }
   fileChanged(value, name) {
     this.formData.append(name, value, value.name);
+  }
+
+  radioChange(value) {
+    this.addAdsForm.controls['orientation'].setValue(value);
   }
 
   onSubmit() {

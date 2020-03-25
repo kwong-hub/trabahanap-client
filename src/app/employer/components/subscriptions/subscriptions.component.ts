@@ -2,7 +2,7 @@ import { AuthenticationService } from './../../../_services/authentication-servi
 import { PaymentService } from './../../../_services/payment.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ThrowStmt } from '@angular/compiler';
+import { ThrowStmt, IfStmt } from '@angular/compiler';
 import { Location } from '@angular/common';
 
 @Component({
@@ -20,17 +20,26 @@ export class SubscriptionsComponent implements OnInit {
   currentUser: any;
   role: any;
   msg;
+  planTypes = [];
+  premiumTypes = [];
+  expressTypes = [];
 
   constructor(
     private route: ActivatedRoute,
     private paymentService: PaymentService,
     private authenticationService: AuthenticationService,
-    private _location: Location,
+    private _location: Location
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
     this.role = this.currentUser.role.toLowerCase();
     this.route.data.subscribe(res => {
-      console.log(res)
+      this.planTypes = res.planTypes.payment_plan_types;
+      if (this.planTypes) {
+        this.premiumTypes = this.planTypes.filter(pt => pt.type == 'PREMIUM');
+        this.expressTypes = this.planTypes.filter(pt => pt.type == 'EXPRESS');
+      }
+    });
+    this.route.data.subscribe(res => {
       if (res.data.success) {
         this.subscription = res.data.subscription;
         this.subscription.expired =
@@ -51,11 +60,10 @@ export class SubscriptionsComponent implements OnInit {
       }
     });
 
-    this.msg=this.route.snapshot.paramMap.get('data');
+    this.msg = this.route.snapshot.paramMap.get('data');
   }
 
   ngOnInit() {
-    
     //console.log(this._location.back(),'loc')
   }
 
@@ -80,11 +88,20 @@ export class SubscriptionsComponent implements OnInit {
     this.purchaseSuccess = false;
     this.paymentService.puchasePlan({ type, name }).subscribe(res => {
       if (res.success) {
-        this.msg =false;
+        this.msg = false;
         this.purchaseSuccess = true;
         this.subscription = res.subscription;
         this.upgradeActive = false;
       }
     });
   }
+
+  // changeToStringDate(days){
+  //   if(days/30 < 1) return `${days} days`;
+  //   let remDays = days%30;
+  //   let month = Math.floor(days/30);
+  //   if(days/30 < 12) return `${month > 1 ? month + " months" : month + " month"} and ${days} days`;
+  //   let year = Math.floor(days/365);
+
+  // }
 }

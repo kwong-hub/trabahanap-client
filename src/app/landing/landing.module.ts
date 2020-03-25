@@ -36,6 +36,7 @@ import { CustomNotificationComponent } from './components/custom-notification/cu
 import { HomeSectionFourComponent } from './components/home-section-four/home-section-four.component';
 import { StateService } from '@app/_services/state.service';
 import { LandingCustomSubmitComponent } from './components/landing-custom-submit/landing-custom-submit.component';
+import { AdvertisementService } from '@app/_services/advertisement.service';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,13 @@ import { LandingCustomSubmitComponent } from './components/landing-custom-submit
     MatButtonModule,
     PipesModule
   ],
-  providers: [JobDetailResolverService, SimpleJobSearchResolveService, JobService, AnonymousService, StateService]
+  providers: [
+    JobDetailResolverService,
+    SimpleJobSearchResolveService,
+    JobService,
+    AnonymousService,
+    StateService,
+    AdvertisementService
+  ]
 })
 export class LandingModule {}

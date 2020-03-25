@@ -87,19 +87,6 @@ export class CompanyListComponent implements OnInit {
       err => console.log(err)
     );
 
-    // this.adminService.getAllEmployers(1, this.pager ? this.pager.pageSize : 8)
-    //   .subscribe(
-    //     data => {
-    //       if (data.success) {
-    //         this.companies = data.employers.rows;
-    //         this.pager = data.employers.pager;
-    //       }
-    //       this.countotalJobs();
-    //     },
-    //     error => {
-    //       console.log(error)
-    //     }
-    //   )
   }
 
   verifyCompany(id) {
@@ -135,7 +122,7 @@ export class CompanyListComponent implements OnInit {
     if (this.filtered) {
       var val = this.searchForm.value;
       this.adminService
-        .getFilterEmployers(val.companyName, val.industry,!val.verify, val.registrationDate, page.pageIndex + 1, page.pageSize)
+        .getFilterEmployers(val.companyName, val.industry,val.verify, val.registrationDate, page.pageIndex + 1, page.pageSize)
         .subscribe(data => {
           if (data) {
             this.companies = data.companies.rows;

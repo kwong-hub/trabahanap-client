@@ -288,7 +288,11 @@
     </div>
   </div>
 
-  <div class="jobs__container--right"></div>
+  <a class="jobs__container--right" [href]="currentVirticalAdLink" (click)="linkClick($event)" target="_blank">
+    <div class="advertisement__container">
+      <img [src]="currentVirticalAd" alt="" class="advertisement__image" />
+    </div>
+  </a>
 </div>
 
 <div *ngIf="showMobileSearch" class="search__mobile-form">
