@@ -69,11 +69,13 @@ export class ApplicationsListComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.searchForm = this.formBuilder.group({
       query: ['', Validators.nullValidator],
       applicantName: ['', Validators.nullValidator],
       jobtitle: ['', Validators.nullValidator],
-      companyName: ['', Validators.nullValidator]
+      companyName: ['', Validators.nullValidator],
+      hired:['']
     });
 
     let elem = document.getElementsByClassName('overlay');
@@ -129,7 +131,7 @@ export class ApplicationsListComponent implements OnInit {
     } else {
       var val = this.searchForm.value;
       this.adminService
-        .getFilterApplications(val.applicantName, val.jobtitle, val.companyName, page.pageIndex + 1, page.pageSize)
+        .getFilterApplications(val.applicantName, val.jobtitle, val.companyName,val.hired, page.pageIndex + 1, page.pageSize)
         .subscribe(data => {
           this.applications = data.applications.rows;
           this.pager = data.applications.pager;
@@ -156,7 +158,7 @@ export class ApplicationsListComponent implements OnInit {
     var val = this.searchForm.value;
     this.filterHidden = true;
     this.adminService
-      .getFilterApplications(val.applicantName, val.jobtitle, val.companyName, this.page || 1, 8)
+      .getFilterApplications(val.applicantName, val.jobtitle,  val.companyName,val.hired, this.page || 1, 8)
       .subscribe(data => {
         this.applications = data.applications.rows;
         this.pager = data.applications.pager;

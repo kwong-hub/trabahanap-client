@@ -19,4 +19,7 @@ export class PaymentService {
   puchasePlan(data): Observable<any> {
     return this.http.post(`${environment.apiUrl}/employer/subscription`, data);
   }
+  getEmployerPaymentInfo(id,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/employer/subscription/company/${id}?page=${page}&pageSize=${pageSize}`);
+  }
 }

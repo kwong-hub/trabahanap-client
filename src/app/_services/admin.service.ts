@@ -32,12 +32,19 @@ export class AdminService {
       {}
     );
   }
-  confirmPayment(id): Observable<any> {
+  confirmPayment(id,name,amount): Observable<any> {
     return this.http.put<any>(
       `${environment.apiUrl}/admin/confirm/payment/${id}`,
-      {}
+      {name,amount}
     );
   }
+  payExtempt(id,name,amount): Observable<any> {
+    return this.http.put<any>(
+      `${environment.apiUrl}/admin/subscription/pay/exempt/${id}`,
+      {name,amount}
+    );
+  }
+
   getAdsbyId(id): Observable<any> {
     return this.http.get<any>(
       `${environment.apiUrl}/admin/advertisement/${id}`
@@ -75,8 +82,8 @@ export class AdminService {
     return this.http.get<any>(`${environment.apiUrl}/admin/filter/jobs?industry=${industry}&et=${employtype}&salary=${salaryRange}&search=${key}&page=${page}&pageSize=${pageSize}`);
   }
 
-  getFilterApplications(applicantName, jobtitle, companyName, page, pageSize) {
-    return this.http.get<any>(`${environment.apiUrl}/admin/filter/applications?applicant=${applicantName}&job=${jobtitle}&company=${companyName}&hired=&page=${page}&pageSize=${pageSize}`);
+  getFilterApplications(applicantName, jobtitle, companyName,hired, page, pageSize) {
+    return this.http.get<any>(`${environment.apiUrl}/admin/filter/applications?applicant=${applicantName}&job=${jobtitle}&company=${companyName}&hired=${hired}&page=${page}&pageSize=${pageSize}`);
   }
 
   getFilterEmployers(companyName, industry,verify, registrationDate, page, pageSize) {
@@ -258,12 +265,26 @@ export class AdminService {
     return this.http.get<any>(`${environment.apiUrl}/admin/subscriptions`);
   }
 
-  getEmployerPaymentInfo(id){
-    return this.http.get<any>(`${environment.apiUrl}/admin/subscription/company/${id}`);
+  getEmployerPaymentInfo(id,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/admin/subscription/company/${id}?page=${page}&pageSize=${pageSize}`);
   }
 
   getSubscriptionById(id){
     return  this.http.get<any>(`${environment.apiUrl}/admin/subscription/${id}`);
+  }
+
+  depositMoney(id,amount){
+    return this.http.post<any>(`${environment.apiUrl}/admin/subscription/deposit/${id}`,{amount})
+  }
+  getCompanyInfo(id){
+    return this,this.http.get<any>(`${environment.apiUrl}/admin/employers/${id}`)
+  }
+  getBalance(id){
+    return this.http.get<any>(`${environment.apiUrl}/admin/subscription/balance/${id}`);
+  }
+
+  payFromBalance(id){
+    return this.http.get<any>(`${environment.apiUrl}/admin/subscription/pay/${id}`);
   }
 
   // verifyUser(){

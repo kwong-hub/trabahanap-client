@@ -196,12 +196,12 @@ const routes: Routes = [
         canActivate: [AdminGuard],
         component: AddStaffComponent
       },
-      // {
-      //   path: "employers/payment/:id",
-      //   canActivate: [AdminGuard],
-      //   component: EmployerPaymentInformationComponent,
-      //   resolve: { data: AdminEmployerPaymentResolverService }
-      // },
+      {
+        path: "employers/payment/:id",
+        canActivate: [AdminGuard],
+        component: EmployerPaymentInformationComponent,
+        resolve: { data: AdminEmployerPaymentResolverService }
+      },
       {
         path: 'companies/featured',
         canActivate: [AdminGuard],
@@ -245,18 +245,18 @@ const routes: Routes = [
         canActivate: [AdminGuard],
         component: AddAdvertisementComponent
       },
-      // {
-      //   path: "payment",
-      //   canActivate: [AdminGuard],
-      //   component: PaymentListComponent,
-      //   resolve: { data: AdminPaymentListResolverService }
-      // },
-      // {
-      //   path: "payment/detail/:id",
-      //   canActivate: [AdminGuard],
-      //   component: PaymentDetailComponent,
-      //   resolve: { data: AdminPaymentDetailResolverService }
-      // },
+      {
+        path: "payment",
+        canActivate: [AdminGuard],
+        component: PaymentListComponent,
+        resolve: { data: AdminPaymentListResolverService }
+      },
+      {
+        path: "payment/detail/:id",
+        canActivate: [AdminGuard],
+        component: PaymentDetailComponent,
+        resolve: { data: AdminPaymentDetailResolverService }
+      },
       { path: "", redirectTo: "home", pathMatch: "full" }
     ]
   }
