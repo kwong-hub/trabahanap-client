@@ -10,7 +10,7 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 export class EmployerService {
-  constructor(private http: HttpClient, private authenticationService: AuthenticationService) { }
+  constructor(private http: HttpClient, private authenticationService: AuthenticationService) {}
 
   fetchDashboardCounter(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/employer/counters`);
@@ -54,13 +54,11 @@ export class EmployerService {
   }
 
   getCompanyLocationsForAdmin(companyProfileId) {
-    return this.http.get<any>(
-      `${environment.apiUrl}/admin/location/company/${companyProfileId}`
-    );
+    return this.http.get<any>(`${environment.apiUrl}/admin/location/company/${companyProfileId}`);
   }
 
   getHeadLocation() {
-    return this.http.get<any>(`${environment.apiUrl}/employer/profile/locations/heads`)
+    return this.http.get<any>(`${environment.apiUrl}/employer/profile/locations/heads`);
   }
 
   getCompanyLocationById(id): Observable<any> {
@@ -111,11 +109,15 @@ export class EmployerService {
   }
 
   getFilterJobsApplications(jobtitle, industry, position, active, page, pageSize) {
-    return this.http.get<any>(`${environment.apiUrl}/employer/filter/jobs/applications?job=${jobtitle}&industry=${industry}&position=${position}&active=${active}&page=${page}&pageSize=${pageSize}`);
+    return this.http.get<any>(
+      `${environment.apiUrl}/employer/filter/jobs/applications?job=${jobtitle}&industry=${industry}&position=${position}&active=${active}&page=${page}&pageSize=${pageSize}`
+    );
   }
 
   getFilterJobsFilteredApplications(jobtitle, industry, position, active, page, pageSize) {
-    return this.http.get<any>(`${environment.apiUrl}/employer/filter/filtered/applications?job=${jobtitle}&industry=${industry}&position=${position}&active=${active}&page=${page}&pageSize=${pageSize}`);
+    return this.http.get<any>(
+      `${environment.apiUrl}/employer/filter/filtered/applications?job=${jobtitle}&industry=${industry}&position=${position}&active=${active}&page=${page}&pageSize=${pageSize}`
+    );
   }
 
   getApplications(page) {
@@ -131,5 +133,9 @@ export class EmployerService {
     return this.http.get<any>(
       `${environment.apiUrl}/employer/filter/jobs?job=${jobtitle}&industry=${industry}&position=${position}&page=${page}&pageSize=${pageSize}`
     );
+  }
+
+  getPaymentPlanTypes() {
+    return this.http.get<any>(`${environment.apiUrl}/employer/payment_plan_types`);
   }
 }

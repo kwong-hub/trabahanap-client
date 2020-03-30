@@ -1,5 +1,4 @@
 <div class="container">
-
   <div class="form-container">
     <div class="form-container__header">
       <h3 class="header-text">Add your company's Location</h3>
@@ -110,7 +109,7 @@
             defalutValue=""
             label="Region"
             [valid]="locationForm.controls['regionId']?.status"
-            (onValueChange)="selectChanged($event, 'regionId'); citySelect.resetValue();"
+            (onValueChange)="selectChanged($event, 'regionId'); citySelect.resetValue()"
             name="regionId"
             [styleObject]="selectStyle"
             class="input-element-type-3"
@@ -155,28 +154,45 @@
 
         <!-- Form submit button -->
         <div class="form__group">
-          <app-custom-submit-button class="form__submit" [styleObject]="{btn: {width: '100%', borderRadius: '5px'}}" 
-            [loading]="loading" text="Submit" >
+          <app-custom-submit-button
+            class="form__submit"
+            [styleObject]="{ btn: { width: '100%', borderRadius: '5px' } }"
+            [loading]="loading"
+            text="Submit"
+          >
           </app-custom-submit-button>
         </div>
       </form>
-      <app-custom-notification [show]="locationAdded" type="success"
-        text="Company Location Added Successfully" callback="goBack">
+      <app-custom-notification
+        [show]="locationAdded"
+        type="success"
+        text="Company Location Added Successfully"
+        callback="goBack"
+      >
       </app-custom-notification>
-      <app-custom-notification [show]="locationError" type="error"
-        text="Find Your Location On the Map">
+      <app-custom-notification [show]="locationError" type="error" text="Find Your Location On the Map">
       </app-custom-notification>
     </div>
   </div>
 
   <div class="map-container">
-    <div *ngIf="showMap" style="height: 100%;" leaflet (leafletMapReady)="onMapReady($event)"
-      [leafletOptions]="options" [leafletLayers]="manualMarker"
-      (leafletClick)="mapClicked($event)">
+    <div
+      *ngIf="showMap"
+      style="height: 100%;"
+      leaflet
+      (leafletMapReady)="onMapReady($event)"
+      [leafletOptions]="options"
+      [leafletLayers]="manualMarker"
+      (leafletClick)="mapClicked($event)"
+    >
       <div *ngIf="locationTracked" [leafletLayer]="marker"></div>
     </div>
   </div>
-  <app-shared-confirm-model [isModalOpen]="toggleConfirmModal" headerText="Head Branch Already Exists"
+  <app-shared-confirm-model
+    [isModalOpen]="toggleConfirmModal"
+    headerText="Head Branch Already Exists"
     bodyText="There is a head branch already listed to this company. Are you sure you want to make this location a head branch?"
-    (confirmed)="confirmAction()" (cancled)="cancelAction()"></app-shared-confirm-model>
+    (confirmed)="confirmAction()"
+    (cancled)="cancelAction()"
+  ></app-shared-confirm-model>
 </div>

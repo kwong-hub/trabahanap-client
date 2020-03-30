@@ -1,4 +1,4 @@
-@import "../../assets/scss/abstracts/variables";
+@import '../../assets/scss/abstracts/variables';
 
 .content-container {
   margin-top: 6.5rem; // the height of the fixed header
@@ -21,7 +21,6 @@ div.sideBarActive {
       font-size: 2rem;
     }
     &__list {
-
       &:not(:last-child) {
         border-bottom: 1px solid rgba(#333, 0.2);
       }
@@ -41,7 +40,7 @@ div.sideBarActive {
 }
 
 .sidebar {
-  position: fixed;
+  position: absolute;
   padding-top: 1rem; //to prevent Icon overlap
   border-right: 1px solid rgba(#333, 0.2);
   height: 100%;
@@ -120,20 +119,19 @@ div.sideBarActive {
   div.sideBarActive {
     box-shadow: 2px 0 10px rgba(black, 0.2);
     z-index: 1100;
-  
+
     .sidebar {
       &__header {
         font-size: 2rem;
       }
       &__list {
-  
         &:not(:last-child) {
           border-bottom: 1px solid rgba(#333, 0.2);
         }
       }
       &__list-item {
         padding: 1rem 2rem;
-  
+
         .icons {
           padding-right: 1rem;
           margin-right: 10px;
@@ -144,9 +142,9 @@ div.sideBarActive {
       }
     }
   }
-  
+
   .sidebar {
-    position: fixed;
+    position: absolute;
     padding-top: 1rem; //to prevent Icon overlap
     border-right: 1px solid rgba(#333, 0.2);
     height: 100%;
@@ -162,7 +160,7 @@ div.sideBarActive {
       transition: all 0.2s;
       line-height: 2rem;
     }
-  
+
     &__list {
       list-style-type: none;
       border-top: 1px solid rgba(#333, 0.2);
@@ -180,7 +178,7 @@ div.sideBarActive {
       border-left: 2px solid transparent;
       border-right: 2px solid transparent;
       transition: all 0.2s;
-  
+
       .icons {
         width: 2.5rem;
         padding-right: 0;
@@ -188,13 +186,13 @@ div.sideBarActive {
         text-align: center;
         color: $color-primary;
       }
-  
+
       .names {
         color: inherit;
         transition: all 0.2s;
         font-size: 0;
       }
-  
+
       &:hover {
         border-left: 2px solid $color-secondary;
         border-right: 2px solid $color-secondary;

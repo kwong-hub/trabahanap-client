@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService } from './_services/authentication-service.service';
 import { JwtInterceptor } from './_helpers/jwt.intercepter';
 import { CustomPreloadingService } from './_services/custom-preloading.service';
+import { MatProgressBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [AppComponent],

@@ -1,3 +1,5 @@
+import { EditPlanTypeComponent } from './components/edit-plan-type/edit-plan-type.component';
+import { AddPlanTypeComponent } from './components/add-plan-type/add-plan-type.component';
 import { FeaturedCompaniesComponent } from './components/featured-companies/featured-companies.component';
 import { AddEmployerJobComponent } from './components/add-employer-job/add-employer-job.component';
 import { CountryRegionIndustryResolverService } from './../_resolvers/country-region-industry-resolver.service';
@@ -58,6 +60,9 @@ import { PaymentDetailComponent } from './components/payment-detail/payment-deta
 import { AdminPaymentDetailResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-detail-resolver.service';
 import { AdminEmployerPaymentResolverService } from '@app/_resolvers/admin-resolvers/admin-employer-payment-resolver.service';
 import { EmployerPaymentInformationComponent } from './components/employer-payment-information/employer-payment-information.component';
+import { PlanTypesComponent } from './components/plan-types/plan-types.component';
+import { PaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/payment-type-resolver.service';
+import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/edit-payment-type-resolver.service';
 
 const routes: Routes = [
   {
@@ -257,7 +262,25 @@ const routes: Routes = [
         component: PaymentDetailComponent,
         resolve: { data: AdminPaymentDetailResolverService }
       },
-      { path: "", redirectTo: "home", pathMatch: "full" }
+      {
+        path: 'plan_types',
+        canActivate: [AdminGuard],
+        component: PlanTypesComponent,
+        resolve: { data: PaymentTypeResolverService }
+      },
+      {
+        path: 'plan_types/add',
+        canActivate: [AdminGuard],
+        component: AddPlanTypeComponent
+        // resolve: { data: Add }
+      },
+      {
+        path: 'plan_types/edit/:id',
+        canActivate: [AdminGuard],
+        component: EditPlanTypeComponent,
+        resolve: { data: EditPaymentTypeResolverService }
+      },
+      { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   }
 ];

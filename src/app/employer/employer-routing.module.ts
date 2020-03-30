@@ -39,6 +39,7 @@ import { HeadLocationCheckResolverService } from '@app/_resolvers/employer-resol
 import { ApplicantDetailResolverService } from '@app/_resolvers/employer-resolvers/applicant-detail-resolver.service';
 import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
 import { SubscriptionResolverService } from '@app/_resolvers/employer-resolvers/subscription-resolver.service';
+import { PaymentTypeResolverService } from '@app/_resolvers/employer-resolvers/payment-type-resolver.service';
 
 const routes: Routes = [
   {
@@ -153,7 +154,7 @@ const routes: Routes = [
         canActivate: [EmployerGuard],
         component: SubscriptionsComponent,
         data: { name: 'subscription plan' },
-        resolve: { data: SubscriptionResolverService }
+        resolve: { data: SubscriptionResolverService, planTypes: PaymentTypeResolverService }
       },
       {
         path: 'password',

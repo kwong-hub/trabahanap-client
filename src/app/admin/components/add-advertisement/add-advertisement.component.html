@@ -1,10 +1,7 @@
 <div class="sub-module-container">
   <div class="notification notification--success" [class.active]="AdsAdded">
     <div class="notification__body">
-      <i
-        style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-        class="far fa-check-circle"
-      ></i>
+      <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
       <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
       <span class="text">Successfully added a New Ads</span>
@@ -14,13 +11,18 @@
   <div class="sub-module-container__container job">
     <div class="form-container">
       <h2 class="form__header">Add Advertisement</h2>
-      <form
-        action="#"
-        class="form"
-        [formGroup]="addAdsForm"
-        enctype="multipart/form-data"
-        (ngSubmit)="onSubmit()"
-      >
+      <form action="#" class="form" [formGroup]="addAdsForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+        <div class="form__group form__radio-group">
+          <div class="radio">
+            <input (change)="radioChange('HORIZONTAL')" id="radio-1" name="radio" type="radio" checked />
+            <label for="radio-1" class="radio-label">HORIZONTAL</label>
+          </div>
+
+          <div class="radio">
+            <input (change)="radioChange('VERTICAL')" id="radio-2" name="radio" type="radio" />
+            <label for="radio-2" class="radio-label">VERTICAL</label>
+          </div>
+        </div>
         <div class="form__group">
           <shared-custom-input-field
             defaultValue=""
@@ -31,7 +33,7 @@
             type="text"
             name="title"
             [formGroup]="addAdsForm"
-            [limit] ="defaultLimit"
+            [limit]="defaultLimit"
           >
           </shared-custom-input-field>
         </div>
@@ -72,7 +74,6 @@
             (onValueChange)="dateChanged($event, 'adsEnd')"
             type="text"
             [submitted]="submitted"
-            
           >
           </shared-custom-datepicker>
           <div class="form__group__time">
@@ -82,7 +83,6 @@
               [ngModelOptions]="{ standalone: true }"
               [(ngModel)]="times.adsEnd"
               placeholder="start date"
-              
             />
           </div>
         </div>
@@ -99,7 +99,6 @@
             name="image"
             [formGroup]="addAdsForm"
             (onValueChange)="fileChanged($event, 'image')"
-            
           >
           </shared-custom-file-input>
         </div>
@@ -111,11 +110,10 @@
             label="ads URL"
             [input]="addAdsForm.controls['websiteURL']"
             [submitted]="submitted"
-            type="text"
+            type="url"
             name="websiteURL"
             [formGroup]="addAdsForm"
-            [limit] ="defaultLimit"
-            
+            [limit]="defaultLimit"
           >
           </shared-custom-input-field>
         </div>

@@ -1,3 +1,4 @@
+import { PaymentTypeResolverService } from './../_resolvers/admin-resolvers/payment-type-resolver.service';
 import { AdminComponent } from './admin.component';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -72,6 +73,10 @@ import { PaymentDetailComponent } from './components/payment-detail/payment-deta
 import { AdminPaymentListResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-list-resolver.service';
 import { AdminPaymentDetailResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-detail-resolver.service';
 import { EmployerPaymentInformationComponent } from './components/employer-payment-information/employer-payment-information.component';
+import { PlanTypesComponent } from './components/plan-types/plan-types.component';
+import { AddPlanTypeComponent } from './components/add-plan-type/add-plan-type.component';
+import { EditPlanTypeComponent } from './components/edit-plan-type/edit-plan-type.component';
+import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/edit-payment-type-resolver.service';
 
 @NgModule({
   declarations: [
@@ -108,7 +113,10 @@ import { EmployerPaymentInformationComponent } from './components/employer-payme
     AdvertisementListComponent,
     PaymentListComponent,
     PaymentDetailComponent,
-    EmployerPaymentInformationComponent
+    EmployerPaymentInformationComponent,
+    PlanTypesComponent,
+    AddPlanTypeComponent,
+    EditPlanTypeComponent
   ],
   imports: [
     AdminRoutingModule,
@@ -148,7 +156,9 @@ import { EmployerPaymentInformationComponent } from './components/employer-payme
     ApplicationListResolverService,
     AdsListResolverService,
     AdminPaymentListResolverService,
-    AdminPaymentDetailResolverService
+    AdminPaymentDetailResolverService,
+    PaymentTypeResolverService,
+    EditPaymentTypeResolverService
   ]
 })
 export class AdminModule {}
