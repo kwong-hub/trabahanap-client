@@ -283,9 +283,7 @@ export class AdminService {
     return this.http.get<any>(`${environment.apiUrl}/admin/subscription/balance/${id}`);
   }
 
-  payFromBalance(id){
-    return this.http.get<any>(`${environment.apiUrl}/admin/subscription/pay/${id}`);
-  }
+ 
 
   // verifyUser(){
   //   return this.http.post<any>(`${environment.apiUrl}/admin/send_email`,{});

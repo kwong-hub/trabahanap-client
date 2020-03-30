@@ -99,8 +99,7 @@ export class EmployerPaymentInformationComponent implements OnInit {
         return;
     }
     this.adminService.depositMoney(this.companyId,val.amount).subscribe(data => {
-      if(data.success){
-        console.log(data)       
+      if(data.success){    
         if(this.toPaidAmount >= 0){
           this.totalBalance  = this.totalBalance;
           this.toPaidAmount = this.toPaidAmount - val.amount;
@@ -133,18 +132,6 @@ export class EmployerPaymentInformationComponent implements OnInit {
     }
   }
 
-  payAllSubscription(){
- 
-    this.adminService.payFromBalance(this.companyId).subscribe(
-      data=>
-      {
-        this.totalBalance = this.totalBalance - this.toPaidAmount;
-        this.toPaidAmount = 0;
-      
-      } 
-    )
-  }
-
   payExempt(){
     var val  = this.payForm.value;
     if(this.payForm.invalid){
@@ -167,7 +154,6 @@ export class EmployerPaymentInformationComponent implements OnInit {
     this.adminService.getEmployerPaymentInfo( this.companyId,page.pageIndex + 1, page.pageSize).subscribe(
       data => {
         if (data.success == true) {
-          console.log(data,'sdsd');
           this.subscription = data.subscriptions.subs;
           
           this.pager = data.subscriptions.pager;
