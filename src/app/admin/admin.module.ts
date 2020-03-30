@@ -77,6 +77,7 @@ import { PlanTypesComponent } from './components/plan-types/plan-types.component
 import { AddPlanTypeComponent } from './components/add-plan-type/add-plan-type.component';
 import { EditPlanTypeComponent } from './components/edit-plan-type/edit-plan-type.component';
 import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/edit-payment-type-resolver.service';
+import { EmployerPlanComponent } from './components/employer-plan/employer-plan.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/
     EmployerPaymentInformationComponent,
     PlanTypesComponent,
     AddPlanTypeComponent,
-    EditPlanTypeComponent
+    EditPlanTypeComponent,
+    EmployerPlanComponent
   ],
   imports: [
     AdminRoutingModule,

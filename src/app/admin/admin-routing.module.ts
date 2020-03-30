@@ -1,3 +1,4 @@
+import { EmployerPlanComponent } from './components/employer-plan/employer-plan.component';
 import { EditPlanTypeComponent } from './components/edit-plan-type/edit-plan-type.component';
 import { AddPlanTypeComponent } from './components/add-plan-type/add-plan-type.component';
 import { FeaturedCompaniesComponent } from './components/featured-companies/featured-companies.component';
@@ -279,6 +280,11 @@ const routes: Routes = [
         canActivate: [AdminGuard],
         component: EditPlanTypeComponent,
         resolve: { data: EditPaymentTypeResolverService }
+      },
+      {
+        path: 'add_plan',
+        canActivate: [AdminGuard],
+        component: EmployerPlanComponent
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]

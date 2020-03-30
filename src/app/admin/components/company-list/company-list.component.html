@@ -9,17 +9,35 @@
       <div class="filter__content" [class.filter__hide]="filterHidden">
         <form action="#" (ngSubmit)="filterEmployers()" class="form" [formGroup]="searchForm" autocomplete="off">
           <div class="sub-container">
-            <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="companyName"
-              defaultValue="" label="Company Name" placeholder="Search by Name"
-              [input]="searchForm.controls['companyName']" type="text" [submitted]="false" [disabled]="false"
-              [limit]="defaultLimit">
+            <shared-custom-input-field
+              class="input-element-type-2"
+              [formGroup]="searchForm"
+              name="companyName"
+              defaultValue=""
+              label="Company Name"
+              placeholder="Search by Name"
+              [input]="searchForm.controls['companyName']"
+              type="text"
+              [submitted]="false"
+              [disabled]="false"
+              [limit]="defaultLimit"
+            >
             </shared-custom-input-field>
           </div>
           <div class="sub-container">
-            <shared-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="industry"
-              defaultValue="" label="Industry Type" placeholder="Search by Industry"
-              [input]="searchForm.controls['industry']" type="text" [submitted]="false" [disabled]="false"
-              [limit]="defaultLimit">
+            <shared-custom-input-field
+              class="input-element-type-2"
+              [formGroup]="searchForm"
+              name="industry"
+              defaultValue=""
+              label="Industry Type"
+              placeholder="Search by Industry"
+              [input]="searchForm.controls['industry']"
+              type="text"
+              [submitted]="false"
+              [disabled]="false"
+              [limit]="defaultLimit"
+            >
             </shared-custom-input-field>
           </div>
 
@@ -34,22 +52,28 @@
               (onValueChange)="customValueChanged($event, 'registrationDate')"
               type="text"
               [submitted]="false"
-          ></shared-custom-datepicker>
+            ></shared-custom-datepicker>
           </div>
 
           <div class="form__group--btn">
             <div class="checkbox">
-              <input type="checkbox" formControlName="verify" name="suspended" id="pwd-checkbox"
-                class="checkbox__input" />
+              <input
+                type="checkbox"
+                formControlName="verify"
+                name="suspended"
+                id="pwd-checkbox"
+                class="checkbox__input"
+              />
               <label for="pwd-checkbox" class="checkbox__label">
                 <div class="checkbox__button"></div>
-                <span class="checkbox__text">Un-Verified
+                <span class="checkbox__text"
+                  >Un-Verified
                   <!-- <i style="margin: .5rem .5rem 0; color: #42597B" class="fab fa-accessible-icon"></i> -->
                 </span>
               </label>
             </div>
           </div>
-          
+
           <div class="form__group--btn">
             <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
           </div>
@@ -68,10 +92,20 @@
       <ng-container matColumnDef="companyLogo">
         <th mat-header-cell *matHeaderCellDef>Company Logo</th>
         <td mat-cell *matCellDef="let company">
-          <img *ngIf="company.companyLogo" style="margin: 0.5rem 0; height: 5rem; max-width: 12rem"
-            [src]="company.companyLogo" alt="" class="logo" />
-          <img *ngIf="!company.companyLogo" style="margin: 0.5rem 0; height: 5rem;" src="assets/img/building.png" alt=""
-            class="logo" />
+          <img
+            *ngIf="company.companyLogo"
+            style="margin: 0.5rem 0; height: 5rem; max-width: 12rem"
+            [src]="company.companyLogo"
+            alt=""
+            class="logo"
+          />
+          <img
+            *ngIf="!company.companyLogo"
+            style="margin: 0.5rem 0; height: 5rem;"
+            src="assets/img/building.png"
+            alt=""
+            class="logo"
+          />
         </td>
       </ng-container>
 
@@ -89,7 +123,7 @@
       <!-- Phone Number Column -->
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef>Registration Date</th>
-        <td mat-cell *matCellDef="let company">{{ company.createdAt | date: "longDate" }}</td>
+        <td mat-cell *matCellDef="let company">{{ company.createdAt | date: 'longDate' }}</td>
       </ng-container>
 
       <!-- Phone Number Column -->
@@ -104,7 +138,6 @@
           </div>
         </td>
       </ng-container>
-
       <!-- Actions Column -->
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
@@ -117,32 +150,57 @@
               <span class="company-list__icon"></span>Details
             </button>
             <button (click)="verifyCompany(company.id)" class="company-list__action company-list__action--hover">
-              <span class="company-list__icon">
-                <fa-icon [icon]="company?.verified ? faTimes : ''"></fa-icon>
-              </span>{{ company.verified ? 'Reject' : 'Verify' }}
+              <span class="company-list__icon"> <fa-icon [icon]="company?.verified ? faTimes : ''"></fa-icon> </span
+              >{{ company.verified ? 'Reject' : 'Verify' }}
             </button>
-            <button [routerLink]="['locations/', company.id]" *ngIf="company.verified"
-              class="company-list__action company-list__action--hover">
+            <button
+              [routerLink]="['locations/', company.id]"
+              *ngIf="company.verified"
+              class="company-list__action company-list__action--hover"
+            >
               <span class="company-list__icon"> </span>Locations
             </button>
-            <button [routerLink]="['jobs/', company.id]" *ngIf="company.verified && company.hasLocations"
-              class="company-list__action company-list__action--hover">
+            <button
+              [routerLink]="['jobs/', company.id]"
+              *ngIf="company.verified && company.hasLocations"
+              class="company-list__action company-list__action--hover"
+            >
               <span class="company-list__icon"> </span>Jobs
             </button>
-            <button [routerLink]="['staffs/', company.id]" *ngIf="company.verified && company.hasLocations"
-              class="company-list__action company-list__action--hover">
+            <button
+              [routerLink]="['staffs/', company.id]"
+              *ngIf="company.verified && company.hasLocations"
+              class="company-list__action company-list__action--hover"
+            >
               <span class="company-list__icon"> </span>Staff
             </button>
             <button
-            [routerLink]="['payment/', company.id]"
-            *ngIf="company.verified && company.hasLocations"
-            class="company-list__action company-list__action--hover"
-          >
-            <span class="company-list__icon"> </span> Payment
-          </button>
-            <button style="min-width: 10rem" (click)="toggleFeatured($event, company.id)" *ngIf="company.verified"
-              class="company-list__action company-list__action--hover">
+              [routerLink]="['payment/', company.id]"
+              *ngIf="company.verified && company.hasLocations"
+              class="company-list__action company-list__action--hover"
+            >
+              <span class="company-list__icon"> </span> Payment
+            </button>
+            <button
+              style="min-width: 10rem"
+              (click)="toggleFeatured($event, company.id)"
+              *ngIf="company.verified"
+              class="company-list__action company-list__action--hover"
+            ></button>
+            <button
+              style="min-width: 10rem"
+              (click)="toggleFeatured($event, company.id)"
+              *ngIf="company.verified"
+              class="company-list__action company-list__action--hover"
+            >
               {{ company.featured ? 'Remove Featured' : 'Add Featured' }}
+            </button>
+            <button
+              [routerLink]="['add_plan/', company.id]"
+              *ngIf="company.verified && company.hasLocations"
+              class="company-list__action company-list__action--hover"
+            >
+              <span class="company-list__icon"> </span>Add Plan
             </button>
             <!-- <button [routerLink]="['applicant/', company.id]" *ngIf="company.verified && company.hasLocations"
                             class="company-list__action company-list__action--hover"><span class="company-list__icon">
@@ -159,8 +217,13 @@
     </table>
 
     <div *ngIf="hasValues" class="paginator">
-      <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize" [pageSizeOptions]="[5, 8, 10, 25, 100]"
-        [pageIndex]="pager?.currentPage - 1" (page)="getServerData($event)">
+      <mat-paginator
+        [length]="pager?.totalItems"
+        [pageSize]="pager?.pageSize"
+        [pageSizeOptions]="[5, 8, 10, 25, 100]"
+        [pageIndex]="pager?.currentPage - 1"
+        (page)="getServerData($event)"
+      >
       </mat-paginator>
     </div>
   </div>
