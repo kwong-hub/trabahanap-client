@@ -201,8 +201,9 @@ export class AdminService {
     return this.http.get<any>(`${environment.apiUrl}/admin/reports`);
   }
 
-  getPaymentInfo() {
-    return this.http.get<any>(`${environment.apiUrl}/admin/subscriptions`);
+  getPaymentInfo(page,pageSize) {
+    console.log(page,pageSize)
+    return this.http.get<any>(`${environment.apiUrl}/admin/subscriptions?page=${page}&pageSize=${pageSize}`);
   }
 
   getEmployerPaymentInfo(id,page,pageSize){
