@@ -171,7 +171,7 @@ export class CandidateApplicantDetailComponent implements OnInit {
         //window.location.href = this.applicant.cv;
         window.open(
           this.applicant.cv,
-          '_blank' // <- This is what makes it open in a new window.
+          'download' // <- This is what makes it open in a new window.
         );
       } else {
         this.generatePdf();
