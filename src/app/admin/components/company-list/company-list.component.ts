@@ -211,6 +211,34 @@ export class CompanyListComponent implements OnInit {
     this.openActions[id] = !value;
   }
 
+  toggleExempt(event,id){
+    this.otherService.toggleExemptCompany(id).subscribe(
+      success => {
+        if (success.success) {
+          this.companies = this.companies.map(comp => {
+            if (comp.id == id) {
+              let newComp = { ...comp, featured: !comp.featured };
+              return newComp;
+            } else {
+              return comp;
+            }
+          });
+        } else {
+          if (success.message == 'maximum_featured_companies_reached') {
+            this.reachedMaxFeatured = true;
+            setTimeout(() => {
+              this.reachedMaxFeatured = false;
+            }, 3000);
+          }
+        }
+      },
+      err => console.log(err)
+    );
+    let value = this.openActions[id];
+    this.openActions = {};
+    this.openActions[id] = !value;
+  }
+
   customValueChanged(value, name) {
     this.searchForm.controls[name].setValue(value);
   }

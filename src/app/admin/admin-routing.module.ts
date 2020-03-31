@@ -64,6 +64,8 @@ import { EmployerPaymentInformationComponent } from './components/employer-payme
 import { PlanTypesComponent } from './components/plan-types/plan-types.component';
 import { PaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/payment-type-resolver.service';
 import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/edit-payment-type-resolver.service';
+import { ExemptedCompanyComponent } from './components/exempted-company/exempted-company.component';
+import { ExemptResolverService } from '@app/_resolvers/admin-resolvers/exempt-resolver.service';
 
 const routes: Routes = [
   {
@@ -268,6 +270,12 @@ const routes: Routes = [
         canActivate: [AdminGuard],
         component: PlanTypesComponent,
         resolve: { data: PaymentTypeResolverService }
+      },
+      {
+        path: 'exempt',
+        canActivate: [AdminGuard],
+        component: ExemptedCompanyComponent,
+        resolve: { data: ExemptResolverService }
       },
       {
         path: 'plan_types/add',

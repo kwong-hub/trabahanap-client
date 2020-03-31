@@ -202,6 +202,14 @@
             >
               <span class="company-list__icon"> </span>Add Plan
             </button>
+            <button
+              style="min-width: 10rem"
+              (click)="toggleExempt($event, company.id)"
+              *ngIf="company.verified"
+              class="company-list__action company-list__action--hover"
+            >
+              {{ company.exempt ? 'Remove Exempt' : 'Add Exempt' }}
+            </button>
             <!-- <button [routerLink]="['applicant/', company.id]" *ngIf="company.verified && company.hasLocations"
                             class="company-list__action company-list__action--hover"><span class="company-list__icon">
 

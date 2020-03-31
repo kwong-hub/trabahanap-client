@@ -78,6 +78,7 @@ import { AddPlanTypeComponent } from './components/add-plan-type/add-plan-type.c
 import { EditPlanTypeComponent } from './components/edit-plan-type/edit-plan-type.component';
 import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/edit-payment-type-resolver.service';
 import { EmployerPlanComponent } from './components/employer-plan/employer-plan.component';
+import { ExemptedCompanyComponent } from './components/exempted-company/exempted-company.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { EmployerPlanComponent } from './components/employer-plan/employer-plan.
     PlanTypesComponent,
     AddPlanTypeComponent,
     EditPlanTypeComponent,
-    EmployerPlanComponent
+    EmployerPlanComponent,
+    ExemptedCompanyComponent
   ],
   imports: [
     AdminRoutingModule,
