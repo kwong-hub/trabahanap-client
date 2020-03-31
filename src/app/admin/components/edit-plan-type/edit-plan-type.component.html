@@ -29,6 +29,16 @@
               />
               <label for="radio-2" class="radio-label">EXPRESS</label>
             </div>
+            <div class="radio">
+              <input
+                (change)="radioChange('FREE')"
+                id="radio-3"
+                name="radio"
+                type="radio"
+                [checked]="planTypeForm.controls['type'].value == 'FREE'"
+              />
+              <label for="radio-3" class="radio-label">FREE</label>
+            </div>
           </div>
           <div class="form__group">
             <shared-custom-input-field
@@ -48,8 +58,8 @@
           <div class="form__group">
             <shared-custom-input-field
               [defaultValue]="this.value"
-              [placeholder]="planTypeForm.controls['type'].value == 'PREMIUM' ? 'Value in days' : 'Value in points'"
-              [label]="planTypeForm.controls['type'].value == 'PREMIUM' ? 'Value in days' : 'Value in points'"
+              [placeholder]="planTypeForm.controls['type'].value == 'EXPRESS' ? 'Value in points' : 'Value in days'"
+              [label]="planTypeForm.controls['type'].value == 'EXPRESS' ? 'Value in points' : 'Value in days'"
               [input]="planTypeForm.controls['value']"
               [submitted]="submitted"
               type="number"
@@ -61,6 +71,7 @@
           </div>
           <div class="form__group">
             <shared-custom-input-field
+              *ngIf="planTypeForm.controls['type'].value != 'FREE'"
               [defaultValue]="this.planType.amount"
               placeholder="Price"
               label="Price"
@@ -70,6 +81,7 @@
               name="amount"
               [formGroup]="planTypeForm"
               [limit]="defaultLimit"
+              disabled
             >
             </shared-custom-input-field>
             <div class="form__group">

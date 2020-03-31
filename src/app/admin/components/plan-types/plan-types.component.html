@@ -29,7 +29,11 @@
       <ng-container matColumnDef="value">
         <th mat-header-cell *matHeaderCellDef>Value</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.type == 'PREMIUM' ? element.valueInDays + ' Days' : element.valueInPoints + ' Points' }}
+          {{
+            element.type == 'PREMIUM' || element.type == 'FREE'
+              ? element.valueInDays + ' Days'
+              : element.valueInPoints + ' Points'
+          }}
         </td>
       </ng-container>
 

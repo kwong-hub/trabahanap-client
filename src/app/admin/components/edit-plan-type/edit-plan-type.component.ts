@@ -3,7 +3,6 @@ import { AdminService } from '@app/_services/admin.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-edit-plan-type',
@@ -37,7 +36,7 @@ export class EditPlanTypeComponent implements OnInit {
       let data = res.data;
       if (data.success && data.payment_plan_type) {
         this.planType = data.payment_plan_type;
-        this.value = this.planType.type == 'PREMIUM' ? this.planType.valueInDays : this.planType.valueInPoints;
+        this.value = this.planType.type == 'EXPRESS' ? this.planType.valueInPoints : this.planType.valueInDays;
         this.planTypeForm.controls['value'].setValue(this.value);
         this.planTypeForm.controls['name'].setValue(this.planType.name);
         this.planTypeForm.controls['amount'].setValue(this.planType.amount);
@@ -55,8 +54,11 @@ export class EditPlanTypeComponent implements OnInit {
   onSubmit() {
     if (this.planTypeForm.valid) {
       this.loading = true;
+      let { type, name } = this.planTypeForm.value;
+      name = name.toUpperCase();
+      type = type.toUpperCase();
 
-      this.adminService.editPlanType({ ...this.planTypeForm.value, id: this.planType.id }).subscribe(
+      this.adminService.editPlanType({ ...this.planTypeForm.value, id: this.planType.id, name, type }).subscribe(
         data => {
           if (data.success) {
             this.loading = false;

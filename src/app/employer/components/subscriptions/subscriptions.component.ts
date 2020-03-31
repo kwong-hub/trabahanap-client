@@ -22,7 +22,7 @@ export class SubscriptionsComponent implements OnInit {
   msg;
   public pager: any;
   public page: any;
-  displayedColumns: string[] = ['type','transcactionDate','transactionFrom', 'transactionTo', 'amount'];
+  displayedColumns: string[] = ['type', 'transcactionDate', 'transactionFrom', 'transactionTo', 'amount'];
   subscriptions: any;
   planTypes = [];
   premiumTypes = [];
@@ -68,14 +68,12 @@ export class SubscriptionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.currentUser)
-    this.paymentService.getEmployerPaymentInfo(this.currentUser.companyProfileId,1,5).subscribe(
-      data =>{
-        console.log(data)
-        this.subscriptions = data.subscriptions.subs;
-        this.pager = data.subscriptions.pager
-      }
-    )
+    console.log(this.currentUser);
+    this.paymentService.getEmployerPaymentInfo(this.currentUser.companyProfileId, 1, 5).subscribe(data => {
+      console.log(data);
+      this.subscriptions = data.subscriptions.subs;
+      this.pager = data.subscriptions.pager;
+    });
     //console.log(this._location.back(),'loc')
   }
 
@@ -109,15 +107,17 @@ export class SubscriptionsComponent implements OnInit {
   }
 
   getServerData(page) {
-    this.paymentService.getEmployerPaymentInfo(this.currentUser.companyProfileId,page.pageIndex + 1, page.pageSize).subscribe(
-      data => {
-        console.log(data)
-        if (data.success == true) {
-          this.subscriptions = data.subscriptions.subs;
-          this.pager = data.subscriptions.pager;
-        }
-      },
-      err => console.log(err)
-    );
+    this.paymentService
+      .getEmployerPaymentInfo(this.currentUser.companyProfileId, page.pageIndex + 1, page.pageSize)
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data.success == true) {
+            this.subscriptions = data.subscriptions.subs;
+            this.pager = data.subscriptions.pager;
+          }
+        },
+        err => console.log(err)
+      );
   }
 }

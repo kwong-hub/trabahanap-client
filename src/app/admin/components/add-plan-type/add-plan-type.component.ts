@@ -3,6 +3,7 @@ import { AdminService } from '@app/_services/admin.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-add-plan-type',
@@ -33,14 +34,20 @@ export class AddPlanTypeComponent implements OnInit {
   }
 
   radioChange(value) {
+    if (value == 'FREE') {
+      this.planTypeForm.controls['amount'].setValue('0');
+    }
     this.planTypeForm.controls['type'].setValue(value);
   }
 
   onSubmit() {
     if (this.planTypeForm.valid) {
       this.loading = true;
+      let { type, name } = this.planTypeForm.value;
+      name = name.toUpperCase();
+      type = type.toUpperCase();
 
-      this.adminService.addPlanType(this.planTypeForm.value).subscribe(
+      this.adminService.addPlanType({ ...this.planTypeForm.value, name, type }).subscribe(
         data => {
           if (data.success) {
             this.loading = false;

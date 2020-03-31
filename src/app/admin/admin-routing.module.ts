@@ -203,7 +203,7 @@ const routes: Routes = [
         component: AddStaffComponent
       },
       {
-        path: "employers/payment/:id",
+        path: 'employers/payment/:id',
         canActivate: [AdminGuard],
         component: EmployerPaymentInformationComponent,
         resolve: { data: AdminEmployerPaymentResolverService }
@@ -252,13 +252,13 @@ const routes: Routes = [
         component: AddAdvertisementComponent
       },
       {
-        path: "payment",
+        path: 'payment',
         canActivate: [AdminGuard],
         component: PaymentListComponent,
         resolve: { data: AdminPaymentListResolverService }
       },
       {
-        path: "payment/detail/:id",
+        path: 'payment/detail/:id',
         canActivate: [AdminGuard],
         component: PaymentDetailComponent,
         resolve: { data: AdminPaymentDetailResolverService }
@@ -282,9 +282,10 @@ const routes: Routes = [
         resolve: { data: EditPaymentTypeResolverService }
       },
       {
-        path: 'add_plan',
+        path: 'employers/add_plan/:id',
         canActivate: [AdminGuard],
         component: EmployerPlanComponent
+        // resolve: { data: Add }
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
