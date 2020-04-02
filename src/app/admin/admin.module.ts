@@ -72,6 +72,8 @@ import { PaymentDetailComponent } from './components/payment-detail/payment-deta
 import { AdminPaymentListResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-list-resolver.service';
 import { AdminPaymentDetailResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-detail-resolver.service';
 import { EmployerPaymentInformationComponent } from './components/employer-payment-information/employer-payment-information.component';
+import { ApplicantReportComponent } from './components/applicant-report/applicant-report.component';
+import { EmployerReportComponent } from './components/employer-report/employer-report.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,9 @@ import { EmployerPaymentInformationComponent } from './components/employer-payme
     AdvertisementListComponent,
     PaymentListComponent,
     PaymentDetailComponent,
-    EmployerPaymentInformationComponent
+    EmployerPaymentInformationComponent,
+    ApplicantReportComponent,
+    EmployerReportComponent
   ],
   imports: [
     AdminRoutingModule,

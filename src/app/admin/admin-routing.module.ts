@@ -58,6 +58,8 @@ import { PaymentDetailComponent } from './components/payment-detail/payment-deta
 import { AdminPaymentDetailResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-detail-resolver.service';
 import { AdminEmployerPaymentResolverService } from '@app/_resolvers/admin-resolvers/admin-employer-payment-resolver.service';
 import { EmployerPaymentInformationComponent } from './components/employer-payment-information/employer-payment-information.component';
+import { ApplicantReportComponent } from './components/applicant-report/applicant-report.component';
+import { EmployerReportComponent } from './components/employer-report/employer-report.component';
 
 const routes: Routes = [
   {
@@ -69,6 +71,16 @@ const routes: Routes = [
         canActivate: [AdminGuard],
         component: HomeComponent,
         resolve: { dashRes: AdminDashboardResolverService }
+      },
+      {
+        path: 'report/applicants',
+        canActivate: [AdminGuard],
+        component: ApplicantReportComponent
+      },
+      {
+        path: 'report/employers',
+        canActivate: [AdminGuard],
+        component: EmployerReportComponent
       },
       {
         path: '',

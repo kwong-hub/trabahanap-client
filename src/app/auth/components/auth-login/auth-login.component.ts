@@ -105,6 +105,7 @@ export class AuthLoginComponent implements OnInit {
         } else {
           this.authenticationService.googleLogin(user.authToken, user.id, user, 'applicant').subscribe(
             response => {
+              console.log(response)
               if (response.success) {
                 this.authenticationService.saveSocialUser(response.user);
                 this.navigateUser(response.user.role);

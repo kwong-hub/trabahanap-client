@@ -43,6 +43,7 @@ export class AddAdminStaffComponent implements OnInit {
 
     this.adminServices.addAdminStaff(values).subscribe(
       data => {
+        console.log(data)
         if (data.success) {
           this.stafferAdded = true;
           this.router.navigate(['../'], { relativeTo: this.Route });

@@ -360,8 +360,8 @@
     color: #aa111d;
     margin-left: 2rem;
     cursor: pointer;
+    white-space: nowrap;
     transition: 0.2s all;
-
     &:active {
       transform: scale(1.05);
     }

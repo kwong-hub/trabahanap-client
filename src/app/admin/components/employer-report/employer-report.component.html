@@ -1,0 +1,26 @@
+<div class="sub-module-container">
+    <h3 class="sub-module-container__heading">Employers Report</h3>
+    <div class="sub-module-container__container">
+        <table mat-table [dataSource]="rows" class="mat-elevation-z3">
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let row">{{ row.createdAt }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="countPerDay">
+                <th mat-header-cell *matHeaderCellDef>Registrant per day</th>
+                <td mat-cell *matCellDef="let row">{{ row.count }}</td>
+              </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+      
+          <div class="paginator">
+            <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize" [pageSizeOptions]="[5, 8, 10, 25, 100]"
+              [pageIndex]="pager?.currentPage - 1" (page)="getServerData($event)">
+            </mat-paginator>
+          </div>
+    </div>
+</div>

@@ -17,6 +17,14 @@ export class AdminService {
     return this.http.get<any>(`${environment.apiUrl}/admin/counters`);
   }
 
+  fetchApplicantReport(page, pageSize): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/applicant`);
+  }
+
+  fetchEmployerReport(page, pageSize): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/employer?page=${page}&pageSize=${pageSize}`);
+  }
+
   fetchIssueCounter(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/issue-counter`);
   }

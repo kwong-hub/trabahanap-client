@@ -12,13 +12,13 @@ export class HomeComponent implements OnInit {
     value: "",
     description: "Employers",
     percent: "50%",
-    route: "employers"
+    route: "report/employers"
   };
   dashboardItem2 = {
     value: "",
     description: "Applicants",
     percent: "30%",
-    route: "applicants"
+    route: "report/applicants"
   };
   dashboardItem3 = {
     value: "",
