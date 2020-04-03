@@ -1,0 +1,132 @@
+<div class="sub-module-container">
+  <div class="notification notification--success" [class.active]="AdsAdded">
+    <div class="notification__body">
+      <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+      <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+
+      <span class="text">Successfully added a New Ads</span>
+    </div>
+  </div>
+  <h3 class="sub-module-container__heading">Advertisement</h3>
+  <div class="sub-module-container__container job">
+    <div class="form-container">
+      <h2 class="form__header">Add Advertisement</h2>
+      <form action="#" class="form" [formGroup]="addAdsForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+        <div class="form__group form__radio-group">
+          <div class="radio">
+            <input (change)="radioChange('HORIZONTAL')" id="radio-1" name="radio" type="radio" checked />
+            <label for="radio-1" class="radio-label">HORIZONTAL</label>
+          </div>
+
+          <div class="radio">
+            <input (change)="radioChange('VERTICAL')" id="radio-2" name="radio" type="radio" />
+            <label for="radio-2" class="radio-label">VERTICAL</label>
+          </div>
+        </div>
+        <div class="form__group">
+          <shared-custom-input-field
+            defaultValue=""
+            placeholder="Title"
+            label="Title"
+            [input]="addAdsForm.controls['title']"
+            [submitted]="submitted"
+            type="text"
+            name="title"
+            [formGroup]="addAdsForm"
+            [limit]="defaultLimit"
+          >
+          </shared-custom-input-field>
+        </div>
+
+        <div class="form__group form__group--selects">
+          <shared-custom-datepicker
+            class="input-element-type-1"
+            [formGroup]="addAdsForm"
+            name="adsStart"
+            placeholder="Ads Start Date"
+            label="Ads Start Date"
+            (onValueChange)="dateChanged($event, 'adsStart')"
+            type="text"
+            [submitted]="submitted"
+          >
+          </shared-custom-datepicker>
+          <div class="form__group--selects__time">
+            <input
+              [formGroup]="addAdsForm"
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="times.adsStart"
+              matInput
+              type="time"
+              placeholder="start date"
+              value="13:30"
+            />
+          </div>
+        </div>
+
+        <div class="form__group form__group--selects">
+          <shared-custom-datepicker
+            class="input-element-type-1"
+            [formGroup]="addAdsForm"
+            name="adsEnd"
+            [defaultValue]=""
+            placeholder="Ads End Date"
+            label="Ads End Date"
+            (onValueChange)="dateChanged($event, 'adsEnd')"
+            type="text"
+            [submitted]="submitted"
+          >
+          </shared-custom-datepicker>
+          <div class="form__group__time">
+            <input
+              matInput
+              type="time"
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="times.adsEnd"
+              placeholder="start date"
+            />
+          </div>
+        </div>
+
+        <div class="form__group">
+          <shared-custom-file-input
+            placeholder="Image"
+            defaultValue=""
+            label="Ads Picture"
+            [input]="addAdsForm.controls['image']"
+            [submitted]="submitted"
+            type="file"
+            accept=".png,.jpg,.jpeg,.gif"
+            name="image"
+            [formGroup]="addAdsForm"
+            (onValueChange)="fileChanged($event, 'image')"
+          >
+          </shared-custom-file-input>
+        </div>
+
+        <div class="form__group">
+          <shared-custom-input-field
+            defaultValue=""
+            placeholder="Ads URL"
+            label="ads URL"
+            [input]="addAdsForm.controls['websiteURL']"
+            [submitted]="submitted"
+            type="url"
+            name="websiteURL"
+            [formGroup]="addAdsForm"
+            [limit]="defaultLimit"
+          >
+          </shared-custom-input-field>
+        </div>
+
+        <div class="form__group">
+          <input
+            [class.disabled]="addAdsForm.invalid || loading"
+            type="submit"
+            value="Submit"
+            class="form__submit th-btn th-btn--primary"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

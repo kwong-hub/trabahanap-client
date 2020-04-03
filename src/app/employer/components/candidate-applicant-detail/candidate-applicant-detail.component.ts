@@ -38,7 +38,6 @@ export class CandidateApplicantDetailComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
-    console.log(this.currentUser);
     this.role = this.currentUser.role.toLowerCase();
     if (!this.currentUser.company_profile.exempt) {
       this.route.data.subscribe(res => {
