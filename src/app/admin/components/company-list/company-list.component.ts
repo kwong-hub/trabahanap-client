@@ -217,7 +217,7 @@ export class CompanyListComponent implements OnInit {
         if (success.success) {
           this.companies = this.companies.map(comp => {
             if (comp.id == id) {
-              let newComp = { ...comp, featured: !comp.featured };
+              let newComp = { ...comp, exempt: !comp.exempt };
               return newComp;
             } else {
               return comp;

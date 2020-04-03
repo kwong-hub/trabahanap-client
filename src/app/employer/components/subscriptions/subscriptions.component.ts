@@ -44,6 +44,7 @@ export class SubscriptionsComponent implements OnInit {
       }
     });
     this.route.data.subscribe(res => {
+      // console.log(res)
       if (res.data.success) {
         this.subscription = res.data.subscription;
         this.subscription.expired =
@@ -68,11 +69,14 @@ export class SubscriptionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.currentUser);
+    // console.log(this.currentUser);
     this.paymentService.getEmployerPaymentInfo(this.currentUser.companyProfileId, 1, 5).subscribe(data => {
-      console.log(data);
-      this.subscriptions = data.subscriptions.subs;
-      this.pager = data.subscriptions.pager;
+      // console.log(data);
+      if(data.success){
+        this.subscriptions = data.subscriptions.subs;
+        this.pager = data.subscriptions.pager;
+      }
+     
     });
     //console.log(this._location.back(),'loc')
   }
