@@ -293,7 +293,7 @@ table {
   transform: translate(-50%, 150%);
   opacity: 0;
   transition: all 0.2s ease-in-out;
-
+  background: white;
   &__header {
     padding: 1rem 2rem;
     background-image: linear-gradient(120deg, #7d1216, #ce2127);

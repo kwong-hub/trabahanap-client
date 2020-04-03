@@ -37,7 +37,7 @@ export class EmployerPlanComponent implements OnInit {
   ngOnInit() {
     this.companyProfileId = this.Route.snapshot.paramMap.get('id');
 
-    this.adminService.getPaymentPlanTypes().subscribe(
+    this.adminService.getPaymentPlanTypes(1,6).subscribe(
       data => {
         if (data.success) {
           this.categorizePlanTypes(data.payment_plan_types);

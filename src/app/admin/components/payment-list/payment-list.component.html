@@ -1,15 +1,16 @@
 <div class="sub-module-container">
-  <h3 class="sub-module-container__heading">subscriptions</h3>
+    
   <div class="form__group--btn">
     <input
       routerLink="../exempt"
       routerLinkActive="active"
       type="submit"
-      value="Exempt Companies" style="width:20rem"
+      value="Exempted Companies" style="width:20rem"
       class="th-btn th-btn--primary"
     />
   </div>
   <div class="sub-module-container__container">
+      <h3 class="sub-module-container__heading">subscriptions</h3>
     <div *ngIf="subscription.length === 0" class="noIssue">
       <h2 class="noIssue__text">No subscription yet.</h2>
       <!-- <h4 class="noLocation__text--secondary"></h4> -->

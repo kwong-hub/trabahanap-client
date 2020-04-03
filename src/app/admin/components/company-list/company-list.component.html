@@ -188,7 +188,7 @@
               *ngIf="company.verified"
               class="company-list__action company-list__action--hover"
             >
-              {{ company.featured ? 'Remove Featured' : 'Add Featured' }}
+            <span class="company-list__icon"> </span>  {{ company.featured ? 'Remove From Featured' : 'Add To Featured' }}
             </button>
             <button
               [routerLink]="['add_plan/', company.id]"
@@ -203,7 +203,7 @@
               *ngIf="company.verified"
               class="company-list__action company-list__action--hover"
             >
-            <span class="company-list__icon"> </span>   {{ company.exempt ? 'Remove Exempt' : 'Add Exempt' }}
+            <span class="company-list__icon"> </span>   {{ company.exempt ? 'Remove Exempt' : 'Add To Exempted' }}
             </button>
             <!-- <button [routerLink]="['applicant/', company.id]" *ngIf="company.verified && company.hasLocations"
                             class="company-list__action company-list__action--hover"><span class="company-list__icon">
@@ -228,6 +228,12 @@
         (page)="getServerData($event)"
       >
       </mat-paginator>
+    </div>
+
+   
+
+    <div class="footer_correct"  *ngIf="footerCorr">
+
     </div>
   </div>
 </div>

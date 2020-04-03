@@ -233,8 +233,8 @@ export class AdminService {
   //   return this.http.get<any>(`${environment.apiUrl}/admin/find_email`)
   // }
 
-  getPaymentPlanTypes() {
-    return this.http.get<any>(`${environment.apiUrl}/admin/payment_plan_types`);
+  getPaymentPlanTypes(page,pageSize) {
+    return this.http.get<any>(`${environment.apiUrl}/admin/payment_plan_types?page=${page}&pageSize=${pageSize}`);
   }
 
   getPaymentPlanType(id) {

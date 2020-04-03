@@ -120,6 +120,7 @@ export class JobsListComponent implements OnInit {
   employmentType = [
     { name: 'Part Time', value: 'Part-Time' },
     { name: 'Full Time', value: 'Full-Time' },
+    { name: 'Work From Home', value: 'Work-from-home' },
     { name: 'Project Based', value: 'Project-Based' },
     { name: 'Permanent', value: 'PERMANENT' },
     { name: 'Temporary', value: 'TEMPORARY' },

@@ -45,6 +45,7 @@ export class CompanyListComponent implements OnInit {
     pageIndex: 0,
     pageSize: 8
   };
+  footerCorr: boolean;
 
   constructor(
     private otherService: OtherService,
@@ -116,6 +117,7 @@ export class CompanyListComponent implements OnInit {
     let value = this.openActions[id];
     this.openActions = {};
     this.openActions[id] = !value;
+    this.footerCorr = !this.footerCorr;
   }
 
   getServerData(page) {

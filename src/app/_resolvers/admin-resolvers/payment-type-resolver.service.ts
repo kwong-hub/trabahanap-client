@@ -10,6 +10,6 @@ export class PaymentTypeResolverService {
   constructor(private adminService: AdminService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this.adminService.getPaymentPlanTypes();
+    return this.adminService.getPaymentPlanTypes(1,5);
   }
 }

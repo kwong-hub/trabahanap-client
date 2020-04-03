@@ -56,6 +56,14 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+    <mat-paginator
+    [length]="pager?.totalItems"
+    [pageSize]="pager?.pageSize"
+    [pageSizeOptions]="[5, 8, 10, 25, 100]"
+    [pageIndex]="pager?.currentPage - 1"
+    (page)="getServerData($event)"
+  >
+  </mat-paginator>
   </div>
 </div>
 <div class="fab" title="Add new payment plan type">
