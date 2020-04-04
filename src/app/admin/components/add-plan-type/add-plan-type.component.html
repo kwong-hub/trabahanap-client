@@ -17,10 +17,6 @@
               <input (change)="radioChange('EXPRESS')" id="radio-2" name="radio" type="radio" />
               <label for="radio-2" class="radio-label">EXPRESS</label>
             </div>
-            <div class="radio">
-              <input (change)="radioChange('FREE')" id="radio-3" name="radio" type="radio" />
-              <label for="radio-3" class="radio-label">FREE</label>
-            </div>
           </div>
           <div class="form__group">
             <shared-custom-input-field
@@ -60,7 +56,6 @@
               [submitted]="submitted"
               type="number"
               name="amount"
-              *ngIf="!(planTypeForm.controls['type'].value == 'FREE')"
               [formGroup]="planTypeForm"
               [limit]="defaultLimit"
             >
@@ -82,7 +77,7 @@
 
 <div class="notification notification--success" [class.active]="planAdded">
   <div class="notification__body">
-    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+    <i style="color: #e1a223; margin-right: 10px; font-size: 2rem; display: inline;" class="far fa-check-circle"></i>
     <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
     <span class="text">Successfully added plan type</span>
