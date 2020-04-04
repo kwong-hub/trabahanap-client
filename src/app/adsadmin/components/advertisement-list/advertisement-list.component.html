@@ -1,0 +1,97 @@
+<div class="sub-module-container">
+  <div class="overlay" [class.active]="!filterHidden"></div>
+  <div class="fab" title="Add new Advertisement">
+    <button routerLink="add" class="fab__button">
+      <fa-icon [icon]="faPlus"></fa-icon>
+    </button>
+  </div>
+  <div class="sub-module-container__container job">
+    <h3 class="sub-module-container__heading">Advertisement</h3>
+    <h3 *ngIf="ads && ads.length == 0">
+      <div class="not_Found">
+        <span> No ads posted yet </span>
+      </div>
+    </h3>
+    <table *ngIf="ads && ads.length > 0" mat-table [dataSource]="ads" class="mat-elevation-z3">
+      <!-- Name Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let ads">{{ ads.title }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef>Image</th>
+        <td mat-cell *matCellDef="let ads">
+          <img
+            style="margin: 0.5rem 0; height: 5rem; max-width: 10rem"
+            [src]="ads.image ? ads.image : 'assets/img/building.png'"
+            alt=""
+            class="logo"
+          />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="orientation">
+        <th mat-header-cell *matHeaderCellDef>Orientation</th>
+        <td mat-cell *matCellDef="let ads">{{ ads.orientation }}</td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="adsStart">
+        <th mat-header-cell *matHeaderCellDef>Ads Start Date</th>
+        <td mat-cell *matCellDef="let ads">
+          {{ ads.adsStart | date: 'medium' }}
+        </td>
+      </ng-container>
+
+      <!-- Phone Number Column -->
+      <ng-container matColumnDef="adsEnd">
+        <th mat-header-cell *matHeaderCellDef>Ads End Date</th>
+        <td mat-cell *matCellDef="let ads">
+          {{ ads.adsEnd | date: 'medium' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let ads">
+          <div *ngIf="ads.active" class="tag tag--verified">
+            <fa-icon [icon]="faCheckCircle"></fa-icon>
+          </div>
+          <div *ngIf="!ads.active" class="tag tag--unverified">
+            <fa-icon [icon]="faTimesCircle"></fa-icon>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let ads">
+          <button mat-button [matMenuTriggerFor]="menu">
+            <fa-icon style="color: tomato" [icon]="faEllipsisV"></fa-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="activateAds(ads.id)" mat-menu-item>
+              <fa-icon class="menu-icon"></fa-icon>{{ ads.active ? 'Deactivate' : 'Activate' }}
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <div *ngIf="ads.length > 0" class="paginator">
+      <mat-paginator
+        [length]="pager?.totalItems"
+        [pageSize]="pager?.pageSize"
+        [pageSizeOptions]="[5, 8, 10, 25, 100]"
+        (page)="getServerData($event)"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
