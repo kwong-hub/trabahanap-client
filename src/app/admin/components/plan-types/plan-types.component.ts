@@ -14,28 +14,15 @@ export class PlanTypesComponent implements OnInit {
   faPlus = faPlus;
   displayedColumns: string[] = ['planName', 'planType', 'value', 'price', 'action'];
   constructor(private Route: ActivatedRoute, private _location: Location,private adminService:AdminService) {}
-  pager:any;
   ngOnInit() {
     this.Route.data.subscribe(res => {
       console.log(res)
       let data = res.data;
       if (data.success && data.payment_plan_types) {
-        this.planTypes = data.payment_plan_types.rows;
-        this.pager = data.payment_plan_types.pager;
+        this.planTypes = data.payment_plan_types;
       } else {
         // this._location.back();
       }
     });
-  }
-
-  getServerData(page) {
-    this.adminService.getPaymentPlanTypes(page.pageIndex+1,page.pageSize).subscribe(
-      data=>{
-        if (data.success) {
-          this.planTypes = data.payment_plan_types.rows;
-        this.pager = data.payment_plan_types.pager;
-        }
-      }
-    )
   }
 }
