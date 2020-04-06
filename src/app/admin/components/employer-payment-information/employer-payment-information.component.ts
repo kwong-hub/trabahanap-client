@@ -24,7 +24,7 @@ export class EmployerPaymentInformationComponent implements OnInit {
   totalBalance = 0;
   toPaidAmount = 0;
   isModalVisible = false;
-  displayedColumns: string[] = ['type','transcactionDate','transactionFrom', 'transactionTo', 'amount'];
+  displayedColumns: string[] = ['type','transcactionDate','transactionFrom', 'transactionTo', 'amount','name'];
   payForm:FormGroup;
   companyId: any;
   errors: string;

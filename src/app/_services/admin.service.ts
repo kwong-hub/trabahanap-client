@@ -202,7 +202,6 @@ export class AdminService {
   }
 
   getPaymentInfo(page,pageSize) {
-    console.log(page,pageSize)
     return this.http.get<any>(`${environment.apiUrl}/admin/subscriptions?page=${page}&pageSize=${pageSize}`);
   }
 

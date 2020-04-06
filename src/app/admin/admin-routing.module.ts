@@ -262,8 +262,8 @@ const routes: Routes = [
       {
         path: 'payment/detail/:id',
         canActivate: [AdminGuard],
-        component: PaymentDetailComponent,
-        resolve: { data: AdminPaymentDetailResolverService }
+        component: EmployerPaymentInformationComponent,
+        resolve: { data: AdminEmployerPaymentResolverService }
       },
       {
         path: 'plan_types',

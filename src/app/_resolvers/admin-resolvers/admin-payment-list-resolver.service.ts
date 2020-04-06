@@ -12,6 +12,6 @@ export class AdminPaymentListResolverService {
   constructor(private adminService: AdminService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this.adminService.getPaymentInfo(1,5);
+    return this.adminService.getPaymentInfo(1,8);
   }
 }
