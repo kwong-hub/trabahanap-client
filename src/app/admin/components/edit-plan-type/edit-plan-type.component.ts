@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-edit-plan-type',
   templateUrl: './edit-plan-type.component.html',
-  styleUrls: ['./edit-plan-type.component.scss']
+  styleUrls: ['./edit-plan-type.component.scss'],
 })
 export class EditPlanTypeComponent implements OnInit {
   planTypeForm: FormGroup;
@@ -30,9 +30,9 @@ export class EditPlanTypeComponent implements OnInit {
       type: ['', Validators.required],
       name: ['', Validators.required],
       value: [0, Validators.required],
-      amount: [0, Validators.required]
+      amount: [0, Validators.required],
     });
-    this.Route.data.subscribe(res => {
+    this.Route.data.subscribe((res) => {
       let data = res.data;
       if (data.success && data.payment_plan_type) {
         this.planType = data.payment_plan_type;
@@ -59,7 +59,7 @@ export class EditPlanTypeComponent implements OnInit {
       type = type.toUpperCase();
 
       this.adminService.editPlanType({ ...this.planTypeForm.value, id: this.planType.id, name, type }).subscribe(
-        data => {
+        (data) => {
           if (data.success) {
             this.loading = false;
             this.submitted = false;
@@ -72,7 +72,7 @@ export class EditPlanTypeComponent implements OnInit {
             }, 2000);
           }
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );

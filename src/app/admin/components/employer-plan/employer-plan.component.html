@@ -1,9 +1,9 @@
 <div class="sub-module-container">
-  <h3 class="sub-module-container__heading">Add Employers Plan</h3>
+  <h3 class="sub-module-container__heading">Grant Employers Plan</h3>
   <div class="sub-module-container__container">
     <div class="form-container">
       <div class="form-container__header">
-        <h3 class="header-text">Add Plan</h3>
+        <h3 class="header-text">Grant Plan</h3>
       </div>
       <div class="form-container__body">
         <form action="#" [formGroup]="addSubscriptionForm" method="POST" class="form" (ngSubmit)="onSubmit()">
@@ -28,16 +28,6 @@
                 [checked]="addSubscriptionForm.controls['type'].value == 'EXPRESS'"
               />
               <label for="radio-2" class="radio-label">EXPRESS</label>
-            </div>
-            <div class="radio">
-              <input
-                (change)="radioChange('FREE')"
-                id="radio-3"
-                name="radio"
-                type="radio"
-                [checked]="addSubscriptionForm.controls['type'].value == 'FREE'"
-              />
-              <label for="radio-3" class="radio-label">FREE</label>
             </div>
           </div>
           <div class="form__group">

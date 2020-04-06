@@ -8,7 +8,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-add-plan-type',
   templateUrl: './add-plan-type.component.html',
-  styleUrls: ['./add-plan-type.component.scss']
+  styleUrls: ['./add-plan-type.component.scss'],
 })
 export class AddPlanTypeComponent implements OnInit {
   planTypeForm: FormGroup;
@@ -29,14 +29,11 @@ export class AddPlanTypeComponent implements OnInit {
       type: ['PREMIUM', Validators.required],
       name: ['', Validators.required],
       value: ['', Validators.required],
-      amount: ['', Validators.required]
+      amount: ['', Validators.required],
     });
   }
 
   radioChange(value) {
-    if (value == 'FREE') {
-      this.planTypeForm.controls['amount'].setValue('0');
-    }
     this.planTypeForm.controls['type'].setValue(value);
   }
 
@@ -48,7 +45,7 @@ export class AddPlanTypeComponent implements OnInit {
       type = type.toUpperCase();
 
       this.adminService.addPlanType({ ...this.planTypeForm.value, name, type }).subscribe(
-        data => {
+        (data) => {
           if (data.success) {
             this.loading = false;
             this.submitted = false;
@@ -61,7 +58,7 @@ export class AddPlanTypeComponent implements OnInit {
             }, 2000);
           }
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );

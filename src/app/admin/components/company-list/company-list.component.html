@@ -94,7 +94,7 @@
         <td mat-cell *matCellDef="let company">
           <img
             *ngIf="company.companyLogo"
-            style="margin: 0.5rem 0; height: 5rem; max-width: 12rem"
+            style="margin: 0.5rem 0; height: 5rem; max-width: 12rem;"
             [src]="company.companyLogo"
             alt=""
             class="logo"
@@ -174,30 +174,29 @@
             >
               <span class="company-list__icon"> </span>Staff
             </button>
-            
-            
             <button
-              style="min-width: 10rem"
+              style="min-width: 10rem;"
               (click)="toggleFeatured($event, company.id)"
               *ngIf="company.verified"
               class="company-list__action company-list__action--hover"
             >
-            <span class="company-list__icon"> </span>  {{ company.featured ? 'Remove From Featured' : 'Add To Featured' }}
+              <span class="company-list__icon"> </span>
+              {{ company.featured ? 'Remove From Featured' : 'Add To Featured' }}
             </button>
             <button
               [routerLink]="['add_plan/', company.id]"
               *ngIf="company.verified && company.hasLocations && !company.exempt"
               class="company-list__action company-list__action--hover"
             >
-              <span class="company-list__icon"> </span>Add Plan
+              <span class="company-list__icon"> </span>Grant Plan
             </button>
             <button
-              style="min-width: 10rem"
+              style="min-width: 10rem;"
               (click)="toggleExempt($event, company.id)"
               *ngIf="company.verified"
               class="company-list__action company-list__action--hover"
             >
-            <span class="company-list__icon"> </span>   {{ company.exempt ? 'Remove Exempt' : 'Add To Exempted' }}
+              <span class="company-list__icon"> </span> {{ company.exempt ? 'Remove Exempt' : 'Add To Exempted' }}
             </button>
             <!-- <button [routerLink]="['applicant/', company.id]" *ngIf="company.verified && company.hasLocations"
                             class="company-list__action company-list__action--hover"><span class="company-list__icon">
@@ -224,11 +223,7 @@
       </mat-paginator>
     </div>
 
-   
-
-    <div class="footer_correct"  *ngIf="footerCorr">
-
-    </div>
+    <div class="footer_correct" *ngIf="footerCorr"></div>
   </div>
 </div>
 
@@ -240,7 +235,7 @@
 
 <div class="notification notification--error" [class.active]="reachedMaxFeatured">
   <div class="notification__body">
-    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+    <i style="color: #e1a223; margin-right: 10px; font-size: 2rem; display: inline;" class="far fa-check-circle"></i>
     <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
     <span class="text">Maximum Featured Company Reached. Remove a company first.</span>
