@@ -51,8 +51,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.adminAds] },
     loadChildren: () => import('./adsadmin/adsadmin.module').then(mod => mod.AdsadminModule)
-  }
-  // { path: '**', redirectTo: 'home', pathMatch: 'full' }
+  },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

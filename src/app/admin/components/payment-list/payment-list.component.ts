@@ -15,7 +15,7 @@ import { parse } from 'querystring';
 })
 export class PaymentListComponent implements OnInit {
   subscription=[];
-  displayedColumns: string[] = ['companyName','address', 'type', 'name', 'action'];
+  displayedColumns: string[] = ['companyName','address', 'type', 'balance','purchased' ,'action'];
   pager: any;
   openActions: any={};
   faEllipsisV = faEllipsisV;

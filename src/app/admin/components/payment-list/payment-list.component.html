@@ -1,6 +1,6 @@
 <div class="sub-module-container">
   <h3 class="sub-module-container__heading">Companies</h3>    
-  <div class="form__group--btn">
+  <!-- <div class="form__group--btn">
     <input
       routerLink="../exempt"
       routerLinkActive="active"
@@ -8,7 +8,7 @@
       value="Exempted Companies" style="width:20rem"
       class="th-btn th-btn--primary"
     />
-  </div>
+  </div> -->
   <div class="sub-module-container__container">
     <div *ngIf="subscription.length === 0" class="noIssue">
       <h2 class="noIssue__text">No Companies yet.</h2>
@@ -38,17 +38,16 @@
       </ng-container>
 
       <!-- Symbol Column -->
-      <ng-container matColumnDef="name">
+      <ng-container matColumnDef="balance">
         <th mat-header-cell *matHeaderCellDef>Balance </th>
         <td mat-cell style="max-width: 35rem;" *matCellDef="let element">
           {{ element.balance }}
         </td>
       </ng-container>
-      
-
+    
       <!-- Symbol Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
+      <ng-container matColumnDef="purchased">
+        <th mat-header-cell *matHeaderCellDef>Purchased</th>
         <td mat-cell style="max-width: 35rem;" *matCellDef="let element">
           {{ element.purchased }}
         </td>
@@ -68,20 +67,20 @@
           </button>
           <div class="company-list__actions" *ngIf="openActions[element.CompanyId]" >
             <button [routerLink]="['../employers/details', element.CompanyId]" class="company-list__action company-list__action--hover">
-              <span class="company-list__icon"></span>Details
+              <span class="company-list__icon"></span>Company Detail
             </button>
          
             <button
               [routerLink]="['detail/', element.CompanyId]"
               class="company-list__action company-list__action--hover"
             >
-              <span class="company-list__icon"> </span> TRANSACTIONS
+              <span class="company-list__icon"> </span>TRANSACTIONS Detail
             </button>
             <button
               [routerLink]="['../employers/add_plan/', element.CompanyId]"
               class="company-list__action company-list__action--hover"
             >
-              <span class="company-list__icon"> </span>Add Plan
+              <span class="company-list__icon"> </span>Grant Plan
             </button>
             <!-- <button
               style="min-width: 10rem"

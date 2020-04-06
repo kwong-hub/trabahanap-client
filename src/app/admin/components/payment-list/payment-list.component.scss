@@ -4,6 +4,10 @@ table {
 .mat-column-address{
     width: 40rem;
 }
+.mat-column-type{
+    width: 12rem;
+    align-self: center;
+}
 .form__group--btn{
     display: flex;
     justify-content: flex-end;

@@ -94,8 +94,20 @@
           class="sidebar__list-item"
         >
           <i class="icons fas fa-money-check-alt"></i>
-          <span class="names">Subscriptions</span>
+          <span class="names">Payment Companies</span>
         </a>
+        <a
+        routerLink="exempt"
+        routerLinkActive="active"
+        title="Payment"
+        (click)="toggleSidebar(false)"
+        [routerLinkActiveOptions]="{ exact: false }"
+        class="sidebar__list-item"
+      >
+        <i class="icons fas fa-money-check"></i>
+        <span class="names">Exempted Companies</span>
+      </a>
+
         <!-- <a
           routerLink="plan_types"
           routerLinkActive="active"
