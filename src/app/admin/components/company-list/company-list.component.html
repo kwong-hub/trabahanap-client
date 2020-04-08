@@ -185,7 +185,7 @@
             </button>
             <button
               [routerLink]="['add_plan/', company.id]"
-              *ngIf="company.verified && company.hasLocations && !company.exempt"
+              *ngIf="company.verified && !company.exempt"
               class="company-list__action company-list__action--hover"
             >
               <span class="company-list__icon"> </span>Grant Plan

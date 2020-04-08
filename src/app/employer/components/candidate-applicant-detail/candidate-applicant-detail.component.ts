@@ -129,7 +129,16 @@ export class CandidateApplicantDetailComponent implements OnInit {
           (this.subscription.type == 'PREMIUM' || this.subscription.type == 'FREE') &&
           Date.parse(this.subscription.expirationDate) >= today
         ) {
-          this.toggleConfirmModal = true;
+          // this.toggleConfirmModal = true;
+          if (this.applicant.cv) {
+            //window.location.href = this.applicant.cv;
+            window.open(
+              this.applicant.cv,
+              'download' // <- This is what makes it open in a new window.
+            );
+          } else {
+            this.generatePdf();
+          }
         } else if (this.subscription.type == 'EXPRESS' && this.subscription.points >= 30) {
           this.toggleConfirmModal = true;
         } else {
@@ -145,13 +154,23 @@ export class CandidateApplicantDetailComponent implements OnInit {
         ]);
       }
     } else {
-      this.toggleConfirmModal = true;
+      // this.toggleConfirmModal = true;
+      if (this.applicant.cv) {
+        //window.location.href = this.applicant.cv;
+        window.open(
+          this.applicant.cv,
+          'download' // <- This is what makes it open in a new window.
+        );
+      } else {
+        this.generatePdf();
+      }
     }
   }
 
   confirmAction() {
-    this.toggleConfirmModal = false;
+
     if (!this.currentUser.company_profile.exempt) {
+      this.toggleConfirmModal = false;
       const purchased = this.paymentService.purchaseCV(this.subscription.id).subscribe(data => {
         if (data.success) {
           if (this.applicant.cv) {

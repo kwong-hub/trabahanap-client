@@ -24,13 +24,13 @@ export class EmployerPaymentInformationComponent implements OnInit {
   totalBalance = 0;
   toPaidAmount = 0;
   isModalVisible = false;
-  displayedColumns: string[] = ['type','transcactionDate','transactionFrom', 'transactionTo', 'amount','name'];
+  displayedColumns: string[] = ['type','transcactionDate','transactionTo', 'amount','name'];
   payForm:FormGroup;
   companyId: any;
   errors: string;
   isConfirmSuspend: boolean;
   deposited: boolean;
-  totalTrans: number;
+  totalTrans: number=0;
   company={};
   public pager: any;
   public page: any;
@@ -69,7 +69,10 @@ export class EmployerPaymentInformationComponent implements OnInit {
         } else{
           this.toPaidAmount = 0;
         }
-        this.totalTrans = parseInt(data.balance[0].purchased)
+        if(data.balance[0].purchased){
+          this.totalTrans = parseInt(data.balance[0].purchased)
+
+          }
       }
     })
   }
@@ -100,16 +103,22 @@ export class EmployerPaymentInformationComponent implements OnInit {
     }
     this.adminService.depositMoney(this.companyId,val.amount).subscribe(data => {
       if(data.success){    
-        if(this.toPaidAmount >= 0){
+        if(this.toPaidAmount >= 0 && this.toPaidAmount > val.amount){
           this.totalBalance  = this.totalBalance;
           this.toPaidAmount = this.toPaidAmount - val.amount;
-        }else{
+        }else if(this.toPaidAmount <=  val.amount){
+          this.toPaidAmount = 0;
+          this.totalBalance = this.totalBalance + parseInt(val.amount)
+        }
+        else{
+          console.log('this')
           this.toPaidAmount = this.toPaidAmount;
-          this.totalBalance = this.totalBalance + val.amount- this.toPaidAmount ;
+          this.totalBalance = (this.totalBalance + parseInt(val.amount)) - this.toPaidAmount ;
         }
        
         this.isModalVisible = false;
         this.deposited = true;
+        // this.router.navigate([`../`],{relativeTo:this.route});
       }
     })
    
