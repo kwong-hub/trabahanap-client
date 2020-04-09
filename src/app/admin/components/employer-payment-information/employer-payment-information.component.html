@@ -70,7 +70,7 @@
           </ng-container> -->
 
           <ng-container matColumnDef="transactionTo">
-            <th mat-header-cell *matHeaderCellDef>Current Transaction</th>
+            <th mat-header-cell *matHeaderCellDef>Transaction</th>
             <td mat-cell *matCellDef="let element">{{ element.transactionTo ? element.transactionTo : 'DEPOSIT' }}</td>
           </ng-container>
 
@@ -86,7 +86,7 @@
             <th mat-header-cell *matHeaderCellDef>Amount</th>
             <td mat-cell *matCellDef="let element">
               <!-- <a (click)="subscriptionDetail(element.id)" class="btn-outline">View</a> -->
-              {{ element.type == 'DEPOSIT' ? element.credit : element.debit }}
+              {{ element.credit > 0 ? element.credit : element.debit }}
             </td>
           </ng-container>
 

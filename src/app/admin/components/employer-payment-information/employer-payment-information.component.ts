@@ -37,6 +37,7 @@ export class EmployerPaymentInformationComponent implements OnInit {
   constructor(private adminService:AdminService,private formBuilder:FormBuilder, private Route:ActivatedRoute,private _location:Location,private route:ActivatedRoute, private router:Router) {
     this.Route.data.subscribe(res => {
       let data = res.data;
+      console.log(res.data)
       if(data.success && data.subscriptions) {
         this.subscription = data.subscriptions.subs;
         // console.log(data.subscriptions,'sd');

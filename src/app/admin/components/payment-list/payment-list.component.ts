@@ -22,7 +22,7 @@ export class PaymentListComponent implements OnInit {
   footerCorr: boolean;
   constructor(private Route:ActivatedRoute,private _location:Location,private adminService:AdminService) {
     this.Route.data.subscribe(res => {
-      console.log(res)
+      // console.log(res)
       let data = res.data;
       if(data.success && data.subscriptions) {
         this.subscription = data.subscriptions.subscriptions;
