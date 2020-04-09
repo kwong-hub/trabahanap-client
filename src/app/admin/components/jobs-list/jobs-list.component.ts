@@ -86,6 +86,10 @@ export class JobsListComponent implements OnInit {
     });
   }
 
+  linkClick(event) {
+    event.stopPropagation();
+  }
+
   toggleActions($evnet, id) {
     $evnet.stopPropagation();
     this.openActions[id] = !this.openActions[id];

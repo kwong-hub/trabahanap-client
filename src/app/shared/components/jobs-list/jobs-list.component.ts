@@ -488,7 +488,9 @@ export class JobsListComponent implements OnInit {
     // this.stateService.pushJobs({ rows: this.jobs, pager: this.pager });
     window.onscroll = null;
   }
-
+  linkClick(event) {
+    event.stopPropagation();
+  }
   showMoreOptionsChange(value) {
     this.showMoreOptions[value] = !this.showMoreOptions[value];
   }

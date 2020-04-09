@@ -97,7 +97,9 @@ export class EmployerPlanComponent implements OnInit {
         });
     }
   }
-
+  goBack(){
+    this._location.back();
+  }
   selectChanged(value) {
     this.addSubscriptionForm.controls['name'].setValue(value);
   }

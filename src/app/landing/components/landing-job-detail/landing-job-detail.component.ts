@@ -188,6 +188,10 @@ export class LandingJobDetailComponent implements OnInit {
     this._location.back();
   }
 
+  linkClick(event) {
+    event.stopPropagation();
+  }
+  
   tabClicked(tab) {
     this.tabs = {};
     this.tabs[tab] = true;

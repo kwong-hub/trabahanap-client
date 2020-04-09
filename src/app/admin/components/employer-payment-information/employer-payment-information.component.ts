@@ -31,7 +31,7 @@ export class EmployerPaymentInformationComponent implements OnInit {
   isConfirmSuspend: boolean;
   deposited: boolean;
   totalTrans: number=0;
-  company={};
+  company:any;
   public pager: any;
   public page: any;
   constructor(private adminService:AdminService,private formBuilder:FormBuilder, private Route:ActivatedRoute,private _location:Location,private route:ActivatedRoute, private router:Router) {

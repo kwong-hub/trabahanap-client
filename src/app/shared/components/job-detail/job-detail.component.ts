@@ -155,6 +155,10 @@ export class JobDetailComponent implements OnInit {
     );
   }
 
+  linkClick(event) {
+    event.stopPropagation();
+  }
+  
   bookmarkJob(jobId) {
     let auth = this.authService.currentUserValue;
 

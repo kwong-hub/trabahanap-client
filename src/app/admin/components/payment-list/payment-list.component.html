@@ -11,7 +11,7 @@
   </div> -->
   <div class="sub-module-container__container">
     <div *ngIf="subscription.length === 0" class="noIssue">
-      <h2 class="noIssue__text">No Companies yet.</h2>
+      <h2 class="not_Found">No Companies yet.</h2>
       <!-- <h4 class="noLocation__text--secondary"></h4> -->
     </div>
     <table
@@ -103,7 +103,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <mat-paginator
+    <mat-paginator  *ngIf="subscription && subscription.length > 0"
       [length]="pager?.totalItems"
       [pageSize]="pager?.pageSize"
       [pageSizeOptions]="[5, 8, 10, 25, 100]"
