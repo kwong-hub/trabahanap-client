@@ -18,11 +18,19 @@ export class AdminService {
   }
 
   fetchApplicantReport(page, pageSize): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/admin/report/applicant`);
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/applicant?page=${page}&pageSize=${pageSize}`);
   }
 
   fetchEmployerReport(page, pageSize): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/report/employer?page=${page}&pageSize=${pageSize}`);
+  }
+  
+  filterApplicantReport(dateRange, page, pageSize) {
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/filter/applicant?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&page=${page}&pageSize=${pageSize}`);
+  }
+
+  filterEmployerReport(dateRange, page, pageSize) {
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/filter/employer?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&page=${page}&pageSize=${pageSize}`);
   }
 
   fetchIssueCounter(): Observable<any> {
@@ -90,9 +98,11 @@ export class AdminService {
   getFilterEmployers(companyName, industry,verify, registrationDate, page, pageSize) {
     return this.http.get<any>(`${environment.apiUrl}/admin/filter/employers?companyName=${companyName}&industry=${industry}&verify=${verify}&registrationDate=${registrationDate}&page=${page}&pageSize=${pageSize}`);
   }
+
   getFilterApplicants(name, email, registrationDate, page, pageSize) {
     return this.http.get<any>(`${environment.apiUrl}/admin/filter/applicants?name=${name}&email=${email}&registrationDate=${registrationDate}&page=${page}&pageSize=${pageSize}`);
   }
+
   getCompanyLocation(page, pageSize, id): Observable<any> {
     return this.http.get<any>(
       `${environment.apiUrl}/admin/location/${id}?page=${page}&pageSize=${pageSize}`

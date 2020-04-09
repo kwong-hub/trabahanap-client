@@ -74,7 +74,7 @@ import { AdminPaymentDetailResolverService } from '@app/_resolvers/admin-resolve
 import { EmployerPaymentInformationComponent } from './components/employer-payment-information/employer-payment-information.component';
 import { ApplicantReportComponent } from './components/applicant-report/applicant-report.component';
 import { EmployerReportComponent } from './components/employer-report/employer-report.component';
-
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -130,7 +130,8 @@ import { EmployerReportComponent } from './components/employer-report/employer-r
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    NgxDaterangepickerMd.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

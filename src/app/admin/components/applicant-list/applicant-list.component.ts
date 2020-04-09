@@ -88,15 +88,19 @@ export class ApplicantListComponent implements OnInit {
   getServerData(page) {
     if (!this.filtered) {
       this.adminService.getAllApplicants(page.pageIndex + 1, page.pageSize).subscribe(
-        success => {
+        data => {
           this.applicants = [];
-          if (success.success == true) {
-            success.applicants.rows.forEach(apps => {
-              this.applicants.push(apps.user);
-            });
-            this.pager = success.applicants.pager;
+          if (data.success == true) {
+            console.log(data.applicants)
+            // data.applicants.rows.forEach(apps => {
+            //   this.applicants.push(apps.user);
+            // });
+            this.applicants = data.applicants.rows;
+            this.pager = data.applicants.pager;
             this.applicants.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
             let path = this.location.path();
+      // console.log(this.applicants)
+
             if (path.indexOf('page') >= 0) {
               path = path.replace(/.$/, this.pager.currentPage.toString());
               this.location.go(path);

@@ -131,9 +131,12 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let applicant">
-          <button mat-button [matMenuTriggerFor]="menu">
+          <button *ngIf="applicant.hasFinishedProfile" mat-button [matMenuTriggerFor]="menu">
             <fa-icon style="color: tomato" [icon]="faEllipsisV"></fa-icon>
           </button>
+
+          <span class="no-profile" *ngIf="!applicant.hasFinishedProfile">No Profile</span>
+          
           <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['details/', applicant?.id]">
               <fa-icon class="menu-icon" [icon]="faArrowCircleRight"></fa-icon>

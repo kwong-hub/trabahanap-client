@@ -1,21 +1,75 @@
 <div class="sub-module-container">
     <h3 class="sub-module-container__heading">Applicants Report</h3>
     <div class="sub-module-container__container">
-        <table mat-table [dataSource]="rows" class="mat-elevation-z3">
+      <div class="filter-container">
+        <input type="text" ngxDaterangepickerMd [(ngModel)]="selected"
+          [alwaysShowCalendars]="true" [ranges]="ranges" class="date-range-input"
+          [locale]="{format: 'YYYY-MM-DD', displayFormat: 'MMM DD, YYYY'}" [showClearButton]="true"
+          [keepCalendarOpeningWithRange]="true" [minDate]="minDate" [maxDate]="maxDate"
+          (datesUpdated)="onDatesUpdated($event)" placeholder="Select Date Range..." />
+      </div>
 
-            <!-- Name Column -->
-            <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef>Date</th>
-              <td mat-cell *matCellDef="let row">{{ row.createdAt }}</td>
-            </ng-container>
+      <table mat-table [dataSource]="rows" class="mat-elevation-z3">
 
-            <ng-container matColumnDef="countPerDay">
-                <th mat-header-cell *matHeaderCellDef>Registrant per day</th>
-                <td mat-cell *matCellDef="let row">{{ row.count }}</td>
-              </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-          </table>
+          <!-- Name Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let row">{{ row.datefield }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="viaGoogle">
+            <th mat-header-cell *matHeaderCellDef>Google Registrations</th>
+            <td mat-cell *matCellDef="let row">{{ row.googles }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="viaFacebook">
+            <th mat-header-cell *matHeaderCellDef>Facebook Registrations</th>
+            <td mat-cell *matCellDef="let row">{{ row.facebooks }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="viaNormal">
+            <th mat-header-cell *matHeaderCellDef>Normal Registrations</th>
+            <td mat-cell *matCellDef="let row">{{ row.normals }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="registrationPerDay">
+            <th mat-header-cell *matHeaderCellDef>Daily Registrations</th>
+            <td mat-cell *matCellDef="let row">{{ row.dailyRegistrations }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="subTotal">
+            <th mat-header-cell *matHeaderCellDef>Total Registrations</th>
+            <td mat-cell *matCellDef="let row">{{ row.subTotal }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="logins">
+            <th mat-header-cell *matHeaderCellDef>Daily Logins</th>
+            <td mat-cell *matCellDef="let row">{{ row.dailyLogins }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="activeUsers">
+            <th mat-header-cell *matHeaderCellDef>Active Users</th>
+            <td mat-cell *matCellDef="let row">{{ row.activeUsers }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="returningUsers">
+            <th mat-header-cell *matHeaderCellDef>Returning Users</th>
+            <td mat-cell *matCellDef="let row">{{ row.returningUsers }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="applicationsPerDay">
+            <th mat-header-cell *matHeaderCellDef>Daily Applications</th>
+            <td mat-cell *matCellDef="let row">{{ row.dailyApplications }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="applicantsPerDay">
+            <th mat-header-cell *matHeaderCellDef>Daily Applicants</th>
+            <td mat-cell *matCellDef="let row">{{ row.dailyUniqueApplicants }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
       
           <div class="paginator">
             <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize" [pageSizeOptions]="[5, 8, 10, 25, 100]"
