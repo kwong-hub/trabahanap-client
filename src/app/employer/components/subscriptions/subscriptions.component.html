@@ -110,6 +110,14 @@
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="name">
+          <th class="th_hide" mat-header-cell *matHeaderCellDef>Transaction Made By</th>
+          <td class="th_hide" mat-cell *matCellDef="let element">
+            <!-- <a (click)="subscriptionDetail(element.id)" class="btn-outline">View</a> -->
+            {{ element.name }}
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>

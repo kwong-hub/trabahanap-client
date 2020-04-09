@@ -22,7 +22,7 @@ export class SubscriptionsComponent implements OnInit {
   msg;
   public pager: any;
   public page: any;
-  displayedColumns: string[] = ['type', 'transcactionDate', 'transactionTo', 'amount'];
+  displayedColumns: string[] = ['type', 'transcactionDate', 'transactionTo', 'amount','name'];
   subscriptions: any;
   planTypes = [];
   premiumTypes = [];
