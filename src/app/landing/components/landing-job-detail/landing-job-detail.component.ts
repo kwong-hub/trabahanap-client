@@ -20,6 +20,7 @@ import { JobService } from '@app/_services/jobs.service';
 import { Role } from '@app/_models/Role';
 import { Location } from '@angular/common';
 import { Job } from '@app/_models/Job';
+import { AdvertisementService } from '@app/_services/advertisement.service';
 
 @Component({
   selector: 'app-landing-job-detail',
@@ -58,8 +59,12 @@ export class LandingJobDetailComponent implements OnInit {
   bookmarked: boolean;
   userRole: string;
   lower: boolean;
-  applyBtn = {btn: {borderRadius: '5px', width: '100%', height: '5rem', padding: '0 6rem', marginTop: '1rem'}}
+  applyBtn = { btn: { borderRadius: '5px', width: '100%', height: '5rem', padding: '0 6rem', marginTop: '1rem' } };
   loading: boolean;
+
+  vrAdvertisements = [];
+  currentVirticalAd = '';
+  currentVirticalAdLink = '';
   // imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
 
   constructor(
@@ -69,7 +74,8 @@ export class LandingJobDetailComponent implements OnInit {
     private applicantService: ApplicantService,
     private jobService: JobService,
     private _location: Location,
-    private anonymousService: AnonymousService
+    private anonymousService: AnonymousService,
+    private advertisementService: AdvertisementService
   ) {
     let currentUser = this.authService.currentUserValue;
     currentUser ? (this.userRole = currentUser.role) : (this.userRole = '');
@@ -84,6 +90,22 @@ export class LandingJobDetailComponent implements OnInit {
     this.tabClicked('detailActive');
     // give a margin to the container only in anonymous view
     this.lower = !this.router.url.includes('applicant');
+
+    this.getAdvertisments();
+
+    let count = 0;
+    let x = setInterval(() => {
+      if (this.vrAdvertisements.length == 0) {
+        clearInterval(x);
+      } else {
+        if (count == this.vrAdvertisements.length) {
+          count = 0;
+        }
+        this.currentVirticalAd = this.vrAdvertisements[count].image;
+        this.currentVirticalAdLink = this.vrAdvertisements[count].websiteURL;
+        count++;
+      }
+    }, 2000);
   }
 
   ngOnInit() {
@@ -185,6 +207,21 @@ export class LandingJobDetailComponent implements OnInit {
 
         if (this.companyJobs.length == 0) {
           this.loadJobsForNoResults();
+        }
+      },
+      err => console.log(err)
+    );
+  }
+
+  getAdvertisments() {
+    this.advertisementService.getVertialAdvertisement().subscribe(
+      data => {
+        if (data.success) {
+          this.vrAdvertisements = data.ads;
+          if (this.vrAdvertisements.length) {
+            this.currentVirticalAd = this.vrAdvertisements[0].image;
+            this.currentVirticalAdLink = this.vrAdvertisements[0].websiteURL;
+          }
         }
       },
       err => console.log(err)

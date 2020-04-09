@@ -1,3 +1,4 @@
+import { AdvertisementService } from './../../../_services/advertisement.service';
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Job } from '@app/_models/Job';
@@ -106,6 +107,9 @@ export class AnonymousJobsListComponent implements OnInit {
   employmentTypeValue = '';
   queryValue = '';
   locationValue = '';
+  vrAdvertisements = [];
+  currentVirticalAd = '';
+  currentVirticalAdLink = '';
 
   showMoreOptions = {
     showMoreLocation: false,
@@ -119,6 +123,7 @@ export class AnonymousJobsListComponent implements OnInit {
   employmentType = [
     { name: 'Part Time', value: 'Part-Time' },
     { name: 'Full Time', value: 'Full-Time' },
+    { name: 'Work From Home', value: 'Work-from-home' },
     { name: 'Project Based', value: 'Project-Based' },
     { name: 'Permanent', value: 'PERMANENT' },
     { name: 'Temporary', value: 'TEMPORARY' },
@@ -170,7 +175,8 @@ export class AnonymousJobsListComponent implements OnInit {
     private authService: AuthenticationService,
     private stateService: StateService,
     private locationService: LocationService,
-    private location: Location
+    private location: Location,
+    private advertisementService: AdvertisementService
   ) {}
 
   ngOnInit() {
@@ -273,7 +279,30 @@ export class AnonymousJobsListComponent implements OnInit {
 
     this.getCities();
 
+    this.getAdvertisments();
+
+    let count = 0;
+    let x = setInterval(() => {
+      if (this.vrAdvertisements.length == 0) {
+        clearInterval(x);
+      } else {
+        if (count == this.vrAdvertisements.length) {
+          count = 0;
+        }
+        this.currentVirticalAd = this.vrAdvertisements[count].image;
+        this.currentVirticalAdLink = this.vrAdvertisements[count].websiteURL;
+        count++;
+      }
+    }, 2000);
     // this.scrollToPosition();
+  }
+
+  getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  linkClick(event) {
+    event.stopPropagation();
   }
 
   fetchCities(term: string): void {
@@ -555,5 +584,20 @@ export class AnonymousJobsListComponent implements OnInit {
 
   getRemainingJobTitle() {
     return this.localJobTitle.slice(5);
+  }
+
+  getAdvertisments() {
+    this.advertisementService.getVertialAdvertisement().subscribe(
+      data => {
+        if (data.success) {
+          this.vrAdvertisements = data.ads;
+          if (this.vrAdvertisements.length) {
+            this.currentVirticalAd = this.vrAdvertisements[0].image;
+            this.currentVirticalAdLink = this.vrAdvertisements[0].websiteURL;
+          }
+        }
+      },
+      err => console.log(err)
+    );
   }
 }

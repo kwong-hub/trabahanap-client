@@ -1,65 +1,115 @@
 <div class="sub-module-container">
-    <h3 class="sub-module-container__heading">subscriptions</h3>
-    <div class="sub-module-container__container">
-      <div *ngIf="subscription.length === 0" class="noIssue">
-        <h2 class="noIssue__text">No subscription yet.</h2>
-        <!-- <h4 class="noLocation__text--secondary"></h4> -->
-      </div>
-
-     
-  
-      <table
-        *ngIf="subscription && subscription.length > 0"
-        style="min-width: 95rem;"
-        mat-table
-        [dataSource]="subscription"
-        class="mat-elevation-z4"
-      >
-        <ng-container matColumnDef="companyName">
-          <th mat-header-cell *matHeaderCellDef>Company Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.application_user.company.companyName }}</td>
-        </ng-container>
-  
-        <!-- Weight Column -->
-        <ng-container matColumnDef="transactionFrom">
-          <th mat-header-cell *matHeaderCellDef>Transaction From</th>
-          <td mat-cell *matCellDef="let element">{{ element.transactionFrom }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="transactionTo">
-            <th mat-header-cell *matHeaderCellDef>Transaction Trom</th>
-            <td mat-cell *matCellDef="let element">{{ element.transactionTo }}</td>
-          </ng-container>
-  
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Purchased By.</th>
-          <td mat-cell style="max-width: 35rem;" *matCellDef="let element">
-            {{
-                element.application_user.user.firstName +
-                " " +
-                element.application_user.user.lastName
-            }}
-          </td>
-        </ng-container>
-  
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef>Email</th>
-          <td mat-cell style="max-width: 35rem;" *matCellDef="let element">
-            {{ element.applicant_profile.user.email }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef>Detials</th>
-          <td mat-cell *matCellDef="let element">
-            <a [routerLink]="['detail', element.id]" class="btn-outline">View</a>
-          </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
+  <h3 class="sub-module-container__heading">Companies</h3>    
+  <!-- <div class="form__group--btn">
+    <input
+      routerLink="../exempt"
+      routerLinkActive="active"
+      type="submit"
+      value="Exempted Companies" style="width:20rem"
+      class="th-btn th-btn--primary"
+    />
+  </div> -->
+  <div class="sub-module-container__container">
+    <div *ngIf="subscription.length === 0" class="noIssue">
+      <h2 class="noIssue__text">No Companies yet.</h2>
+      <!-- <h4 class="noLocation__text--secondary"></h4> -->
     </div>
+    <table
+      *ngIf="subscription && subscription.length > 0"
+      style="min-width: 95rem;"
+      mat-table
+      [dataSource]="subscription"
+      class="mat-elevation-z2"
+    >
+      <ng-container matColumnDef="companyName">
+        <th mat-header-cell *matHeaderCellDef>Company Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.companyName }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef>Address</th>
+        <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="balance">
+        <th mat-header-cell *matHeaderCellDef>Balance </th>
+        <td mat-cell style="max-width: 35rem;" *matCellDef="let element">
+          {{ element.balance }}
+        </td>
+      </ng-container>
+    
+      <!-- Symbol Column -->
+      <!-- <ng-container matColumnDef="purchased">
+        <th mat-header-cell *matHeaderCellDef>Purchased</th>
+        <td mat-cell style="max-width: 35rem;" *matCellDef="let element">
+          {{ element.purchased }}
+        </td>
+      </ng-container> -->
+      <!-- <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Detials</th>
+        <td mat-cell *matCellDef="let element">
+          <a [routerLink]="['detail', element.id]" class="btn-outline">View</a>
+        </td>
+      </ng-container> -->
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td style="min-width: 16rem;" class="company-list__actions-container" mat-cell *matCellDef="let element">
+          <button (click)="toggleActions($event, element.CompanyId)" class="company-list__action">
+            <fa-icon [icon]="faEllipsisV"></fa-icon>
+          </button>
+          <div class="company-list__actions" *ngIf="openActions[element.CompanyId]" >
+            <button [routerLink]="['../employers/details', element.CompanyId]" class="company-list__action company-list__action--hover">
+              <span class="company-list__icon"></span>Company Detail
+            </button>
+         
+            <button
+              [routerLink]="['detail/', element.CompanyId]"
+              class="company-list__action company-list__action--hover"
+            >
+              <span class="company-list__icon"> </span>TRANSACTIONS Detail
+            </button>
+            <button
+              [routerLink]="['../employers/add_plan/', element.CompanyId]"
+              class="company-list__action company-list__action--hover"
+            >
+              <span class="company-list__icon"> </span>Grant Plan
+            </button>
+            <!-- <button
+              style="min-width: 10rem"
+              (click)="toggleExempt($event, element.CompanyId)"
+              class="company-list__action company-list__action--hover"
+            >
+            <span class="company-list__icon"> </span>   {{ company.exempt ? 'Remove Exempt' : 'Add To Exempted' }}
+            </button> -->
+            <!-- <button [routerLink]="['applicant/', company.id]" *ngIf="company.verified && company.hasLocations"
+                            class="company-list__action company-list__action--hover"><span class="company-list__icon">
+
+                            </span>Applicants</button> -->
+          </div>
+          <!-- <div (click)="verifyCompany(company.id)" class="btn-outline verify">Verify</div> -->
+          <!-- <a [routerLink]="['/applicant/applications/details', job.id]" class="btn-outline">View</a> -->
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [length]="pager?.totalItems"
+      [pageSize]="pager?.pageSize"
+      [pageSizeOptions]="[5, 8, 10, 25, 100]"
+      [pageIndex]="pager?.currentPage - 1"
+      (page)="getServerData($event)"
+    >
+    </mat-paginator>
   </div>
-  
+</div>

@@ -59,6 +59,7 @@ import { IndustryAndLocationResolverService } from '@app/_services/industry-and-
 import { AddStafferFormComponent } from './components/add-staffer-form/add-staffer-form.component';
 import { PaymentService } from '@app/_services/payment.service';
 import { SubscriptionResolverService } from '@app/_resolvers/employer-resolvers/subscription-resolver.service';
+import { PaymentTypeResolverService } from '@app/_resolvers/employer-resolvers/payment-type-resolver.service';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { SubscriptionResolverService } from '@app/_resolvers/employer-resolvers/
     IssueDetailResolverService,
     IndustryAndLocationResolverService,
     PaymentService,
-    SubscriptionResolverService
+    SubscriptionResolverService,
+    PaymentTypeResolverService
   ]
 })
 export class EmployerModule {}

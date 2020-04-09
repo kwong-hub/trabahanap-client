@@ -39,6 +39,7 @@ import { HeadLocationCheckResolverService } from '@app/_resolvers/employer-resol
 import { ApplicantDetailResolverService } from '@app/_resolvers/employer-resolvers/applicant-detail-resolver.service';
 import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
 import { SubscriptionResolverService } from '@app/_resolvers/employer-resolvers/subscription-resolver.service';
+import { PaymentTypeResolverService } from '@app/_resolvers/employer-resolvers/payment-type-resolver.service';
 
 const routes: Routes = [
   {
@@ -105,13 +106,15 @@ const routes: Routes = [
         path: 'candidates/job/:jobId/applicant/:applicantId',
         canActivate: [EmployerGuard],
         component: CandidateApplicantDetailComponent,
-        data: { name: 'View Applicant Detail' }
+        data: { name: 'View Applicant Detail' },
+        resolve: { subs: ApplicantDetailResolverService }
       },
       {
         path: 'filtered_candidates/job/:jobId/applicant/:applicantId',
         canActivate: [EmployerGuard],
         component: FilteredCandidateApplicantDetailComponent,
-        data: { name: 'View Filtered Applicant Detail' }
+        data: { name: 'View Filtered Applicant Detail' },
+        resolve: { subs: ApplicantDetailResolverService }
       },
       {
         path: 'branches',
@@ -146,13 +149,13 @@ const routes: Routes = [
         component: IssueDetailsComponent,
         resolve: { data: IssueDetailResolverService }
       },
-      // {
-      //   path: 'plan',
-      //   canActivate: [EmployerGuard],
-      //   component: SubscriptionsComponent,
-      //   data: { name: 'subscription plan' },
-      //   resolve: { data: SubscriptionResolverService }
-      // },
+      {
+        path: 'plan',
+        canActivate: [EmployerGuard],
+        component: SubscriptionsComponent,
+        data: { name: 'subscription plan' },
+        resolve: { data: SubscriptionResolverService, planTypes: PaymentTypeResolverService }
+      },
       {
         path: 'password',
         canActivate: [EmployerGuard],

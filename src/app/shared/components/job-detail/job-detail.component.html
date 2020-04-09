@@ -131,8 +131,13 @@
           <!-- <button *ngIf="!job.applied" (click)="apply(job.id)" class="apply th-btn th-btn--primary">
             MAG-APPLY
           </button> -->
-          <app-custom-submit-button *ngIf="!job.applied" text="MAG-APPLY" [loading]="loading"
-            (click)="apply(job.id)" [styleObject]="applyBtn"></app-custom-submit-button>
+          <app-custom-submit-button
+            *ngIf="!job.applied"
+            text="MAG-APPLY"
+            [loading]="loading"
+            (click)="apply(job.id)"
+            [styleObject]="applyBtn"
+          ></app-custom-submit-button>
           <!-- If already applied, show this button -->
         </div>
 
@@ -152,6 +157,12 @@
       </div>
 
       <div *ngIf="tabs?.otherActive" class="container">
+        <mat-progress-bar
+          *ngIf="companyJobs.length == 0 && tempJobs.length == 0"
+          color="warn"
+          class="progress"
+          mode="indeterminate"
+        ></mat-progress-bar>
         <div *ngIf="companyJobs.length > 0">
           <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
             <app-job [isBookMarked]="job.saved" [Job]="job" [showSave]="true" [showCompLogo]="false"></app-job>
@@ -173,7 +184,11 @@
       </div>
     </div>
   </div>
-  <div class="main-container__right"></div>
+  <a class="main-container__right" [href]="currentVirticalAdLink" (click)="linkClick($event)" target="_blank">
+    <div class="advertisement__container">
+      <img [src]="currentVirticalAd" alt="" class="advertisement__image" />
+    </div>
+  </a>
 </div>
 
 <!-- <div *ngIf="job.applied || !(userRole === 'APPLICANT' || userRole === '')" class="btn-group">

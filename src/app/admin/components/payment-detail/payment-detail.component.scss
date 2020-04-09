@@ -1,24 +1,110 @@
+
+.overlay {
+  position: fixed;
+  top: 9rem;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  // transition: all .2s;
+}
+.overlay.active {
+  z-index: 5;
+  background-color: rgba(black, 0.5);
+}
+
+
+.payment-form {
+  position: fixed;
+  top: 25%;
+  width: 50%;
+  height: 50%;
+  z-index: -1;
+  left:25%;
+
+  display: none;
+
+  .form-group{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    // align-items: center;
+    margin: 2rem 4rem;
+    padding-top: 2rem;
+   
+   
+
+    .header{
+      font-size: 2.5rem;
+      color: #444;
+      font-weight: 700;
+      display: flex;
+      justify-content: flex-start;
+      // align-items: center;
+      flex-direction: column;
+      z-index: -1;
+      .sub_title{
+        font-size: 1.5rem;
+        color: #999;
+      }
+
+      .error{
+        color: red;
+        font-size: 1.3rem;
+      }
+    } 
+  
+    .body{
+      padding-top: 1rem;
+      width: 80%;
+  
+    }
+  }
+
+}
+.payment-form.active{
+  z-index: 10;
+  background: white;
+  display: block
+}
+
+
 .container {
-    padding: 2rem;
-    margin: 2rem;
-    border: 1px solid rgba(black, 0.2);
-    border-radius: 5px;
+    // padding: 2rem;
+    // margin: 2rem;
+    margin: 0 2rem;
   }
   
   .subscription {
+    border: 1px solid rgba(black, 0.2);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    box-shadow: 1px 1px 2px #ddd;
+    &__header-1 {
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+      .name-1 {
+        color: #42597b;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-left: 2rem;
+        text-transform: uppercase;
+      }
+    }
     &__header {
       display: flex;
       position: relative;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-  
+      padding-top: 1rem;
       .img {
         height: 8rem;
       }
-  
+     
       .name {
         color: #42597b;
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: 700;
         margin-left: 2rem;
         text-transform: uppercase;

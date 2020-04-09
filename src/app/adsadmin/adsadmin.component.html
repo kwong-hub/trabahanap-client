@@ -1,0 +1,57 @@
+<div class="main-container">
+  <admin-header [isChecked]="sideBarActive" (signout)="logout()" (toggleBox)="toggleSidebar($event)"></admin-header>
+  <mat-progress-bar *ngIf="routing" class="progress" color="warn" mode="indeterminate"></mat-progress-bar>
+  <div class="content-container">
+    <div class="sidebar" [class.sideBarActive]="sideBarActive">
+      <h3 class="sidebar__header">Main</h3>
+      <div class="sidebar__list">
+        <a
+          routerLink="home"
+          routerLinkActive="active"
+          title="Dashboard"
+          (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="sidebar__list-item"
+        >
+          <i class="icons fas fa-home"></i> <span class="names">Dashboard</span>
+        </a>
+
+        <a
+          routerLink="ads"
+          routerLinkActive="active"
+          title="Advertisement"
+          (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="sidebar__list-item"
+        >
+          <i class="icons fas fa-ad"></i>
+          <span class="names">Advertisement</span>
+        </a>
+      </div>
+
+      <h3 class="sidebar__header">Account</h3>
+
+      <div class="sidebar__list">
+        <a
+          routerLink="password"
+          routerLinkActive="active"
+          title="Change Password"
+          (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="sidebar__list-item"
+        >
+          <i class="icons fas fa-key"></i>
+          <span class="names">Change password</span>
+        </a>
+        <a (click)="logout()" class="sidebar__list-item" title="Logout">
+          <i class="icons fas fa-sign-out-alt"></i>
+          <span class="names">Logout</span>
+        </a>
+      </div>
+    </div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <shared-footer></shared-footer>
+</div>

@@ -48,15 +48,15 @@
     <div class="applicant-detail__bottom">
       <div class="applicant-detail__download">
         Download Applicant CV
-        <a  (click)="generatePdf()" *ngIf="!applicant?.cv" class="applicant-detail__download-cv"
+        <a  (click)="checkSubscription()" class="applicant-detail__download-cv"
         ><i class="fas fa-download"></i></a>
-        <a *ngIf="applicant?.cv" [href]='applicant.cv'  target="_blank" class="applicant-detail__download-cv"
+        <!-- <a  *ngIf="applicant?.cv" [href]='applicant.cv'  target="_blank" class="applicant-detail__download-cv"
           ><i class="fas fa-download"></i
-        ></a>
+        ></a> -->
       </div>
     </div>
   </div>
   <app-shared-confirm-model [isModalOpen]="toggleConfirmModal" headerText="Payment Confirmations"
-  bodyText="Are you sure you want to make this payment to download cv?"
+  bodyText="Are you sure you want to make this payment to download cv? 30pt will be deduct from "
   (confirmed)="confirmAction()" (cancled)="cancelAction()"></app-shared-confirm-model> 
 </div>

@@ -1,3 +1,4 @@
+import { PaymentTypeResolverService } from './../_resolvers/admin-resolvers/payment-type-resolver.service';
 import { AdminComponent } from './admin.component';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -75,6 +76,13 @@ import { EmployerPaymentInformationComponent } from './components/employer-payme
 import { ApplicantReportComponent } from './components/applicant-report/applicant-report.component';
 import { EmployerReportComponent } from './components/employer-report/employer-report.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { PlanTypesComponent } from './components/plan-types/plan-types.component';
+import { AddPlanTypeComponent } from './components/add-plan-type/add-plan-type.component';
+import { EditPlanTypeComponent } from './components/edit-plan-type/edit-plan-type.component';
+import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/edit-payment-type-resolver.service';
+import { EmployerPlanComponent } from './components/employer-plan/employer-plan.component';
+import { ExemptedCompanyComponent } from './components/exempted-company/exempted-company.component';
+
 @NgModule({
   declarations: [
     AdminComponent,
@@ -112,7 +120,12 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     PaymentDetailComponent,
     EmployerPaymentInformationComponent,
     ApplicantReportComponent,
-    EmployerReportComponent
+    EmployerReportComponent,
+    PlanTypesComponent,
+    AddPlanTypeComponent,
+    EditPlanTypeComponent,
+    EmployerPlanComponent,
+    ExemptedCompanyComponent
   ],
   imports: [
     AdminRoutingModule,
@@ -153,7 +166,9 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     ApplicationListResolverService,
     AdsListResolverService,
     AdminPaymentListResolverService,
-    AdminPaymentDetailResolverService
+    AdminPaymentDetailResolverService,
+    PaymentTypeResolverService,
+    EditPaymentTypeResolverService
   ]
 })
 export class AdminModule {}

@@ -280,7 +280,7 @@
             </div>
           </div>
           <div #anchor *ngIf="!reachedPageEnd && belowScroll && !(jobs && jobs.length == 0)">
-            <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
+            <!-- <app-anonymous-job-skeleton></app-anonymous-job-skeleton> -->
             <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
           </div>
         </div>
@@ -288,7 +288,11 @@
     </div>
   </div>
 
-  <div class="jobs__container--right"></div>
+  <a [href]="currentVirticalAdLink" (click)="linkClick($event)" target="_blank" class="jobs__container--right">
+    <div class="advertisement__container">
+      <img [src]="currentVirticalAd" alt="" class="advertisement__image" />
+    </div>
+  </a>
 </div>
 
 <div *ngIf="showMobileSearch" class="search__mobile-form">

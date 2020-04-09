@@ -46,6 +46,12 @@ const routes: Routes = [
     data: { roles: [Role.adminStaff] },
     loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
   },
+  {
+    path: 'adminads',
+    canActivate: [AuthGuard],
+    data: { roles: [Role.adminAds] },
+    loadChildren: () => import('./adsadmin/adsadmin.module').then(mod => mod.AdsadminModule)
+  },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 

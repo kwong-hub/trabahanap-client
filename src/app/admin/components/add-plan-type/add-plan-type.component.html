@@ -1,0 +1,85 @@
+<div class="sub-module-container">
+  <h3 class="sub-module-container__heading">Add Plan Type</h3>
+  <div class="sub-module-container__container">
+    <div class="form-container">
+      <div class="form-container__header">
+        <h3 class="header-text">New Payment Plan Type</h3>
+      </div>
+      <div class="form-container__body">
+        <form action="#" [formGroup]="planTypeForm" method="POST" class="form" (ngSubmit)="onSubmit()">
+          <div class="form__group form__radio-group">
+            <div class="radio">
+              <input (change)="radioChange('PREMIUM')" id="radio-1" name="radio" type="radio" checked />
+              <label for="radio-1" class="radio-label">PREMIUM</label>
+            </div>
+
+            <div class="radio">
+              <input (change)="radioChange('EXPRESS')" id="radio-2" name="radio" type="radio" />
+              <label for="radio-2" class="radio-label">EXPRESS</label>
+            </div>
+          </div>
+          <div class="form__group">
+            <shared-custom-input-field
+              defaultValue=""
+              placeholder="Plan Name"
+              label="Plan Name"
+              [input]="planTypeForm.controls['name']"
+              [submitted]="submitted"
+              type="text"
+              name="name"
+              [formGroup]="planTypeForm"
+              [limit]="defaultLimit"
+            >
+            </shared-custom-input-field>
+          </div>
+
+          <div class="form__group">
+            <shared-custom-input-field
+              defaultValue=""
+              [placeholder]="planTypeForm.controls['type'].value == 'EXPRESS' ? 'Value in points' : 'Value in days'"
+              [label]="planTypeForm.controls['type'].value == 'EXPRESS' ? 'Value in points' : 'Value in days'"
+              [input]="planTypeForm.controls['value']"
+              [submitted]="submitted"
+              type="number"
+              name="value"
+              [formGroup]="planTypeForm"
+              [limit]="defaultLimit"
+            >
+            </shared-custom-input-field>
+          </div>
+          <div class="form__group">
+            <shared-custom-input-field
+              [defaultValue]=""
+              placeholder="Price"
+              label="Price"
+              [input]="planTypeForm.controls['amount']"
+              [submitted]="submitted"
+              type="number"
+              name="amount"
+              [formGroup]="planTypeForm"
+              [limit]="defaultLimit"
+            >
+            </shared-custom-input-field>
+            <div class="form__group">
+              <input
+                [class.disabled]="planTypeForm.invalid || loading"
+                type="submit"
+                value="Submit"
+                class="form__submit th-btn th-btn--primary"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="notification notification--success" [class.active]="planAdded">
+  <div class="notification__body">
+    <i style="color: #e1a223; margin-right: 10px; font-size: 2rem; display: inline;" class="far fa-check-circle"></i>
+    <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
+
+    <span class="text">Successfully added plan type</span>
+  </div>
+</div>

@@ -1,3 +1,101 @@
 table {
     width: 100%;
 }
+.mat-column-address{
+    width: 40rem;
+}
+.mat-column-type{
+    width: 12rem;
+    align-self: center;
+}
+.form__group--btn{
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+}
+.header{
+    color: #777;
+    text-transform: uppercase;
+    padding: 1rem;
+}
+.company-list {
+    &__pagination {
+      // width: 80%;
+      display: flex;
+      justify-content: flex-end;
+      margin: 2rem 0;
+    }
+  
+    &__pagination-element {
+      padding: 0.5rem 2.5rem;
+      border: 1px solid grey;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0px 3px;
+      text-decoration: none;
+      color: #333;
+  
+      &:active {
+        text-decoration: none;
+      }
+      &--active {
+        border: 1px solid tomato;
+      }
+    }
+  
+    &__hide {
+      display: none;
+    }
+  
+    &__action {
+      display: flex;
+      border: none;
+      background-color: #fff;
+      color: tomato;
+      outline: none;
+      padding: 0.5rem 1rem;
+      width: 100%;
+      height: 100%;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-size: 1.3rem;
+  
+      &:active {
+        transform: scale(1.02);
+      }
+    }
+  
+    &__action--hover {
+      &:hover {
+        background-color: #eee;
+      }
+    }
+  
+    &__actions-container {
+      position: relative;
+      cursor: pointer;
+      padding: 1rem 2rem;
+      width: auto;
+    }
+  
+    &__actions {
+      position: absolute;
+      top: 70%;
+      // right: 30%;
+      left: -1rem;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      box-shadow: 0px 0px 2px #888;
+    }
+  
+    &__icon {
+      margin-right: 0.5rem;
+      width: 2rem;
+      display: flex;
+    }
+  }

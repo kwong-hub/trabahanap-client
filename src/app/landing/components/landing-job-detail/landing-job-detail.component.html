@@ -1,5 +1,5 @@
-<div class="contianer">
-  <div class="container__left" style="position: relative; margin-top: 10rem; padding: 1rem;">
+<div class="container">
+  <div class="container__left">
     <div class="company_summary__container">
       <img
         [src]="job?.company_profile.companyLogo ? job?.company_profile.companyLogo : 'assets/img/building.png'"
@@ -126,8 +126,13 @@
         <!-- <button *ngIf="!job.applied" (click)="apply(job.id)" class="apply th-btn th-btn--primary">
           MAG-APPLY
         </button> -->
-        <landing-custom-submit *ngIf="!job.applied" text="MAG-APPLY" [loading]="loading"
-            (click)="apply(job.id)" [styleObject]="applyBtn"></landing-custom-submit>
+        <landing-custom-submit
+          *ngIf="!job.applied"
+          text="MAG-APPLY"
+          [loading]="loading"
+          (click)="apply(job.id)"
+          [styleObject]="applyBtn"
+        ></landing-custom-submit>
         <!-- If already applied, show this button -->
       </div>
 
@@ -146,7 +151,13 @@
       </div>
     </div>
 
-    <div *ngIf="tabs?.otherActive" class="container">
+    <div *ngIf="tabs?.otherActive" class="container" style="position: relative">
+      <mat-progress-bar
+        *ngIf="companyJobs.length == 0 && tempJobs.length == 0"
+        color="warn"
+        class="progress"
+        mode="indeterminate"
+      ></mat-progress-bar>
       <div *ngIf="companyJobs.length > 0" style="background-color: #ddd;">
         <div (click)="tabClicked('detailActive')" *ngFor="let job of companyJobs">
           <app-anonymous-job
@@ -177,7 +188,11 @@
       </button>
     </div>
   </div>
-  <div class="container__right"></div>
+  <a class="container__right" [href]="currentVirticalAdLink" (click)="linkClick($event)" target="_blank">
+    <div class="advertisement__container">
+      <img [src]="currentVirticalAd" alt="" class="advertisement__image" />
+    </div>
+  </a>
 </div>
 
 <!-- <div *ngIf="job.applied || !(userRole === 'APPLICANT' || userRole === '')" class="btn-group">

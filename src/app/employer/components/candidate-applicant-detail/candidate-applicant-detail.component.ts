@@ -39,20 +39,22 @@ export class CandidateApplicantDetailComponent implements OnInit {
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
     this.role = this.currentUser.role.toLowerCase();
-    // this.route.data.subscribe(res => {
-    //   let subscriptons = res.subs;
-    //   if (subscriptons.success && res.subs.subscription) {
-    //     this.subscription = subscriptons.subscription;
-    //   } else {
-    //     this.router.navigate([`/${this.role}/plan`, { data: "Please buy one of the subscriptions plan to start downloading applicant profile." }]);
-    //   }
-    // });
-
+    if (!this.currentUser.company_profile.exempt) {
+      this.route.data.subscribe(res => {
+        let subscriptons = res.subs;
+        if (subscriptons.success && res.subs.subscription) {
+          this.subscription = subscriptons.subscription;
+        } else {
+          this.router.navigate([
+            `/${this.role}/plan`,
+            { data: 'Please buy one of the subscriptions plan to start downloading applicant profile.' }
+          ]);
+        }
+      });
+    }
   }
 
   ngOnInit() {
-
-
     this.route.paramMap.subscribe(
       success => {
         this.jobId = success.get('jobId');
@@ -121,24 +123,55 @@ export class CandidateApplicantDetailComponent implements OnInit {
 
   checkSubscription() {
     let today = Date.now();
-    if (this.subscription) {
-      if (this.subscription.type == "PREMIUM" && Date.parse(this.subscription.expirationDate) >= today) {
-        this.toggleConfirmModal = true;
-      } else if (this.subscription.type == "EXPRESS" && this.subscription.points >= 30) {
-        this.toggleConfirmModal = true;
-
+    if (!this.currentUser.company_profile.exempt) {
+      if (this.subscription) {
+        if (
+          (this.subscription.type == 'PREMIUM' || this.subscription.type == 'FREE') &&
+          Date.parse(this.subscription.expirationDate) >= today
+        ) {
+          // this.toggleConfirmModal = true;
+          if (this.applicant.cv) {
+            //window.location.href = this.applicant.cv;
+            window.open(
+              this.applicant.cv,
+              'download' // <- This is what makes it open in a new window.
+            );
+          } else {
+            this.generatePdf();
+          }
+        } else if (this.subscription.type == 'EXPRESS' && this.subscription.points >= 30) {
+          this.toggleConfirmModal = true;
+        } else {
+          this.router.navigate([
+            `/${this.role}/plan`,
+            { data: 'Please Upgrade your subscriptions plan to start downloading applicant profile.' }
+          ]);
+        }
       } else {
-        this.router.navigate([`/${this.role}/plan`, { data: "Please Upgrade your subscriptions plan to start downloading applicant profile." }]);
+        this.router.navigate([
+          `/${this.role}/plan`,
+          { data: 'Please Upgrade your subscriptions plan to start downloading applicant profile.' }
+        ]);
       }
     } else {
-      this.router.navigate([`/${this.role}/plan`, { data: "Please Upgrade your subscriptions plan to start downloading applicant profile." }]);
+      // this.toggleConfirmModal = true;
+      if (this.applicant.cv) {
+        //window.location.href = this.applicant.cv;
+        window.open(
+          this.applicant.cv,
+          'download' // <- This is what makes it open in a new window.
+        );
+      } else {
+        this.generatePdf();
+      }
     }
   }
 
   confirmAction() {
-    this.toggleConfirmModal = false;
-    const purchased = this.paymentService.purchaseCV(this.subscription.id).subscribe(
-      data => {
+
+    if (!this.currentUser.company_profile.exempt) {
+      this.toggleConfirmModal = false;
+      const purchased = this.paymentService.purchaseCV(this.subscription.id).subscribe(data => {
         if (data.success) {
           if (this.applicant.cv) {
             //window.location.href = this.applicant.cv;
@@ -149,11 +182,19 @@ export class CandidateApplicantDetailComponent implements OnInit {
           } else {
             this.generatePdf();
           }
-
         }
+      });
+    } else {
+      if (this.applicant.cv) {
+        //window.location.href = this.applicant.cv;
+        window.open(
+          this.applicant.cv,
+          'download' // <- This is what makes it open in a new window.
+        );
+      } else {
+        this.generatePdf();
       }
-    );
-
+    }
   }
 
   cancelAction() {

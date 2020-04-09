@@ -18,11 +18,9 @@
       </div>
       <div (click)="onUpgradeClick($event)" class="th-btn th-btn--primary current_subscription__upgrade">Upgrade</div>
     </div>
-    <h4 class="subscription__msg" *ngIf="msg && upgradeActive" > {{ msg }}</h4>
-      
-    <div *ngIf="upgradeActive" class="subscription__type_options">
+    <h4 class="subscription__msg" *ngIf="msg && upgradeActive">{{ msg }}</h4>
 
-      
+    <div *ngIf="upgradeActive" class="subscription__type_options">
       <div
         (click)="premiumClicked($event)"
         class="subscription__type"
@@ -30,108 +28,42 @@
       >
         Premium
       </div>
-      <div
-        (click)="expressClicked($event)"
-        class="subscription__type"
-        [class.subscription__type--active]="expressActive"
-      >
+      <div (click)="expressClicked($event)" class="subscription__type"
+        [class.subscription__type--active]="expressActive">
         Express
       </div>
     </div>
     <div style="width: 100%" *ngIf="upgradeActive">
       <div *ngIf="expressActive" class="subscription__container">
-        <div class="current_subscription__container">
+        <div *ngFor="let planType of expressTypes" class="current_subscription__container">
           <div class="current_subscription__header">Plan Type</div>
-          <div class="current_subscription__type">Express</div>
-          <div class="current_subscription__name">BRONZE</div>
+          <div class="current_subscription__type">{{ planType.type }}</div>
+          <div class="current_subscription__name">{{ planType.name }}</div>
           <div class="current_subscription__price">
-            50 <span class="current_subscription__currency-type">&#8369;</span>
+            {{ planType.amount }} <span class="current_subscription__currency-type">&#8369;</span>
           </div>
-          <div class="current_subscription__value">300 points</div>
-          <div (click)="purchasePlan('EXPRESS', 'BRONZE')" class="th-btn th-btn--primary current_subscription__upgrade">
-            Purchase
-          </div>
-        </div>
-        <div class="current_subscription__container">
-          <div class="current_subscription__header">Plan Type</div>
-          <div class="current_subscription__type">Express</div>
-          <div class="current_subscription__name">SILVER</div>
-          <div class="current_subscription__price">
-            100 <span class="current_subscription__currency-type">&#8369;</span>
-          </div>
-          <div class="current_subscription__value">500 points</div>
-          <div (click)="purchasePlan('EXPRESS', 'SILVER')" class="th-btn th-btn--primary current_subscription__upgrade">
-            Purchase
-          </div>
-        </div>
-        <div class="current_subscription__container">
-          <div class="current_subscription__header">Plan Type</div>
-          <div class="current_subscription__type">Express</div>
-          <div class="current_subscription__name">GOLD</div>
-          <div class="current_subscription__price">
-            150 <span class="current_subscription__currency-type">&#8369;</span>
-          </div>
-          <div class="current_subscription__value">1000 points</div>
-          <div (click)="purchasePlan('EXPRESS', 'GOLD')" class="th-btn th-btn--primary current_subscription__upgrade">
+          <div class="current_subscription__value">{{ planType.valueInPoints }} points</div>
+          <div
+            (click)="purchasePlan(planType.type, planType.name)"
+            class="th-btn th-btn--primary current_subscription__upgrade"
+          >
             Purchase
           </div>
         </div>
       </div>
       <div *ngIf="premiumActive" class="subscription__container">
-        <div class="current_subscription__container">
+        <div *ngFor="let planType of premiumTypes" class="current_subscription__container">
           <div class="current_subscription__header">Plan Type</div>
-          <div class="current_subscription__type current_subscription__type--premium">Premium</div>
-          <div class="current_subscription__name">Monthly</div>
+          <div class="current_subscription__type current_subscription__type--premium">{{ planType.type }}</div>
+          <div class="current_subscription__name">{{ planType.name }}</div>
           <div class="current_subscription__price">
-            200 <span class="current_subscription__currency-type">&#8369;</span>
+            {{ planType.amount }} <span class="current_subscription__currency-type">&#8369;</span>
           </div>
-          <div class="current_subscription__value">Unlimited CV Download for 1 Month</div>
+          <div class="current_subscription__value">Unlimited CV Download for {{ planType.valueInDays }} days</div>
           <div
-            (click)="purchasePlan('PREMIUM', 'MONTHLY')"
+            (click)="purchasePlan(planType.type, planType.name)"
             class="th-btn th-btn--primary current_subscription__upgrade"
           >
-            Purchase
-          </div>
-        </div>
-        <div class="current_subscription__container">
-          <div class="current_subscription__header">Plan Type</div>
-          <div class="current_subscription__type current_subscription__type--premium">Premium</div>
-          <div class="current_subscription__name">Quarterly</div>
-          <div class="current_subscription__price">
-            500 <span class="current_subscription__currency-type">&#8369;</span>
-          </div>
-          <div class="current_subscription__value">Unlimited CV Download for 3 Months</div>
-          <div
-            (click)="purchasePlan('PREMIUM', 'QUARTERLY')"
-            class="th-btn th-btn--primary current_subscription__upgrade"
-          >
-            Purchase
-          </div>
-        </div>
-        <div class="current_subscription__container">
-          <div class="current_subscription__header">Plan Type</div>
-          <div class="current_subscription__type current_subscription__type--premium">Premium</div>
-          <div class="current_subscription__name">Bi-Annual</div>
-          <div class="current_subscription__price">
-            800 <span class="current_subscription__currency-type">&#8369;</span>
-          </div>
-          <div class="current_subscription__value">Unlimited CV Download for 6 Months</div>
-          <div
-            (click)="purchasePlan('PREMIUM', 'BI-ANNUAL')"
-            class="th-btn th-btn--primary current_subscription__upgrade"
-          >
-            Purchase
-          </div>
-        </div>
-        <div class="current_subscription__container">
-          <div class="current_subscription__header">Plan Type</div>
-          <div class="current_subscription__type current_subscription__type--premium">Premium</div>
-          <div class="current_subscription__name">Annual</div>
-          <div class="current_subscription__price">
-            1400 <span class="current_subscription__currency-type">&#8369;</span>
-          </div>
-          <div class="current_subscription__value">Unlimited CV Download for 1 Year</div>
-          <div (click)="purchasePlan('PREMIUM', 'ANNUAL')" class="th-btn th-btn--primary current_subscription__upgrade">
             Purchase
           </div>
         </div>
@@ -140,13 +72,62 @@
     <div *ngIf="upgradeActive" class="subscription__partition">
       <span class="subscription__partition_text">BUY PLAN</span>
     </div>
+
+    <div *ngIf="subscriptions" class="table_container">
+      <h3 class="table_container__heading">Transactions</h3>
+      <table *ngIf="subscriptions" style="min-width: 65rem;" mat-table [dataSource]="subscriptions"
+        class="mat-elevation-z1">
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="transcactionDate">
+          <th mat-header-cell *matHeaderCellDef>Date </th>
+          <td mat-cell style="max-width: 35rem;" *matCellDef="let element">
+            {{ element.transactionDate | date: 'longDate' }}
+          </td>
+        </ng-container>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="transactionFrom">
+          <th mat-header-cell *matHeaderCellDef>Transaction From</th>
+          <td mat-cell *matCellDef="let element">{{ element.transactionFrom ? element.transactionFrom : "DEPOSIT" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="transactionTo">
+          <th mat-header-cell *matHeaderCellDef>Transaction To</th>
+          <td mat-cell *matCellDef="let element">{{ element.transactionTo ? element.transactionTo : "DEPOSIT" }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let element">
+            <!-- <a (click)="subscriptionDetail(element.id)" class="btn-outline">View</a> -->
+            {{ element.type }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>Amount</th>
+          <td mat-cell *matCellDef="let element">
+            <!-- <a (click)="subscriptionDetail(element.id)" class="btn-outline">View</a> -->
+            {{ element.type == 'DEPOSIT' ? element.credit: element.debit }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div class="paginator">
+        <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize" [pageSizeOptions]="[5, 8, 10, 25, 100]"
+          (page)="getServerData($event)">
+        </mat-paginator>
+      </div>
+    </div>
+
+
   </div>
 </div>
 
-<app-custom-notification
-  [show]="purchaseSuccess"
-  type="success"
-  [callback]="'/' + role + '/plan'"
-  text="Purchased the Plan Successfully"
->
+
+
+<app-custom-notification [show]="purchaseSuccess" type="success" [callback]="'/' + role + '/plan'"
+  text="Purchased the Plan Successfully">
 </app-custom-notification>

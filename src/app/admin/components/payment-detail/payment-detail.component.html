@@ -1,32 +1,11 @@
+<div class="overlay" [class.active]="!paymentForm"></div>
 <div *ngIf="subscription" class="container">
+  
+    <div class="subscription__header-1"> <h4 class="name-1">{{ subscription.application_user.company.companyName }}</h4> </div> 
     <div class="subscription">
       <div class="subscription__header">
         <!-- <img [src]="subscription.job.company_profile.companyLogo" alt="" class="img" /> -->
-        <h2 class="name">{{ subscription.application_user.company.companyName }}</h2>
-        <!-- <div class="verify">
-            <fa-icon
-            class="verify__icon"
-            [icon]="faCheckCircle"
-          ></fa-icon>
-          <span class="verify__text">
-            Paied
-            </span>
-        </div> -->
-        <!-- <div
-          [title]="subscription.checked ? 'Checked' : 'Check'"
-          (click)="toggleChecked(subscription.id)"
-          class="verify"
-        >
-          <fa-icon
-            *ngIf="subscription.verified"
-            class="verify__icon"
-            [icon]="faCheckCircle"
-          ></fa-icon>
-          <span class="verify__text">{{
-            subscription.checked ? "Not Paied" : "Not Paied"
-          }}</span>
-          <div *ngIf="loading" class="verify__loading"></div>
-        </div> -->
+        <h4 class="name"> Transaction </h4>
       </div>
   
       <div class="subscription__body">
@@ -61,15 +40,6 @@
 
         <div class="details-group">
           <div class="detail">
-            <div class="detail__label">Payment Information</div>
-            <div class="detail__value">
-              <p class="text">{{ subscription.paid ? "Already Paid" : "Not Paid" }}</p>
-            </div>
-          </div>
-        </div> 
-  
-        <div class="details-group">
-          <div class="detail">
             <div class="detail__label">Purchased By</div>
             <div class="detail__value">
               <span class="detail__value__header"
@@ -92,15 +62,93 @@
           </div>
         </div>
 
-        <div class="details-group">
-            <div class="detail">
-              <div class="detail__label">Confirm Payment</div>
-              <div class="detail__value">
-                <button (click)='confirmPayment(subscription.id)' class="detail__value__button th-btn th-btn--primary">{{ subscription.paid ? "Already Paid" : "Confirm Payment" }}</button>
-              </div>
+        <!-- <div class="details-group">
+          <div class="detail">
+            <div class="detail__label">Payment Information</div>
+            <div class="detail__value">
+                <span class="detail__value__header"
+                >Amount to be Paid -
+                <p class="text">
+                  {{
+                    amountTobe
+                  }}
+                </p></span
+              >
+              <span class="detail__value__header"
+                >Paid Amount -
+                <p class="text">
+                    {{ subscription.paidAmount ?  subscription.paidAmount: "0" }}
+                </p></span
+              >
+              <span class="detail__value__header"
+              >Last paid By-
+              <p class="text">
+                  {{ subscription.paidBy ?  subscription.paidBy: "" }}
+              </p></span
+            >
+              <span class="detail__value__header"
+                >Payment Status -
+                <p class="text">
+                    {{ subscription.paid ? "Already Paid" : "Didn't Finish Payment" }}
+                </p></span
+              >
+              <p class="text"></p>
             </div>
-          </div> 
+          </div>
+        </div> 
+
+      
+  
+          <div class="details-group">
+              <div class="detail">
+                <div class="detail__label">Payment</div>
+                <div class="detail__value">
+                  <button (click)='confirmPayment()' class="detail__value__button th-btn th-btn--primary">{{ subscription.paid ? "Already Paid" : "Pay" }}</button>
+                </div>
+              </div>
+            </div>  -->
       </div>
     </div>
+
   </div>
-  
+
+
+<div class="payment-form" [class.active]="!paymentForm">
+  <form action="" class="form-group"  (ngSubmit)="paySubscription(subscription.id)" [formGroup]="payForm" >
+    <div class="header" >
+     <span>
+        Payment 
+     </span>
+     <span class="sub_title">
+        Subscription Amount:   {{ subscription.amount }}
+     </span>
+     <span class="error">
+       {{ errors}}
+     </span>
+    </div>
+    <div class="body">
+        <div class="sub-container">
+            <shared-custom-input-field class="input-element-type-2" [formGroup]="payForm" name="name"
+              defaultValue="" label="Name" placeholder="Name"
+              [input]="payForm.controls['name']" type="text" [submitted]="false" [disabled]="false"
+              [limit]="defaultLimit">
+            </shared-custom-input-field>
+          </div>
+          <div class="sub-container">
+            <shared-custom-input-field class="input-element-type-2" [formGroup]="payForm" name="amount"
+              defaultValue="" label="Amount" placeholder="Amount"
+              [input]="payForm.controls['amount']" type="number" [submitted]="false" [disabled]="false"
+              [limit]="defaultLimit">
+            </shared-custom-input-field>
+          </div>
+
+          <div class="form__group--btn">
+              <input type="submit" value="pay" class="form__submit th-btn th-btn--primary" />
+            <button  (click)="cancelButton()" class="th-btn th-btn--secondary" >Cancel</button>
+          </div>
+         
+    </div>
+  </form>
+</div>
+
+
