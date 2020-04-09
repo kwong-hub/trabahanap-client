@@ -86,8 +86,8 @@ table{
 
   .table_container{
     // width: 80%;
-    margin: 2rem;
-    padding: 1rem;
+  //  margin: 2rem;
+  //  padding: 1rem;
     &__heading{
       color: #777;
       font-size: 2rem;
@@ -162,5 +162,58 @@ table{
     justify-content: space-around;
     width: 100%;
     flex-wrap: wrap;
+  }
+  &__cancel{
+    width: 12rem;
+    align-content: center;
+    align-items: center;
+    display: flex;
+    padding: 0.3rem 3rem;
+    color: rgb(139, 11, 11);
+    border: 1px solid rgb(124, 12, 12);
+    text-transform: uppercase;
+    border-radius: 3rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 0rem 3rem;
+    transition: all 0.2s;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .table_container{
+    flex-wrap: nowrap;
+    overflow: scroll;
+    margin: 0 -2rem;
+  
+  }
+  table{
+    width: 20rem;
+    padding: 0.7rem;
+  }
+ 
+  .th_hide{
+    // background-color: #333;
+    display: none;
+  }
+
+  .td_limit{
+    max-width: 5rem;
+    // float: right;
+    overflow: hidden;
+  }
+  .th_limit{
+    padding-left: 5px !important;
+    max-width: 20rem;
+    overflow: visible;
+  }
+
+  .td_status{
+    max-width: 5px;
+
+  }
+  .tag{
+    float: right;
   }
 }

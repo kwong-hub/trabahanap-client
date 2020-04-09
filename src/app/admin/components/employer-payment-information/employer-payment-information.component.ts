@@ -39,7 +39,7 @@ export class EmployerPaymentInformationComponent implements OnInit {
       let data = res.data;
       if(data.success && data.subscriptions) {
         this.subscription = data.subscriptions.subs;
-        console.log(data.subscriptions,'sd');
+        // console.log(data.subscriptions,'sd');
         this.pager = data.subscriptions.pager;
       }
       else {
@@ -57,7 +57,7 @@ export class EmployerPaymentInformationComponent implements OnInit {
     this.getCompanyInfo()
     this.adminService.getBalance(this.companyId).subscribe(data=>{
       if(data.success){
-        console.log(data)
+        // console.log(data)
         if(parseInt(data.balance[0].balance) > parseInt(data.balance[0].purchased)){
           this.totalBalance = parseInt(data.balance[0].balance) - parseInt(data.balance[0].purchased);
         }else{
@@ -111,7 +111,6 @@ export class EmployerPaymentInformationComponent implements OnInit {
           this.totalBalance = this.totalBalance + parseInt(val.amount)
         }
         else{
-          console.log('this')
           this.toPaidAmount = this.toPaidAmount;
           this.totalBalance = (this.totalBalance + parseInt(val.amount)) - this.toPaidAmount ;
         }

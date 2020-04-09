@@ -22,7 +22,7 @@ export class SubscriptionsComponent implements OnInit {
   msg;
   public pager: any;
   public page: any;
-  displayedColumns: string[] = ['type', 'transcactionDate', 'transactionFrom', 'transactionTo', 'amount'];
+  displayedColumns: string[] = ['type', 'transcactionDate', 'transactionTo', 'amount'];
   subscriptions: any;
   planTypes = [];
   premiumTypes = [];
@@ -110,12 +110,16 @@ export class SubscriptionsComponent implements OnInit {
     });
   }
 
+  CancelUpgrade(){
+    this.upgradeActive = false;
+  }
+
   getServerData(page) {
     this.paymentService
       .getEmployerPaymentInfo(this.currentUser.companyProfileId, page.pageIndex + 1, page.pageSize)
       .subscribe(
         data => {
-          console.log(data);
+          // console.log(data);
           if (data.success == true) {
             this.subscriptions = data.subscriptions.subs;
             this.pager = data.subscriptions.pager;

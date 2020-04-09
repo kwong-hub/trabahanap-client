@@ -79,7 +79,7 @@
       <h3 class="sidebar__header">Account</h3>
 
       <div  class="sidebar__list">
-        <a *ngIf='!authenticationService.currentUserValue.company_profile.exempt'
+        <a *ngIf='authenticationService.currentUserValue.company_profile && !authenticationService.currentUserValue.company_profile.exempt && authenticationService.currentUserValue.company_profile.verified'
           routerLink="plan"
           routerLinkActive="active"
           title="Subscription"

@@ -103,9 +103,7 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
           (this.subscription.type == 'PREMIUM' || this.subscription.type == 'FREE') &&
           Date.parse(this.subscription.expirationDate) >= today
         ) {
-          // this.toggleConfirmModal = true;
           if (this.applicant.cv) {
-            //window.location.href = this.applicant.cv;
             window.open(
               this.applicant.cv,
               'download' // <- This is what makes it open in a new window.
@@ -129,9 +127,7 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
         ]);
       }
     } else {
-      // this.toggleConfirmModal = true;
       if (this.applicant.cv) {
-        //window.location.href = this.applicant.cv;
         window.open(
           this.applicant.cv,
           'download' // <- This is what makes it open in a new window.
@@ -149,7 +145,6 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
       const purchased = this.paymentService.purchaseCV(this.subscription.id).subscribe(data => {
         if (data.success) {
           if (this.applicant.cv) {
-            //window.location.href = this.applicant.cv;
             window.open(
               this.applicant.cv,
               'download' // <- This is what makes it open in a new window.
@@ -161,7 +156,6 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
       });
     } else {
       if (this.applicant.cv) {
-        //window.location.href = this.applicant.cv;
         window.open(
           this.applicant.cv,
           'download' // <- This is what makes it open in a new window.
