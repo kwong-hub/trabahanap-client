@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Moment } from 'moment';
 import * as moment from 'moment';
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 @Component({
   selector: 'app-employer-report',
@@ -12,8 +13,10 @@ import * as moment from 'moment';
 })
 export class EmployerReportComponent implements OnInit {
 
-  displayedColumns: string[] = ['date', 'countPerDay', 'activeUsers', 'returningUsers', 'toBeVerified', 
+  displayedColumns: string[] = ['date', 'countPerDay', 'subTotal', 'activeUsers', 'returningUsers', 'toBeVerified', 
     'verifiedPerDay', 'loginPerDay'];
+  columnTitle: string[] = ['Date', 'Daily Registrations', 'Total Registrations', 'Active Users', 
+    'Returning Users', 'Number of Employers to be Verified', 'Number of Verified Employers', 'Daily Logins']
   rows;
   matPager: any = {
     pageIndex: 0,
@@ -122,6 +125,42 @@ export class EmployerReportComponent implements OnInit {
     }
     else {
       // this.getServerData(this.matPager)
+    }
+  }
+
+  exportCSV() {
+    if(this.filtered) {
+      let diff = this.selected.endDate.diff(this.selected.startDate, 'days') + 1;
+      this.adminService.filterEmployerReport({startDate: this.selected.startDate.format('YYYY-MM-DD'), endDate: this.selected.endDate.format('YYYY-MM-DD')}, 1, diff, 'ASC').subscribe(
+        data => {
+          if(data.success) {
+            let expo = data.stats.rows;
+            let options = {
+              headers: this.columnTitle
+            }
+            new ngxCsv(expo, 'My Report', options);
+          }
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    }
+    else {
+      this.adminService.fetchEmployerReport(1, 100, 'ASC').subscribe(
+        data => {
+          if(data.success) {
+            let expo = data.stats.rows;
+            let options = {
+              headers: this.columnTitle
+            }
+            new ngxCsv(expo, 'My Report', options);
+          }
+        },
+        error => {
+          console.log(error)
+        }
+      );
     }
   }
 }

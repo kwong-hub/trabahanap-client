@@ -14,20 +14,21 @@ export class AdminService {
     return this.http.get<any>(`${environment.apiUrl}/admin/counters`);
   }
 
-  fetchApplicantReport(page, pageSize): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/admin/report/applicant?page=${page}&pageSize=${pageSize}`);
+  fetchApplicantReport(page, pageSize, order = 'DESC'): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/applicant?page=${page}&pageSize=${pageSize}&order=${order}`);
   }
 
-  fetchEmployerReport(page, pageSize): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/admin/report/employer?page=${page}&pageSize=${pageSize}`);
+  fetchEmployerReport(page, pageSize, order = 'DESC'): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/employer?page=${page}&pageSize=${pageSize}&order=${order}`);
   }
   
-  filterApplicantReport(dateRange, page, pageSize) {
-    return this.http.get<any>(`${environment.apiUrl}/admin/report/filter/applicant?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&page=${page}&pageSize=${pageSize}`);
+  filterApplicantReport(dateRange, page, pageSize, order = 'DESC') {
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/filter/applicant?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&page=${page}&pageSize=${pageSize}&order=${order}`);
   }
 
-  filterEmployerReport(dateRange, page, pageSize) {
-    return this.http.get<any>(`${environment.apiUrl}/admin/report/filter/employer?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&page=${page}&pageSize=${pageSize}`);
+  filterEmployerReport(dateRange, page, pageSize, order = 'DESC') {
+    console.log(order)
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/filter/employer?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&page=${page}&pageSize=${pageSize}&order=${order}`);
   }
 
   fetchIssueCounter(): Observable<any> {

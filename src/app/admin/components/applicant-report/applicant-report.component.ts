@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Moment } from 'moment';
 import * as moment from 'moment';
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 @Component({
   selector: 'app-applicant-report',
@@ -14,6 +15,8 @@ export class ApplicantReportComponent implements OnInit {
 
   displayedColumns: string[] = ['date', 'registrationPerDay', 'subTotal', 'viaGoogle', 'viaFacebook', 
     'viaNormal', 'logins', 'activeUsers', 'returningUsers', 'applicationsPerDay', 'applicantsPerDay'];
+  columnTitle: string[] = ['Date', 'Daily Registrations', 'Total Registrations', 'Google Registration', 
+    'Facebook Registration', 'Normal Registration', 'Daily Logins', 'Active Users', 'Returning Users', 'Daily Applications', 'Daily Applicants']
   rows;
   matPager: any = {
     pageIndex: 0,
@@ -29,9 +32,10 @@ export class ApplicantReportComponent implements OnInit {
     'This Month': [moment().startOf('month'), moment()],
     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
   }
-  filtered: any;
+  filtered: boolean;
   maxDate = moment().subtract(1, 'days');
   minDate = moment('2018-01-01');
+  page: any;
 
   constructor(private adminService: AdminService, private route: ActivatedRoute, private location: Location) { }
 
@@ -46,7 +50,8 @@ export class ApplicantReportComponent implements OnInit {
   }
 
   getServerData(page) {
-    if(this.filtered) {
+    this.page = page;
+      if(this.filtered) {
       this.adminService.filterApplicantReport({startDate: this.selected.startDate.format('YYYY-MM-DD'), endDate: this.selected.endDate.format('YYYY-MM-DD')}, page.pageIndex + 1, page.pageSize).subscribe(
         data => {
           if(data.success) {
@@ -84,7 +89,6 @@ export class ApplicantReportComponent implements OnInit {
                 path = path.concat(`?page=${this.pager.currentPage}`);
                 this.location.go(path);
               }
-              this.filtered = true;
           }
         },
         error => {
@@ -104,19 +108,57 @@ export class ApplicantReportComponent implements OnInit {
             this.rows = data.stats.rows;
             this.pager = data.stats.pager;
             let path = this.location.path();
-              if (path.indexOf('page') >= 0) {
-                path = path.replace(/.$/, this.pager.currentPage.toString());
-                this.location.go(path);
-              } else {
-                path = path.concat(`?page=${this.pager.currentPage}`);
-                this.location.go(path);
-              }
+            if (path.indexOf('page') >= 0) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
+            this.filtered = true;
+
           }
         },
         err => {
           console.log(err)
         }
       )
+    }
+  }
+
+  exportCSV() {
+    if(this.filtered) {
+      let diff = this.selected.endDate.diff(this.selected.startDate, 'days') + 1;
+      this.adminService.filterApplicantReport({startDate: this.selected.startDate.format('YYYY-MM-DD'), endDate: this.selected.endDate.format('YYYY-MM-DD')}, 1, diff, 'ASC').subscribe(
+        data => {
+          if(data.success) {
+            let expo = data.stats.rows;
+            let options = {
+              headers: this.columnTitle
+            }
+            new ngxCsv(expo, 'My Report', options);
+          }
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    }
+    else {
+      this.adminService.fetchApplicantReport(1, this.page.pageSize, 'ASC').subscribe(
+        data => {
+          if(data.success) {
+            let expo = data.stats.rows;
+            let options = {
+              headers: this.columnTitle
+            }
+            new ngxCsv(expo, 'My Report', options);
+          }
+        },
+        error => {
+          console.log(error)
+        }
+      );
     }
   }
 

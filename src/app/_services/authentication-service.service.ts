@@ -81,7 +81,7 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     this.currentUserSubject.next(null);
     localStorage.removeItem('token');
-    window.location.reload();
+    // window.location.reload();
   }
 
   updateCurrentUser(user) {

@@ -1,12 +1,20 @@
 <div class="sub-module-container">
     <h3 class="sub-module-container__heading">Applicants Report</h3>
     <div class="sub-module-container__container">
-      <div class="filter-container">
-        <input type="text" ngxDaterangepickerMd [(ngModel)]="selected"
+      <div class="top-bar">
+        <div class="filter-container">
+          <input type="text" ngxDaterangepickerMd [(ngModel)]="selected"
           [alwaysShowCalendars]="true" [ranges]="ranges" class="date-range-input"
-          [locale]="{format: 'YYYY-MM-DD', displayFormat: 'MMM DD, YYYY'}" [showClearButton]="true"
-          [keepCalendarOpeningWithRange]="true" [minDate]="minDate" [maxDate]="maxDate"
+          [locale]="{format: 'YYYY-MM-DD', displayFormat: 'MMM DD, YYYY'}" [minDate]="minDate"
+          [keepCalendarOpeningWithRange]="true" [showClearButton]="true" [maxDate]="maxDate" 
           (datesUpdated)="onDatesUpdated($event)" placeholder="Select Date Range..." />
+        </div>
+        <div class="action-container">
+          <button mat-button (click)="exportCSV()">
+            <mat-icon>save_alt</mat-icon>
+            Export CSV
+          </button>
+        </div>
       </div>
 
       <table mat-table [dataSource]="rows" class="mat-elevation-z3">

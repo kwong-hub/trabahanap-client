@@ -18,7 +18,8 @@ import {
   MatDatepickerModule,
   MatFormFieldModule,
   MatNativeDateModule,
-  MatInputModule
+  MatInputModule,
+  MatIconModule
 } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { IssuesComponent } from './components/issues/issues.component';
@@ -144,6 +145,7 @@ import { ExemptedCompanyComponent } from './components/exempted-company/exempted
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatIconModule,
     NgxDaterangepickerMd.forRoot()
   ],
   providers: [
