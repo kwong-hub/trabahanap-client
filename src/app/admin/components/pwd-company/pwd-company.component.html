@@ -4,8 +4,26 @@
         You don't have any jobs yet.
     </h3>
 
+
+
+
     <div *ngIf="hasValues">
         <div class="sub-module-container__container job">
+            <div class="top-bar">
+                <div class="filter-container">
+                    <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" [alwaysShowCalendars]="true"
+                        [ranges]="ranges" class="date-range-input"
+                        [locale]="{format: 'YYYY-MM-DD', displayFormat: 'MMM DD, YYYY'}" [minDate]="minDate"
+                        [keepCalendarOpeningWithRange]="true" [showClearButton]="true" [maxDate]="maxDate"
+                        (datesUpdated)="onDatesUpdated($event)" placeholder="Select Date Range..." />
+                </div>
+                <div class="action-container">
+                    <button mat-button (click)="exportCSV()">
+                        <mat-icon>save_alt</mat-icon>
+                        Export CSV
+                    </button>
+                </div>
+            </div>
             <table mat-table [dataSource]="jobs" class="mat-elevation-z3">
                 <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
@@ -23,7 +41,7 @@
                 <!-- Name Column -->
                 <ng-container matColumnDef="date">
                     <th mat-header-cell *matHeaderCellDef>Date</th>
-                    <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
+                    <td mat-cell *matCellDef="let element">{{ element.createdAt | date:'mediumDate' }}</td>
                 </ng-container>
 
                 <!-- Weight Column -->
