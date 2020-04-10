@@ -41,7 +41,7 @@ export class JobsListComponent implements OnInit {
     pageSize: 8
   };
 
-  displayedColumns: string[] = ['jobTitle', 'industry', 'education', 'salaryRange', 'edit'];
+  displayedColumns: string[] = ['jobTitle', 'industry', 'vacancies', 'application','hiredApplicant', 'edit'];
 
   constructor(
     private adminService: AdminService,
@@ -98,6 +98,7 @@ export class JobsListComponent implements OnInit {
   getServerData(page) {
     this.adminService.getAllJobs(page.pageIndex + 1, page.pageSize, this.companyId).subscribe(
       success => {
+        console.log(success)
         if (success.success == true) {
           this.jobs = success.jobs.rows;
           this.pager = success.jobs.pager;
