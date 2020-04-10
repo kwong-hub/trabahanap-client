@@ -123,6 +123,8 @@ export class CandidateApplicantDetailComponent implements OnInit {
 
   checkSubscription() {
     let today = Date.now();
+    // this.toggleConfirmModal = true;
+
     if (!this.currentUser.company_profile.exempt) {
       if (this.subscription) {
         if (

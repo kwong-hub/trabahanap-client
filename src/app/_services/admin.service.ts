@@ -241,7 +241,9 @@ export class AdminService {
   getBalance(id){
     return this.http.get<any>(`${environment.apiUrl}/admin/subscription/balance/${id}`);
   }
-
+  getPwdJobs(page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/admin/reports/pwd?page=${page}&pageSize=${pageSize}`)
+  }
  
 
   // verifyUser(){

@@ -13,18 +13,18 @@
   <div class="subscription">
     <div class="subscription__header">
       <!-- <img [src]="subscription.job.company_profile.companyLogo" alt="" class="img" /> -->
-      <h2 class="name">{{ company.companyName }}</h2>
+      <h2 class="name">{{ company?.companyName }}</h2>
     </div>
     <div class="subscription__body">
       <div class="subscription__body__content">
         <span class="name">
           <fa-icon [icon]="faUser"></fa-icon>
-          <b>Contact Person : </b> {{ company.contactPerson }} <b><fa-icon [icon]="faPhone"></fa-icon> </b>
-          {{ company.contactNumber }}
+          <b>Contact Person : </b> {{ company?.contactPerson }} <b><fa-icon [icon]="faPhone"></fa-icon> </b>
+          {{ company?.contactNumber }}
         </span>
         <span class="name">
           <fa-icon [icon]="faLocationArrow"></fa-icon>
-          <b>Address : </b> {{ company.companyAddress }}
+          <b>Address : </b> {{ company?.companyAddress }}
         </span>
 
         <span class="name">
@@ -70,7 +70,7 @@
           </ng-container> -->
 
           <ng-container matColumnDef="transactionTo">
-            <th mat-header-cell *matHeaderCellDef>Current Transaction</th>
+            <th mat-header-cell *matHeaderCellDef>Transaction</th>
             <td mat-cell *matCellDef="let element">{{ element.transactionTo ? element.transactionTo : 'DEPOSIT' }}</td>
           </ng-container>
 
@@ -86,7 +86,7 @@
             <th mat-header-cell *matHeaderCellDef>Amount</th>
             <td mat-cell *matCellDef="let element">
               <!-- <a (click)="subscriptionDetail(element.id)" class="btn-outline">View</a> -->
-              {{ element.type == 'DEPOSIT' ? element.credit : element.debit }}
+              {{ element.credit > 0 ? element.credit : element.debit }}
             </td>
           </ng-container>
 
@@ -159,7 +159,6 @@
               type="number"
               [submitted]="false"
               [disabled]="false"
-              [limit]="defaultLimit"
             >
             </shared-custom-input-field>
           </div>
@@ -173,15 +172,6 @@
     </div>
   </div>
 </div>
-
-<app-shared-confirm-model
-  [headerText]="'Payment Confirmation'"
-  [bodyText]="'Are you sure you want to pay'"
-  [isModalOpen]="isConfirmSuspend"
-  (confirmed)="payAllSubscription($event)"
-  (cancled)="toggleConfirm($event)"
->
-</app-shared-confirm-model>
 
 <app-custom-notification [show]="deposited" type="success" text="Successfully Saved! Deposited">
 </app-custom-notification>

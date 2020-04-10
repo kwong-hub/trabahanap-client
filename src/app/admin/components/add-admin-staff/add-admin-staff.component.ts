@@ -29,7 +29,7 @@ export class AddAdminStaffComponent implements OnInit {
     optionContainer: { backgroundColor: '#555', top: '3.3rem', boxShadow: '0px 1px 2px #aaa' },
     option: { fontSize: '1.5rem', borderBottom: '1px solid #ddd', backgroundColor: '#fff' }
   };
-
+  STAFFER ="STAFFER"
   constructor(
     private formBuilder: FormBuilder,
     private adminServices: AdminService,

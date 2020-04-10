@@ -124,7 +124,7 @@ export class CompanyListComponent implements OnInit {
     if (this.filtered) {
       var val = this.searchForm.value;
       this.adminService
-        .getFilterEmployers(val.companyName, val.industry,val.verify, val.registrationDate, page.pageIndex + 1, page.pageSize)
+        .getFilterEmployers(val.companyName, val.industry,val.verify, val.registrationDate, parseInt(page.pageIndex) + 1, page.pageSize)
         .subscribe(data => {
           if (data) {
             this.companies = data.companies.rows;
@@ -132,7 +132,7 @@ export class CompanyListComponent implements OnInit {
             this.companies.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
             let path = this.location.path();
             if (path.indexOf('page') >= 0) {
-              path = path.replace(/.$/, this.pager.currentPage.toString());
+              path = path.replace(/.$/, this.pager.currentPage);
               this.location.go(path);
             } else {
               path = path.concat(`?page=${this.pager.currentPage}`);

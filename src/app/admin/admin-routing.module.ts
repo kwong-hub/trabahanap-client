@@ -68,6 +68,7 @@ import { PaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/paym
 import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/edit-payment-type-resolver.service';
 import { ExemptedCompanyComponent } from './components/exempted-company/exempted-company.component';
 import { ExemptResolverService } from '@app/_resolvers/admin-resolvers/exempt-resolver.service';
+import { PwdCompanyComponent } from './components/pwd-company/pwd-company.component';
 
 const routes: Routes = [
   {
@@ -305,6 +306,12 @@ const routes: Routes = [
         path: 'employers/add_plan/:id',
         canActivate: [AdminGuard],
         component: EmployerPlanComponent,
+        // resolve: { data: Add }
+      },
+      {
+        path: 'report/pwd',
+        canActivate: [AdminGuard],
+        component: PwdCompanyComponent,
         // resolve: { data: Add }
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' },

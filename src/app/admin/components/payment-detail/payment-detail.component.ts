@@ -17,7 +17,7 @@ export class PaymentDetailComponent implements OnInit {
   payForm:FormGroup;
   amountTobe;
   errors: string;
-
+  defaultLimit = { max: '50', min: '0' };
   constructor(private route:ActivatedRoute,private formBuilder:FormBuilder, private adminService:AdminService,private _location:Location) { 
     this.route.data.subscribe(res => {
       let data = res.data;
