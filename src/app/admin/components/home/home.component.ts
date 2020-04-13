@@ -32,10 +32,12 @@ export class HomeComponent implements OnInit {
     percent: "10%",
     route: "applications"
   };
+  stats: any;
 
   constructor(private Route: ActivatedRoute) {
     this.Route.data.subscribe(res => {
       let data = res.dashRes;
+      this.stats = data.stats;
       if (data.success) {
         let stats = data.stats;
         this.dashboardItem1 = {

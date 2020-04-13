@@ -35,6 +35,9 @@ export class AdminService {
     return this.http.get<any>(`${environment.apiUrl}/admin/report/filter/jobs/${companyId}?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&page=${page}&pageSize=${pageSize}&order=${order}`);
 
   }
+  filterPwdJobReport(dateRange,page,pageSize,order = 'DESC'){
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/filter/job/pwd?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&page=${page}&pageSize=${pageSize}&order=${order}`);
+  }
 
   fetchIssueCounter(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/issue-counter`);
