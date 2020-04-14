@@ -145,9 +145,15 @@ export class AdminService {
   verfifyEmployer(id): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/admin/employers/verify/${id}`, {});
   }
+
+  toggleSuspendEmployer(id): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}/admin/employers/suspend/${id}`, {});
+  }
+
   checkedReport(id): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/admin/report/check/${id}`, {});
   }
+
   deactivateUser(id): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/admin/applicants/${id}`, {});
   }

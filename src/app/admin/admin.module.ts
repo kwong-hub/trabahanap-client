@@ -19,7 +19,8 @@ import {
   MatFormFieldModule,
   MatNativeDateModule,
   MatInputModule,
-  MatIconModule
+  MatIconModule,
+  MatSortModule
 } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { IssuesComponent } from './components/issues/issues.component';
@@ -148,6 +149,7 @@ import { PwdCompanyComponent } from './components/pwd-company/pwd-company.compon
     MatNativeDateModule,
     MatInputModule,
     MatIconModule,
+    MatSortModule,
     NgxDaterangepickerMd.forRoot()
   ],
   providers: [

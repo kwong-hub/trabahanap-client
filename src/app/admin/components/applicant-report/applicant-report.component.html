@@ -7,7 +7,7 @@
           [alwaysShowCalendars]="true" [ranges]="ranges" class="date-range-input"
           [locale]="{format: 'YYYY-MM-DD', displayFormat: 'MMM DD, YYYY'}" [minDate]="minDate"
           [keepCalendarOpeningWithRange]="true" [showClearButton]="true" [maxDate]="maxDate" 
-          (datesUpdated)="onDatesUpdated($event)" placeholder="Select Date Range..." />
+          (datesUpdated)="onDatesUpdated($event)" placeholder="Select Date Range . . ." />
         </div>
         <div class="action-container">
           <button mat-button (click)="exportCSV()">
