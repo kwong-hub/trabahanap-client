@@ -32,6 +32,14 @@ export class HomeComponent implements OnInit {
     percent: "10%",
     route: "applications"
   };
+  sdf={
+    sun:123,
+    sat:2345,
+    mon:345,
+    tue:2345,
+    wed:249,
+    thu:12
+  }
   stats: any;
 
   constructor(private Route: ActivatedRoute) {
@@ -57,5 +65,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
+  
 }
