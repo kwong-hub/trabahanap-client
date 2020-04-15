@@ -241,6 +241,22 @@ export class CompanyListComponent implements OnInit {
     this.openActions[id] = !value;
   }
 
+  toggleSuspend(id) {
+    this.adminService.toggleSuspendEmployer(id).subscribe(
+      data => {
+        this.companies.forEach(comp => {
+          if (comp.id === id) {
+            comp.suspended = !comp.suspended;
+            this.openActions[comp.id] = null;
+          }
+        });
+      },
+      error => {
+        console.log(error)
+      }
+    );
+  }
+
   customValueChanged(value, name) {
     this.searchForm.controls[name].setValue(value);
   }

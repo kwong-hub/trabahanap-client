@@ -130,11 +130,15 @@
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>Status</th>
         <td mat-cell *matCellDef="let company">
-          <div *ngIf="company.verified" class="tag tag--verified">
+          <div *ngIf="company.verified && !company.suspended" class="tag tag--verified">
             <fa-icon [icon]="faCheckCircle"></fa-icon>
           </div>
-          <div *ngIf="!company.verified" class="tag tag--unverified">
+          <div *ngIf="!company.verified && !company.suspended" class="tag tag--unverified">
             <fa-icon [icon]="faTimesCircle"></fa-icon>
+          </div>
+          <div *ngIf="company.suspended" class="tag tag--unverified">
+            <!-- <fa-icon [icon]="faTimesCircle"></fa-icon> -->
+            Suspended
           </div>
         </td>
       </ng-container>
@@ -197,6 +201,10 @@
               class="company-list__action company-list__action--hover"
             >
               <span class="company-list__icon"> </span> {{ company.exempt ? 'Remove Exempt' : 'Add To Exempted' }}
+            </button>
+            <button (click)="toggleSuspend(company.id)" class="company-list__action company-list__action--hover">
+              <span class="company-list__icon"> <fa-icon [icon]="!company?.suspended ? faTimes : ''"></fa-icon> </span
+              >{{ company.suspended ? 'Unsuspend' : 'Suspend' }}
             </button>
             <!-- <button [routerLink]="['applicant/', company.id]" *ngIf="company.verified && company.hasLocations"
                             class="company-list__action company-list__action--hover"><span class="company-list__icon">

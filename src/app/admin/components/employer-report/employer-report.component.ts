@@ -35,6 +35,7 @@ export class EmployerReportComponent implements OnInit {
   filtered: boolean;
   maxDate = moment().subtract(1, 'days');
   minDate = moment('2018-01-01');
+  page: any;
 
   constructor(private adminService: AdminService, private route: ActivatedRoute, 
     private location: Location) { }
@@ -50,6 +51,7 @@ export class EmployerReportComponent implements OnInit {
   }
 
   getServerData(page) {
+    this.page = page;
     if(this.filtered) {
       this.adminService.filterEmployerReport({startDate: this.selected.startDate.format('YYYY-MM-DD'), endDate: this.selected.endDate.format('YYYY-MM-DD')}, page.pageIndex + 1, page.pageSize).subscribe(
         data => {
@@ -138,7 +140,7 @@ export class EmployerReportComponent implements OnInit {
             let options = {
               headers: this.columnTitle
             }
-            new ngxCsv(expo, 'My Report', options);
+            new ngxCsv(expo, `Employer User Report_${moment().format('MMDDYYYY')}`, options);
           }
         },
         err => {
@@ -147,14 +149,14 @@ export class EmployerReportComponent implements OnInit {
       )
     }
     else {
-      this.adminService.fetchEmployerReport(1, 100, 'ASC').subscribe(
+      this.adminService.fetchEmployerReport(1, this.page.pageSize, 'ASC').subscribe(
         data => {
           if(data.success) {
             let expo = data.stats.rows;
             let options = {
               headers: this.columnTitle
             }
-            new ngxCsv(expo, 'My Report', options);
+            new ngxCsv(expo, `Employer User Report_${moment().format('MMDDYYYY')}`, options);
           }
         },
         error => {

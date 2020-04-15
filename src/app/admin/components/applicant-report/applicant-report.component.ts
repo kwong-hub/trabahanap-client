@@ -136,7 +136,7 @@ export class ApplicantReportComponent implements OnInit {
             let options = {
               headers: this.columnTitle
             }
-            new ngxCsv(expo, 'My Report', options);
+            new ngxCsv(expo, `Applicant User Report${moment().format('MMDDYYYY')}`, options);
           }
         },
         err => {
@@ -152,7 +152,7 @@ export class ApplicantReportComponent implements OnInit {
             let options = {
               headers: this.columnTitle
             }
-            new ngxCsv(expo, 'My Report', options);
+            new ngxCsv(expo, `Applicant User Report${moment().format('MMDDYYYY')}`, options);
           }
         },
         error => {
