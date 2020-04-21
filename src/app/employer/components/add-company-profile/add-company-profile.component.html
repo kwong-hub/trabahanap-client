@@ -240,7 +240,7 @@
                 [submitted]="submitted"
                 [disabled]="hasProfile"
             ></shared-custom-input-field> -->
-        <shared-custom-input-field
+        <!-- <shared-custom-input-field
           class="input-element-type-4"
           [formGroup]="addCompanyProfileForm"
           name="businessLicenseNumber"
@@ -251,7 +251,7 @@
           type="number"
           [submitted]="submitted"
           [disabled]="hasProfile"
-        ></shared-custom-input-field>
+        ></shared-custom-input-field> -->
       </div>
       <div class="sub-container">
         <shared-custom-select
@@ -272,11 +272,11 @@
           [valid]="addCompanyProfileForm.controls['RegionId']?.status"
           (onValueChange)="selectChanged($event, 'regionId'); citySelect.resetValue()"
           name="regionId"
-          label="Region"
+          label="Province"
           [defaultValue]="+companyProfile?.regionId"
           [styleObject]="styleObject"
           class="input-element-type-3"
-          placeholder="Select Region"
+          placeholder="Select Province"
           [options]="regions"
           [submitted]="submitted"
           [disabled]="hasProfile"

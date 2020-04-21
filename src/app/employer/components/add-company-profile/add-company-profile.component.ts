@@ -114,8 +114,8 @@ export class AddCompanyProfileComponent implements OnInit {
       industryType: ['', Validators.required],
       companyDescription: ['', Validators.required],
       businessLicense: ['', Validators.required],
-      businessLicenseNumber: ['', Validators.required],
-      companyLogo: ['', Validators.required],
+      // businessLicenseNumber: ['', Validators.required],
+      companyLogo: [''],
       companyAddress: [''],
       cityId: ['', Validators.required],
       regionId: ['', Validators.required],
@@ -227,7 +227,9 @@ export class AddCompanyProfileComponent implements OnInit {
         const regions = response.regions;
         this.regions = [];
         regions.map(region => {
-          this.regions.push({ name: region.regionName, value: region.id });
+          if(region.countryId === 1) {
+            this.regions.push({ name: region.regionName, value: region.id });
+          }
         });
       },
       error => console.log(error)
@@ -239,11 +241,12 @@ export class AddCompanyProfileComponent implements OnInit {
       response => {
         const countries = response.countries;
         this.countries = [];
-        countries.map(country => {
-          this.countries.push({ name: country.countryName, value: country.id });
-        });
+        // countries.map(country => {
+        //   this.countries.push({ name: country.countryName, value: country.id });
+        // });
 
-        this.addCompanyProfileForm.controls['countryId'].setValue(countries[0].id);
+      this.countries.push({ name: countries[0].countryName, value: countries[0].id });
+      this.addCompanyProfileForm.controls['countryId'].setValue(countries[0].id);
       },
       error => console.log(error)
     );
@@ -340,7 +343,7 @@ export class AddCompanyProfileComponent implements OnInit {
 
     this.employerService.addCompanyProfileWithFile(this.formData).subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.loading = false;
         if (response.success) {
           this.success = true;
@@ -359,7 +362,7 @@ export class AddCompanyProfileComponent implements OnInit {
           if (response.error) {
             this.serverErrorsMessage = response.error;
           } else {
-            console.log(response);
+            // console.log(response);
           }
         }
       },
