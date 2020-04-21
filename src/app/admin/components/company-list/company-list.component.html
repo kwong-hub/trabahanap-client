@@ -187,21 +187,21 @@
               <span class="company-list__icon"> </span>
               {{ company.featured ? 'Remove From Featured' : 'Add To Featured' }}
             </button>
-            <button
+            <!-- <button
               [routerLink]="['add_plan/', company.id]"
               *ngIf="company.verified && !company.exempt"
               class="company-list__action company-list__action--hover"
             >
               <span class="company-list__icon"> </span>Grant Plan
-            </button>
-            <button
+            </button> -->
+            <!-- <button
               style="min-width: 10rem;"
               (click)="toggleExempt($event, company.id)"
               *ngIf="company.verified"
               class="company-list__action company-list__action--hover"
             >
               <span class="company-list__icon"> </span> {{ company.exempt ? 'Remove Exempt' : 'Add To Exempted' }}
-            </button>
+            </button> -->
             <button (click)="toggleSuspend(company.id)" class="company-list__action company-list__action--hover">
               <span class="company-list__icon"> <fa-icon [icon]="!company?.suspended ? faTimes : ''"></fa-icon> </span
               >{{ company.suspended ? 'Unsuspend' : 'Suspend' }}

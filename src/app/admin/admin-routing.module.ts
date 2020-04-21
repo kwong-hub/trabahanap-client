@@ -266,30 +266,30 @@ const routes: Routes = [
         canActivate: [AdminGuard],
         component: AddAdvertisementComponent,
       },
-      {
-        path: 'payment',
-        canActivate: [AdminGuard],
-        component: PaymentListComponent,
-        resolve: { data: AdminPaymentListResolverService },
-      },
-      {
-        path: 'payment/detail/:id',
-        canActivate: [AdminGuard],
-        component: EmployerPaymentInformationComponent,
-        resolve: { data: AdminEmployerPaymentResolverService }
-      },
-      {
-        path: 'plan_types',
-        canActivate: [AdminGuard],
-        component: PlanTypesComponent,
-        resolve: { data: PaymentTypeResolverService },
-      },
-      {
-        path: 'exempt',
-        canActivate: [AdminGuard],
-        component: ExemptedCompanyComponent,
-        resolve: { data: ExemptResolverService },
-      },
+      // {
+      //   path: 'payment',
+      //   canActivate: [AdminGuard],
+      //   component: PaymentListComponent,
+      //   resolve: { data: AdminPaymentListResolverService },
+      // },
+      // {
+      //   path: 'payment/detail/:id',
+      //   canActivate: [AdminGuard],
+      //   component: EmployerPaymentInformationComponent,
+      //   resolve: { data: AdminEmployerPaymentResolverService }
+      // },
+      // {
+      //   path: 'plan_types',
+      //   canActivate: [AdminGuard],
+      //   component: PlanTypesComponent,
+      //   resolve: { data: PaymentTypeResolverService },
+      // },
+      // {
+      //   path: 'exempt',
+      //   canActivate: [AdminGuard],
+      //   component: ExemptedCompanyComponent,
+      //   resolve: { data: ExemptResolverService },
+      // },
       // {
       //   path: 'plan_types/add',
       //   canActivate: [AdminGuard],

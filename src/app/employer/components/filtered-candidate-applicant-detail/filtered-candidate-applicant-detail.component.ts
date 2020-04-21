@@ -35,24 +35,7 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
     private paymentService: PaymentService,
     private authenticationService: AuthenticationService
   ) {
-    this.currentUser = this.authenticationService.currentUserValue;
-    this.role = this.currentUser.role.toLowerCase();
-
-    if (!this.currentUser.company_profile.exempt) {
-      this.route.data.subscribe(res => {
-        let subscriptons = res.subs;
-        if (subscriptons.success && res.subs.subscription) {
-          this.subscription = subscriptons.subscription;
-        } else {
-          this.router.navigate([
-            `/${this.role}/plan`,
-            { data: 'Please buy one of the subscriptions plan to start downloading applicant profile.' }
-          ]);
-        }
-      });
-    }
-
-  
+ 
 
   }
 
@@ -95,79 +78,7 @@ export class FilteredCandidateApplicantDetailComponent implements OnInit {
       .download(this.applicant.user.firstName + ' ' + this.applicant.user.lastName + '  Resume.pdf');
   }
 
-  checkSubscription() {
-    let today = Date.now();
-    if (!this.currentUser.company_profile.exempt) {
-      if (this.subscription) {
-        if (
-          (this.subscription.type == 'PREMIUM' || this.subscription.type == 'FREE') &&
-          Date.parse(this.subscription.expirationDate) >= today
-        ) {
-          if (this.applicant.cv) {
-            window.open(
-              this.applicant.cv,
-              'download' // <- This is what makes it open in a new window.
-            );
-          } else {
-            this.generatePdf();
-          }
-          
-        } else if (this.subscription.type == 'EXPRESS' && this.subscription.points >= 30) {
-          this.toggleConfirmModal = true;
-        } else {
-          this.router.navigate([
-            `/${this.role}/plan`,
-            { data: 'Please Upgrade your subscriptions plan to start downloading applicant profile.' }
-          ]);
-        }
-      } else {
-        this.router.navigate([
-          `/${this.role}/plan`,
-          { data: 'Please Upgrade your subscriptions plan to start downloading applicant profile.' }
-        ]);
-      }
-    } else {
-      if (this.applicant.cv) {
-        window.open(
-          this.applicant.cv,
-          'download' // <- This is what makes it open in a new window.
-        );
-      } else {
-        this.generatePdf();
-      }
-    }
-  }
-
-  confirmAction() {
-   
-    if (!this.currentUser.company_profile.exempt) {
-      this.toggleConfirmModal = false;
-      const purchased = this.paymentService.purchaseCV(this.subscription.id).subscribe(data => {
-        if (data.success) {
-          if (this.applicant.cv) {
-            window.open(
-              this.applicant.cv,
-              'download' // <- This is what makes it open in a new window.
-            );
-          } else {
-            this.generatePdf();
-          }
-        }
-      });
-    } else {
-      if (this.applicant.cv) {
-        window.open(
-          this.applicant.cv,
-          'download' // <- This is what makes it open in a new window.
-        );
-      } else {
-        this.generatePdf();
-      }
-    }
-  }
-
   cancelAction() {
     this.toggleConfirmModal = false;
   }
-
 }
