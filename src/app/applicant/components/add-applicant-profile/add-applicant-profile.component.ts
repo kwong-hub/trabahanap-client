@@ -434,7 +434,9 @@ export class AddApplicantProfileComponent implements OnInit {
         const regions = response.regions;
         this.regions = [];
         regions.map(region => {
-          this.regions.push({ name: region.regionName, value: region.id });
+          if(region.countryId === 1) {
+            this.regions.push({ name: region.regionName, value: region.id });
+          }
         });
       },
       error => console.log(error)
@@ -446,11 +448,12 @@ export class AddApplicantProfileComponent implements OnInit {
       response => {
         const countries = response.countries;
         this.countries = [];
-        countries.map(country => {
-          this.countries.push({ name: country.countryName, value: country.id });
-        });
+        // countries.map(country => {
+        //   this.countries.push({ name: country.countryName, value: country.id });
+        // });
+        this.countries.push({ name: countries[0].countryName, value: countries[0].id });
 
-        this.addApplicantProfileForm.controls['CountryId'].setValue(countries[0].id);
+          this.addApplicantProfileForm.controls['CountryId'].setValue(countries[0].id);
       },
       error => console.log(error)
     );
