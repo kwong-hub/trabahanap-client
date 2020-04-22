@@ -84,8 +84,11 @@ export class CandidatesListComponent implements OnInit {
             this.pager = success.applications.pager;
             this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
             let path = this.location.path();
-            if (path.indexOf('page') >= 0) {
+            if (path.indexOf('page') >= 0 && this.pager.currentPage <= 10) {
               path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else if (path.indexOf('page') >= 0 && this.pager.currentPage >= 10) {
+              path = path.replace(/page=[0-9][0-9]/, `page=${this.pager.currentPage.toString()}`);
               this.location.go(path);
             } else {
               path = path.concat(`?page=${this.pager.currentPage}`);

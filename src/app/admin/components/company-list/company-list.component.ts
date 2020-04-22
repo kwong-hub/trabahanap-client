@@ -100,7 +100,7 @@ export class CompanyListComponent implements OnInit {
           }
         });
       },
-      error => {}
+      error => { }
     );
   }
 
@@ -124,7 +124,7 @@ export class CompanyListComponent implements OnInit {
     if (this.filtered) {
       var val = this.searchForm.value;
       this.adminService
-        .getFilterEmployers(val.companyName, val.industry,val.verify, val.registrationDate, parseInt(page.pageIndex) + 1, page.pageSize)
+        .getFilterEmployers(val.companyName, val.industry, val.verify, val.registrationDate, parseInt(page.pageIndex) + 1, page.pageSize)
         .subscribe(data => {
           if (data) {
             this.companies = data.companies.rows;
@@ -149,10 +149,14 @@ export class CompanyListComponent implements OnInit {
             this.pager = success.employers.pager;
             this.companies.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
             let path = this.location.path();
-            if (path.indexOf('page') >= 0) {
-              path = path.replace(/.$/, this.pager.currentPage.toString());
+            if (path.indexOf('page') >= 0 && this.pager.currentPage <= 10) {
+              path = path.replace(`?page=${this.pager.currentPage - 1}`, `?page=${this.pager.currentPage.toString()}`);
               this.location.go(path);
-            } else {
+            } else if (path.indexOf('page') >= 0 && this.pager.currentPage >= 10) {
+              path = path.replace(/page=[0-9][0-9]/, `page=${this.pager.currentPage.toString()}`);
+              this.location.go(path);
+            }
+            else {
               path = path.concat(`?page=${this.pager.currentPage}`);
               this.location.go(path);
             }
@@ -174,12 +178,12 @@ export class CompanyListComponent implements OnInit {
     var val = this.searchForm.value;
     this.filterHidden = true;
     this.adminService.getFilterEmployers(val.companyName, val.industry, val.verify, val.registrationDate, this.page || 1, 8).subscribe(data => {
-    if (data) {
-      this.companies = data.companies.rows;
-      this.pager = data.companies.pager;
-      this.companies.length === 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
-    }
-    this.countotalJobs();
+      if (data) {
+        this.companies = data.companies.rows;
+        this.pager = data.companies.pager;
+        this.companies.length === 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
+      }
+      this.countotalJobs();
     });
 
     this.filtered = true;
@@ -213,7 +217,7 @@ export class CompanyListComponent implements OnInit {
     this.openActions[id] = !value;
   }
 
-  toggleExempt(event,id){
+  toggleExempt(event, id) {
     this.otherService.toggleExemptCompany(id).subscribe(
       success => {
         if (success.success) {

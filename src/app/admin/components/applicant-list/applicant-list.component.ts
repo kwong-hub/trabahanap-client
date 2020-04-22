@@ -99,10 +99,13 @@ export class ApplicantListComponent implements OnInit {
             this.pager = data.applicants.pager;
             this.applicants.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
             let path = this.location.path();
-      // console.log(this.applicants)
+            // console.log(this.applicants)
 
-            if (path.indexOf('page') >= 0) {
+            if (path.indexOf('page') >= 0 && this.pager.currentPage <= 10) {
               path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else if (path.indexOf('page') >= 0 && this.pager.currentPage >= 10) {
+              path = path.replace(/page=[0-9][0-9]/, `page=${this.pager.currentPage.toString()}`);
               this.location.go(path);
             } else {
               path = path.concat(`?page=${this.pager.currentPage}`);
@@ -121,7 +124,7 @@ export class ApplicantListComponent implements OnInit {
           //   this.applicants.push(apps.user)
           // });
           this.pager = data.applicants.pager;
-      });
+        });
     }
   }
 
@@ -157,7 +160,7 @@ export class ApplicantListComponent implements OnInit {
       }
     );
   }
-  
+
   customValueChanged(value, name) {
     this.searchForm.controls[name].setValue(value);
   }
