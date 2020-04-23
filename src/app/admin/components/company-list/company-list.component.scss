@@ -1,6 +1,11 @@
 .container {
   padding: 2rem;
 }
+
+.calendars {
+  font-size: 1.5rem;
+}
+
 table {
   width: 100%;
   margin: 1.5rem 0;
@@ -24,6 +29,10 @@ table {
   }
 }
 
+.footer_correct{
+  height: 12rem;
+}
+
 .paginator {
   margin-right: 3%;
 }
@@ -31,6 +40,58 @@ table {
 .verify {
   display: inline-block;
 }
+.checkbox {
+  display: flex;
+  align-content: center;
+  &__input {
+    display: none;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0 2rem;
+    cursor: pointer;
+  }
+
+  &__button {
+    position: relative;
+    width: 2.3rem;
+    height: 2.3rem;
+    border: 2px solid tomato;
+    border-radius: 3px;
+    margin: 0 1rem;
+    // transition: all .2s;
+    &::before {
+      content: "";
+      font-family: "Font Awesome 5 Free";
+      font-size: 2.6rem;
+      display: inline-block;
+      color: tomato;
+      position: absolute;
+      top: -0.6rem;
+      left: -0.1rem;
+      transform: translateY(3px);
+      transition: transform 0.2s;
+    }
+  }
+
+  &__text {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 400;
+  }
+}
+
+.checkbox__input:checked ~ .checkbox__label .checkbox__button {
+  background: #eee;
+
+  &::before {
+    content: "\2714";
+    transform: translateY(0);
+  }
+}
+
 .not_Found {
   display: flex;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -134,7 +195,7 @@ table {
       top: -1.6rem;
       right: 2rem;
       border: 8px solid transparent;
-      border-bottom-color: #ddd;
+      border-bottom-color: #fff;
     }
   }
 
@@ -226,8 +287,8 @@ table {
 
 .add_employer_floating {
   position: fixed;
-  right: 4rem;
-  bottom: 7rem;
+  right: 5rem;
+  bottom: 5rem;
   font-size: 2rem;
   // z-index: 1000;
 

@@ -12,6 +12,7 @@ import {
 import { AdminService } from '@app/_services/admin.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-applications-list',
@@ -54,7 +55,8 @@ export class ApplicationsListComponent implements OnInit {
     private adminService: AdminService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     // this.route.data.subscribe(res => {
     //   let data = res.data;
@@ -67,11 +69,13 @@ export class ApplicationsListComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.searchForm = this.formBuilder.group({
       query: ['', Validators.nullValidator],
       applicantName: ['', Validators.nullValidator],
       jobtitle: ['', Validators.nullValidator],
-      companyName: ['', Validators.nullValidator]
+      companyName: ['', Validators.nullValidator],
+      hired:['']
     });
 
     let elem = document.getElementsByClassName('overlay');
@@ -111,12 +115,14 @@ export class ApplicationsListComponent implements OnInit {
             this.pager = success.applications.pager;
 
             this.applications.length == 0 ? (this.empty = true) : (this.hasValues = true);
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+            let path = this.location.path();
+            if (path.indexOf('page') >= 0) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
             // this.pager.pages = this.renderedPages();
           }
         },
@@ -125,18 +131,23 @@ export class ApplicationsListComponent implements OnInit {
     } else {
       var val = this.searchForm.value;
       this.adminService
-        .getFilterApplications(val.applicantName, val.jobtitle, val.companyName, page.pageIndex + 1, page.pageSize)
+        .getFilterApplications(val.applicantName, val.jobtitle, val.companyName,val.hired, page.pageIndex + 1, page.pageSize)
         .subscribe(data => {
           this.applications = data.applications.rows;
           this.pager = data.applications.pager;
 
           this.applications.length == 0 ? (this.empty = true) : (this.hasValues = true);
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { page: this.pager.currentPage },
-            replaceUrl: true,
-            queryParamsHandling: 'merge'
-          });
+          let path = this.location.path();
+          if (path.indexOf('page') >= 0 && this.pager.currentPage <= 10) {
+            path = path.replace(/.$/, this.pager.currentPage.toString());
+            this.location.go(path);
+          } else if (path.indexOf('page') >= 0 && this.pager.currentPage >= 10) {
+            path = path.replace(/page=[0-9][0-9]/, `page=${this.pager.currentPage.toString()}`);
+            this.location.go(path);
+          } else {
+            path = path.concat(`?page=${this.pager.currentPage}`);
+            this.location.go(path);
+          }
         });
     }
   }
@@ -150,7 +161,7 @@ export class ApplicationsListComponent implements OnInit {
     var val = this.searchForm.value;
     this.filterHidden = true;
     this.adminService
-      .getFilterApplications(val.applicantName, val.jobtitle, val.companyName, this.page || 1, 8)
+      .getFilterApplications(val.applicantName, val.jobtitle,  val.companyName,val.hired, this.page || 1, 8)
       .subscribe(data => {
         this.applications = data.applications.rows;
         this.pager = data.applications.pager;

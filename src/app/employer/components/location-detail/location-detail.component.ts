@@ -7,6 +7,8 @@ import { marker, icon, Point, tileLayer, latLng, LatLng } from 'leaflet';
 import { faEdit, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons';
 import _ from 'lodash';
 import { LocationService } from '@app/_services/location.service';
+import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-location-detail',
@@ -37,7 +39,7 @@ export class LocationDetailComponent implements OnInit {
   uploading: boolean = false;
   options = {
     layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '...'
       })
@@ -57,6 +59,7 @@ export class LocationDetailComponent implements OnInit {
   numberRange ={max:'18',min:'10'};
   mustBeBranch: boolean;
   toggleConfirmModal: boolean;
+  map: any;
 
   constructor(
     private employerService: EmployerService,
@@ -69,7 +72,7 @@ export class LocationDetailComponent implements OnInit {
       let data = res.data;
       if (data.success) {
         this.location = data.location.location;
-        this.mustBeBranch = !!data.location.heads.length;
+        this.mustBeBranch = !!data.location.heads.length && !this.location.isHeadOffice;
       } else {
         this._location.back();
       }
@@ -82,8 +85,8 @@ export class LocationDetailComponent implements OnInit {
       picture: [''],
       locationName: ['', Validators.required],
       locationPhoneNumber: ['', Validators.required],
-      email: ['', Validators.required],
-      address: [''],
+      email: ['', [Validators.required, Validators.email]],
+      address: ['', Validators.required],
       cityId: ['', Validators.required],
       regionId: ['', Validators.required],
       countryId: ['', Validators.required],
@@ -196,6 +199,26 @@ export class LocationDetailComponent implements OnInit {
     this._location.back();
   }
 
+  onMapReady(map: L.Map) {
+    this.map = map;
+
+    const provider = new OpenStreetMapProvider();
+    
+    const searchControl = new GeoSearchControl({
+      provider: provider,
+      autoCompleteDelay: 300,
+      autoClose: true,
+      showMarker: false,
+    });
+    this.map.addControl(searchControl);
+    searchControl.getContainer().onclick = e => { e.stopPropagation(); };
+    this.map.on('geosearch/showlocation', (e) => {
+      let { lat, lng } = e.marker._latlng;
+      this.marker.setLatLng(new LatLng(lat, lng));
+      ({ lat: this.latitude, lng: this.longitude } = e.marker._latlng);
+    })
+  }
+
   mapClicked(e) {
     let { lat, lng } = e.latlng;
     this.marker.setLatLng(new LatLng(lat, lng));
@@ -229,7 +252,7 @@ export class LocationDetailComponent implements OnInit {
       return;
     }
 
-    let newLocation = { ...this.locationForm.value, latitude: this.latitude, longitude: this.longitude };
+    let newLocation = { ...this.locationForm.value, isHeadOffice: !!this.locationForm.value.isHeadOffice, latitude: this.latitude, longitude: this.longitude };
 
     if(this.mustBeBranch && newLocation.isHeadOffice) {
       this.toggleConfirmModal = true;
@@ -254,6 +277,7 @@ export class LocationDetailComponent implements OnInit {
           if (data.success) {
             this.editSuccess = true;
           } else {
+            console.log(data)
           }
         },
         error => {

@@ -26,21 +26,21 @@
   <div class="container">
     <div class="img-container img-container--jobs">
       <!-- <img src="../../../../assets/img/home/dash-1.jpg" alt="" class="img"> -->
-      <div class="stat stat--jobs">
+      <div class="stat stat--jobs" [routerLink]="['../jobs']"  >
         <div class="stat__header">Active Jobs</div>
-        <span class="stat__value">{{ dashboardItem1.value }}</span>
+        <span class="stat__value"> {{ dashboardItem1.value }} </span>
       </div>
     </div>
     <div class="img-container img-container--companies">
       <!-- <img src="../../../../assets/img/home/dash-2.jpg" alt="" class="img"> -->
       <div class="stat stat--companies">
-        <div class="stat__header">Applicants</div>
+        <div class="stat__header" [routerLink]="['../applications']">Applicants</div>
         <span class="stat__value">{{ dashboardItem2.value }}</span>
       </div>
     </div>
     <div class="img-container img-container--applied">
       <!-- <img src="../../../../assets/img/home/dash-3.jpg" alt="" class="img"> -->
-      <div class="stat stat--applied">
+      <div class="stat stat--applied" [routerLink]="['../filtered_candidates']">
         <div class="stat__header">Filtered Candidates</div>
         <span class="stat__value">{{ dashboardItem3.value }}</span>
       </div>

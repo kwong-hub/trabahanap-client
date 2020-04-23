@@ -29,7 +29,7 @@
 
     <div class="form__group">
       <shared-custom-input-field [limit]="nameLimit" class="input-element-type-2 form__input-location"
-        [formGroup]="locationForm" name="email" [defaultValue]="location.email" placeholder="Enter Contact Email"
+        [formGroup]="locationForm" name="email" [defaultValue]="location.email ? location.email : ''" placeholder="Enter Contact Email"
         label="Contact Email" [input]="locationForm.controls['email']" type="email" [submitted]="submitted">
       </shared-custom-input-field>
 
@@ -81,7 +81,8 @@
   </form>
 
   <div class="map-container">
-    <div style="height: 100%;" leaflet [leafletOptions]="options" (leafletClick)="mapClicked($event)">
+    <div style="height: 100%;" leaflet [leafletOptions]="options" 
+      (leafletMapReady)="onMapReady($event)" (leafletClick)="mapClicked($event)">
       <div [leafletLayer]="marker"></div>
     </div>
   </div>

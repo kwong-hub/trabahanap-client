@@ -52,8 +52,14 @@
         <img *ngIf="tempImg" class="company-logo-display__image" [src]="tempImg" alt="new-picture" />
 
         <div title="Change Logo" *ngIf="!hasProfile" class="company-logo-display__edit">
-          <input type="file" name="" id="" class="picture-input" 
-           accept="image/x-png,image/jpg,image/jpeg" (change)="imageChanged($event)" />
+          <input
+            type="file"
+            name=""
+            id=""
+            class="picture-input"
+            accept="image/x-png,image/jpg,image/jpeg"
+            (change)="imageChanged($event)"
+          />
           <fa-icon class="picture-icon" [icon]="faCamera"></fa-icon>
         </div>
       </div>
@@ -63,9 +69,9 @@
       <h4 *ngIf="companyProfile" class="form__title">Your Company's Profile</h4>
     </div>
     <div class="add-company-profile">
-      <!-- <div *ngIf="(submitted && addCompanyProfileForm.invalid) || serverErrors" class="form__error">
-        <p *ngFor="let err of formErrors"><fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ err }}</p>
-      </div> -->
+      <div *ngIf="serverErrorsMessage != ''" class="form__error">
+        <p><fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ serverErrorsMessage }}</p>
+      </div>
       <div class="sub-container">
         <shared-custom-input-field
           class="input-element-type-2"
@@ -78,7 +84,7 @@
           type="text"
           [submitted]="submitted"
           [disabled]="hasProfile"
-          [limit] ="defaultLimit"
+          [limit]="defaultLimit"
         ></shared-custom-input-field>
       </div>
       <div class="sub-container">
@@ -93,7 +99,7 @@
           type="text"
           [submitted]="submitted"
           [disabled]="hasProfile"
-          [limit] ="defaultLimit"
+          [limit]="defaultLimit"
         ></shared-custom-input-field>
         <shared-custom-input-field
           class="input-element-type-1"
@@ -106,7 +112,7 @@
           type="tel"
           [submitted]="submitted"
           [disabled]="hasProfile"
-          [limit] ="numberRange"
+          [limit]="numberRange"
         ></shared-custom-input-field>
       </div>
 
@@ -122,7 +128,7 @@
           type="text"
           [submitted]="submitted"
           [disabled]="hasProfile"
-          [limit] ="bigLimit"
+          [limit]="bigLimit"
         ></shared-custom-input-field>
         <shared-custom-input-field
           class="input-element-type-1"
@@ -135,12 +141,12 @@
           type="text"
           [submitted]="submitted"
           [disabled]="hasProfile"
-          [limit] ="bigLimit"
+          [limit]="bigLimit"
         ></shared-custom-input-field>
       </div>
       <div style="justify-content: space-between;" class="sub-container">
         <shared-custom-file-input
-          *ngIf="!(companyProfile)"
+          *ngIf="!companyProfile"
           class="input-element-type-1"
           [formGroup]="addCompanyProfileForm"
           name="companyLogo"
@@ -189,7 +195,7 @@
           [defaultValue]="companyProfile?.zipcode"
           placeholder="Zip Code"
           label="Zip Code"
-          [range]="{ min: '10000', max: '99999' }"
+          [range]="{ min: '1000', max: '9999' }"
           [input]="addCompanyProfileForm.controls['zipcode']"
           type="number"
           [submitted]="submitted"
@@ -234,7 +240,7 @@
                 [submitted]="submitted"
                 [disabled]="hasProfile"
             ></shared-custom-input-field> -->
-        <shared-custom-input-field
+        <!-- <shared-custom-input-field
           class="input-element-type-4"
           [formGroup]="addCompanyProfileForm"
           name="businessLicenseNumber"
@@ -243,10 +249,9 @@
           label="Business License Number"
           [input]="addCompanyProfileForm.controls['businessLicenseNumber']"
           type="number"
-          [range]="{ min: '5', max: '20' }"
           [submitted]="submitted"
           [disabled]="hasProfile"
-        ></shared-custom-input-field>
+        ></shared-custom-input-field> -->
       </div>
       <div class="sub-container">
         <shared-custom-select
@@ -267,11 +272,11 @@
           [valid]="addCompanyProfileForm.controls['RegionId']?.status"
           (onValueChange)="selectChanged($event, 'regionId'); citySelect.resetValue()"
           name="regionId"
-          label="Region"
+          label="Province"
           [defaultValue]="+companyProfile?.regionId"
           [styleObject]="styleObject"
           class="input-element-type-3"
-          placeholder="Select Region"
+          placeholder="Select Province"
           [options]="regions"
           [submitted]="submitted"
           [disabled]="hasProfile"
@@ -350,8 +355,14 @@
     </div> -->
 </div>
 
-<img (click)="onLicensePreview()" *ngIf="isImage" [src]="companyProfile?.businessLicense" alt="" 
-  class="modalImage" [class.active]="showLicensePreview && isImage" />
+<img
+  (click)="onLicensePreview()"
+  *ngIf="isImage"
+  [src]="companyProfile?.businessLicense"
+  alt=""
+  class="modalImage"
+  [class.active]="showLicensePreview && isImage"
+/>
 
 <ngx-doc-viewer
   [url]="companyProfile?.businessLicense"

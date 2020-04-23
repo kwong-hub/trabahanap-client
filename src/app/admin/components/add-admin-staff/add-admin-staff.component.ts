@@ -19,6 +19,17 @@ export class AddAdminStaffComponent implements OnInit {
   defaultLimit = { max: '30', min: '0' };
   numberRange = { max: '20', min: '10' };
   bigLimit = { max: '100', min: '6' };
+  roles = [
+    { name: 'Admin Staff', value: 'ADMINSTAFF' },
+    { name: 'Admin Advertisment', value: 'ADMINADS' }
+  ];
+  styleObject = {
+    inputContainer: {},
+    inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888', backgroundColor: 'white' },
+    optionContainer: { backgroundColor: '#555', top: '3.3rem', boxShadow: '0px 1px 2px #aaa' },
+    option: { fontSize: '1.5rem', borderBottom: '1px solid #ddd', backgroundColor: '#fff' }
+  };
+  STAFFER ="STAFFER"
   constructor(
     private formBuilder: FormBuilder,
     private adminServices: AdminService,
@@ -31,8 +42,13 @@ export class AddAdminStaffComponent implements OnInit {
       email: ['', Validators.email],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phoneNumber: ['', Validators.required]
+      phoneNumber: ['', Validators.required],
+      role: ['', Validators.required]
     });
+  }
+
+  selectChanged(value, name) {
+    this.addStaffer.controls[name].setValue(value);
   }
   onSubmit() {
     this.submitted = true;
@@ -43,6 +59,7 @@ export class AddAdminStaffComponent implements OnInit {
 
     this.adminServices.addAdminStaff(values).subscribe(
       data => {
+        console.log(data)
         if (data.success) {
           this.stafferAdded = true;
           this.router.navigate(['../'], { relativeTo: this.Route });

@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "app-filtered-candidates",
-  templateUrl: "./filtered-candidates.component.html",
-  styleUrls: ["./filtered-candidates.component.scss"]
+  selector: 'app-filtered-candidates',
+  templateUrl: './filtered-candidates.component.html',
+  styleUrls: ['./filtered-candidates.component.scss']
 })
 export class FilteredCandidatesComponent implements OnInit {
   pager: any;

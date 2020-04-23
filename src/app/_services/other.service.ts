@@ -40,9 +40,18 @@ export class OtherService {
     return this.http.get<any>(`${environment.apiUrl}/employers/featured`);
   }
 
+  getExemptCompanies(page,pageSize): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/admin/employer/exempt?page=${page}&pageSize=${pageSize}`);
+  }
+
   toggleFeaturedCompany(id): Observable<any> {
     return this.http.get<any>(
       `${environment.apiUrl}/admin/employers/featured/${id}/toggle`
+    );
+  }
+  toggleExemptCompany(id): Observable<any> {
+    return this.http.get<any>(
+      `${environment.apiUrl}/admin/employers/exempt/${id}/toggle`
     );
   }
 }

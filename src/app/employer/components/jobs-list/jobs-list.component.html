@@ -67,49 +67,49 @@
   <h3 class="not_Found" *ngIf="jobs && jobs.length == 0">
     You don't have any jobs yet.
   </h3>
-  <div *ngIf="jobs && jobs.length > 0">
-    <table mat-table [dataSource]="jobs" class="mat-elevation-z10">
+  <div *ngIf="jobs && jobs.length > 0"  class="responsive__table" >
+    <table mat-table [dataSource]="jobs" class="mat-elevation-z10 ">
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
 
-      <!-- Position Column -->
+      <!-- Position Column -->                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
       <ng-container matColumnDef="jobTitle">
-        <th mat-header-cell *matHeaderCellDef>Job Title</th>
+        <th mat-header-cell *matHeaderCellDef data-priority="1">Job Title</th>
         <td mat-cell *matCellDef="let element">{{ element.jobTitle }}</td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="industry">
-        <th mat-header-cell *matHeaderCellDef>Industry</th>
+        <th mat-header-cell *matHeaderCellDef>Industry</th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
         <td mat-cell *matCellDef="let element">{{ element.industry }}</td>
       </ng-container>
 
       <!-- Weight Column -->
-      <ng-container matColumnDef="education">
-        <th mat-header-cell *matHeaderCellDef>Educational Attainment</th>
-        <td mat-cell *matCellDef="let element">
+      <ng-container  matColumnDef="education">
+        <th class="th_hide" mat-header-cell *matHeaderCellDef>Educational Attainment</th>                                                                                                                                                                                                                                           
+        <td class="th_hide" mat-cell *matCellDef="let element">                                                                                                                                                                                                                                                                                                                                                                 
           {{ element.educationAttainment }}
-        </td>
+        </td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
       </ng-container>
 
       <ng-container matColumnDef="appEnd">
-        <th mat-header-cell *matHeaderCellDef>Application End Date</th>
-        <td mat-cell *matCellDef="let element">
+        <th class="th_hide" mat-header-cell *matHeaderCellDef>Application End Date</th>
+        <td class="th_hide" mat-cell *matCellDef="let element">
           {{ element.applicationEndDate | date: 'longDate' }}
         </td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="salaryRange">
-        <th mat-header-cell *matHeaderCellDef>Salary Range</th>
-        <td mat-cell *matCellDef="let element">{{ element.salaryRange }}</td>
+        <th  class="th_hide" mat-header-cell *matHeaderCellDef>Salary Range</th>
+        <td  class="th_hide" mat-cell *matCellDef="let element">{{ element.salaryRange }}</td>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef data-priority="2">Status</th>
+        <td class="td_status" mat-cell *matCellDef="let element">
           <div *ngIf="!element.suspended" class="tag tag--verified">
-            <fa-icon [icon]="faCheckCircle"></fa-icon>
+            <fa-icon [icon]="faCheckCircle"></fa-icon>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
           </div>
           <div *ngIf="element.suspended" class="tag tag--unverified">
             <fa-icon [icon]="faTimesCircle"></fa-icon>
@@ -118,7 +118,7 @@
       </ng-container>
 
       <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef></th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
         <td class="job-list__actions-container" mat-cell *matCellDef="let element">
           <button (click)="toggleActions($event, element.id)" class="job-list__action">
             <fa-icon [icon]="faEllipsisV"></fa-icon>
@@ -150,7 +150,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <mat-paginator
+    <mat-paginator class="paginator"
       [length]="pager?.totalItems"
       [pageSize]="pager?.pageSize"
       [pageSizeOptions]="[5, 8, 10, 25, 100]"

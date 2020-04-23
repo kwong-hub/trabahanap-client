@@ -140,3 +140,8 @@
 .sub-modulte-container__jobs {
   padding: 0 10%;
 }
+@media screen and (max-width: 760px) {
+  .sub-modulte-container__jobs {
+    padding: 0 0;
+  }
+}

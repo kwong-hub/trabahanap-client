@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { faMapMarkerAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as L from 'leaflet';
 import { tileLayer, latLng, marker, icon, Point, LatLng } from 'leaflet';
+import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AnonymousService } from '@app/_services/anonymous.service';
 import { Router } from '@angular/router';
@@ -126,6 +127,22 @@ export class LandingNearJobsComponent implements OnInit {
   // get the reference to the map
   onMapReady(map: L.Map) {
     this.map = map;
+
+    const provider = new OpenStreetMapProvider();
+    
+    const searchControl = new GeoSearchControl({
+      provider: provider,
+      autoCompleteDelay: 300,
+      autoClose: true,
+      showMarker: false,
+    });
+    this.map.addControl(searchControl);
+    searchControl.getContainer().onclick = e => { e.stopPropagation(); };
+    this.map.on('geosearch/showlocation', (e) => {
+      let { lat, lng } = e.marker._latlng;
+      this.ping.setLatLng(new LatLng(lat, lng));
+      ({ lat: this.latitude, lng: this.longitude } = e.marker._latlng);
+    })
   }
 
   mapClicked(e) {

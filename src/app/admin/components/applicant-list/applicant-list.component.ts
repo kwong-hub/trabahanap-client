@@ -13,6 +13,7 @@ import { AdminService } from '@app/_services/admin.service';
 import _ from 'lodash';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-applicant-list',
@@ -29,7 +30,7 @@ export class ApplicantListComponent implements OnInit {
   faCheckCircle = faCheckCircle;
   faTimesCircle = faTimesCircle;
   applicants = [];
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'status', 'action'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'status', 'createdAt', 'action'];
   public pager: any;
   public page: any;
   searchForm: FormGroup;
@@ -47,7 +48,8 @@ export class ApplicantListComponent implements OnInit {
     private adminService: AdminService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     // this.route.data.subscribe(res => {
     //   let data = res.data;
@@ -64,7 +66,8 @@ export class ApplicantListComponent implements OnInit {
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
       name: ['', Validators.nullValidator],
-      email: ['', Validators.nullValidator]
+      email: ['', Validators.nullValidator],
+      registrationDate: ['', Validators.nullValidator]
     });
 
     let elem = document.getElementsByClassName('overlay');
@@ -85,33 +88,43 @@ export class ApplicantListComponent implements OnInit {
   getServerData(page) {
     if (!this.filtered) {
       this.adminService.getAllApplicants(page.pageIndex + 1, page.pageSize).subscribe(
-        success => {
+        data => {
           this.applicants = [];
-          if (success.success == true) {
-            success.applicants.rows.forEach(apps => {
-              this.applicants.push(apps.user);
-            });
-            this.pager = success.applicants.pager;
-            this.applicants.length == 0 ? (this.empty = true) : (this.hasValues = true);
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+          if (data.success == true) {
+            console.log(data.applicants)
+            // data.applicants.rows.forEach(apps => {
+            //   this.applicants.push(apps.user);
+            // });
+            this.applicants = data.applicants.rows;
+            this.pager = data.applicants.pager;
+            this.applicants.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
+            let path = this.location.path();
+            // console.log(this.applicants)
+
+            if (path.indexOf('page') >= 0 && this.pager.currentPage <= 10) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else if (path.indexOf('page') >= 0 && this.pager.currentPage >= 10) {
+              path = path.replace(/page=[0-9][0-9]/, `page=${this.pager.currentPage.toString()}`);
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
           }
         },
         err => console.log(err)
       );
     } else {
       var val = this.searchForm.value;
-      this.adminService.getFilterApplicants(val.name, val.email, page.pageIndex + 1, page.pageSize).subscribe(data => {
-        this.applicants = data.applicants.rows;
-        // data.applicants.rows.forEach(apps => {
-        //   this.applicants.push(apps.user)
-        // });
-        this.pager = data.applicants.pager;
-      });
+      this.adminService.getFilterApplicants(val.name, val.email, val.registrationDate, page.pageIndex + 1, page.pageSize)
+        .subscribe(data => {
+          this.applicants = data.applicants.rows;
+          // data.applicants.rows.forEach(apps => {
+          //   this.applicants.push(apps.user)
+          // });
+          this.pager = data.applicants.pager;
+        });
     }
   }
 
@@ -123,9 +136,10 @@ export class ApplicantListComponent implements OnInit {
   filterApplicants() {
     var val = this.searchForm.value;
     this.filterHidden = true;
-    this.adminService.getFilterApplicants(val.name || '', val.email || '', this.page || 1, 10).subscribe(data => {
+    this.adminService.getFilterApplicants(val.name || '', val.email || '', val.registrationDate, this.page || 1, 10).subscribe(data => {
       this.applicants = data.applicants.rows;
       this.pager = data.applicants.pager;
+      this.applicants.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
     });
 
     this.filtered = true;
@@ -146,22 +160,8 @@ export class ApplicantListComponent implements OnInit {
       }
     );
   }
-  // getUnVerifiedUsers(){
-  //   this.adminService.unVerifiedUser().subscribe(
-  //     data =>{
 
-  //       console.log(data)
-  //     }
-  //   )
-  // }
-  // VerifyApplicants(){
-  //   this.adminService.verifyUser().subscribe(
-  //     data =>{
-  //       if(data.success){
-  //         console.log(data)
-  //       }
-
-  //     }
-  //   )
-  // }
+  customValueChanged(value, name) {
+    this.searchForm.controls[name].setValue(value);
+  }
 }

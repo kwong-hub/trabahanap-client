@@ -1,17 +1,24 @@
 <div [formGroup]="formGroup" class="form__group">
   <input
     (change)="onFileChange($event)"
-    [accept]="accept"
-    [type]="type"
-    [name]="name"
-    class="form__input"
+    [accept]="accept" [type]="type"
+    [name]="name" class="form__input"
     [placeholder]="placeholder"
     [class.form__input--error]="submitted && errorMessage"
     [formControlName]="name"
     [ngClass]="{ 'is-invalid': submitted && input.status == 'INVALID' }"
   />
   <label class="form__label" [for]="name">{{ label }}</label>
-  <div *ngIf="submitted && input.status == 'INVALID'" class="invalid-feedback">
+  <div *ngIf="submitted && input.status == 'INVALID' && !input?.errors?.maxSize && !input?.errors?.format" class="invalid-feedback">
     <div class="invalid-feedback__message">{{ label }} is not valid</div>
   </div>
+
+  <div *ngIf="input?.errors?.format" class="invalid-feedback">
+    <div class="invalid-feedback__message">Valid formats are {{accept}}</div>
+  </div>
+
+  <div *ngIf="input?.errors?.maxSize" class="invalid-feedback">
+    <div class="invalid-feedback__message">Maximum size allowed is 4Mb,</div>
+  </div>
+
 </div>

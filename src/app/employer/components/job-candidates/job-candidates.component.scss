@@ -1,5 +1,5 @@
 .job {
-  min-width: 60rem;
+  // min-width: 40rem;
   background-image: url("../../../../assets/img/bg.jpg");
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -10,7 +10,7 @@
 .job-detail {
   &__container {
     width: 100%;
-    min-width: 60rem;
+    // min-width: 60rem;
     height: 25rem;
     padding: 2rem;
     background-color: #fff;
@@ -130,5 +130,35 @@
   &__image {
     min-width: 5rem;
     width: 5rem;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .responsive__table{
+    flex-wrap: nowrap;
+    overflow: scroll;
+    margin: 0 -2rem;
+  
+  }
+  table{
+    padding: 0.7rem;
+  }
+ 
+  .th_hide{
+    // background-color: #333;
+    display: none;
+  }
+
+  .td_limit{
+    max-width: 5px;
+    overflow: visible;
+  }
+
+  .td_status{
+    max-width: 5px;
+
+  }
+  .tag{
+    float: right;
   }
 }

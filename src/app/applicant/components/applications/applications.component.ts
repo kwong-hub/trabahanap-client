@@ -12,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ApplicantService } from '@app/_services/applicant.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-applications',
@@ -59,26 +60,27 @@ export class ApplicationsComponent implements OnInit {
     private applicantService: ApplicantService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(
-      data => {
-        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
-        this.getServerData(this.matPager);
-      },
-      err => console.log(err)
-    );
-
-    // this.route.data.subscribe(
+    // this.route.queryParams.subscribe(
     //   data => {
-    //     this.jobs = data.jobs.rows;
-    //     this.pager = data.jobs.pager;
-    //     // console.log(this.jobs)
+    //     this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+    //     this.getServerData(this.matPager);
     //   },
-    //   error => console.log(error)
+    //   err => console.log(err)
     // );
+
+    this.route.data.subscribe(
+      data => {
+        this.jobs = data.jobs.rows;
+        this.pager = data.jobs.pager;
+        // console.log(this.jobs)
+      },
+      error => console.log(error)
+    );
 
     let elem = document.getElementsByClassName('overlay');
     elem[0].addEventListener('click', () => {
@@ -119,12 +121,14 @@ export class ApplicationsComponent implements OnInit {
           this.jobs = data.jobs.rows;
           this.pager = data.jobs.pager;
 
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { page: this.pager.currentPage },
-            replaceUrl: true,
-            queryParamsHandling: 'merge'
-          });
+          let path = this.location.path();
+          if (path.indexOf('page') >= 0) {
+            path = path.replace(/.$/, this.pager.currentPage.toString());
+            this.location.go(path);
+          } else {
+            path = path.concat(`?page=${this.pager.currentPage}`);
+            this.location.go(path);
+          }
         });
     } else {
       this.applicantService.getJobApplications(page.pageIndex + 1, page.pageSize).subscribe(
@@ -132,12 +136,14 @@ export class ApplicationsComponent implements OnInit {
           if (success.success == true) {
             this.jobs = success.jobs.rows;
             this.pager = success.jobs.pager;
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+            let path = this.location.path();
+            if (path.indexOf('page') >= 0) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
           }
         },
         err => console.log(err)

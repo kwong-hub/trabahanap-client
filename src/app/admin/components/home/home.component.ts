@@ -12,13 +12,13 @@ export class HomeComponent implements OnInit {
     value: "",
     description: "Employers",
     percent: "50%",
-    route: "employers"
+    route: "report/employers"
   };
   dashboardItem2 = {
     value: "",
     description: "Applicants",
     percent: "30%",
-    route: "applicants"
+    route: "report/applicants"
   };
   dashboardItem3 = {
     value: "",
@@ -32,10 +32,20 @@ export class HomeComponent implements OnInit {
     percent: "10%",
     route: "applications"
   };
+  sdf={
+    sun:123,
+    sat:2345,
+    mon:345,
+    tue:2345,
+    wed:249,
+    thu:12
+  }
+  stats: any;
 
   constructor(private Route: ActivatedRoute) {
     this.Route.data.subscribe(res => {
       let data = res.dashRes;
+      this.stats = data.stats;
       if (data.success) {
         let stats = data.stats;
         this.dashboardItem1 = {
@@ -55,5 +65,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
+  
 }

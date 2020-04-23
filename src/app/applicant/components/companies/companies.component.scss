@@ -1,6 +1,6 @@
 .container {
   margin-top: 2rem;
-  background-image: url("../../../../assets/img/bg.jpg");
+  background-image: url('../../../../assets/img/bg.jpg');
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
@@ -26,11 +26,11 @@
 }
 
 .overlay.active {
-  z-index:4 ;
+  z-index: 4;
   background-color: rgba(black, 0.5);
 }
 
-.filter.active{
+.filter.active {
   z-index: 5;
   background-color: #ddd;
 }
@@ -86,7 +86,7 @@
     //color: #555;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: -1.6rem;
       right: 2rem;
@@ -117,7 +117,7 @@
   // transition: all .2s;
 }
 
-.paginator{
+.paginator {
   min-width: 20rem;
 }
 
@@ -138,7 +138,7 @@
       width: 17rem;
       text-align: center;
     }
-    
+
     .img {
       max-width: 16rem;
       height: 10rem;
@@ -154,13 +154,13 @@
     display: flex;
     margin-top: 2rem;
     justify-content: center;
-    
+
     .heart-container {
       border: 1px solid #aa111d;
       border-radius: 50%;
       padding: 1rem;
       margin-right: 2rem;
-      transition: all .2s;
+      transition: all 0.2s;
       cursor: pointer;
 
       .icon {
@@ -172,7 +172,7 @@
 
     .view-btn {
       display: inline-block;
-      padding: .8rem 3rem;
+      padding: 0.8rem 3rem;
       font-size: 1.8rem;
       border-radius: 3rem;
       font-weight: 600;
@@ -199,7 +199,7 @@
 
     .icon {
       color: #d64e4e;
-      margin-right: .1rem;
+      margin-right: 0.1rem;
     }
   }
 }

@@ -11,7 +11,6 @@ export class AdminEmployerPaymentResolverService {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     let id = route.params.id;
-    console.log(id)
-    return this.adminService.getEmployerPaymentInfo(id);
+    return this.adminService.getEmployerPaymentInfo(id,1,5);
   }
 }

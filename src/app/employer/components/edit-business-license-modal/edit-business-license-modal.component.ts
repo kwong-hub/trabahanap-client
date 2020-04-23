@@ -27,11 +27,26 @@ export class EditBusinessLicenseModalComponent implements OnInit {
 
   ngOnInit() {
     this.updateBusinessLicenseForm = this.formBuilder.group({
-      businessLicense: ["", Validators.required]
+      businessLicense: ['', Validators.required]
     });
   }
 
   fileChanged(value, name) {
+    let type = value.type;
+    let size = value.size;
+    this.submited = true;
+    if(type !== 'application/doc' && type !== 'application/ms-doc' && type !== 'application/msword' && 
+    type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' && type !== 'application/pdf' && 
+    type !== 'image/png' && type !== 'image/jpg' && type !== 'image/jpeg') {
+      this.updateBusinessLicenseForm.controls['businessLicense'].setValue('');
+      this.updateBusinessLicenseForm.controls['businessLicense'].setErrors({format: true})
+      return;
+    }
+    if(size > 5000000){
+      this.updateBusinessLicenseForm.controls['businessLicense'].setValue('');
+      this.updateBusinessLicenseForm.controls['businessLicense'].setErrors({maxSize:true})
+      return;
+    }
     this.formData.append(name, value, value.name);
   }
 
@@ -50,7 +65,7 @@ export class EditBusinessLicenseModalComponent implements OnInit {
     this.employerService.chnageBusinessLicense(this.formData).subscribe(
       data => {
         this.loading = false;
-        console.log(data)
+        //console.log(data)
         if (data.success) {
           this.formData.delete("businessLicense");
           this.updateBusinessLicenseForm.controls["businessLicense"].setValue("");

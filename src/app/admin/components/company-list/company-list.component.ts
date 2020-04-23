@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OtherService } from '@app/_services/other.service';
 import { ThrowStmt } from '@angular/compiler';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-company-list',
@@ -21,7 +22,7 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class CompanyListComponent implements OnInit {
   companies = [];
-  displayedColumns: string[] = ['companyLogo', 'companyName', 'totalJobs', 'status', 'action'];
+  displayedColumns: string[] = ['companyLogo', 'companyName', 'totalJobs', 'status', 'createdAt', 'action'];
   searchForm: FormGroup;
   faPlus = faPlus;
   faEllipsisV = faEllipsisV;
@@ -44,13 +45,15 @@ export class CompanyListComponent implements OnInit {
     pageIndex: 0,
     pageSize: 8
   };
+  footerCorr: boolean;
 
   constructor(
     private otherService: OtherService,
     private adminService: AdminService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     // this.Route.data.subscribe(res => {
     //   let data = res.data;
@@ -66,7 +69,9 @@ export class CompanyListComponent implements OnInit {
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
       companyName: ['', Validators.nullValidator],
-      industry: ['', Validators.nullValidator]
+      industry: ['', Validators.nullValidator],
+      verify: [''],
+      registrationDate: ['', Validators.nullValidator]
     });
 
     let elem = document.getElementsByClassName('overlay');
@@ -83,19 +88,6 @@ export class CompanyListComponent implements OnInit {
       err => console.log(err)
     );
 
-    // this.adminService.getAllEmployers(1, this.pager ? this.pager.pageSize : 8)
-    //   .subscribe(
-    //     data => {
-    //       if (data.success) {
-    //         this.companies = data.employers.rows;
-    //         this.pager = data.employers.pager;
-    //       }
-    //       this.countotalJobs();
-    //     },
-    //     error => {
-    //       console.log(error)
-    //     }
-    //   )
   }
 
   verifyCompany(id) {
@@ -108,7 +100,7 @@ export class CompanyListComponent implements OnInit {
           }
         });
       },
-      error => {}
+      error => { }
     );
   }
 
@@ -125,24 +117,27 @@ export class CompanyListComponent implements OnInit {
     let value = this.openActions[id];
     this.openActions = {};
     this.openActions[id] = !value;
+    this.footerCorr = !this.footerCorr;
   }
 
   getServerData(page) {
     if (this.filtered) {
       var val = this.searchForm.value;
       this.adminService
-        .getFilterEmployers(val.companyName, val.industry, page.pageIndex + 1, page.pageSize)
+        .getFilterEmployers(val.companyName, val.industry, val.verify, val.registrationDate, parseInt(page.pageIndex) + 1, page.pageSize)
         .subscribe(data => {
           if (data) {
             this.companies = data.companies.rows;
             this.pager = data.companies.pager;
-            this.companies.length == 0 ? (this.empty = true) : (this.hasValues = true);
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+            this.companies.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
+            let path = this.location.path();
+            if (path.indexOf('page') >= 0) {
+              path = path.replace(/.$/, this.pager.currentPage);
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
           }
           this.countotalJobs();
         });
@@ -152,13 +147,19 @@ export class CompanyListComponent implements OnInit {
           if (success.success == true) {
             this.companies = success.employers.rows;
             this.pager = success.employers.pager;
-            this.companies.length == 0 ? (this.empty = true) : (this.hasValues = true);
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+            this.companies.length == 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
+            let path = this.location.path();
+            if (path.indexOf('page') >= 0 && this.pager.currentPage <= 10) {
+              path = path.replace(`?page=${this.pager.currentPage - 1}`, `?page=${this.pager.currentPage.toString()}`);
+              this.location.go(path);
+            } else if (path.indexOf('page') >= 0 && this.pager.currentPage >= 10) {
+              path = path.replace(/page=[0-9][0-9]/, `page=${this.pager.currentPage.toString()}`);
+              this.location.go(path);
+            }
+            else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
             // this.pager.pages = this.renderedPages();
           }
           this.countotalJobs();
@@ -176,10 +177,11 @@ export class CompanyListComponent implements OnInit {
   filterEmployers() {
     var val = this.searchForm.value;
     this.filterHidden = true;
-    this.adminService.getFilterEmployers(val.companyName, val.industry, this.page || 1, 8).subscribe(data => {
+    this.adminService.getFilterEmployers(val.companyName, val.industry, val.verify, val.registrationDate, this.page || 1, 8).subscribe(data => {
       if (data) {
         this.companies = data.companies.rows;
         this.pager = data.companies.pager;
+        this.companies.length === 0 ? (this.empty = true, this.hasValues = false) : (this.hasValues = true, this.empty = false);
       }
       this.countotalJobs();
     });
@@ -213,5 +215,53 @@ export class CompanyListComponent implements OnInit {
     let value = this.openActions[id];
     this.openActions = {};
     this.openActions[id] = !value;
+  }
+
+  toggleExempt(event, id) {
+    this.otherService.toggleExemptCompany(id).subscribe(
+      success => {
+        if (success.success) {
+          this.companies = this.companies.map(comp => {
+            if (comp.id == id) {
+              let newComp = { ...comp, exempt: !comp.exempt };
+              return newComp;
+            } else {
+              return comp;
+            }
+          });
+        } else {
+          if (success.message == 'maximum_featured_companies_reached') {
+            this.reachedMaxFeatured = true;
+            setTimeout(() => {
+              this.reachedMaxFeatured = false;
+            }, 3000);
+          }
+        }
+      },
+      err => console.log(err)
+    );
+    let value = this.openActions[id];
+    this.openActions = {};
+    this.openActions[id] = !value;
+  }
+
+  toggleSuspend(id) {
+    this.adminService.toggleSuspendEmployer(id).subscribe(
+      data => {
+        this.companies.forEach(comp => {
+          if (comp.id === id) {
+            comp.suspended = !comp.suspended;
+            this.openActions[comp.id] = null;
+          }
+        });
+      },
+      error => {
+        console.log(error)
+      }
+    );
+  }
+
+  customValueChanged(value, name) {
+    this.searchForm.controls[name].setValue(value);
   }
 }

@@ -31,7 +31,7 @@ import { CustomNotificationComponent } from './components/custom-notification/cu
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider('905512792025-1cbp5bu493v93o4aav8irigc37cptf8i.apps.googleusercontent.com')
+    provider: new GoogleLoginProvider('877907126413-vpaju0t6joqivmve74na6b8f15r02vrh.apps.googleusercontent.com')
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,

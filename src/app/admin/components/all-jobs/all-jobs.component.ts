@@ -9,6 +9,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { AnonymousService } from '@app/_services/anonymous.service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-all-jobs',
@@ -94,7 +95,8 @@ export class AllJobsComponent implements OnInit {
     private JobService: JobService,
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private location: Location
   ) {
     this.route.queryParams.subscribe(
       data => {
@@ -189,12 +191,17 @@ export class AllJobsComponent implements OnInit {
           this.jobs = data.jobs.rows;
           this.pager = data.jobs.pager;
           this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { page: this.pager.currentPage },
-            replaceUrl: true,
-            queryParamsHandling: 'merge'
-          });
+          let path = this.location.path();
+          if (path.indexOf('page') >= 0 && this.pager.currentPage <= 10) {
+            path = path.replace(/.$/, this.pager.currentPage.toString());
+            this.location.go(path);
+          } else if (path.indexOf('page') >= 0 && this.pager.currentPage >= 10) {
+            path = path.replace(/page=[0-9][0-9]/, `page=${this.pager.currentPage.toString()}`);
+            this.location.go(path);
+          } else {
+            path = path.concat(`?page=${this.pager.currentPage}`);
+            this.location.go(path);
+          }
         });
     } else {
       this.adminService.getJobs(page.pageIndex + 1, page.pageSize).subscribe(
@@ -203,12 +210,17 @@ export class AllJobsComponent implements OnInit {
             this.jobs = success.jobs.rows;
             this.pager = success.jobs.pager;
             this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+            let path = this.location.path();
+            if (path.indexOf('page') >= 0 && this.pager.currentPage <= 10) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else if (path.indexOf('page') >= 0 && this.pager.currentPage >= 10) {
+              path = path.replace(/page=[0-9][0-9]/, `page=${this.pager.currentPage.toString()}`);
+              this.location.go(path);
+            }else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
             // this.pager.pages = this.renderedPages();
           }
         },

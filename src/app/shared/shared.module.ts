@@ -27,7 +27,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { SimpleFileInputComponent } from './components/simple-file-input/simple-file-input.component';
 import { JobDetailComponent } from './components/job-detail/job-detail.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatProgressBarModule } from '@angular/material';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 // import { RegistrationSuccessfulComponent } from './components/registration-successful/registration-successful.component';
 import { IssueDetailsComponent } from './components/issue-details/issue-details.component';
@@ -47,6 +47,7 @@ import { CustomNotificationComponent } from './components/custom-notification/cu
 import { CustomOverlayComponent } from './components/custom-overlay/custom-overlay.component';
 import { DateAgoPipe } from '@app/pipes/date-ago.pipe';
 import { StateService } from '@app/_services/state.service';
+import { AdvertisementService } from '@app/_services/advertisement.service';
 // import { FeatureJobComponent } from './components/feature-job/feature-job.component';
 
 @NgModule({
@@ -72,6 +73,7 @@ import { StateService } from '@app/_services/state.service';
     IssueDetailsComponent,
     IssueFormComponent,
     // PasswordResetComponent,
+
     ChangePasswordComponent,
     SharedDeleteModalComponent,
     SharedConfirmModelComponent,
@@ -94,6 +96,7 @@ import { StateService } from '@app/_services/state.service';
     NgxDocViewerModule,
     LeafletModule,
     MatButtonModule,
+    MatProgressBarModule,
     PipesModule
   ],
   exports: [
@@ -127,6 +130,6 @@ import { StateService } from '@app/_services/state.service';
     CustomOverlayComponent,
     CustomNotificationComponent
   ],
-  providers: [JobService, EmployerService, ApplicantService, LocationService, StateService]
+  providers: [JobService, EmployerService, ApplicantService, LocationService, StateService, AdvertisementService]
 })
 export class SharedModule {}

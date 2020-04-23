@@ -2,11 +2,9 @@
   margin-top: 8rem;
 }
 .outer {
-  background-image: url('../../../../assets/img/bg.jpg');
-  background-attachment: fixed;
-  background-size: cover;
   min-height: 80vh;
-  padding: 2rem 0 0rem;
+  padding: 2rem 0 1rem;
+  position: relative;
 }
 .container {
   display: flex;
@@ -118,7 +116,7 @@
   display: flex;
   flex-direction: column;
   background-color: white;
-  
+
   .text {
     color: black;
     font-size: 1.5rem;
@@ -306,6 +304,28 @@
       // position: absolute;
       // top: 0rem;
       // right: 2rem;
+
+      &:hover,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+
+    @media (min-width: 600px) {
+      padding-right: 1rem;
+    }
+    .reports {
+      color: #42597b;
+      white-space: nowrap;
+      font-size: 2rem;
+      padding-right: 0rem;
+      text-decoration: none;
+      margin: 1rem 0 0;
+      align-self: flex-end;
+      order: -1;
+      // position: absolute;
+      // top: 0rem;
+      // right: 2rem;
     
       &:hover,
       &:active {
@@ -343,7 +363,7 @@
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
       color: #42597b;
       font-weight: 600;
 
@@ -359,6 +379,11 @@
   left: 0rem;
   top: 1rem;
   font-size: 2rem;
+  color: #fff;
+
+  @media (min-width: 600px) {
+    left: 3rem;
+  }
 }
 
 @media only screen and (min-width: 400px) {
@@ -457,7 +482,7 @@
     position: relative;
     // margin-top: 10rem;
     width: 100%;
-    margin: 1rem auto 4.4rem;
+    margin: 1rem auto 0rem;
     // margin-bottom: 5rem;
   }
 
@@ -467,8 +492,8 @@
     justify-content: flex-start;
     width: 33.3%;
     height: 4.5rem;
-    position: absolute;
-    top: 0;
+    // position: absolute;
+    // top: 0;
     clip-path: polygon(90% 0, 100% 100%, 0% 100%, 0 50%, 0% 0%);
     background-color: lighten(#ce2127, 3);
     padding: 1px 1px 0px 1px;
@@ -509,9 +534,9 @@
     // justify-content: center;
     padding: 1rem 2rem;
     background-color: white;
+    margin: 4rem auto 0;
     @media (min-width: 600px) {
       width: 95%;
-      margin: 0 auto; 
     }
   }
 
@@ -552,7 +577,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     background-color: white;
-
   }
 
   &__detail {
@@ -592,15 +616,70 @@
   box-shadow: 0 10px 55px rgba(255, 255, 255, 0.1);
 }
 
+.main-container {
+  position: relative;
+  background-image: url('../../../../assets/img/bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  &__left {
+    width: 100%;
+  }
+
+  &__right {
+    width: 20%;
+    display: none;
+    min-height: 90vh;
+    position: absolute;
+    right: -1.2rem;
+    margin: 1.5rem;
+    margin-top: 0.5rem;
+    top: 6.5rem;
+    // background-image: url('../../../../assets/img/ad-1.jpg');
+    // background-repeat: no-repeat;
+    // background-position: fixed;
+    // background-size: 100% 100%;
+  }
+}
+
+.progress {
+  position: fixed;
+  top: 5.5rem;
+  z-index: 1000;
+  height: 3px;
+}
+
+.advertisement {
+  &__container {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    // border: 2px solid red;
+  }
+
+  &__image {
+    width: 100%;
+  }
+}
+
 @media only screen and (min-width: 500px) {
   .tabs {
     &__container {
-      width: 95.3%;
+      padding: 0 3rem;
     }
 
     &__tab {
       padding: 1rem 3rem;
       font-size: 1.8rem;
+    }
+  }
+  .main-container {
+    &__left {
+      width: 80%;
+    }
+
+    &__right {
+      display: block;
     }
   }
 }

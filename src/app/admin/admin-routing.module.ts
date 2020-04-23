@@ -1,3 +1,6 @@
+import { EmployerPlanComponent } from './components/employer-plan/employer-plan.component';
+import { EditPlanTypeComponent } from './components/edit-plan-type/edit-plan-type.component';
+import { AddPlanTypeComponent } from './components/add-plan-type/add-plan-type.component';
 import { FeaturedCompaniesComponent } from './components/featured-companies/featured-companies.component';
 import { AddEmployerJobComponent } from './components/add-employer-job/add-employer-job.component';
 import { CountryRegionIndustryResolverService } from './../_resolvers/country-region-industry-resolver.service';
@@ -58,6 +61,14 @@ import { PaymentDetailComponent } from './components/payment-detail/payment-deta
 import { AdminPaymentDetailResolverService } from '@app/_resolvers/admin-resolvers/admin-payment-detail-resolver.service';
 import { AdminEmployerPaymentResolverService } from '@app/_resolvers/admin-resolvers/admin-employer-payment-resolver.service';
 import { EmployerPaymentInformationComponent } from './components/employer-payment-information/employer-payment-information.component';
+import { ApplicantReportComponent } from './components/applicant-report/applicant-report.component';
+import { EmployerReportComponent } from './components/employer-report/employer-report.component';
+import { PlanTypesComponent } from './components/plan-types/plan-types.component';
+import { PaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/payment-type-resolver.service';
+import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/edit-payment-type-resolver.service';
+import { ExemptedCompanyComponent } from './components/exempted-company/exempted-company.component';
+import { ExemptResolverService } from '@app/_resolvers/admin-resolvers/exempt-resolver.service';
+import { PwdCompanyComponent } from './components/pwd-company/pwd-company.component';
 
 const routes: Routes = [
   {
@@ -68,114 +79,124 @@ const routes: Routes = [
         path: 'home',
         canActivate: [AdminGuard],
         component: HomeComponent,
-        resolve: { dashRes: AdminDashboardResolverService }
+        resolve: { dashRes: AdminDashboardResolverService },
+      },
+      {
+        path: 'report/applicants',
+        canActivate: [AdminGuard],
+        component: ApplicantReportComponent
+      },
+      {
+        path: 'report/employers',
+        canActivate: [AdminGuard],
+        component: EmployerReportComponent
       },
       {
         path: '',
         canActivate: [AdminGuard],
         redirectTo: 'home',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'issues',
         canActivate: [AdminGuard],
         component: IssuesComponent,
-        resolve: { data: AdminIssueDashboardResolverService }
+        resolve: { data: AdminIssueDashboardResolverService },
       },
       {
         path: 'issues/applicant',
         canActivate: [AdminGuard],
         component: IssueListApplicantComponent,
-        resolve: { data: ApplicantIssueListResolverService }
+        resolve: { data: ApplicantIssueListResolverService },
       },
       {
         path: 'issues/report',
         canActivate: [AdminGuard],
         component: ReportJobListComponent,
-        resolve: { data: AdminReportResolverService }
+        resolve: { data: AdminReportResolverService },
       },
       {
         path: 'issues/report/detail/:id',
         canActivate: [AdminGuard],
         component: ReportJobDetailComponent,
-        resolve: { data: ReportByIdResolverService }
+        resolve: { data: ReportByIdResolverService },
       },
       {
         path: 'issues/applicant/details/:id',
         canActivate: [AdminGuard],
         component: IssueDetailContainerComponent,
-        resolve: { data: IssueByIdResolverService }
+        resolve: { data: IssueByIdResolverService },
       },
       {
         path: 'issues/employer',
         canActivate: [AdminGuard],
         component: IssueListEmployerComponent,
-        resolve: { data: EmployerIssueListResolverService }
+        resolve: { data: EmployerIssueListResolverService },
       },
       {
         path: 'issues/employer/details/:id',
         canActivate: [AdminGuard],
         component: IssueDetailContainerComponent,
-        resolve: { data: IssueByIdResolverService }
+        resolve: { data: IssueByIdResolverService },
       },
       {
         path: 'jobs',
         canActivate: [AdminGuard],
-        component: AllJobsComponent
+        component: AllJobsComponent,
       },
       {
         path: 'employers',
         canActivate: [AdminGuard],
-        component: CompanyListComponent
+        component: CompanyListComponent,
       },
       {
         path: 'staff',
         canActivate: [SuperAdminGuard],
         component: AdminStaffListComponent,
-        resolve: { data: AdminStaffsListResolverService }
+        resolve: { data: AdminStaffsListResolverService },
       },
       {
         path: 'staff/add',
         canActivate: [SuperAdminGuard],
-        component: AddAdminStaffComponent
+        component: AddAdminStaffComponent,
       },
       {
         path: 'employers/details/:id',
         canActivate: [AdminGuard],
         component: CompanyDetailComponent,
-        resolve: { data: AdminCompanyDetailResolverService }
+        resolve: { data: AdminCompanyDetailResolverService },
       },
       {
         path: 'employers/add',
         canActivate: [AdminGuard],
         component: AddEmployerComponent,
-        resolve: { data: CountryRegionIndustryResolverService }
+        resolve: { data: CountryRegionIndustryResolverService },
       },
       {
         path: 'employers/add_job',
         canActivate: [AdminGuard],
-        component: AddEmployerJobComponent
+        component: AddEmployerJobComponent,
       },
       {
         path: 'employers/jobs/:id/add/:jobId',
         canActivate: [AdminGuard],
-        component: AddJobsComponent
+        component: AddJobsComponent,
       },
       // { path: 'employers/jobs/:id/add', canActivate: [AdminGuard], component: AddJobsComponent},
       {
         path: 'employers/jobs/:id',
         canActivate: [AdminGuard],
-        component: JobsListComponent
+        component: JobsListComponent,
       },
       {
         path: 'employers/locations/:id',
         canActivate: [AdminGuard],
-        component: CompanyLocationsComponent
+        component: CompanyLocationsComponent,
       },
       {
         path: 'employers/locations/:id/add',
         canActivate: [AdminGuard],
-        component: AddLocationComponent
+        component: AddLocationComponent,
       },
       {
         path: 'employers/locations/:id/edit/:locationId',
@@ -183,88 +204,123 @@ const routes: Routes = [
         component: CompanyLocationDetailComponent,
         resolve: {
           location: AdminLocationDetailResolverService,
-          helpers: CountryRegionIndustryResolverService
-        }
+          helpers: CountryRegionIndustryResolverService,
+        },
       },
       {
         path: 'employers/staffs/:id',
         canActivate: [AdminGuard],
-        component: StaffListComponent
+        component: StaffListComponent,
       },
       {
         path: 'employers/staffs/:id/add',
         canActivate: [AdminGuard],
-        component: AddStaffComponent
+        component: AddStaffComponent,
       },
       {
-        path: "employers/payment/:id",
+        path: 'employers/payment/:id',
         canActivate: [AdminGuard],
         component: EmployerPaymentInformationComponent,
-        resolve: { data: AdminEmployerPaymentResolverService }
-      }
-      ,
+        resolve: { data: AdminEmployerPaymentResolverService },
+      },
       {
         path: 'companies/featured',
         canActivate: [AdminGuard],
         component: FeaturedCompaniesComponent,
-        resolve: { data: FeaturedCompanyListResolverService }
+        resolve: { data: FeaturedCompanyListResolverService },
       },
 
       {
         path: 'applicants',
         canActivate: [AdminGuard],
-        component: ApplicantListComponent
+        component: ApplicantListComponent,
       },
       {
         path: 'password',
         canActivate: [AdminGuard],
-        component: ChangePasswordComponent
+        component: ChangePasswordComponent,
       },
       {
         path: 'applicants/details/:id',
         canActivate: [AdminGuard],
-        component: ApplicantDetailComponent
+        component: ApplicantDetailComponent,
       },
       {
         path: 'applications',
         canActivate: [AdminGuard],
-        component: ApplicationsListComponent
+        component: ApplicationsListComponent,
       },
       {
         path: 'applicants/add',
         canActivate: [AdminGuard],
-        component: AddApplicantComponent
+        component: AddApplicantComponent,
       },
       {
         path: 'ads',
         canActivate: [AdminGuard],
         component: AdvertisementListComponent,
-        resolve: { data: AdsListResolverService }
+        resolve: { data: AdsListResolverService },
       },
       {
         path: 'ads/add',
         canActivate: [AdminGuard],
-        component: AddAdvertisementComponent
+        component: AddAdvertisementComponent,
+      },
+      // {
+      //   path: 'payment',
+      //   canActivate: [AdminGuard],
+      //   component: PaymentListComponent,
+      //   resolve: { data: AdminPaymentListResolverService },
+      // },
+      // {
+      //   path: 'payment/detail/:id',
+      //   canActivate: [AdminGuard],
+      //   component: EmployerPaymentInformationComponent,
+      //   resolve: { data: AdminEmployerPaymentResolverService }
+      // },
+      // {
+      //   path: 'plan_types',
+      //   canActivate: [AdminGuard],
+      //   component: PlanTypesComponent,
+      //   resolve: { data: PaymentTypeResolverService },
+      // },
+      // {
+      //   path: 'exempt',
+      //   canActivate: [AdminGuard],
+      //   component: ExemptedCompanyComponent,
+      //   resolve: { data: ExemptResolverService },
+      // },
+      // {
+      //   path: 'plan_types/add',
+      //   canActivate: [AdminGuard],
+      //   component: AddPlanTypeComponent
+      //   // resolve: { data: Add }
+      // },
+      // {
+      //   path: 'plan_types/edit/:id',
+      //   canActivate: [AdminGuard],
+      //   component: EditPlanTypeComponent,
+      //   resolve: { data: EditPaymentTypeResolverService }
+      // },
+      {
+        path: 'employers/add_plan/:id',
+        canActivate: [AdminGuard],
+        component: EmployerPlanComponent,
+        // resolve: { data: Add }
       },
       {
-        path: "payment",
+        path: 'report/pwd',
         canActivate: [AdminGuard],
-        component: PaymentListComponent,
-        resolve: { data: AdminPaymentListResolverService }
+        component: PwdCompanyComponent,
+        // resolve: { data: Add }
       },
-      {
-        path: "payment/detail/:id",
-        canActivate: [AdminGuard],
-        component: PaymentDetailComponent,
-        resolve: { data: AdminPaymentDetailResolverService }
-      },
-      { path: "", redirectTo: "home", pathMatch: "full" }
-    ]
-  }
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AdminRoutingModule {}

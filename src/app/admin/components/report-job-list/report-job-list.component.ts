@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./report-job-list.component.scss']
 })
 export class ReportJobListComponent implements OnInit {
-  displayedColumns: string[] = ['jobTitle', 'reportType', 'comment', 'name', 'email', 'action'];
+  displayedColumns: string[] = ['jobTitle', 'reportType', 'name', 'email', 'createdAt', 'action'];
   reports = [];
   constructor(private adminService: AdminService,private Route:ActivatedRoute,private _location:Location) {
     this.Route.data.subscribe(res => {

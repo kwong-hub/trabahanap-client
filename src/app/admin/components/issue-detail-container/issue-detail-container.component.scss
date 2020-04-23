@@ -46,10 +46,15 @@
       padding: 1.5rem 1rem;
     }
 
+    a:hover {
+      text-decoration: underline;
+    }
+
     .text {
       font-size: 1.8rem;
       overflow-y: auto;
       max-height: 12rem;
+      text-decoration: none;
 
       &--noReply {
         color: #888;

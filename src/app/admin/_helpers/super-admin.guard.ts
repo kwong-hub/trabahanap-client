@@ -24,8 +24,8 @@ export class SuperAdminGuard implements CanActivate {
       // authorised so return true
       return true;
     } else {
-      this.authenticationService.logout();
-      this.router.navigate(["/login"]);
+     // this.authenticationService.logout();
+     // this.router.navigate(["/login"]);
       return false;
     }
   }

@@ -1,7 +1,7 @@
 <div class="sub-module-container">
   <h3 class="sub-module-container__heading">Dashboard</h3>
   <div class="sub-module-container__container">
-    <div class="dashboard-contents-wrapper">
+    <!-- <div class="dashboard-contents-wrapper">
       <div class="dashboard-contents">
         <app-dashboard-item
           class="dashboard-contents__content"
@@ -24,6 +24,210 @@
           [dashboard]="dashboardItem4"
         ></app-dashboard-item>
       </div>
+    </div> -->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div [routerLink]="['../employers']" routerLinkActive="active" class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="icons fas fa-building"></i>
+              </div>
+              <div>
+                <p class="card-category">Employers</p>
+                <h3 class="card-title">{{ stats.employers }}</h3>
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="icons fas fa-list"></i>
+                <span class="stats-text">Employers List </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div [routerLink]="['../applicants']" routerLinkActive="active" class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-icon">
+                <i class="icons fas fa-users"></i>
+              </div>
+              <div>
+
+              </div>
+              <div>
+                <p class="card-category">Applicants</p>
+                <h3 class="card-title">{{stats.applicants}}</h3>
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="icons fas fa-list"></i><span class="stats-text">Applicant List </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div [routerLink]="['../applications']" routerLinkActive="active" class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+              <div class="card-icon">
+                <i class="icons fas fa-handshake"></i>
+
+              </div>
+              <div>
+                <p class="card-category">Applications</p>
+                <h3 class="card-title">{{stats.applications}}</h3>
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="icons fas fa-list"></i> <span class="stats-text">List Applications </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div [routerLink]="['../jobs']" routerLinkActive="active" class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+              <div class="card-icon">
+                <i class="icons fas fa-briefcase"></i>
+
+              </div>
+              <div>
+                <p class="card-category">Jobs</p>
+                <h3 class="card-title">{{stats.jobs}}</h3>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="icons fas fa-list"></i> <span class="stats-text"> Total Active Jobs </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reports">
+        <div class="reports-user">
+          <div class="card card-stats" style="width: 100%;">
+            <div class="card-header card-header-info card-header-icon">
+
+              <div class="card-icon">
+                <i class="icons fas fa-eye"></i>
+              </div>  
+              <div class="car-header">
+                  Page Views / Unique PageViews of this Week
+               </div>
+            </div>
+            <div class="card-body">
+
+              <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vThSYKjpdJxyd1BWzljZVZc3sNfkvEFebTzFN5dFr8cpYtgzMKSqt5XJuIW1JPRUmvbwlKnfkflCEr5/pubchart?oid=1250229215&amp;format=interactive"></iframe>            </div>
+
+            <div class="card-footer">
+              <div class="stats">
+                <i class="icons fas fa-list"></i> <span class="stats-text"> Page View and Unique Page of Last 7 days </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reports-user">
+          <div class="card card-stats"  style="width: 90%;">
+            <div class="card-header card-header-info card-header-icon">
+
+              <div class="card-icon">
+                <i class="icons fas fa-eye"></i>
+              </div>
+              
+              <div class="car-header">
+                 This Week / Last Week
+              </div>
+            </div>
+            <div class="card-body">
+              <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vThSYKjpdJxyd1BWzljZVZc3sNfkvEFebTzFN5dFr8cpYtgzMKSqt5XJuIW1JPRUmvbwlKnfkflCEr5/pubchart?oid=1057252183&amp;format=interactive"></iframe>            </div>
+
+            <div class="card-footer">
+              <div class="stats">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="card-category-1">Reports</p>
+      <div class="row">
+     
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div [routerLink]="['../report/employers']" routerLinkActive="active" class="card card-stats">
+              <div class="card-header card-header-warning card-header-icon">
+                <div>
+                  <p class="card-category-1">Employers Report</p>
+                  <!-- <h3 class="card-title">{{ stats.employers }}</h3> -->
+                </div>
+  
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="icons fas fa-chart-bar"></i>
+                  <span class="stats-text">Employers Report by date </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div [routerLink]="['../report/applicants']" routerLinkActive="active" class="card card-stats">
+              <div class="card-header card-header-success card-header-icon">
+                <div>
+                  <p class="card-category-1">Applicants Report</p>
+                  <!-- <h3 class="card-title">{{stats.applicants}}</h3> -->
+                </div>
+  
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="icons fas fa-chart-bar"></i><span class="stats-text">Applicant Report by date </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div [routerLink]="['../report/pwd']" routerLinkActive="active" class="card card-stats">
+              <div class="card-header card-header-danger card-header-icon">
+                <div>
+                  <p class="card-category-1">Pwd Report</p>
+                  <!-- <h3 class="card-title">{{stats.applications}}</h3> -->
+                </div>
+  
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="icons fas fa-wheelchair"></i> <span class="stats-text">PWD Jobs report </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div [routerLink]="['../report/pwd']" routerLinkActive="active" class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                  <div>
+                    <p class="card-category-1">Job Report</p>
+                    <!-- <h3 class="card-title">{{stats.applications}}</h3> -->
+                  </div>
+    
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="icons fas fa-list"></i> <span class="stats-text">Jobs report </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+        </div>
     </div>
   </div>
 </div>

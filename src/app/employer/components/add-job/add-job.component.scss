@@ -148,6 +148,7 @@
   &__label {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 2rem 0;
     cursor: pointer;
   }
@@ -175,9 +176,15 @@
   }
 
   &__text {
+    display: flex;
     font-size: 1.8rem;
     color: #333;
     font-weight: 400;
+  }
+  .pwd-img {
+    width: 2.2rem;
+    height: 2.2rem;
+    margin-left: .8rem;
   }
 }
 

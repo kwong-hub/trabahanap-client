@@ -111,8 +111,8 @@
             margin: 0 1rem;
             // transition: all .2s;
             &::before {
-              content: "";
-              font-family: "Font Awesome 5 Free";
+              content: '';
+              font-family: 'Font Awesome 5 Free';
               font-size: 2.6rem;
               display: inline-block;
               color: tomato;
@@ -166,7 +166,7 @@
     background: #eee;
 
     &::before {
-      content: "\2714";
+      content: '\2714';
       transform: translateY(0);
     }
   }

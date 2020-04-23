@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="company">
     <div class="company__header">
       <img [src]="imageUrl" alt="" class="img" />
@@ -54,4 +54,81 @@
       </h3>
     </div>
   </div>
+</div> -->
+
+
+<div class="contianer">
+  <div class="container__left" style="position: relative; margin-top: 10rem; padding: 1rem;">
+    <div class="company_summary__container">
+      <img
+        [src]="company?.companyLogo ? company?.companyLogo : 'assets/img/building.png'"
+        alt=""
+        class="company_summary__image"
+      />
+      <div class="company_summary__right">
+        <span class="company_summary__name">
+          {{ company?.companyName }}
+        </span>
+        <span _ngcontent-ujq-c6="" class="company_summary__verified"
+          ><i class="fas fa-check-circle company_summary__verified-icon"></i> Verified</span
+        >
+      </div>
+    </div>
+    <div class="tabs__container">
+      <div class="tabs__border" style="left: 0%">
+        <div (click)="tabClicked('detailActive')" class="tabs__tab" [class.tabs__tab--active]="tabs?.detailActive">
+          <fa-icon [icon]="faBookOpen"></fa-icon><span class="tabs__text">Jobs</span>
+        </div>
+      </div>
+      <!-- <div class="tabs__border" style="left: 33.7%">
+        <div (click)="getCompanyJobs()" class="tabs__tab" [class.tabs__tab--active]="tabs?.otherActive">
+          <fa-icon [icon]="faListUl"></fa-icon><span class="tabs__text">Jobs</span>
+        </div>
+      </div> -->
+      <div class="tabs__border" style="left: 50%">
+        <div (click)="tabClicked('companyActive')" class="tabs__tab" [class.tabs__tab--active]="tabs?.companyActive">
+          <fa-icon [icon]="faBuilding"></fa-icon><span class="tabs__text">Company</span>
+        </div>
+      </div>
+      
+    </div>
+
+    <div *ngIf="jobs && tabs?.detailActive" class="container">
+      <div *ngIf="jobs.length > 0" style="background-color: #ddd;">
+        <div (click)="tabClicked('detailActive')" *ngFor="let job of jobs">
+          <app-anonymous-job
+            [isBookMarked]="job.saved"
+            [Job]="job"
+            [showSave]="true"
+            [showCompLogo]="false"
+          ></app-anonymous-job>
+        </div>
+        <div #anchor *ngIf="!reachedPageEnd && !(jobs && jobs.length == 0)">
+          <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
+          <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
+        </div>
+      </div>
+      <div *ngIf="jobs.length == 0">
+        <div class="not_Found">
+          <span> Sorry, we didn't find any jobs from this company </span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="tabs?.companyActive" class="container">
+      <div class="company__container">
+        <div class="company__detail company__description">
+          Description: {{ company?.companyDescription }}
+        </div>
+        <!-- <div class="company__detail company__address">Address: {{ job?.company_profile.companyAddress }}</div> -->
+        <div class="company__detail company__industry-type">Industry: {{ company?.industryType }}</div>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: space-between;">
+      <button (click)="goBack()" mat-button class="back">
+        <fa-icon style="color: #42597B; font-size: 1.5rem; margin-right: .5rem;" [icon]="faArrowLeft"></fa-icon> Back
+      </button>
+    </div>
+  </div>
+  <div class="container__right"></div>
 </div>

@@ -14,6 +14,7 @@ export class EmployerComponent implements OnInit {
   noProfile: boolean;
   noLocations: boolean;
   routing: boolean;
+  exempted:boolean=false;
 
   constructor(public authenticationService: AuthenticationService, private router: Router) {
     this.router.events.subscribe((event: Event) => {
@@ -66,6 +67,11 @@ export class EmployerComponent implements OnInit {
 
     if(!currentUser.company_profile.hasLocations) {
       this.noLocations = true;
+    }
+ 
+    // @ts-ignore
+    if(!currentUser.company_profile.exempt){
+      this.exempted = true;
     }
   }
 }

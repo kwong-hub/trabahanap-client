@@ -11,7 +11,8 @@ export class ApplicantSavedApplicationsResolverService {
   constructor(private applicantService: ApplicantService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
-    return this.applicantService.getSavedJobs(1, 5).pipe(
+    let page = +route.queryParams['page'] > 0 ? +route.queryParams['page'] : 1;
+    return this.applicantService.getSavedJobs(page, 5).pipe(
       catchError(error => {
         return EMPTY;
       }),

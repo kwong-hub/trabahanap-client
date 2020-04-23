@@ -76,7 +76,7 @@ export class DashboardItemComponent implements OnInit {
 
   navigate() {
     if(this.dashboard.route) {
-      console.log(this.dashboard.route)
+      // console.log(this.dashboard.route)
       this.router.navigate([`../${this.dashboard.route}`], { relativeTo: this.Route})
     }
   }

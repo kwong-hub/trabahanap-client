@@ -35,6 +35,8 @@ import { PipesModule } from '@app/pipes/pipes.module';
 import { CustomNotificationComponent } from './components/custom-notification/custom-notification.component';
 import { HomeSectionFourComponent } from './components/home-section-four/home-section-four.component';
 import { StateService } from '@app/_services/state.service';
+import { LandingCustomSubmitComponent } from './components/landing-custom-submit/landing-custom-submit.component';
+import { AdvertisementService } from '@app/_services/advertisement.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { StateService } from '@app/_services/state.service';
     AboutusComponent,
     TermsComponent,
     CustomNotificationComponent,
-    HomeSectionFourComponent
+    HomeSectionFourComponent,
+    LandingCustomSubmitComponent
   ],
   imports: [
     CommonModule,
@@ -74,6 +77,13 @@ import { StateService } from '@app/_services/state.service';
     MatButtonModule,
     PipesModule
   ],
-  providers: [JobDetailResolverService, SimpleJobSearchResolveService, JobService, AnonymousService, StateService]
+  providers: [
+    JobDetailResolverService,
+    SimpleJobSearchResolveService,
+    JobService,
+    AnonymousService,
+    StateService,
+    AdvertisementService
+  ]
 })
 export class LandingModule {}

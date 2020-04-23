@@ -64,7 +64,22 @@ export class AddApplicantProfileComponent implements OnInit {
   styleObject = {
     inputContainer: {},
     input: { fontSize: '1.7rem' },
-    inputHeader: { fontSize: '1.7rem', borderBottom: '1px solid #888', backgroundColor: "white" },
+    inputHeader: { fontSize: '1.7rem', borderBottom: '1px solid #888', backgroundColor: 'white' },
+    optionContainer: {
+      backgroundColor: '#555',
+      top: '3.3rem',
+      boxShadow: '0px 1px 2px #aaa'
+    },
+    option: {
+      fontSize: '1.5rem',
+      borderBottom: '1px solid #ddd',
+      backgroundColor: '#fff'
+    }
+  };
+  styleObjectMonth = {
+    inputContainer: { margin: '0' },
+    input: { fontSize: '1.7rem' },
+    inputHeader: { fontSize: '1.7rem', borderBottom: '1px solid #888', backgroundColor: 'white' },
     optionContainer: {
       backgroundColor: '#555',
       top: '3.3rem',
@@ -97,8 +112,8 @@ export class AddApplicantProfileComponent implements OnInit {
     feedbackContainer: {},
     feedbackMessage: {}
   };
-  
-  cvFileTypes = '.pdf,.doc,.docx';
+
+  cvFileTypes = '.pdf,.doc,.docx, .png, .jpg, jpeg';
   profilePictureFileTypes = '.png, .jpg, jpeg';
   inputType: string = 'file';
   showLoader = false;
@@ -106,18 +121,20 @@ export class AddApplicantProfileComponent implements OnInit {
 
   isCVEditModalOpen = false;
   isApplicantPictureEditModalOpen = false;
-  yearRange = { min: '1920', max: (new Date().getFullYear()- 18).toString() };
+  yearRange = { min: '1920', max: (new Date().getFullYear() - 18).toString() };
   dateRange = { min: '1', max: '31' };
   imageChangedEvent: any;
   croppedImage: any;
   tempImg: string;
   loading: boolean;
   success: boolean;
-  defaultLimit = { max: '45', min: '0' };
+  defaultLimit = { max: '40', min: '0' };
   numberRange = { max: '20', min: '10' };
-  bigLimit = { max: '60', min: '6' };
+  bigLimit = { max: '70', min: '6' };
   fileTypeError: boolean;
   formError: boolean;
+  isDocument: boolean;
+  isImage: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private locationService: LocationService,
@@ -170,7 +187,7 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   updateForm() {
-    if(this.applicantProfile.dateOfBirth) {
+    if (this.applicantProfile.dateOfBirth) {
       let temp_date = new Date(this.applicantProfile.dateOfBirth);
       this.applicantProfile = {
         ...this.applicantProfile,
@@ -180,8 +197,7 @@ export class AddApplicantProfileComponent implements OnInit {
         fullName: `${this.applicantProfile.user.firstName} ${this.applicantProfile.user.lastName}`,
         phoneNumber: this.applicantProfile.user.phoneNumber
       };
-    }
-    else {
+    } else {
       this.applicantProfile = {
         ...this.applicantProfile,
         fullName: `${this.applicantProfile.user.firstName} ${this.applicantProfile.user.lastName}`,
@@ -198,15 +214,31 @@ export class AddApplicantProfileComponent implements OnInit {
 
   fileChanged(value, name) {
     this.fileTypeError = false;
-    if(name === 'cv') {
+    if (name === 'cv') {
+      let size = value.size;
       let type = value.type;
-      if(!(type === 'application/doc' || type === 'application/ms-doc' || type === 'application/msword' || 
-        type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || type === 'application/pdf')) {
-          this.addApplicantProfileForm.controls['cv'].setValue('');
-          this.fileTypeError = true;
-          this.addApplicantProfileForm.controls['cv'].setErrors({invalid: true})
-          return;
-        }
+      if (
+        type !== 'application/doc' &&
+        type !== 'application/ms-doc' &&
+        type !== 'application/msword' &&
+        type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
+        type !== 'application/pdf' &&
+        type !== 'image/png' &&
+        type !== 'image/jpg' &&
+        type !== 'image/jpeg'
+      ) {
+        this.addApplicantProfileForm.controls['cv'].setValue('');
+        this.fileTypeError = true;
+        this.addApplicantProfileForm.controls['cv'].setErrors({ format: true });
+        return;
+      }
+
+      if (size > 4000000) {
+        this.addApplicantProfileForm.controls['cv'].setValue('');
+        this.fileTypeError = true;
+        this.addApplicantProfileForm.controls['cv'].setErrors({ maxSize: true });
+        return;
+      }
     }
     this.formData.append(name, value, value.name);
   }
@@ -248,13 +280,13 @@ export class AddApplicantProfileComponent implements OnInit {
     let date = `${val.year}-${val.month}-${val.date}`;
     let now = new Date();
 
-    if(+val.year > now.getFullYear() - 15 || +val.year < 1920 ) {
-      this.f.year.setErrors({'rangeOut': true});
-    } 
-    if(+val.date > 31 || +val.date < 1) {
-      this.f.date.setErrors({'rangeOut': true});
+    if (+val.year > now.getFullYear() - 15 || +val.year < 1920) {
+      this.f.year.setErrors({ rangeOut: true });
     }
-    
+    if (+val.date > 31 || +val.date < 1) {
+      this.f.date.setErrors({ rangeOut: true });
+    }
+
     if (new Date(date).toDateString().includes('Invalid')) {
       this.addApplicantProfileForm.controls['month'].setErrors({
         invalid: true
@@ -282,6 +314,7 @@ export class AddApplicantProfileComponent implements OnInit {
     this.applicantService.addApplicantProfileWithCV(this.formData).subscribe(
       data => {
         this.loading = false;
+
         if (data.success) {
           this.success = true;
           this.submitted = false;
@@ -309,13 +342,13 @@ export class AddApplicantProfileComponent implements OnInit {
     let date = `${val.year}-${val.month}-${val.date}`;
     let now = new Date();
 
-    if(+val.year > now.getFullYear() - 15 || +val.year < 1920 ) {
-      this.f.year.setErrors({'rangeOut': true});
-    } 
-    if(+val.date > 31 || +val.date < 1) {
-      this.f.date.setErrors({'rangeOut': true});
+    if (+val.year > now.getFullYear() - 15 || +val.year < 1920) {
+      this.f.year.setErrors({ rangeOut: true });
     }
-    
+    if (+val.date > 31 || +val.date < 1) {
+      this.f.date.setErrors({ rangeOut: true });
+    }
+
     if (new Date(date).toDateString().includes('Invalid')) {
       this.addApplicantProfileForm.controls['month'].setErrors({
         invalid: true
@@ -329,7 +362,7 @@ export class AddApplicantProfileComponent implements OnInit {
     this.addApplicantProfileForm.controls['lastName'].setValue(lastName);
     this.addApplicantProfileForm.controls['dateOfBirth'].setValue(date);
 
-    if(this.applicantProfile.cv) {
+    if (this.applicantProfile.cv) {
       this.addApplicantProfileForm.controls['cv'].clearValidators();
       this.addApplicantProfileForm.controls['cv'].updateValueAndValidity();
     }
@@ -371,8 +404,7 @@ export class AddApplicantProfileComponent implements OnInit {
           });
           this.disableEdit();
           this.formData = new FormData();
-        }
-        else {
+        } else {
           this.formError = true;
         }
       },
@@ -402,7 +434,9 @@ export class AddApplicantProfileComponent implements OnInit {
         const regions = response.regions;
         this.regions = [];
         regions.map(region => {
-          this.regions.push({ name: region.regionName, value: region.id });
+          if(region.countryId === 1) {
+            this.regions.push({ name: region.regionName, value: region.id });
+          }
         });
       },
       error => console.log(error)
@@ -414,11 +448,12 @@ export class AddApplicantProfileComponent implements OnInit {
       response => {
         const countries = response.countries;
         this.countries = [];
-        countries.map(country => {
-          this.countries.push({ name: country.countryName, value: country.id });
-        });
+        // countries.map(country => {
+        //   this.countries.push({ name: country.countryName, value: country.id });
+        // });
+        this.countries.push({ name: countries[0].countryName, value: countries[0].id });
 
-        this.addApplicantProfileForm.controls['CountryId'].setValue(countries[0].id);
+          this.addApplicantProfileForm.controls['CountryId'].setValue(countries[0].id);
       },
       error => console.log(error)
     );
@@ -451,6 +486,17 @@ export class AddApplicantProfileComponent implements OnInit {
     this.success = false;
     event.stopPropagation();
     this.showCVPreview = !this.showCVPreview;
+    if (this.showCVPreview) {
+      let ext = this.applicantProfile.cv.split('.').pop();
+      if (ext === 'pdf' || ext === 'doc' || ext === 'docx') {
+        console.log(ext);
+        this.isDocument = true;
+        this.isImage = false;
+      } else {
+        this.isImage = true;
+        this.isDocument = false;
+      }
+    }
   }
 
   toggleCVModal() {

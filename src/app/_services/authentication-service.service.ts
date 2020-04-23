@@ -9,7 +9,6 @@ import { ThrowStmt } from '@angular/compiler';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-
   public currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
   public userData;
@@ -25,8 +24,6 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-
-
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
@@ -37,38 +34,41 @@ export class AuthenticationService {
   }
 
   login(email: string, password: string) {
-    return this.http.post<any>(`${environment.apiUrl}/auth/login`, { email, password })
-      .pipe(map(data => {
-        // console.log(data);
-        // login successful if there's a jwt token in the response
-        if (data.success) {
-          if (data.user.token) {
-            this.userData = data.user;
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            this.setUserToken(data.user)
+    return this.http
+      .post<any>(`${environment.apiUrl}/auth/login`, { email, password })
+      .pipe(
+        map(data => {
+          // console.log(data);
+          // login successful if there's a jwt token in the response
+          if (data.success) {
+            if (data.user.token) {
+              this.userData = data.user;
+              // store user details and jwt token in local storage to keep user logged in between page refreshes
+              this.setUserToken(data.user);
+            }
           }
-        }
 
-        return data;
-      }));
+          return data;
+        })
+      );
   }
 
   getUserByid(token) {
     let decodedToken = jwt_decode(token);
-    return this.http.get<any>(`${environment.apiUrl}/users/${decodedToken.sub}`)
-      .pipe(map(data => {
-
+    return this.http.get<any>(`${environment.apiUrl}/users/${decodedToken.sub}`).pipe(
+      map(data => {
         // console.log(data);
         // login successful if there's a jwt token in the response
         if (data.success) {
           if (data.user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            this.currentUserSubject.next(data.user)
+            this.currentUserSubject.next(data.user);
           }
         }
 
         return data;
-      }));
+      })
+    );
   }
 
   setUserToken(user) {
@@ -81,7 +81,7 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     this.currentUserSubject.next(null);
     localStorage.removeItem('token');
-
+    // window.location.reload();
   }
 
   updateCurrentUser(user) {
@@ -106,11 +106,15 @@ export class AuthenticationService {
   }
 
   resetPassword(email): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/auth/forgot_password`, { email })
+    return this.http.post<any>(`${environment.apiUrl}/auth/forgot_password`, { email });
   }
 
   changePassword(currentPassword, newPassword, confirmPassword): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/auth/change_password`, { currentPassword, newPassword, confirmPassword });
+    return this.http.post<any>(`${environment.apiUrl}/auth/change_password`, {
+      currentPassword,
+      newPassword,
+      confirmPassword
+    });
   }
 
   getUserByEmail(email): Observable<any> {
@@ -123,11 +127,11 @@ export class AuthenticationService {
   }
 
   checkValidUser(user): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/user/validate`, user)
+    return this.http.post<any>(`${environment.apiUrl}/user/validate`, user);
   }
 
   setPassword(obj): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/user/set_password`, obj)
+    return this.http.post<any>(`${environment.apiUrl}/user/set_password`, obj);
   }
 
   sendMessage(phonenumber): Observable<any> {
@@ -135,6 +139,6 @@ export class AuthenticationService {
   }
 
   confirmPasscode(obj): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/confirm_sms_passcode`, obj)
+    return this.http.post<any>(`${environment.apiUrl}/confirm_sms_passcode`, obj);
   }
 }

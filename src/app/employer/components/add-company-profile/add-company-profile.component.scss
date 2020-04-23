@@ -176,7 +176,7 @@
   // flex-wrap: wrap;
   width: 90%;
   max-width: 70rem;
-  justify-content: space-between;
+  // justify-content: space-between;
   margin: 0 auto;
   flex-direction: column;
 }
@@ -360,8 +360,8 @@
     color: #aa111d;
     margin-left: 2rem;
     cursor: pointer;
+    white-space: nowrap;
     transition: 0.2s all;
-
     &:active {
       transform: scale(1.05);
     }

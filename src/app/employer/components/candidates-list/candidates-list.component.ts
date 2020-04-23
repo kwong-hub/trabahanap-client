@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmployerService } from '@app/_services/employer.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-candidates-list',
@@ -37,7 +38,8 @@ export class CandidatesListComponent implements OnInit {
     private EmployerService: EmployerService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -54,13 +56,15 @@ export class CandidatesListComponent implements OnInit {
       this.filterHidden = true;
     });
 
-    this.route.queryParams.subscribe(
-      data => {
-        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
-        this.getServerData(this.matPager);
-      },
-      err => console.log(err)
-    );
+    this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
+
+    // this.route.queryParams.subscribe(
+    //   data => {
+    //     this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+    //     this.getServerData(this.matPager);
+    //   },
+    //   err => console.log(err)
+    // );
   }
 
   updateExpansionState(jobId) {}
@@ -79,12 +83,17 @@ export class CandidatesListComponent implements OnInit {
             this.jobs = success.applications.rows;
             this.pager = success.applications.pager;
             this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+            let path = this.location.path();
+            if (path.indexOf('page') >= 0 && this.pager.currentPage <= 10) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else if (path.indexOf('page') >= 0 && this.pager.currentPage >= 10) {
+              path = path.replace(/page=[0-9][0-9]/, `page=${this.pager.currentPage.toString()}`);
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
           }
         },
         err => console.log(err)
@@ -103,12 +112,14 @@ export class CandidatesListComponent implements OnInit {
           this.jobs = data.applications.rows;
           this.jobs.length == 0 ? (this.empty = true) : (this.hasValues = true);
           this.pager = data.applications.pager;
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { page: this.pager.currentPage },
-            replaceUrl: true,
-            queryParamsHandling: 'merge'
-          });
+          let path = this.location.path();
+          if (path.indexOf('page') >= 0) {
+            path = path.replace(/.$/, this.pager.currentPage.toString());
+            this.location.go(path);
+          } else {
+            path = path.concat(`?page=${this.pager.currentPage}`);
+            this.location.go(path);
+          }
         }
       });
     }

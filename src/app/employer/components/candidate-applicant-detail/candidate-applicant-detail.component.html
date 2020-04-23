@@ -7,7 +7,8 @@
     </div>
     <div class="applicant-detail__top">
       <div class="applicnat-detail__image-container">
-        <img [src]="applicant.applicantPicture ? applicant.applicantPicture : 'assets/img/anonymous-avatar.png'" alt="Profile Picture" class="applicant-detail__image" />
+        <img [src]="applicant.applicantPicture ? applicant.applicantPicture : 'assets/img/anonymous-avatar.png'"
+          alt="Profile Picture" class="applicant-detail__image" />
       </div>
 
       <div class="applicant-detail__infos">
@@ -27,11 +28,8 @@
         </div>
       </div>
       <div>
-        <button
-          (click)="filterApplicant()"
-          [class.applicant-detail__bookmark--saved]="passFilter"
-          class="applicant-detail__bookmark"
-        >
+        <button (click)="filterApplicant()" [class.applicant-detail__bookmark--saved]="passFilter"
+          class="applicant-detail__bookmark">
           {{ passFilter ? 'Screened' : 'Screen' }}
           <i class="applicant-detail__bookmark-icon far fa-bookmark"></i>
         </button>
@@ -48,15 +46,11 @@
     <div class="applicant-detail__bottom">
       <div class="applicant-detail__download">
         Download Applicant CV
-        <a  (click)="generatePdf()" *ngIf="!applicant?.cv" class="applicant-detail__download-cv"
-        ><i class="fas fa-download"></i></a>
-        <a *ngIf="applicant?.cv" [href]='applicant.cv'  target="_blank" class="applicant-detail__download-cv"
-          ><i class="fas fa-download"></i
-        ></a>
+        <a *ngIf="!applicant?.cv" (click)="generatePdf()" class="applicant-detail__download-cv"><i
+            class="fas fa-download"></i></a>
+        <a *ngIf="applicant?.cv" [href]='applicant.cv' target="download" class="applicant-detail__download-cv"><i
+            class="fas fa-download"></i></a>
       </div>
     </div>
   </div>
-  <app-shared-confirm-model [isModalOpen]="toggleConfirmModal" headerText="Payment Confirmations"
-  bodyText="Are you sure you want to make this payment to download cv?"
-  (confirmed)="confirmAction()" (cancled)="cancelAction()"></app-shared-confirm-model> 
 </div>

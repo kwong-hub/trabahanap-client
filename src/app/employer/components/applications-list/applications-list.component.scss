@@ -82,22 +82,24 @@ table {
     margin-top: 2rem;
   }
 }
-
+.filter.active{
+  z-index: 5;
+  background-color: #ddd;
+}
 .filter {
   display: flex;
   flex-direction: row;
-  //align-items: flex-end;
   width: 100%;
   margin: 0 auto;
   position: fixed;
-  top: 6.5rem;
+  top: 6rem;
+  position: fixed;
+  left: 0;
   z-index: 2;
-  // margin-left: 1.2rem;
-  background-color: white;
   padding: 1.8rem 2rem;
 
-  //padding-right: 2rem;
-  margin-left: -7rem;
+  background-color: white;
+
   justify-content: flex-end;
 
   &__header {
@@ -105,21 +107,21 @@ table {
     font-size: 2rem;
     text-transform: uppercase;
     cursor: pointer;
+   
   }
   &__heading {
     color: #888;
-    margin: 0 5%;
+    margin: 0 6rem;
     font-size: 2rem;
     text-transform: uppercase;
     position: absolute;
-    bottom: 0.7rem;
+    bottom: 0;
     left: 1rem;
   }
 
   &__content {
-    min-width: 30rem;
-    background-color: white;
-    width: 23%;
+    background-color: #ddd;
+    min-width: 25%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -141,7 +143,7 @@ table {
       top: -1.6rem;
       right: 2rem;
       border: 8px solid transparent;
-      border-bottom-color: white;
+      border-bottom-color: #ddd;
     }
   }
 
@@ -177,4 +179,52 @@ table {
   background-color: rgb(255, 255, 255);
   border: 2px solid #ccc;
   box-shadow: 0 10px 55px rgba(255, 255, 255, 0.1);
+}
+
+.th_visibe{
+  display: none;
+}
+
+@media screen and (max-width: 760px) {
+  .responsive__table{
+    flex-wrap: nowrap;
+    overflow: scroll;
+    margin: 0 -2rem;
+  }
+  table{
+    margin: 2rem -1rem 0 0rem;
+    padding: 0.7rem;
+  }
+  .paginator{
+    margin: 0rem -2rem 0 -2rem;
+  }
+  .th_hide{
+    // background-color: #333;
+    display: none;
+  }
+  .th_visibe{
+    // background-color: #333;
+    display: block;
+  }
+  .td_limit{
+    max-width: 12rem;
+    overflow: visible;
+    padding-left: 5px !important;
+  }
+  .th_limit{
+    padding-left: 5px !important;
+    max-width: 7rem;
+    overflow: hidden;
+  }
+
+  .td_status{
+    max-width: 5px;
+
+  } 
+  .filter__heading{
+    margin:0 2rem;
+  }
+  .tag{
+    float: right;
+  }
 }

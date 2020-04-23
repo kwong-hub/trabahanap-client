@@ -11,6 +11,7 @@ import {
 import { AdminService } from '@app/_services/admin.service';
 import { EmployerService } from '@app/_services/employer.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-applications-list',
@@ -45,23 +46,24 @@ export class ApplicationsListComponent implements OnInit {
     private Route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {
-    // this.Route.data.subscribe(res => {
-    //   let data = res.data;
-    //   if (data.success) {
-    //     this.pager = data.applications.pager;
-    //     this.applications = data.applications.rows;
-    //   }
-    // });
+    this.Route.data.subscribe(res => {
+      let data = res.data;
+      if (data.success) {
+        this.pager = data.applications.pager;
+        this.applications = data.applications.rows;
+      }
+    });
 
-    this.route.queryParams.subscribe(
-      data => {
-        this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
-        this.getServerData(this.matPager);
-      },
-      err => console.log(err)
-    );
+    // this.route.queryParams.subscribe(
+    //   data => {
+    //     this.matPager.pageIndex = +data.page - 1 >= 0 ? +data.page - 1 : 0;
+    //     this.getServerData(this.matPager);
+    //   },
+    //   err => console.log(err)
+    // );
   }
 
   ngOnInit() {
@@ -84,12 +86,14 @@ export class ApplicationsListComponent implements OnInit {
             this.pager = success.applications.pager;
             this.applications.length == 0 ? (this.empty = true) : (this.hasValues = true);
 
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { page: this.pager.currentPage },
-              replaceUrl: true,
-              queryParamsHandling: 'merge'
-            });
+            let path = this.location.path();
+            if (path.indexOf('page') >= 0) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
             // this.pager.pages = this.renderedPages();
           }
         },
@@ -103,12 +107,14 @@ export class ApplicationsListComponent implements OnInit {
           this.applications = data.applications.rows;
           this.pager = data.applications.pager;
           this.applications.length == 0 ? (this.empty = true) : (this.hasValues = true);
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { page: this.pager.currentPage },
-            replaceUrl: true,
-            queryParamsHandling: 'merge'
-          });
+          let path = this.location.path();
+          if (path.indexOf('page') >= 0) {
+            path = path.replace(/.$/, this.pager.currentPage.toString());
+            this.location.go(path);
+          } else {
+            path = path.concat(`?page=${this.pager.currentPage}`);
+            this.location.go(path);
+          }
         });
     }
   }

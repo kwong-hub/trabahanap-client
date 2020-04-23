@@ -16,4 +16,6 @@ export class CompanyProfile {
   cityId: number;
   regionId: number;
   countryId: number;
+  verified:any;
+  exempt:any
 }

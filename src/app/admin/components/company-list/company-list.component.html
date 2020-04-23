@@ -41,6 +41,39 @@
             </shared-custom-input-field>
           </div>
 
+          <div class="sub-container calendars">
+            <shared-custom-datepicker
+              class="input-element-type-1 job__custom-select"
+              [formGroup]="searchForm"
+              name="registrationDate"
+              defaultValue="null"
+              placeholder="Registration Date"
+              label="Registration Date"
+              (onValueChange)="customValueChanged($event, 'registrationDate')"
+              type="text"
+              [submitted]="false"
+            ></shared-custom-datepicker>
+          </div>
+
+          <div class="form__group--btn">
+            <div class="checkbox">
+              <input
+                type="checkbox"
+                formControlName="verify"
+                name="suspended"
+                id="pwd-checkbox"
+                class="checkbox__input"
+              />
+              <label for="pwd-checkbox" class="checkbox__label">
+                <div class="checkbox__button"></div>
+                <span class="checkbox__text"
+                  >Un-Verified
+                  <!-- <i style="margin: .5rem .5rem 0; color: #42597B" class="fab fa-accessible-icon"></i> -->
+                </span>
+              </label>
+            </div>
+          </div>
+
           <div class="form__group--btn">
             <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
           </div>
@@ -61,7 +94,7 @@
         <td mat-cell *matCellDef="let company">
           <img
             *ngIf="company.companyLogo"
-            style="margin: 0.5rem 0; height: 5rem;"
+            style="margin: 0.5rem 0; height: 5rem; max-width: 12rem;"
             [src]="company.companyLogo"
             alt=""
             class="logo"
@@ -88,18 +121,27 @@
       </ng-container>
 
       <!-- Phone Number Column -->
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Registration Date</th>
+        <td mat-cell *matCellDef="let company">{{ company.createdAt | date: 'longDate' }}</td>
+      </ng-container>
+
+      <!-- Phone Number Column -->
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>Status</th>
         <td mat-cell *matCellDef="let company">
-          <div *ngIf="company.verified" class="tag tag--verified">
+          <div *ngIf="company.verified && !company.suspended" class="tag tag--verified">
             <fa-icon [icon]="faCheckCircle"></fa-icon>
           </div>
-          <div *ngIf="!company.verified" class="tag tag--unverified">
+          <div *ngIf="!company.verified && !company.suspended" class="tag tag--unverified">
             <fa-icon [icon]="faTimesCircle"></fa-icon>
+          </div>
+          <div *ngIf="company.suspended" class="tag tag--unverified">
+            <!-- <fa-icon [icon]="faTimesCircle"></fa-icon> -->
+            Suspended
           </div>
         </td>
       </ng-container>
-
       <!-- Actions Column -->
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
@@ -127,7 +169,7 @@
               *ngIf="company.verified && company.hasLocations"
               class="company-list__action company-list__action--hover"
             >
-              <span class="company-list__icon"> </span>Jobs
+              <span class="company-list__icon"> </span>Jobs Report
             </button>
             <button
               [routerLink]="['staffs/', company.id]"
@@ -137,19 +179,32 @@
               <span class="company-list__icon"> </span>Staff
             </button>
             <button
-            [routerLink]="['payment/', company.id]"
-            *ngIf="company.verified && company.hasLocations"
-            class="company-list__action company-list__action--hover"
-          >
-            <span class="company-list__icon"> </span> Payment
-          </button>
-            <button
-              style="min-width: 10rem"
+              style="min-width: 10rem;"
               (click)="toggleFeatured($event, company.id)"
               *ngIf="company.verified"
               class="company-list__action company-list__action--hover"
             >
-              {{ company.featured ? 'Remove Featured' : 'Add Featured' }}
+              <span class="company-list__icon"> </span>
+              {{ company.featured ? 'Remove From Featured' : 'Add To Featured' }}
+            </button>
+            <!-- <button
+              [routerLink]="['add_plan/', company.id]"
+              *ngIf="company.verified && !company.exempt"
+              class="company-list__action company-list__action--hover"
+            >
+              <span class="company-list__icon"> </span>Grant Plan
+            </button> -->
+            <!-- <button
+              style="min-width: 10rem;"
+              (click)="toggleExempt($event, company.id)"
+              *ngIf="company.verified"
+              class="company-list__action company-list__action--hover"
+            >
+              <span class="company-list__icon"> </span> {{ company.exempt ? 'Remove Exempt' : 'Add To Exempted' }}
+            </button> -->
+            <button (click)="toggleSuspend(company.id)" class="company-list__action company-list__action--hover">
+              <span class="company-list__icon"> <fa-icon [icon]="!company?.suspended ? faTimes : ''"></fa-icon> </span
+              >{{ company.suspended ? 'Unsuspend' : 'Suspend' }}
             </button>
             <!-- <button [routerLink]="['applicant/', company.id]" *ngIf="company.verified && company.hasLocations"
                             class="company-list__action company-list__action--hover"><span class="company-list__icon">
@@ -165,7 +220,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <div class="paginator">
+    <div *ngIf="hasValues" class="paginator">
       <mat-paginator
         [length]="pager?.totalItems"
         [pageSize]="pager?.pageSize"
@@ -175,6 +230,8 @@
       >
       </mat-paginator>
     </div>
+
+    <div class="footer_correct" *ngIf="footerCorr"></div>
   </div>
 </div>
 
@@ -186,7 +243,7 @@
 
 <div class="notification notification--error" [class.active]="reachedMaxFeatured">
   <div class="notification__body">
-    <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
+    <i style="color: #e1a223; margin-right: 10px; font-size: 2rem; display: inline;" class="far fa-check-circle"></i>
     <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
 
     <span class="text">Maximum Featured Company Reached. Remove a company first.</span>

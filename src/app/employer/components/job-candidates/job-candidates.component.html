@@ -20,8 +20,8 @@
         class="mat-elevation-z3"
       >
         <ng-container matColumnDef="picture">
-          <th mat-header-cell *matHeaderCellDef>Picture</th>
-          <td mat-cell *matCellDef="let applicants">
+          <th class="th_hide" mat-header-cell *matHeaderCellDef>Picture</th>
+          <td class="th_hide" mat-cell *matCellDef="let applicants">
             <img style="max-width: 6rem" [src]="applicants.applicantPicture ? applicants.applicantPicture : 'assets/img/anonymous-avatar.png'" alt="picture" />
           </td>
         </ng-container>
@@ -35,8 +35,8 @@
 
         <!-- Email Column -->
         <ng-container matColumnDef="gender">
-          <th mat-header-cell *matHeaderCellDef>Gender</th>
-          <td mat-cell *matCellDef="let applicants">
+          <th class="th_hide" mat-header-cell *matHeaderCellDef>Gender</th>
+          <td  class="th_hide" mat-cell *matCellDef="let applicants">
             {{ applicants?.gender }}
           </td>
         </ng-container>
