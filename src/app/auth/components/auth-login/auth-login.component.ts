@@ -10,7 +10,7 @@ import { Role } from '@app/_models/Role';
 @Component({
   selector: 'app-auth-login',
   templateUrl: './auth-login.component.html',
-  styleUrls: ['./auth-login.component.scss']
+  styleUrls: ['./auth-login.component.scss'],
 })
 export class AuthLoginComponent implements OnInit {
   emailForm: FormGroup;
@@ -35,9 +35,10 @@ export class AuthLoginComponent implements OnInit {
   eyeIcon = faEyeSlash;
   passwordType: string = 'password';
   submitBtnStyle = {
-    btn: { width: '100%', borderRadius: '5px', fontSize: '2.5rem' }
+    btn: { width: '100%', borderRadius: '5px', fontSize: '2.5rem' },
   };
   login = false;
+  requestSent = false;
   socialError = '';
   emailSent = false;
   messageSent = false;
@@ -58,22 +59,22 @@ export class AuthLoginComponent implements OnInit {
 
   ngOnInit() {
     this.emailForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
     });
     this.passwordForm = this.formBuilder.group({
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
     this.questionnaireForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phoneNumber: ['']
+      phoneNumber: [''],
     });
     this.smsConfirmationForm = this.formBuilder.group({
-      passcode: ['', Validators.required]
+      passcode: ['', Validators.required],
     });
 
     this.router.queryParams.subscribe(
-      res => {
+      (res) => {
         let questionnaire = res.questionnaire;
         let email = res.email;
         if (questionnaire == 'true' && email) {
@@ -81,18 +82,20 @@ export class AuthLoginComponent implements OnInit {
           this.getUserByEmail(email);
         }
       },
-      err => console.log(err)
+      (err) => console.log(err)
     );
 
-    this.authService.authState.subscribe(user => {
-      if (user && user.authToken && this.login) {
+    this.authService.authState.subscribe((user) => {
+      if (user && user.authToken && this.login && !this.requestSent) {
         if (!user.email) {
           this.error = 'Single Sign On has failed, please sign in manually';
           return;
         }
         if (user.facebook) {
+          this.requestSent = true;
           this.authenticationService.facebookLogin(user.authToken, user.id, user, 'applicant').subscribe(
-            response => {
+            (response) => {
+              this.requestSent = false;
               if (response.success) {
                 this.authenticationService.saveSocialUser(response.user);
                 this.navigateUser(response.user.role);
@@ -100,12 +103,13 @@ export class AuthLoginComponent implements OnInit {
                 this.socialError = response.error;
               }
             },
-            err => console.log(err)
+            (err) => console.log(err)
           );
         } else {
+          this.requestSent = true;
           this.authenticationService.googleLogin(user.authToken, user.id, user, 'applicant').subscribe(
-            response => {
-              console.log(response)
+            (response) => {
+              this.requestSent = false;
               if (response.success) {
                 this.authenticationService.saveSocialUser(response.user);
                 this.navigateUser(response.user.role);
@@ -113,7 +117,7 @@ export class AuthLoginComponent implements OnInit {
                 this.socialError = response.error;
               }
             },
-            err => console.log(err)
+            (err) => console.log(err)
           );
         }
       }
@@ -153,7 +157,7 @@ export class AuthLoginComponent implements OnInit {
     }
     this.loading = true;
 
-    this.authenticationService.getUserByEmail(this.f.email.value).subscribe(res => {
+    this.authenticationService.getUserByEmail(this.f.email.value).subscribe((res) => {
       this.loading = false;
       this.error = '';
       if (res.success) {
@@ -186,7 +190,7 @@ export class AuthLoginComponent implements OnInit {
       .login(this.lgUser.email, this.fPassword.password.value)
       .pipe(first())
       .subscribe(
-        data => {
+        (data) => {
           if (data.success) {
             this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || `/${data.user.role.toLowerCase()}`;
             this.route.navigate([this.returnUrl]);
@@ -195,7 +199,7 @@ export class AuthLoginComponent implements OnInit {
             this.loading = false;
           }
         },
-        err => {
+        (err) => {
           this.loading = false;
           console.log(err);
         }
@@ -214,16 +218,16 @@ export class AuthLoginComponent implements OnInit {
         email: this.lgUser.email,
         firstName: this.fQuestionnaire.firstName.value,
         lastName: this.fQuestionnaire.lastName.value,
-        phoneNumber: this.fQuestionnaire.phoneNumber.value
+        phoneNumber: this.fQuestionnaire.phoneNumber.value,
       })
-      .subscribe(res => {
+      .subscribe((res) => {
         this.loading = false;
         this.error = '';
         if (res.success && res.user.valid) {
           this.submitted = false;
           this.showquestionnaireForm = false;
           this.route.navigate(['/auth/set-password'], {
-            queryParams: { token: res.user.token }
+            queryParams: { token: res.user.token },
           });
         } else {
           this.error = 'Invalid information try again.';
@@ -233,7 +237,7 @@ export class AuthLoginComponent implements OnInit {
 
   sendEmail() {
     this.disable['email'] = true;
-    this.authenticationService.resetPassword(this.lgUser.email).subscribe(res => {
+    this.authenticationService.resetPassword(this.lgUser.email).subscribe((res) => {
       if (res.success) {
         this.emailSent = true;
         this.route.navigate(['/auth/password-email'], { queryParams: { email: this.lgUser.email } });
@@ -246,7 +250,7 @@ export class AuthLoginComponent implements OnInit {
   }
 
   getUserByEmail(email) {
-    this.authenticationService.getUserByEmail(email).subscribe(res => {
+    this.authenticationService.getUserByEmail(email).subscribe((res) => {
       if (res.success) {
         this.lgUser = res.user;
         this.submitted = false;
@@ -271,7 +275,7 @@ export class AuthLoginComponent implements OnInit {
 
   sendMessage() {
     this.disable['message'] = true;
-    this.authenticationService.sendMessage(this.lgUser.email).subscribe(res => {
+    this.authenticationService.sendMessage(this.lgUser.email).subscribe((res) => {
       this.messageSent = true;
       setTimeout(() => {
         this.messageSent = false;
@@ -290,16 +294,16 @@ export class AuthLoginComponent implements OnInit {
     this.authenticationService
       .confirmPasscode({
         email: this.lgUser.email,
-        passcode: this.fSMS.passcode.value
+        passcode: this.fSMS.passcode.value,
       })
-      .subscribe(res => {
+      .subscribe((res) => {
         this.submitted = false;
         this.loading = false;
         this.error = '';
         if (res.success && res.user.valid) {
           this.showSmsConfirmationForm = false;
           this.route.navigate(['/set-password'], {
-            queryParams: { token: res.user.token }
+            queryParams: { token: res.user.token },
           });
         } else {
           this.error = 'Invalid passcode';
