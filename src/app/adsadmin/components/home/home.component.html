@@ -1,8 +1,55 @@
 <div class="sub-module-container">
   <h3 class="sub-module-container__heading">Advertise</h3>
   <div class="sub-module-container__container">
-    <div class="dashboard-contents-wrapper">
-      from ads admin
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div routerLink="../ads"
+          routerLinkActive="active" class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="icons fas fa-building"></i>
+              </div>
+              <div>
+                <p class="card-category">Active Advertisement</p>
+                <h3 class="card-title">{{ stats.adsActives }}</h3>
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="icons fas fa-list"></i>
+                <span class="stats-text">Advertisement List </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div routerLink="../ads" routerLinkActive="active" class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-icon">
+                <i class="icons fas fa-users"></i>
+              </div>
+              <div>
+
+              </div>
+              <div>
+                <p class="card-category">In Active Advertisement</p>
+                <h3 class="card-title">{{stats.InActive}}</h3>
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="icons fas fa-ads"></i><span class="stats-text">In Active List </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+
+
   </div>
 </div>

@@ -13,7 +13,9 @@ export class AdminService {
   fetchDashboardCounter(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/counters`);
   }
-
+  getAdsCounter():Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}/admin/adminads/counter`)
+  }
   fetchApplicantReport(page, pageSize, order = 'DESC'): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/report/applicant?page=${page}&pageSize=${pageSize}&order=${order}`);
   }
