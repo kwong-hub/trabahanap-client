@@ -37,6 +37,8 @@ export class AdsadminComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
+    this.router.navigate(["/"]);
+    window.location.reload();
   }
 
   toggleSidebar($event) {
