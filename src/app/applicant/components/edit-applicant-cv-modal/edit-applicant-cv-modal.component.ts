@@ -60,9 +60,10 @@ export class EditApplicantCvModalComponent implements OnInit {
   }
 
   closeModal() {
-    this.closeModalEvent.emit(false);
-    this.updateCVForm.controls['cv'].setValue('');
+    this.submitted = false;
     this.formData = new FormData();
+    this.updateCVForm.reset();
+    this.closeModalEvent.emit(false);
   }
 
   onSubmit() {
@@ -72,14 +73,17 @@ export class EditApplicantCvModalComponent implements OnInit {
     }
     this.loading = true;
     this.applicantService.changeApplicantCV(this.formData).subscribe(
-      success => {
+      data => {
         this.submitted = false;
-        if ((success.success, success.applicantProfile)) {
-          this.applicantChanged.emit(success.applicantProfile);
+        // console.log(data)
+        if (data.success) {
+          this.applicantChanged.emit(data.applicantProfile);
           this.loading = false;
+          this.updateCVForm.reset();
           this.formData = new FormData()
         }else{
           this.loading = false;
+          this.updateCVForm.controls['cv'].setErrors({failure: true})
         }
       },
       err => {
