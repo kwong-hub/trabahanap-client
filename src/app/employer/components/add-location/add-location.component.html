@@ -107,13 +107,13 @@
         <div class="form__group form__group--double">
           <shared-custom-select
             defalutValue=""
-            label="Region"
+            label="Province"
             [valid]="locationForm.controls['regionId']?.status"
             (onValueChange)="selectChanged($event, 'regionId'); citySelect.resetValue()"
             name="regionId"
             [styleObject]="selectStyle"
             class="input-element-type-3"
-            placeholder="Select Region"
+            placeholder="Select Province"
             [options]="regions"
             [submitted]="submitted"
           >

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { EmployerService } from "@app/_services/employer.service";
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     percent: "10%",
     route: ""
   };
-  constructor(private Route: ActivatedRoute, private authService: AuthenticationService) {
+  constructor(private Route: ActivatedRoute,private router:Router, private authService: AuthenticationService) {
     this.Route.data.subscribe(res => {
       let data = res.dashRes;
       let role = this.authService.currentUserValue.role;
@@ -53,4 +53,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  gotoStaff(){
+    if(this.authService.currentUserValue.role == 'EMPLOYER'){
+      this.router.navigate(['/employer/staff'])
+    }else{
+      return false;
+    }
+  }
 }

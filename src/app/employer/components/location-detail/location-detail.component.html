@@ -45,9 +45,9 @@
         class="input-element-type-3" placeholder="Select Country" [options]="countries" [submitted]="submitted">
       </shared-custom-select>
 
-      <shared-custom-select [defaultValue]="+location?.regionId" disabled="" label="Region" [valid]="locationForm.controls['regionId']?.status"
+      <shared-custom-select [defaultValue]="+location?.regionId" disabled="" label="Province" [valid]="locationForm.controls['regionId']?.status"
         (onValueChange)="selectChanged($event, 'regionId'); citySelect.resetValue()" name="regionId" [styleObject]="selectStyle"
-        class="input-element-type-3" placeholder="Select Region" [options]="regions" [submitted]="submitted">
+        class="input-element-type-3" placeholder="Select Province" [options]="regions" [submitted]="submitted">
       </shared-custom-select>
 
       <shared-custom-select [defaultValue]="+location?.cityId" disabled="" label="City" [valid]="locationForm.controls['cityId']?.status"
