@@ -51,12 +51,14 @@ export class AdvertisementListComponent implements OnInit {
     // console.log(id);
     this.adminService.deactivateAds(id).subscribe(
       data => {
-        this.ads.forEach(ads => {
-          if (ads.id === id) {
-            ads.active = !ads.active;
-            //this.openActions[comp.id] = null;
-          }
-        });
+        if(data.success) {
+          this.ads.forEach(ads => {
+            if (ads.id === id) {
+              ads.active = !ads.active;
+              //this.openActions[comp.id] = null;
+            }
+          });
+        }
       },
       error => {
         console.log(error);

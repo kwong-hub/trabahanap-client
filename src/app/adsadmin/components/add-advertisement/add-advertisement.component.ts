@@ -78,7 +78,7 @@ export class AddAdvertisementComponent implements OnInit {
       adsStart: ['', Validators.required],
       image: ['', Validators.required],
       websiteURL: ['', Validators.pattern(reg)],
-      orientation: ['', Validators.required]
+      orientation: ['HORIZONTAL', Validators.required]
     });
   }
   dateChanged(value, name) {
