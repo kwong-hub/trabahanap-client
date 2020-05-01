@@ -69,6 +69,7 @@ import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/
 import { ExemptedCompanyComponent } from './components/exempted-company/exempted-company.component';
 import { ExemptResolverService } from '@app/_resolvers/admin-resolvers/exempt-resolver.service';
 import { PwdCompanyComponent } from './components/pwd-company/pwd-company.component';
+import { SendEmailComponent } from './components/send-email/send-email.component';
 
 const routes: Routes = [
   {
@@ -265,6 +266,11 @@ const routes: Routes = [
         path: 'ads/add',
         canActivate: [AdminGuard],
         component: AddAdvertisementComponent,
+      },
+      {
+        path: 'send/email',
+        canActivate: [SuperAdminGuard],
+        component: SendEmailComponent,
       },
       // {
       //   path: 'payment',

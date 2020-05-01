@@ -138,6 +138,19 @@
           <i class="icons fas fa-user-tie"></i>
           <span class="names">Admin Staff</span>
         </a>
+        <a
+          *ngIf="authenticationService.currentUserValue && authenticationService.currentUserValue.role == 'ADMIN'"
+          routerLink="send/email"
+          routerLinkActive="active"
+          title="Send Email"
+          (click)="toggleSidebar(false)"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="sidebar__list-item"
+        >
+          <i class="icons fas fa-paper-plane"></i>
+          <span class="names">Send Email</span>
+        </a>
+
 
         <a
           routerLink="issues"
