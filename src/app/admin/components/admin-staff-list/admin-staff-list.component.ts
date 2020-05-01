@@ -34,7 +34,7 @@ export class AdminStaffListComponent implements OnInit {
   stafferError = false;
   staffs = [];
   pager: any;
-  displayedColumns: string[] = ['firstName', 'email', 'phoneNumber', 'status', 'action'];
+  displayedColumns: string[] = ['firstName', 'email', 'role', 'phoneNumber', 'status', 'action'];
 
   constructor(private adminService: AdminService, private route: ActivatedRoute, private location: Location) {
     this.route.data.subscribe(res => {

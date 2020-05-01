@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {}
 
-  gotoStaff(){
+  goToStaff(){
     if(this.authService.currentUserValue.role == 'EMPLOYER'){
       this.router.navigate(['/employer/staff'])
     }else{

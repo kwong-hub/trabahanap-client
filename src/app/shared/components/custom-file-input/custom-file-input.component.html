@@ -18,7 +18,11 @@
   </div>
 
   <div *ngIf="input?.errors?.maxSize" class="invalid-feedback">
-    <div class="invalid-feedback__message">Maximum size allowed is 4Mb,</div>
+    <div class="invalid-feedback__message">Maximum size allowed is 4Mb</div>
+  </div>
+
+  <div *ngIf="input?.errors?.failure" class="invalid-feedback">
+    <div class="invalid-feedback__message">Could not upload file. Try again</div>
   </div>
 
 </div>

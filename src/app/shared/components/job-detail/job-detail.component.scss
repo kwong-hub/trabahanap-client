@@ -311,6 +311,29 @@
       }
     }
 
+    @media (min-width: 600px) {
+      padding-right: 1rem;
+    }
+    .reports {
+      color: #42597b;
+      white-space: nowrap;
+      font-size: 2rem;
+      padding-right: 0rem;
+      text-decoration: none;
+      margin: 1rem 0 0;
+      align-self: flex-end;
+      order: -1;
+      // position: absolute;
+      // top: 0rem;
+      // right: 2rem;
+    
+      &:hover,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+    
+    
     .map {
       position: relative;
       height: 25rem;

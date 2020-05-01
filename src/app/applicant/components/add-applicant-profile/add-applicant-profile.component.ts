@@ -489,7 +489,7 @@ export class AddApplicantProfileComponent implements OnInit {
     if (this.showCVPreview) {
       let ext = this.applicantProfile.cv.split('.').pop();
       if (ext === 'pdf' || ext === 'doc' || ext === 'docx') {
-        console.log(ext);
+        // console.log(ext);
         this.isDocument = true;
         this.isImage = false;
       } else {
