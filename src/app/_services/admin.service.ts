@@ -268,12 +268,12 @@ export class AdminService {
   }
  
 
-  // verifyUser(){
-  //   return this.http.post<any>(`${environment.apiUrl}/admin/send_email`,{});
-  // }
-  // unVerifiedUser(){
-  //   return this.http.get<any>(`${environment.apiUrl}/admin/find_email`)
-  // }
+  verifyUser(dateRange){
+    return this.http.post<any>(`${environment.apiUrl}/admin/send_email?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`,{});
+  }
+  unVerifiedUser(dateRange,page,pageSize){
+    return this.http.get<any>(`${environment.apiUrl}/admin/find_email?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&page=${page}&pageSize=${pageSize}`)
+  }
 
   getPaymentPlanTypes(page,pageSize) {
     return this.http.get<any>(`${environment.apiUrl}/admin/payment_plan_types?page=${page}&pageSize=${pageSize}`);

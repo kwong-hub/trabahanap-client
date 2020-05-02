@@ -85,6 +85,7 @@ import { EditPaymentTypeResolverService } from '@app/_resolvers/admin-resolvers/
 import { EmployerPlanComponent } from './components/employer-plan/employer-plan.component';
 import { ExemptedCompanyComponent } from './components/exempted-company/exempted-company.component';
 import { PwdCompanyComponent } from './components/pwd-company/pwd-company.component';
+import { SendEmailComponent } from './components/send-email/send-email.component';
 
 @NgModule({
   declarations: [
@@ -129,7 +130,8 @@ import { PwdCompanyComponent } from './components/pwd-company/pwd-company.compon
     EditPlanTypeComponent,
     EmployerPlanComponent,
     ExemptedCompanyComponent,
-    PwdCompanyComponent
+    PwdCompanyComponent,
+    SendEmailComponent
   ],
   imports: [
     AdminRoutingModule,
