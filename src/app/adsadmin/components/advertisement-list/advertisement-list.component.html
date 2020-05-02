@@ -73,8 +73,11 @@
             <fa-icon style="color: tomato" [icon]="faEllipsisV"></fa-icon>
           </button>
           <mat-menu #menu="matMenu">
+            <!-- <button [routerLink]="['edit', ads.id]" mat-menu-item>
+              Edit
+            </button> -->
             <button (click)="activateAds(ads.id)" mat-menu-item>
-              <fa-icon class="menu-icon"></fa-icon>{{ ads.active ? 'Deactivate' : 'Activate' }}
+              {{ ads.active ? 'Deactivate' : 'Activate' }}
             </button>
           </mat-menu>
         </td>

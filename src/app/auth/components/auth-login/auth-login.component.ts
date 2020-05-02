@@ -42,8 +42,9 @@ export class AuthLoginComponent implements OnInit {
   socialError = '';
   emailSent = false;
   messageSent = false;
-
+  resendActive: boolean = false;
   disable: any = {};
+  resendSuccess: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -182,6 +183,7 @@ export class AuthLoginComponent implements OnInit {
 
   onPasswordSubmit() {
     this.submitted = true;
+    this.error = '';
     if (this.passwordForm.invalid) {
       return;
     }
@@ -191,12 +193,18 @@ export class AuthLoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
+          this.loading = false;
           if (data.success) {
             this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || `/${data.user.role.toLowerCase()}`;
             this.route.navigate([this.returnUrl]);
-          } else {
+          } else if(data.user.includes('verify')) {
             this.error = data.user;
-            this.loading = false;
+          } else if(data.user.includes('confirm')) {
+            this.error = data.user;
+            this.resendActive = true;
+          }
+          else {
+            this.error = 'Cannot login. Try again'
           }
         },
         (err) => {
@@ -204,6 +212,30 @@ export class AuthLoginComponent implements OnInit {
           console.log(err);
         }
       );
+  }
+
+  onResend() {
+    this.loading = true;
+    this.authenticationService.resendEmail(this.lgUser.email).subscribe(
+      data => {
+        if(data.success) {
+          this.resendActive = false;
+          this.loading = false;
+          this.resendSuccess = true;
+          setTimeout(() => {
+            this.resendSuccess = false;
+            this.error = '';
+          }, 5000);
+        }
+        else {
+          this.loading = false;
+        }
+      },
+      err => {
+        console.log(err);
+        this.loading = false;
+      }
+    );
   }
 
   onQuestionnaireSubmit() {

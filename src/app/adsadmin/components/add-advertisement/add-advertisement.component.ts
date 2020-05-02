@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AddAdvertisementComponent implements OnInit {
   addAdsForm: FormGroup;
+  submitStyle = { btn: { width: '100%' } };
   styleObject = {
     inputContainer: {},
     inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
@@ -100,7 +101,7 @@ export class AddAdvertisementComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+    this.AdsAdded = false;
     if (this.addAdsForm.invalid) {
       return;
     }
@@ -122,12 +123,6 @@ export class AddAdvertisementComponent implements OnInit {
         this.loading = false;
         if (data.success) {
           this.AdsAdded = true;
-          setTimeout(() => {
-            this.AdsAdded = false;
-            this.router.navigate([`../`], {
-              relativeTo: this.route
-            });
-          }, 3500);
         }
       },
       error => {

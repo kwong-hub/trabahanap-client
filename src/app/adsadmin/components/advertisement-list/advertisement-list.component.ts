@@ -1,14 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  faPlus,
-  faEllipsisV,
-  faArrowCircleRight,
-  faTimes,
-  faCheck,
-  faSlidersH,
-  faCheckCircle,
-  faTimesCircle
-} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEllipsisV, faArrowCircleRight, faTimes, faCheck, faSlidersH, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdminService } from '@app/_services/admin.service';
 import { ActivatedRoute } from '@angular/router';
