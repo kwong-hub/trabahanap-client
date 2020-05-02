@@ -44,7 +44,8 @@ export class AdvertisementEditComponent implements OnInit {
   };
   defaultLimit = { max: '50', min: '0' };
   ads: any;
-  faCamera = faCamera
+  faCamera = faCamera;
+  selectedImage;
 
   constructor(private adminService: AdminService, private formBuilder: FormBuilder,
     private _location: Location, private route: ActivatedRoute) { 
