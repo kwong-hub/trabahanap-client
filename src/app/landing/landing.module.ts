@@ -78,7 +78,7 @@ import { AdsenseModule } from 'ng2-adsense';
     MatButtonModule,
     PipesModule,
     AdsenseModule.forRoot({
-      adClient: 'ca-pub-7640562161899788',
+      adClient: 'ca-pub-1753822621737307',
     })
   ],
   providers: [
