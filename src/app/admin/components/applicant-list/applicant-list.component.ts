@@ -91,7 +91,7 @@ export class ApplicantListComponent implements OnInit {
         data => {
           this.applicants = [];
           if (data.success == true) {
-            console.log(data.applicants)
+            // console.log(data.applicants)
             // data.applicants.rows.forEach(apps => {
             //   this.applicants.push(apps.user);
             // });

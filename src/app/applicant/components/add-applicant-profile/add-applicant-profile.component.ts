@@ -3,17 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocationService } from '@app/_services/location.service';
 import _ from 'lodash';
-import {
-  faCheck,
-  faUserPlus,
-  faIdCard,
-  faCloudUploadAlt,
-  faUserCheck,
-  faEyeDropper,
-  faEdit,
-  faCamera,
-  faTimes
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faUserPlus, faIdCard, faCloudUploadAlt, faUserCheck, faEyeDropper, faEdit, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
@@ -135,13 +125,13 @@ export class AddApplicantProfileComponent implements OnInit {
   formError: boolean;
   isDocument: boolean;
   isImage: boolean;
-  constructor(
-    private formBuilder: FormBuilder,
-    private locationService: LocationService,
-    private applicantService: ApplicantService,
-    private router: Router,
-    private authService: AuthenticationService
-  ) {}
+  minDate: Date;
+  maxDate: Date;
+  constructor(private formBuilder: FormBuilder, private locationService: LocationService, private applicantService: ApplicantService, private authService: AuthenticationService) {
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 100, 0, 1);
+    this.maxDate = new Date(currentYear - 15, 11, 31);
+  }
 
   ngOnInit() {
     this.getRegions();
@@ -159,6 +149,7 @@ export class AddApplicantProfileComponent implements OnInit {
       year: ['', Validators.required],
       month: ['', Validators.required],
       date: ['', Validators.required],
+      matDate: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       selfDescription: ['', [Validators.required, Validators.maxLength(1500)]],
       cv: ['', Validators.required],
@@ -339,6 +330,8 @@ export class AddApplicantProfileComponent implements OnInit {
   onEdit() {
     this.submitted = true;
     let val = this.addApplicantProfileForm.value;
+    console.log(val);
+    return;
     let date = `${val.year}-${val.month}-${val.date}`;
     let now = new Date();
 
@@ -467,7 +460,7 @@ export class AddApplicantProfileComponent implements OnInit {
         this.addApplicantProfileForm.controls[key].enable();
       }
     });
-    this.addApplicantProfileForm.controls['year'].enable();
+    this.addApplicantProfileForm.controls['matDate'].enable();
     this.addApplicantProfileForm.controls['date'].enable();
   }
 
@@ -478,7 +471,7 @@ export class AddApplicantProfileComponent implements OnInit {
         this.addApplicantProfileForm.controls[key].disable();
       }
     });
-    this.addApplicantProfileForm.controls['year'].disable();
+    this.addApplicantProfileForm.controls['matDate'].disable();
     this.addApplicantProfileForm.controls['date'].disable();
   }
 
