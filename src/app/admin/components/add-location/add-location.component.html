@@ -1,42 +1,4 @@
 <div class="container">
-  <div
-    class="notification notification--success"
-    [class.active]="locationAdded"
-  >
-    <div class="notification__body">
-      <i
-        style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-        class="far fa-check-circle"
-      ></i>
-      <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-      <span class="text">Successfully added a Company Branch</span>
-    </div>
-  </div>
-
-  <div class="notification notification--error" [class.active]="locationError">
-    <div class="notification__body">
-      <i
-        style="color: red; margin-right: 10px; font-size: 2rem; display: inline"
-        class="far fa-times-circle"
-      ></i>
-      <!-- <fa-icon style="color: red; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faTimesCircle"></fa-icon> -->
-
-      <span class="text">Find your location on the map</span>
-    </div>
-  </div>
-
-  <div class="notification notification--error" [class.active]="imageError">
-    <div class="notification__body">
-      <i
-        style="color: red; margin-right: 10px; font-size: 2rem; display: inline"
-        class="far fa-times-circle"
-      ></i>
-      <!-- <fa-icon style="color: red; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faTimesCircle"></fa-icon> -->
-
-      <span class="text">Please, Upload a location Picture</span>
-    </div>
-  </div>
 
   <div class="form-container">
     <div class="form-container__header">
@@ -44,14 +6,9 @@
     </div>
 
     <div class="form-container__body">
-      <form
-        action="#"
-        [formGroup]="locationForm"
-        method="POST"
-        enctype="multipart/form-data"
-        class="form"
-        (ngSubmit)="onSubmit()"
-      >
+      <form action="#" [formGroup]="locationForm"
+        method="POST" enctype="multipart/form-data" class="form"
+        (ngSubmit)="onSubmit()">
         <div *ngIf="error" class="form__error">{{ error | uppercase }}</div>
 
         <div class="form__group">
@@ -146,13 +103,13 @@
         <div class="form__group form__group--double">
           <shared-custom-select
             defalutValue=""
-            label="Region"
+            label="Province"
             [valid]="locationForm.controls['regionId']?.status"
             (onValueChange)="selectChanged($event, 'regionId')"
             name="regionId"
             [styleObject]="selectStyle"
             class="input-element-type-3"
-            placeholder="Select Region"
+            placeholder="Select Province"
             [options]="regions"
             [submitted]="submitted"
           >
@@ -191,16 +148,25 @@
 
         <!-- Form submit button -->
         <div class="form__group">
-          <input
+          <!-- <input
             [class.disabled]="locationForm.invalid || loading"
             type="submit"
             value="Submit"
             class="form__submit th-btn th-btn--primary"
-          />
+          /> -->
+          <app-custom-submit-button [loading]="loading" text="Submit"
+            [styleObject]="{ btn: { width: '100%', borderRadius: '5px' } }"
+            ></app-custom-submit-button>
         </div>
       </form>
     </div>
   </div>
+
+  <app-custom-notification type="success" [show]="locationAdded" 
+    text="Company branch added Successfully" callback="goBack"></app-custom-notification>
+  <app-custom-notification type="error" [show]="locationError"
+    text="Find the location on the map"
+  ></app-custom-notification>
 
   <div class="map-container">
     <div

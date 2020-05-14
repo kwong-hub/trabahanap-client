@@ -55,7 +55,6 @@ export class AddLocationComponent implements OnInit {
   locationAdded: boolean;
   error;
   locationError: boolean;
-  imageError: boolean;
   cities: any;
   defaultLimit = { max: '35', min: '0' };
   bigLimit = { max: '100', min: '6' };
@@ -85,21 +84,21 @@ export class AddLocationComponent implements OnInit {
       isHeadOffice: [false]
     });
 
-    this.marker = marker([14.6042, 120.9822], {
-      icon: icon({
-        iconSize: [25, 41],
-        iconAnchor: [13, 41],
-        iconUrl: 'assets/marker-icon.png',
-        shadowUrl: 'assets/marker-shadow.png'
-      }),
-      draggable: true,
-      autoPan: true,
-      autoPanPadding: new Point(70, 70)
-    });
+    // this.marker = marker([14.6042, 120.9822], {
+    //   icon: icon({
+    //     iconSize: [25, 41],
+    //     iconAnchor: [13, 41],
+    //     iconUrl: 'assets/marker-icon.png',
+    //     shadowUrl: 'assets/marker-shadow.png'
+    //   }),
+    //   draggable: true,
+    //   autoPan: true,
+    //   autoPanPadding: new Point(70, 70)
+    // });
 
-    this.marker.on('dragend', e => {
-      ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
-    });
+    // this.marker.on('dragend', e => {
+    //   ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
+    // });
     this.showMap = true;
   } // ngOnInit ends here
 
@@ -168,14 +167,51 @@ export class AddLocationComponent implements OnInit {
     searchControl.getContainer().onclick = e => { e.stopPropagation(); };
     this.map.on('geosearch/showlocation', (e) => {
       let { lat, lng } = e.marker._latlng;
-      this.marker.setLatLng(new LatLng(lat, lng));
-      ({ lat: this.latitude, lng: this.longitude } = e.marker._latlng);
+      if(this.marker) {
+        this.marker.setLatLng(new LatLng(lat, lng));
+        ({ lat: this.latitude, lng: this.longitude } = e.marker._latlng);
+      } else {
+          this.marker = marker([14.6042, 120.9822], {
+          icon: icon({
+            iconSize: [25, 41],
+            iconAnchor: [13, 41],
+            iconUrl: 'assets/marker-icon.png',
+            shadowUrl: 'assets/marker-shadow.png'
+          }),
+          draggable: true,
+          autoPan: true,
+          autoPanPadding: new Point(70, 70)
+        });
+
+        this.marker.on('dragend', e => {
+          ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
+        });
+      }
     })
   }
 
   mapClicked(e) {
     let { lat, lng } = e.latlng;
-    this.marker.setLatLng(new LatLng(lat, lng));
+    if(this.marker) {
+      this.marker.setLatLng(new LatLng(lat, lng));
+      ({ lat: this.latitude, lng: this.longitude } = e.latlng);
+    } else {
+        this.marker = marker([lat, lng], {
+        icon: icon({
+          iconSize: [25, 41],
+          iconAnchor: [13, 41],
+          iconUrl: 'assets/marker-icon.png',
+          shadowUrl: 'assets/marker-shadow.png'
+        }),
+        draggable: true,
+        autoPan: true,
+        autoPanPadding: new Point(70, 70)
+      });
+
+      this.marker.on('dragend', e => {
+        ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
+      });
+    }
     ({ lat: this.latitude, lng: this.longitude } = e.latlng);
   }
 
@@ -196,7 +232,7 @@ export class AddLocationComponent implements OnInit {
       this.locationError = true;
       setTimeout(() => {
         this.locationError = false;
-      }, 3500);
+      }, 4500);
       return;
     }
     this.formData.append('latitude', this.latitude);
@@ -219,14 +255,10 @@ export class AddLocationComponent implements OnInit {
           this.submitted = false;
           this.locationForm.reset();
           this.locationAdded = true;
-
-          setTimeout(() => {
-            this.locationAdded = false;
-            this._location.back();
-          }, 2000);
         }
       },
       error => {
+        this.loading = false;
         console.log(error);
       }
     );

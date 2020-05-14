@@ -7,11 +7,37 @@ import { faCheck, faUserPlus, faIdCard, faCloudUploadAlt, faUserCheck, faEyeDrop
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { formatDate } from '@angular/common';
+ 
+export const PICK_FORMATS = {
+  parse: {dateInput: {month: 'short', year: 'numeric', day: 'numeric'}},
+  display: {
+      dateInput: 'input',
+      monthYearLabel: {year: 'numeric', month: 'short'},
+      dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+      monthYearA11yLabel: {year: 'numeric', month: 'long'}
+  }
+};
+
+export class PickDateAdapter extends NativeDateAdapter {
+  format(date: Date, displayFormat: Object): string {
+      if (displayFormat === 'input') {
+          return formatDate(date,'dd MMMM, yyyy',this.locale);;
+      } else {
+          return date.toDateString();
+      }
+  }
+}
 
 @Component({
   selector: 'app-add-applicant-profile',
   templateUrl: './add-applicant-profile.component.html',
-  styleUrls: ['./add-applicant-profile.component.scss']
+  styleUrls: ['./add-applicant-profile.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: PickDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
+  ]
 })
 export class AddApplicantProfileComponent implements OnInit {
   @Input() applicantProfile: any;
@@ -127,6 +153,8 @@ export class AddApplicantProfileComponent implements OnInit {
   isImage: boolean;
   minDate: Date;
   maxDate: Date;
+  startDate = new Date(1990, 0, 1);
+
   constructor(private formBuilder: FormBuilder, private locationService: LocationService, private applicantService: ApplicantService, private authService: AuthenticationService) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 100, 0, 1);
@@ -146,10 +174,10 @@ export class AddApplicantProfileComponent implements OnInit {
       currentOccopation: [''],
       address: [''],
       gender: ['', Validators.required],
-      year: ['', Validators.required],
-      month: ['', Validators.required],
-      date: ['', Validators.required],
-      matDate: ['', Validators.required],
+      // year: ['', Validators.required],
+      // month: ['', Validators.required],
+      // date: ['', Validators.required],
+      // matDate: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       selfDescription: ['', [Validators.required, Validators.maxLength(1500)]],
       cv: ['', Validators.required],
@@ -179,12 +207,12 @@ export class AddApplicantProfileComponent implements OnInit {
 
   updateForm() {
     if (this.applicantProfile.dateOfBirth) {
-      let temp_date = new Date(this.applicantProfile.dateOfBirth);
+      // let temp_date = new Date(this.applicantProfile.dateOfBirth);
       this.applicantProfile = {
         ...this.applicantProfile,
-        year: temp_date.getFullYear(),
-        month: temp_date.getMonth() + 1,
-        date: temp_date.getDate(),
+        // year: temp_date.getFullYear(),
+        // month: temp_date.getMonth() + 1,
+        // date: temp_date.getDate(),
         fullName: `${this.applicantProfile.user.firstName} ${this.applicantProfile.user.lastName}`,
         phoneNumber: this.applicantProfile.user.phoneNumber
       };
@@ -268,24 +296,24 @@ export class AddApplicantProfileComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     let val = this.addApplicantProfileForm.value;
-    let date = `${val.year}-${val.month}-${val.date}`;
-    let now = new Date();
+    // let date = `${val.year}-${val.month}-${val.date}`;
+    // let now = new Date();
 
-    if (+val.year > now.getFullYear() - 15 || +val.year < 1920) {
-      this.f.year.setErrors({ rangeOut: true });
-    }
-    if (+val.date > 31 || +val.date < 1) {
-      this.f.date.setErrors({ rangeOut: true });
-    }
+    // if (+val.year > now.getFullYear() - 15 || +val.year < 1920) {
+    //   this.f.year.setErrors({ rangeOut: true });
+    // }
+    // if (+val.date > 31 || +val.date < 1) {
+    //   this.f.date.setErrors({ rangeOut: true });
+    // }
 
-    if (new Date(date).toDateString().includes('Invalid')) {
-      this.addApplicantProfileForm.controls['month'].setErrors({
-        invalid: true
-      });
-      return;
-    }
+    // if (new Date(date).toDateString().includes('Invalid')) {
+    //   this.addApplicantProfileForm.controls['month'].setErrors({
+    //     invalid: true
+    //   });
+    //   return;
+    // }
 
-    this.addApplicantProfileForm.controls['dateOfBirth'].setValue(date);
+    // this.addApplicantProfileForm.controls['dateOfBirth'].setValue(date);
     if (this.addApplicantProfileForm.invalid) {
       return;
     }
@@ -331,30 +359,30 @@ export class AddApplicantProfileComponent implements OnInit {
     this.submitted = true;
     let val = this.addApplicantProfileForm.value;
     console.log(val);
-    return;
-    let date = `${val.year}-${val.month}-${val.date}`;
-    let now = new Date();
+    // return;
+    // let date = `${val.year}-${val.month}-${val.date}`;
+    // let now = new Date();
 
-    if (+val.year > now.getFullYear() - 15 || +val.year < 1920) {
-      this.f.year.setErrors({ rangeOut: true });
-    }
-    if (+val.date > 31 || +val.date < 1) {
-      this.f.date.setErrors({ rangeOut: true });
-    }
+    // if (+val.year > now.getFullYear() - 15 || +val.year < 1920) {
+    //   this.f.year.setErrors({ rangeOut: true });
+    // }
+    // if (+val.date > 31 || +val.date < 1) {
+    //   this.f.date.setErrors({ rangeOut: true });
+    // }
 
-    if (new Date(date).toDateString().includes('Invalid')) {
-      this.addApplicantProfileForm.controls['month'].setErrors({
-        invalid: true
-      });
-      return;
-    }
+    // if (new Date(date).toDateString().includes('Invalid')) {
+    //   this.addApplicantProfileForm.controls['month'].setErrors({
+    //     invalid: true
+    //   });
+    //   return;
+    // }
     let nameArray = val.fullName.split(' ');
     let lastName = nameArray.slice(1).join(' '); // in case value includes grandfather's name
 
     this.addApplicantProfileForm.controls['firstName'].setValue(nameArray[0]);
     this.addApplicantProfileForm.controls['lastName'].setValue(lastName);
-    this.addApplicantProfileForm.controls['dateOfBirth'].setValue(date);
-
+    // this.addApplicantProfileForm.controls['dateOfBirth'].setValue(val.dateOfBirth);
+    console.log(this.addApplicantProfileForm.controls['dateOfBirth'])
     if (this.applicantProfile.cv) {
       this.addApplicantProfileForm.controls['cv'].clearValidators();
       this.addApplicantProfileForm.controls['cv'].updateValueAndValidity();
@@ -365,6 +393,7 @@ export class AddApplicantProfileComponent implements OnInit {
     }
 
     val = this.addApplicantProfileForm.value;
+
     // this.showLoader = true;
     this.success = false;
     this.loading = true;
@@ -460,8 +489,8 @@ export class AddApplicantProfileComponent implements OnInit {
         this.addApplicantProfileForm.controls[key].enable();
       }
     });
-    this.addApplicantProfileForm.controls['matDate'].enable();
-    this.addApplicantProfileForm.controls['date'].enable();
+    // this.addApplicantProfileForm.controls['matDate'].enable();
+    // this.addApplicantProfileForm.controls['date'].enable();
   }
 
   disableEdit() {
@@ -471,8 +500,8 @@ export class AddApplicantProfileComponent implements OnInit {
         this.addApplicantProfileForm.controls[key].disable();
       }
     });
-    this.addApplicantProfileForm.controls['matDate'].disable();
-    this.addApplicantProfileForm.controls['date'].disable();
+    // this.addApplicantProfileForm.controls['dateOfBirth'].disable();
+    // this.addApplicantProfileForm.controls['date'].disable();
   }
 
   onCVPreview(event) {

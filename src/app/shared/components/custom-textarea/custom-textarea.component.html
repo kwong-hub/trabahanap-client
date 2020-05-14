@@ -10,7 +10,12 @@
     [ngClass]="{ 'is-invalid': submitted && input.status == 'INVALID' }"
   ></textarea>
   <label class="form__label" [for]="name">{{ label }}</label>
-  <div *ngIf="submitted && input.status == 'INVALID'" class="invalid-feedback">
+  <div *ngIf="submitted && input.status == 'INVALID' && !(input?.errors?.maxlength?.requiredLength) " class="invalid-feedback">
     <div class="invalid-feedback__message">{{ label }} is not valid</div>
+  </div>
+  <div *ngIf="submitted && input.status == 'INVALID' && input?.errors?.maxlength" class="invalid-feedback">
+    <div class="invalid-feedback__message">
+      Should be less than {{ input?.errors?.maxlength.requiredLength }} Characters.
+    </div>
   </div>
 </div>

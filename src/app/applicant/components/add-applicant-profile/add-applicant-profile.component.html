@@ -233,12 +233,19 @@
           [styleObject]="styleObject"
         ></shared-custom-input-field> -->
           
-        <mat-form-field style="flex: 1; margin: 0 1rem .8rem; font-size: 1.7rem;">
+        <mat-form-field style="flex: 1; margin: 0 1rem .8rem; font-size: 1.7rem; color: #555;">
           <mat-label>Birth Date</mat-label>
-          <input matInput name="matDate" [matDatepicker]="picker1" formControlName="matDate" 
-            (click)="picker1.open()" (focus)="picker1.open()">
+          <input matInput name="dateOfBirth" [matDatepicker]="picker1" formControlName="dateOfBirth" 
+            (click)="picker1.open()" (focus)="picker1.open()" 
+            readonly [min]="minDate" [max]="maxDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker touchUi #picker1></mat-datepicker>
+          <mat-datepicker touchUi #picker1 startView="year" [startAt]="startDate"></mat-datepicker>
+          
+          <div *ngIf="submitted && f.dateOfBirth.errors" class="invalid-feedback">
+            <div class="invalid-feedback__message" *ngIf="f.dateOfBirth.errors.required">
+              Birth Date is required
+            </div>
+          </div>
         </mat-form-field>
       </div>
 

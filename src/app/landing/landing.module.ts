@@ -37,7 +37,7 @@ import { HomeSectionFourComponent } from './components/home-section-four/home-se
 import { StateService } from '@app/_services/state.service';
 import { LandingCustomSubmitComponent } from './components/landing-custom-submit/landing-custom-submit.component';
 import { AdvertisementService } from '@app/_services/advertisement.service';
-import { AdsenseModule } from 'ng2-adsense';
+// import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
   declarations: [
@@ -77,9 +77,9 @@ import { AdsenseModule } from 'ng2-adsense';
     MatProgressBarModule,
     MatButtonModule,
     PipesModule,
-    AdsenseModule.forRoot({
-      adClient: 'ca-pub-1753822621737307',
-    })
+    // AdsenseModule.forRoot({
+    //   adClient: 'ca-pub-1753822621737307',
+    // })
   ],
   providers: [
     JobDetailResolverService,

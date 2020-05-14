@@ -86,6 +86,15 @@
   align-items: center;
   margin: 0 auto;
   flex-direction: column;
+  
+  .invalid-feedback {
+    display: block;
+    &__message {
+      font-size: 1.3rem;
+      color: rgb(255, 0, 0);
+      font-style: italic;
+    }
+  }
 }
 
 .rowed {
