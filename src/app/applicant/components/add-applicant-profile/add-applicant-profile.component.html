@@ -188,7 +188,7 @@
         ></shared-custom-input-field>
       </div>
       <div class="sub-container rowed">
-        <!-- <shared-custom-select
+        <shared-custom-select
           [valid]="addApplicantProfileForm.controls['month']?.status"
           (onValueChange)="selectChanged($event, 'month')"
           name="month"
@@ -200,9 +200,9 @@
           [options]="monthOptions"
           [submitted]="submitted"
           [disabled]="hasProfile"
-        ></shared-custom-select> -->
+        ></shared-custom-select>
 
-        <!-- <shared-custom-input-field
+        <shared-custom-input-field
           class="input-element-type-3"
           [formGroup]="addApplicantProfileForm"
           name="date"
@@ -215,9 +215,9 @@
           [disabled]="hasProfile"
           [styleObject]="styleObject"
           [range]="dateRange"
-        ></shared-custom-input-field> -->
+        ></shared-custom-input-field>
 
-        <!-- <shared-custom-input-field
+        <shared-custom-input-field
           class="input-element-type-3"
           [formGroup]="addApplicantProfileForm"
           name="year"
@@ -231,22 +231,7 @@
           [styleObject]="dateStyle"
           [range]="yearRange"
           [styleObject]="styleObject"
-        ></shared-custom-input-field> -->
-          
-        <mat-form-field style="flex: 1; margin: 0 1rem .8rem; font-size: 1.7rem; color: #555;">
-          <mat-label>Birth Date</mat-label>
-          <input matInput name="dateOfBirth" [matDatepicker]="picker1" formControlName="dateOfBirth" 
-            (click)="picker1.open()" (focus)="picker1.open()" 
-            readonly [min]="minDate" [max]="maxDate">
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker touchUi #picker1 startView="year" [startAt]="startDate"></mat-datepicker>
-          
-          <div *ngIf="submitted && f.dateOfBirth.errors" class="invalid-feedback">
-            <div class="invalid-feedback__message" *ngIf="f.dateOfBirth.errors.required">
-              Birth Date is required
-            </div>
-          </div>
-        </mat-form-field>
+        ></shared-custom-input-field>
       </div>
 
       <div class="sub-container">
