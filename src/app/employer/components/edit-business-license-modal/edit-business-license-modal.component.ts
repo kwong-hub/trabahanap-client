@@ -47,13 +47,17 @@ export class EditBusinessLicenseModalComponent implements OnInit {
       this.updateBusinessLicenseForm.controls['businessLicense'].setErrors({maxSize:true})
       return;
     }
+    if(this.formData.has(name)) {
+      this.formData.delete(name)
+    }
     this.formData.append(name, value, value.name);
   }
 
   closeModal() {
+    this.submited = false;
+    this.formData = new FormData()
+    this.updateBusinessLicenseForm.reset();
     this.closeModalEvent.emit(false);
-    this.formData.delete("businessLicense");
-    this.updateBusinessLicenseForm.controls["businessLicense"].setValue("");
   }
 
   onSubmit() {
@@ -64,14 +68,15 @@ export class EditBusinessLicenseModalComponent implements OnInit {
     this.loading = true;
     this.employerService.chnageBusinessLicense(this.formData).subscribe(
       data => {
+        this.submited = false;
         this.loading = false;
         //console.log(data)
         if (data.success) {
-          this.formData.delete("businessLicense");
-          this.updateBusinessLicenseForm.controls["businessLicense"].setValue("");
           this.profileUpdated.emit(data.companyProfile)
+          this.updateBusinessLicenseForm.reset()
+          this.formData = new FormData();
         } else {
-          this.closeModal();
+          this.updateBusinessLicenseForm.controls["businessLicense"].setErrors({failure: true})
         }
       },
       err => {

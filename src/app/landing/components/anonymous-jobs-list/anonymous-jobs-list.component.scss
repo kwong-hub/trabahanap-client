@@ -390,6 +390,30 @@
     }
   }
 
+  &__pwd-filter {
+    display: flex;
+    padding: .5rem 1rem;
+    align-items: center;
+
+    input[type=checkbox] {
+      cursor: pointer;
+    }
+
+    .check-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ce2127;
+      margin-left: .5rem;
+      cursor: pointer;
+    }
+    .check-img {
+      width: 2rem;
+      margin-left: .5rem;
+    }
+  }
+
   &__city-filters {
     display: flex;
     flex-wrap: wrap;

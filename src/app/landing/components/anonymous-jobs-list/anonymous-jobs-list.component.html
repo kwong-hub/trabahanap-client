@@ -1,13 +1,9 @@
 <div id="overlay" class="overlay" [class.active]="!filterHidden"></div>
 <div class="jobs__container">
   <div class="jobs__container--left-center">
-    <form
-      class="jobs__search"
-      method="GET"
-      [formGroup]="desktopSearchForm"
-      (ngSubmit)="decktopSearchSubmit()"
-      action="#"
-    >
+    <form class="jobs__search"
+      method="GET" [formGroup]="desktopSearchForm"
+      (ngSubmit)="decktopSearchSubmit()" action="#">
       <div class="jobs__main-input-container jobs__main-input-desktop">
         <input formControlName="query" id="search" type="text" class="jobs__search-input-main" placeholder="Search" />
         <i class="fas fa-search jobs__search-icon"></i>
@@ -25,6 +21,13 @@
         <i class="fas fa-search jobs__search-icon"></i>
       </div>
       <div class="jobs__filters-mobile">
+        <div class="jobs__pwd-filter">
+          <input (change)="mobileFilterChange($event.srcElement.checked, 'pwd')" type="checkbox" 
+            name="pwd-mob" id="pwd-mob" [checked]="pwd">
+          <label for="pwd-mob" class="check-label">
+            PWD <img src="assets/img/pwd.jpeg" alt="" class="check-img">
+          </label>
+        </div>
         <select
           (change)="mobileFilterChange($event.target.value, 'salary')"
           class="jobs__filter-mobile"
@@ -97,12 +100,17 @@
               {{ locationValue }}
               <i (click)="mobileFilterChange('', 'city')" class="fas fa-times jobs__selected-filter-icon"></i>
             </div>
-            <div
-              *ngIf="!queryValue && !salaryRangeValue && !employmentTypeValue && !locationValue"
-              class="jobs__no-flters"
-            >
+            <div *ngIf="!queryValue && !salaryRangeValue && !employmentTypeValue && !locationValue"
+              class="jobs__no-flters">
               No selected filters
             </div>
+          </div>
+          <div class="jobs__pwd-filter">
+            <input (change)="mobileFilterChange($event.srcElement.checked, 'pwd')" type="checkbox" 
+              name="pwd" id="pwd-desk" [checked]="pwd">
+            <label for="pwd-desk" class="check-label">
+              PWD <img src="assets/img/pwd.jpeg" alt="" class="check-img">
+            </label>
           </div>
           <div class="jobs__city-filters">
             <div class="jobs__filters-heading">Filter By Job Type</div>

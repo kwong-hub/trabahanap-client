@@ -170,7 +170,8 @@
         callback="goBack"
       >
       </app-custom-notification>
-      <app-custom-notification [show]="locationError" type="error" text="Find Your Location On the Map">
+      <app-custom-notification [show]="locationError || failure" type="error" 
+        [text]="failure ? 'Sorry, error has occured. Try again' : 'Find Your Location On the Map'">
       </app-custom-notification>
     </div>
   </div>

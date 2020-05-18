@@ -55,7 +55,9 @@ export class EditApplicantCvModalComponent implements OnInit {
       this.updateCVForm.controls['cv'].setErrors({maxSize:true})
       return;
     }
-
+    if(this.formData.has(name)) {
+      this.formData.delete(name)
+    }
     this.formData.append(name, value, value.name);
   }
 
@@ -75,14 +77,13 @@ export class EditApplicantCvModalComponent implements OnInit {
     this.applicantService.changeApplicantCV(this.formData).subscribe(
       data => {
         this.submitted = false;
+        this.loading = false;
         // console.log(data)
         if (data.success) {
           this.applicantChanged.emit(data.applicantProfile);
-          this.loading = false;
           this.updateCVForm.reset();
           this.formData = new FormData()
-        }else{
-          this.loading = false;
+        } else {
           this.updateCVForm.controls['cv'].setErrors({failure: true})
         }
       },

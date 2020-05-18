@@ -166,6 +166,7 @@ export class JobsListComponent implements OnInit {
   vrAdvertisements = [];
   currentVirticalAd = '';
   currentVirticalAdLink = '';
+  pwd: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -331,6 +332,8 @@ export class JobsListComponent implements OnInit {
       this.salaryRangeValue = value;
     } else if (name == 'empType') {
       this.employmentTypeValue = value;
+    } else if (name === 'pwd') {
+      this.pwd = !this.pwd;
     } else if ((name = 'jobType')) {
       this.queryValue = value;
     }
@@ -456,7 +459,7 @@ export class JobsListComponent implements OnInit {
         this.employmentTypeValue || val.employmentType || '',
         this.salaryRangeValue || val.SalaryRange || '',
         this.locationValue || this.cityName || '',
-        val.pwd ? 1 : 0,
+        this.pwd || val.pwd,
         1
       )
       .subscribe(data => {

@@ -71,6 +71,7 @@ export class IssueFormComponent implements OnInit {
   }
 
   fileChanged(value, name) {
+    this.formData = new FormData();
     this.formData.append(name, value, value.name);
   }
 
@@ -88,7 +89,6 @@ export class IssueFormComponent implements OnInit {
         this.formData.append(key, value);
       }
     });
-
 
     this.applicantService.sendIssue(this.formData).subscribe(
       data => {

@@ -60,6 +60,7 @@ export class AddLocationComponent implements OnInit {
   mustBeBranch: boolean;
   toggleConfirmModal: boolean;
   map: any;
+  failure: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -167,6 +168,9 @@ export class AddLocationComponent implements OnInit {
   }
 
   fileChanged(value, name) {
+    if(this.formData.has(name)) {
+      this.formData.delete(name);
+    }
     this.formData.append(name, value, value.name);
   }
 
@@ -268,7 +272,7 @@ export class AddLocationComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.locationAdded = false;
+    this.locationAdded = this.failure = this.locationError = false;
     if (this.locationForm.invalid) {
       return;
     }
@@ -302,10 +306,7 @@ export class AddLocationComponent implements OnInit {
       }
 
       this.loading = true;
-      this.employerService
-        .addCompanyBranch(this.formData)
-        .pipe(first())
-        .subscribe(
+      this.employerService.addCompanyBranch(this.formData).pipe(first()).subscribe(
           data => {
             if (data.success) {
               this.loading = false;
@@ -322,7 +323,7 @@ export class AddLocationComponent implements OnInit {
               }
             } else {
               this.loading = false;
-              this.error = data.validationError;
+              data.validationError ? this.error = data.validationError : this.failure = true;
             }
           },
           error => {

@@ -25,6 +25,13 @@
         <i class="fas fa-search jobs__search-icon"></i>
       </div>
       <div class="jobs__filters-mobile">
+        <div class="jobs__pwd-filter">
+          <input (change)="mobileFilterChange($event.srcElement.checked, 'pwd')" type="checkbox" 
+            name="pwd-mob" id="pwd-mob" [checked]="pwd">
+          <label for="pwd-mob" class="check-label">
+            PWD <img src="assets/img/pwd.jpeg" alt="" class="check-img">
+          </label>
+        </div>
         <select
           (change)="mobileFilterChange($event.target.value, 'salary')"
           class="jobs__filter-mobile"
@@ -103,6 +110,13 @@
             >
               No selected filters
             </div>
+          </div>
+          <div class="jobs__pwd-filter">
+            <input (change)="mobileFilterChange($event.srcElement.checked, 'pwd')" type="checkbox" 
+              name="pwd-desk" id="pwd-desk" [checked]="pwd">
+            <label for="pwd-desk" class="check-label">
+              PWD <img src="assets/img/pwd.jpeg" alt="" class="check-img">
+            </label>
           </div>
           <div class="jobs__city-filters">
             <div class="jobs__filters-heading">Filter By Job Type</div>
