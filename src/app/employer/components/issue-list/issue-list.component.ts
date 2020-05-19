@@ -50,6 +50,7 @@ export class IssueListComponent implements OnInit {
   selectedIssue: any;
   detailModal: boolean = false;
   deleteSuccess: boolean;
+  issueError: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -100,11 +101,9 @@ export class IssueListComponent implements OnInit {
 
   deleteIssue(id) {
     this.deleting = id;
-    this.deleteSuccess = false;
     this.employerService.deleteIssue(id).subscribe(
       data => {
         if (data.success) {
-          this.deleteSuccess = true;
           this.deleting = '';
           this.issues = this.issues.filter(iss => {
             if (iss.id !== id) {
@@ -125,6 +124,13 @@ export class IssueListComponent implements OnInit {
     this.issueSuccess = true;
     setTimeout(() => {
       this.issueSuccess = false;
+    }, 4500);
+  }
+
+  addIssueError() {
+    this.issueError = true;
+    setTimeout(() => {
+      this.issueError = false;
     }, 4500);
   }
 }

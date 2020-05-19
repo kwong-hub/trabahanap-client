@@ -308,6 +308,7 @@ export class AddLocationComponent implements OnInit {
       this.loading = true;
       this.employerService.addCompanyBranch(this.formData).pipe(first()).subscribe(
           data => {
+            console.log(data)
             if (data.success) {
               this.loading = false;
               this.submitted = false;

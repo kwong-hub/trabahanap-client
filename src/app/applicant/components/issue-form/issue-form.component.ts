@@ -15,6 +15,7 @@ export class IssueFormComponent implements OnInit {
   @ViewChild('issueTypeSelect', {static: false}) typeSelectRef: CustomSelectComponent;
   @HostBinding('attr.class') cssClass = 'form';
   @Output() issueAdded = new EventEmitter();
+  @Output() issueFailed = new EventEmitter();
   issueForm: any;
   submitted: boolean;
   loading: boolean;
@@ -100,11 +101,13 @@ export class IssueFormComponent implements OnInit {
           this.formData = new FormData();
           this.typeSelectRef.resetValue();
           this.issueAdded.emit(data.issue);
+        } else {
+          this.issueFailed.emit();
         }
       },
       error => {
-        console.log(error);
         this.loading = false;
+        this.issueFailed.emit();
       }
     );
   }

@@ -11,7 +11,7 @@
     <div class="container__body">
       <!-- to be displayed in desktop mode -->
       <div class="desktop-form">
-        <app-issue-form (issueAdded)="addIssueToArray($event)"></app-issue-form>
+        <app-issue-form (issueFailed)="addIssueError()" (issueAdded)="addIssueToArray($event)"></app-issue-form>
       </div>
 
       <div class="issues">
@@ -69,12 +69,15 @@
         <h2 class="text">Report the issue you encountered</h2>
       </div>
       <div class="modal__body">
-        <app-issue-form (issueAdded)="addIssueToArray($event)"></app-issue-form>
+        <app-issue-form (issueFailed)="addIssueError()" (issueAdded)="addIssueToArray($event)"></app-issue-form>
       </div>
     </div>
     
-    <app-custom-notification [show]="issueSuccess" type="success" text="Issue Submitted Successfully"></app-custom-notification>
-    <app-custom-notification [show]="deleteSuccess" type="error" text="Issue Deleted Successfully"></app-custom-notification>
+    <app-custom-notification [show]="issueSuccess" type="success" 
+      text="Issue Submitted Successfully"></app-custom-notification>
+
+    <app-custom-notification [show]="issueError" type="error" 
+      text="Error has occured. Please, try again"></app-custom-notification>
 
   </div>
 </div>

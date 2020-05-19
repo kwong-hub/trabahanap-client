@@ -70,12 +70,14 @@ export class EditApplicantCvModalComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.updateCVForm.controls['cv'].updateValueAndValidity();
     if (this.updateCVForm.invalid) {
       return;
     }
     this.loading = true;
     this.applicantService.changeApplicantCV(this.formData).subscribe(
       data => {
+        console.log(data)
         this.submitted = false;
         this.loading = false;
         // console.log(data)

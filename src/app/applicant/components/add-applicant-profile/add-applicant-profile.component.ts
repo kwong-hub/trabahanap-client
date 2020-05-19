@@ -305,7 +305,6 @@ export class AddApplicantProfileComponent implements OnInit {
     
     this.addApplicantProfileForm.controls['dateOfBirth'].setValue(date);
     if (this.addApplicantProfileForm.invalid) {
-      console.log(this.f)
       return;
     }
     this.loading = true;
@@ -339,8 +338,9 @@ export class AddApplicantProfileComponent implements OnInit {
         }
       },
       err => {
-        console.log(err);
         this.loading = false;
+        this.formError = true;
+        console.log(err);
       }
     );
   }
@@ -419,6 +419,7 @@ export class AddApplicantProfileComponent implements OnInit {
       },
       err => {
         this.loading = false;
+        this.formError = true;
         console.log(err);
       }
     );

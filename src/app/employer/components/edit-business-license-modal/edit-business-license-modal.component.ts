@@ -62,6 +62,7 @@ export class EditBusinessLicenseModalComponent implements OnInit {
 
   onSubmit() {
     this.submited = true;
+    this.updateBusinessLicenseForm.controls["businessLicense"].updateValueAndValidity();
     if (this.updateBusinessLicenseForm.invalid) {
       return;
     }

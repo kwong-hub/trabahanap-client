@@ -197,9 +197,9 @@ export class AuthLoginComponent implements OnInit {
           if (data.success) {
             this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || `/${data.user.role.toLowerCase()}`;
             this.route.navigate([this.returnUrl]);
-          } else if(data.user.includes('verify')) {
+          } else if(data.user && data.user.toLowerCase().includes('verify your')) {
             this.error = data.user;
-          } else if(data.user.includes('confirm')) {
+          } else if(data.user && data.user.toLowerCase().includes('confirmation')) {
             this.error = data.user;
             this.resendActive = true;
           }
@@ -216,6 +216,7 @@ export class AuthLoginComponent implements OnInit {
 
   onResend() {
     this.loading = true;
+    this.error = '';
     this.authenticationService.resendEmail(this.lgUser.email).subscribe(
       data => {
         if(data.success) {
@@ -229,6 +230,7 @@ export class AuthLoginComponent implements OnInit {
         }
         else {
           this.loading = false;
+          this.error = 'Could not resend verfication email';
         }
       },
       err => {

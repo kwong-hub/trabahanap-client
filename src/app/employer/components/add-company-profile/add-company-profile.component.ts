@@ -416,20 +416,15 @@ export class AddCompanyProfileComponent implements OnInit {
         } else if (response.validationError) {
           this.formErrors[0] = response.validationError;
           this.submitted = false;
-        } else if (response.message) {
-          this.formErrors[0] = 'something is wrong try again letter.';
-          this.submitted = false;
         } else {
-          if (response.error) {
-            this.serverErrorsMessage = response.error;
-          } else {
-            console.log(response);
-          }
+          this.serverErrorsMessage = true;
         }
+        
         this.loading = false;
       },
       error => {
         this.loading = false;
+        this.serverErrorsMessage = true;
         console.log(error);
       }
     );
