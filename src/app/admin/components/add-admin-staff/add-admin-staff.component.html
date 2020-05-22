@@ -1,22 +1,6 @@
 <div class="sub-module-container">
   <h3 class="sub-module-container__heading">Staff</h3>
   <div class="sub-module-container__container">
-    <div class="notification notification--added" [class.active]="stafferAdded">
-      <div class="notification__body">
-        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
-        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-        <span class="text">You have successfully added a staff.</span>
-      </div>
-    </div>
-    <div class="notification notification--error" [class.active]="stafferError">
-      <div class="notification__body">
-        <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
-        <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-        <span class="text">Failed to add staff.</span>
-      </div>
-    </div>
     <div class="staffs">
       <form action="#" class="form" [formGroup]="addStaffer" (ngSubmit)="onSubmit()">
         <div class="sub-container">
@@ -27,7 +11,7 @@
             [valid]="addStaffer.controls['role']?.status"
             (onValueChange)="selectChanged($event, 'role')"
             name="role"
-            [defaultValue]="STAFFER"
+            [defaultValue]=""
             label="Admin Role"
             [styleObject]="styleObject"
             class="input-element-type-1"
@@ -95,12 +79,16 @@
             [limit]="numberRange"
           ></shared-custom-input-field>
         </div>
-        <div class="sub-container">
-          <button type="submit" class="th-btn th-btn--primary form__submit-btn">
+        <div class="sub-container sub-container--btn">
+          <!-- <button type="submit" class="th-btn th-btn--primary form__submit-btn">
             Add Staffer
-          </button>
+          </button> -->
+          <app-custom-submit-button [styleObject]="{btn:{width:'100%'}}" [loading]="loading" text="Add Staffer"></app-custom-submit-button>
         </div>
       </form>
+      <app-custom-notification [show]="stafferAdded || stafferError" [type]="stafferAdded ? 'success' : 'error'"
+        [text]="stafferAdded ? 'Admin staffer added successfully' : errorMessage"
+        [callback]="stafferAdded ? 'goBack' : ''"></app-custom-notification>
     </div>
   </div>
 </div>

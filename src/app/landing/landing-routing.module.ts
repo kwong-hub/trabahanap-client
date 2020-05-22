@@ -21,8 +21,14 @@ const routes: Routes = [
     component: LandingComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
-      { path: 'jobs/near', component: LandingNearJobsComponent },
+      { 
+        path: 'home', 
+        component: HomeComponent 
+      },
+      { 
+        path: 'jobs/near', 
+        component: LandingNearJobsComponent 
+      },
       {
         path: 'jobs/details/:id',
         canActivate: [LandingGuard],

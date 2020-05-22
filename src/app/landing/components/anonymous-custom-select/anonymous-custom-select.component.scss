@@ -17,7 +17,7 @@
       width: 0;
       height: 0;
       border: 0.7rem solid transparent;
-      border-color: #ce4c1b transparent transparent transparent;
+      border-color: #ce2127 transparent transparent transparent;
       z-index: -1;
     }
   }
@@ -86,7 +86,7 @@
 
   &__active {
     &::after {
-      border-color: transparent transparent #ce4c1b transparent;
+      border-color: transparent transparent #ce2127 transparent;
       top: 0.6rem;
     }
   }

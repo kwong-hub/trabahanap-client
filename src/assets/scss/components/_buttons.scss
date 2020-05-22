@@ -27,7 +27,7 @@
   }
 
   &--primary {
-    background-color: red; /* For browsers that do not support gradients */
+    background-color: #7d1216; /* For browsers that do not support gradients */
     background-image: linear-gradient(120deg, #7d1216, $color-primary);
     border: none;
     color: $color-white;

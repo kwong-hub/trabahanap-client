@@ -2,67 +2,41 @@
   <div class="controller">
     <h2 class="controller__header">Jobs Near you</h2>
     <div class="controller__body">
-      <form
-        [formGroup]="searchForm"
-        method="get"
-        class="form"
-        (ngSubmit)="searchJobs()"
-        autocomplete="off"
-      >
+      <form [formGroup]="searchForm" method="get" class="form" (ngSubmit)="searchJobs()" autocomplete="off">
         <div class="form__group">
+          <!-- <input type="text" class="input--key" name="key" placeholder="Search Job" formControlName="key">
+          <select class="input--radius" name="radius" formControlName="radius"></select> -->
           <div class="form__group--input">
-            <app-anonymous-custom-input-field
-              class="input-element-type-2"
-              [formGroup]="searchForm"
-              name="key"
-              defaultValue=""
-              placeholder="Search Job"
-              label="Search Job"
-              [input]="searchForm.controls['key']"
-              type="text"
-              submitted=""
-              disabled="hasProfile"
-            ></app-anonymous-custom-input-field>
+            <app-anonymous-custom-input-field class="input-element-type-2" [formGroup]="searchForm" name="key"
+              defaultValue="" placeholder="Search Job" label="Search Job" [input]="searchForm.controls['key']"
+              type="text" submitted="" disabled="hasProfile"></app-anonymous-custom-input-field>
             <div class="form__divider"></div>
           </div>
 
           <div class="form__group--select">
-            <app-anonymous-custom-select
-              valid=""
-              (onValueChange)="chooseRadius($event)"
-              name="radius"
-              defaultValue="3Kms"
-              label="Search Radius"
-              [styleObject]="styleObject"
-              class="input-element-type-3"
-              placeholder="Search Radius"
-              [options]="radiuses"
-              submitted=""
-              disabled=""
-            ></app-anonymous-custom-select>
+            <app-anonymous-custom-select valid="" (onValueChange)="chooseRadius($event)" name="radius"
+              defaultValue="3Kms" label="Search Radius" [styleObject]="styleObject" class="input-element-type-3"
+              placeholder="Search Radius" [options]="radiuses" submitted="" disabled=""></app-anonymous-custom-select>
           </div>
         </div>
 
         <div class="form__group--btn">
-          <input
-            [class.disabled]="loading"
-            type="submit"
-            value="Search"
-            class="form__submit th-btn th-btn--primary"
-          />
+          <input [class.disabled]="loading" type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
         </div>
       </form>
     </div>
   </div>
 
-  <div class="map-container">
-    <div
-      style="height: 100%;"
-      leaflet
-      [leafletOptions]="options"
-      (leafletMapReady)="onMapReady($event)"
+  <div class="jobs-container">
+    <!-- <div style="height: 100%;" leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)"
       [leafletLayers]="markers" (leafletClick)="mapClicked($event)">
       <div *ngIf="locationTracked" [leafletLayer]="ping"></div>
+    </div> -->
+    <div id="jobsListAnchor" *ngFor="let job of jobs; index as i">
+      <app-anonymous-job [showSave]="false" [Job]="job"></app-anonymous-job>
+      <!-- <div *ngIf="!(i % 3)">
+        <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
+      </div> -->
     </div>
   </div>
 </div>
