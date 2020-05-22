@@ -95,7 +95,6 @@ export class LandingNearJobsComponent implements OnInit {
 
           this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '').subscribe(
             data => {
-              console.log(data.jobs)
               if (data.success) {
                 // this.pinMarkers(data.jobs);
                 this.jobs = data.jobs;
@@ -116,6 +115,17 @@ export class LandingNearJobsComponent implements OnInit {
             longitude: 120.9822
           });
           // console.log(err);
+          this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '').subscribe(
+            data => {
+              if (data.success) {
+                // this.pinMarkers(data.jobs);
+                this.jobs = data.jobs;
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
         }
       );
     }
@@ -198,7 +208,6 @@ export class LandingNearJobsComponent implements OnInit {
     this.anonyService.searchJobByProximity(this.latitude, this.longitude, radius, key).subscribe(data => {
       this.loading = false;
       if (data.success) {
-        console.log(data.jobs)
         // this.pinMarkers(data.jobs);
         this.jobs = data.jobs;
       }

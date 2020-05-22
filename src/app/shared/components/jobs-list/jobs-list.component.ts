@@ -392,7 +392,7 @@ export class JobsListComponent implements OnInit {
             this.employmentTypeValue || val.employmentType || '',
             this.salaryRangeValue || val.SalaryRange || '',
             this.locationValue || this.cityName || this.city || '',
-            val.pwd ? 1 : 0,
+            this.pwd || val.pwd,
             this.page
           )
           .subscribe(data => {

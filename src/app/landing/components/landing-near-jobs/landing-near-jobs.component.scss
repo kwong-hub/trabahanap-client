@@ -55,9 +55,9 @@
   }
 }
 
-// .jobs-container {
-  
-// }
+.jobs-container {
+  max-width: 950px;  
+}
 @media only screen and (min-width: 650px) {
   .container {
     flex-direction: column;
