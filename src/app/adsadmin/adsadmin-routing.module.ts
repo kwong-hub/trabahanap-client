@@ -9,6 +9,8 @@ import { AdvertisementListComponent } from './components/advertisement-list/adve
 import { AddAdvertisementComponent } from './components/add-advertisement/add-advertisement.component';
 import { AdsListResolverService } from '@app/_resolvers/admin-resolvers/ads-list-resolver.service';
 import { ChangePasswordComponent } from '@app/shared/components/change-password/change-password.component';
+import { AdvertisementEditComponent } from './components/advertisement-edit/advertisement-edit.component';
+import { FetchAdByIdResolverService } from '@app/_resolvers/admin-resolvers/fetch-ad-by-id-resolver.service';
 
 const routes: Routes = [
   {
@@ -25,6 +27,12 @@ const routes: Routes = [
         canActivate: [AdsadminGuard],
         component: AdvertisementListComponent,
         resolve: { data: AdsListResolverService }
+      },
+      {
+        path: 'ads/edit/:id',
+        canActivate: [AdsadminGuard],
+        component: AdvertisementEditComponent,
+        resolve: { data: FetchAdByIdResolverService}
       },
       {
         path: 'ads/add',

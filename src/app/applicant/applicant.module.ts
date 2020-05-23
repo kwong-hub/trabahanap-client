@@ -16,13 +16,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditApplicantCvModalComponent } from './components/edit-applicant-cv-modal/edit-applicant-cv-modal.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { EditApplicantPictureModalComponent } from './components/edit-applicant-picture-modal/edit-applicant-picture-modal.component';
-import {
-  MatTableModule,
-  MatButtonModule,
-  MatPaginatorModule,
-  MatMenuModule,
-  MatProgressBarModule
-} from '@angular/material';
+import { MatTableModule, MatButtonModule, MatPaginatorModule,
+  MatMenuModule, MatProgressBarModule, MatDatepickerModule,
+  MatInputModule, MatNativeDateModule } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
 import { BookmarkDetailComponent } from './components/bookmark-detail/bookmark-detail.component';
@@ -69,6 +65,9 @@ import { ApplicantDashboardResolverService } from '@app/_resolvers/applicant-res
     MatMenuModule,
     MatExpansionModule,
     MatProgressBarModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
     ImageCropperModule
   ],
   providers: [

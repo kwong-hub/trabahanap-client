@@ -1,12 +1,4 @@
 <div class="sub-module-container">
-  <div class="notification notification--success" [class.active]="AdsAdded">
-    <div class="notification__body">
-      <i style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" class="far fa-check-circle"></i>
-      <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-      <span class="text">Successfully added a New Ads</span>
-    </div>
-  </div>
   <h3 class="sub-module-container__heading">Advertisement</h3>
   <div class="sub-module-container__container job">
     <div class="form-container">
@@ -119,14 +111,25 @@
         </div>
 
         <div class="form__group">
-          <input
+          <!-- <input
             [class.disabled]="addAdsForm.invalid || loading"
             type="submit"
             value="Submit"
             class="form__submit th-btn th-btn--primary"
-          />
+          /> -->
+          <app-custom-submit-button
+            class="form__submit"
+            [styleObject]="submitStyle"
+            [disabled]="addAdsForm.invalid"
+            [loading]="loading"
+            text="Submit"
+          >
+        </app-custom-submit-button>
         </div>
       </form>
     </div>
+    <app-custom-notification [show]="AdsAdded"
+      type="success" callback="goBack" text="Advertisement Added Successfully">
+  </app-custom-notification>
   </div>
 </div>

@@ -11,7 +11,10 @@
   // border-radius: 3px;
   transition: all 0.2s;
   cursor: pointer;
-
+  
+  &--bordered {
+    border-bottom: 1px solid #ddd;
+  }
   // &:hover,
   // &:active {
   //   box-shadow: 0 2px 0.5rem 0.2rem rgba(black, 0.2);
@@ -100,6 +103,7 @@
 
   &__tag-elements {
     display: flex;
+    flex-wrap: wrap;
   }
 
   &__tag-element {
@@ -123,6 +127,11 @@
       margin-right: 0.5rem;
       font-size: 1.5rem;
       color: #d64e4e;
+    }
+
+    &--distance {
+      padding: .2rem 1.2rem;
+      background: #e8e8e8;
     }
   }
 

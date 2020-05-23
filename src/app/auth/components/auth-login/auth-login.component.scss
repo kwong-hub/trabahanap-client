@@ -99,8 +99,9 @@
 
         &--last {
           display: flex;
-          flex-direction: row;
+          flex-direction: column-reverse;
           justify-content: flex-end;
+          align-items: flex-end;
           margin-bottom: 1.5rem;
         }
 
@@ -180,9 +181,23 @@
       &__forgotPassword {
         text-decoration: none;
         color: black;
-        font-size: 2rem;
+        font-size: 1.8rem;
 
         &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &__resendEmail {
+        text-decoration: none;
+        color: brown;
+        font-size: 1.8rem;
+        margin-top: .5rem;
+        font-weight: 600;
+        margin-right: auto;
+        
+        &:hover {
+          cursor: pointer;
           text-decoration: underline;
         }
       }
@@ -350,16 +365,23 @@
 
   .form-container {
     width: 75%;
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  .form-container {
-    width: 75%;
     max-width: 50rem;
     margin: 0 auto;
     box-shadow: 0 0.5rem 1rem rgba(black, 0.2);
     border: 1px solid rgba(black, 0.1);
+
+    &__body {
+      .form {
+        &__group {
+          &--last {
+            flex-direction: row;
+          }
+        }
+        &__resendEmail {
+          margin-top: 0;
+        }
+      }
+    }
   }
 }
 

@@ -49,11 +49,11 @@ export class AdminStaffListComponent implements OnInit {
   ngOnInit() {}
 
   getServerData(page) {
-    this.adminService.getAdminStaff(page.pageIndex + 1, page.totalItems || 8).subscribe(
-      success => {
-        if (success.success == true) {
-          this.staffs = success.staffs.rows;
-          this.pager = success.staffs.pager;
+    this.adminService.getAdminStaff(page.pageIndex + 1, page.pageSize || 8).subscribe(
+      data => {
+        if (data.success == true) {
+          this.staffs = data.staffs.rows;
+          this.pager = data.staffs.pager;
           let path = this.location.path();
           if (path.indexOf('page') >= 0) {
             path = path.replace(/.$/, this.pager.currentPage.toString());

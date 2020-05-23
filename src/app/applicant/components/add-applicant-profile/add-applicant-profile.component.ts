@@ -240,6 +240,9 @@ export class AddApplicantProfileComponent implements OnInit {
         return;
       }
     }
+    if(this.formData.has(name)) {
+      this.formData.delete(name);
+    }
     this.formData.append(name, value, value.name);
   }
 
@@ -257,6 +260,7 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   saveImage() {
+    let name = 'applicantPicture';
     this.tempImg = this.croppedImage.base64;
     this.closeImageModal();
     let byteCharacters = atob(this.tempImg.split(',')[1]);
@@ -267,7 +271,11 @@ export class AddApplicantProfileComponent implements OnInit {
     let byteArray = new Uint8Array(byteNumbers);
     let blob = new Blob([byteArray], { type: 'image/png' });
 
-    this.formData.append('applicantPicture', blob);
+    if(this.formData.has(name)) {
+      this.formData.delete(name);
+    }
+
+    this.formData.append(name, blob);
   }
 
   get f() {
@@ -288,17 +296,17 @@ export class AddApplicantProfileComponent implements OnInit {
     }
 
     if (new Date(date).toDateString().includes('Invalid')) {
-      this.addApplicantProfileForm.controls['month'].setErrors({
-        invalid: true
-      });
+      this.addApplicantProfileForm.controls['month'].setErrors({invalid: true});
+      console.log(this.f)
       return;
+    } else {
+      this.addApplicantProfileForm.controls['month'].updateValueAndValidity();
     }
-
+    
     this.addApplicantProfileForm.controls['dateOfBirth'].setValue(date);
     if (this.addApplicantProfileForm.invalid) {
       return;
     }
-
     this.loading = true;
     this.success = false;
     this.formError = false;
@@ -330,8 +338,9 @@ export class AddApplicantProfileComponent implements OnInit {
         }
       },
       err => {
-        console.log(err);
         this.loading = false;
+        this.formError = true;
+        console.log(err);
       }
     );
   }
@@ -410,6 +419,7 @@ export class AddApplicantProfileComponent implements OnInit {
       },
       err => {
         this.loading = false;
+        this.formError = true;
         console.log(err);
       }
     );

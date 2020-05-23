@@ -30,6 +30,8 @@ export class AddAdminStaffComponent implements OnInit {
     option: { fontSize: '1.5rem', borderBottom: '1px solid #ddd', backgroundColor: '#fff' }
   };
   STAFFER ="STAFFER"
+  loading: boolean;
+  errorMessage: string;
   constructor(
     private formBuilder: FormBuilder,
     private adminServices: AdminService,
@@ -39,10 +41,10 @@ export class AddAdminStaffComponent implements OnInit {
 
   ngOnInit() {
     this.addStaffer = this.formBuilder.group({
-      email: ['', Validators.email],
+      email: ['', Validators.compose([Validators.email, Validators.required])],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: [''],
       role: ['', Validators.required]
     });
   }
@@ -52,29 +54,31 @@ export class AddAdminStaffComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
+    this.stafferAdded = false;
+    this.stafferError = false;
+    this.errorMessage = '';
+    
     if (!this.addStaffer.valid) {
       return;
     }
+    this.loading = true;
     const values = this.addStaffer.value;
 
     this.adminServices.addAdminStaff(values).subscribe(
       data => {
+        this.loading = false;
         console.log(data)
         if (data.success) {
           this.stafferAdded = true;
-          this.router.navigate(['../'], { relativeTo: this.Route });
-          setTimeout(() => {
-            this.stafferAdded = false;
-          }, 4000);
         } else {
           this.stafferError = true;
-          setTimeout(() => {
-            this.stafferError = false;
-          }, 4000);
+          this.errorMessage = data.error;
         }
       },
       error => {
         console.log(error);
+        this.loading = false;
+        this.stafferError = true;
       }
     );
   }

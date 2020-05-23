@@ -165,6 +165,7 @@ export class AnonymousJobsListComponent implements OnInit {
   openActions: {};
   compId: any;
   adsModal: boolean;
+  pwd: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -338,9 +339,11 @@ export class AnonymousJobsListComponent implements OnInit {
       this.salaryRangeValue = value;
     } else if (name == 'empType') {
       this.employmentTypeValue = value;
+    } else if (name === 'pwd') {
+      this.pwd = !this.pwd;
     } else if ((name = 'jobType')) {
       this.queryValue = value;
-    }
+    } 
 
     this.AdvancedSearch();
     // this.showMobileSearch = true;
@@ -396,7 +399,7 @@ export class AnonymousJobsListComponent implements OnInit {
             this.employmentTypeValue || val.employmentType || '',
             this.salaryRangeValue || val.SalaryRange || '',
             this.locationValue || this.cityName || this.city || '',
-            val.pwd ? 1 : 0,
+            this.pwd || val.pwd,
             this.page
           )
           .subscribe(data => {
@@ -463,7 +466,7 @@ export class AnonymousJobsListComponent implements OnInit {
         this.employmentTypeValue || val.employmentType || '',
         this.salaryRangeValue || val.SalaryRange || '',
         this.locationValue || this.cityName || '',
-        val.pwd ? 1 : 0,
+        this.pwd || val.pwd,
         1
       )
       .subscribe(data => {

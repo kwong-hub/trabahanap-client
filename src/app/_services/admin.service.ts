@@ -13,9 +13,10 @@ export class AdminService {
   fetchDashboardCounter(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/counters`);
   }
-  getAdsCounter():Observable<any>{
+  getAdsCounter():Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/adminads/counter`)
   }
+
   fetchApplicantReport(page, pageSize, order = 'DESC'): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/report/applicant?page=${page}&pageSize=${pageSize}&order=${order}`);
   }
@@ -48,6 +49,11 @@ export class AdminService {
   getAllAds(page, pageSize): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/advertisement?page=${page}&pageSize=${pageSize}`);
   }
+
+  getAdsById(id):Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/admin/advertisement/${id}`);
+  }
+
   deactivateAds(id): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/admin/advertisement/${id}`, { deactivate: true });
   }

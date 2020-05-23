@@ -73,30 +73,31 @@ export class LandingNearJobsComponent implements OnInit {
 
           ({ latitude: this.latitude, longitude: this.longitude } = pos.coords);
           this.locationTracked = true;
-          this.ping = marker([latitude, longitude], {
-            icon: icon({
-              iconSize: [25, 41],
-              iconAnchor: [13, 41],
-              iconUrl: 'assets/marker-icon.png',
-              shadowUrl: 'assets/marker-shadow.png'
-            }),
-            draggable: true,
-            autoPan: true,
-            autoPanPadding: new Point(70, 70)
-          });
+          // this.ping = marker([latitude, longitude], {
+          //   icon: icon({
+          //     iconSize: [25, 41],
+          //     iconAnchor: [13, 41],
+          //     iconUrl: 'assets/marker-icon.png',
+          //     shadowUrl: 'assets/marker-shadow.png'
+          //   }),
+          //   draggable: true,
+          //   autoPan: true,
+          //   autoPanPadding: new Point(70, 70)
+          // });
 
-          this.ping.on('dragend', e => {
-            ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
-          });
+          // this.ping.on('dragend', e => {
+          //   ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
+          // });
 
-          this.ping.bindPopup(`<span>Your Location</span>`);
-          this.options.center = latLng(latitude, longitude);
-          this.map.panTo(new L.LatLng(latitude, longitude));
+          // this.ping.bindPopup(`<span>Your Location</span>`);
+          // this.options.center = latLng(latitude, longitude);
+          // this.map.panTo(new L.LatLng(latitude, longitude));
 
           this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '').subscribe(
             data => {
               if (data.success) {
-                this.pinMarkers(data.jobs);
+                // this.pinMarkers(data.jobs);
+                this.jobs = data.jobs;
               }
             },
             error => {
@@ -114,6 +115,17 @@ export class LandingNearJobsComponent implements OnInit {
             longitude: 120.9822
           });
           // console.log(err);
+          this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '').subscribe(
+            data => {
+              if (data.success) {
+                // this.pinMarkers(data.jobs);
+                this.jobs = data.jobs;
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
         }
       );
     }
@@ -160,35 +172,35 @@ export class LandingNearJobsComponent implements OnInit {
   //   this.JOBS$.subscribe(
   //     data => {
   //       if(data.success) {
-  //         this.pinMarkers(data.jobs);
+          // this.pinMarkers(data.jobs);
   //       }
   //     }
   //   )
   // }
 
-  pinMarkers(jobs) {
-    this.jobs = jobs;
-    this.markers = [];
-    this.jobs.forEach(job => {
-      let newMarker = marker([job.latitude, job.longitude], {
-        icon: icon({
-          iconSize: [22, 38],
-          iconAnchor: [13, 41],
-          iconUrl: 'assets/img/marker-icon-2.png',
-          shadowUrl: 'assets/marker-shadow.png'
-        }),
-        draggable: true
-      });
+  // pinMarkers(jobs) {
+  //   this.jobs = jobs;
+  //   this.markers = [];
+  //   this.jobs.forEach(job => {
+  //     let newMarker = marker([job.latitude, job.longitude], {
+  //       icon: icon({
+  //         iconSize: [22, 38],
+  //         iconAnchor: [13, 41],
+  //         iconUrl: 'assets/img/marker-icon-2.png',
+  //         shadowUrl: 'assets/marker-shadow.png'
+  //       }),
+  //       draggable: true
+  //     });
       // newMarker.bindPopup(`<span>${job.jobTitle}</span>`);
       // newMarker.addEventListener('mouseover', (e) => {
       //   newMarker.togglePopup();
       // });
-      newMarker.addEventListener('click', () => {
-        this.zone.run(() => this.router.navigate([`jobs/details/${job.jobId}`]));
-      });
-      this.markers.push(newMarker);
-    });
-  }
+  //     newMarker.addEventListener('click', () => {
+  //       this.zone.run(() => this.router.navigate([`jobs/details/${job.jobId}`]));
+  //     });
+  //     this.markers.push(newMarker);
+  //   });
+  // }
 
   searchJobs() {
     let { key, radius } = this.searchForm.value;
@@ -196,7 +208,8 @@ export class LandingNearJobsComponent implements OnInit {
     this.anonyService.searchJobByProximity(this.latitude, this.longitude, radius, key).subscribe(data => {
       this.loading = false;
       if (data.success) {
-        this.pinMarkers(data.jobs);
+        // this.pinMarkers(data.jobs);
+        this.jobs = data.jobs;
       }
     });
   }

@@ -22,6 +22,7 @@ import {
 import { JwtInterceptor } from '@app/_helpers/jwt.intercepter';
 import { ErrorInterceptor } from '@app/_helpers/error.intercepter';
 import { AdsadminRoutingModule } from './adsadmin-routing.module';
+import { AdvertisementEditComponent } from './components/advertisement-edit/advertisement-edit.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AdsadminRoutingModule } from './adsadmin-routing.module';
     HomeComponent,
     HeaderComponent,
     AddAdvertisementComponent,
-    AdvertisementListComponent
+    AdvertisementListComponent,
+    AdvertisementEditComponent
   ],
   imports: [
     AdsadminRoutingModule,
@@ -46,7 +48,6 @@ import { AdsadminRoutingModule } from './adsadmin-routing.module';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AuthenticationService,
     AdsListResolverService
   ]
 })

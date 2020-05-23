@@ -15,6 +15,7 @@ export class IssueFormComponent implements OnInit {
   @ViewChild('issueTypeSelect', {static: false}) typeSelectRef: CustomSelectComponent;
   @HostBinding('attr.class') cssClass = 'form';
   @Output() issueAdded = new EventEmitter();
+  @Output() issueFailed = new EventEmitter();
   issueForm: any;
   submitted: boolean;
   loading: boolean;
@@ -67,6 +68,7 @@ export class IssueFormComponent implements OnInit {
   }
 
   fileChanged(value, name) {
+    this.formData = new FormData();
     this.formData.append(name, value, value.name);
   }
 
@@ -77,7 +79,12 @@ export class IssueFormComponent implements OnInit {
     }
 
     this.loading = true;
-
+    
+    //@ts-ignore
+    // for (var pair of this.formData.entries()) {
+    //   console.log(pair[0], pair[1])
+    // }
+    
     let val = this.issueForm.value;
     _.map(val, (value, key) => {
       if (key != 'picture') {
@@ -85,9 +92,6 @@ export class IssueFormComponent implements OnInit {
       }
     });
 
-    //@ts-ignore
-    for (var pair of this.formData.entries()) {
-    }
 
     this.employerService.sendIssue(this.formData).subscribe(
       data => {
@@ -99,11 +103,13 @@ export class IssueFormComponent implements OnInit {
           this.formData = new FormData();
           this.typeSelectRef.resetValue();
           this.issueAdded.emit(data.issue);
+        } else {
+          this.issueFailed.emit();
         }
       },
       error => {
-        console.log(error);
         this.loading = false;
+        this.issueFailed.emit();
       }
     );
   }

@@ -71,6 +71,10 @@ export class AuthenticationService {
     );
   }
 
+  resendEmail(email): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/auth/resend_email`, { email });
+  }
+
   setUserToken(user) {
     localStorage.setItem('token', JSON.stringify(user.token));
     this.currentUserSubject.next(user);

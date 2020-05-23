@@ -33,7 +33,7 @@ export class CompanyLocationsComponent implements OnInit {
 
   ngOnInit() {
     this.companyId = this.Route.snapshot.params.id;
-    this.adminService.getCompanyLocation(1, this.pager ? this.pager.pageSize : 3, this.companyId).subscribe(
+    this.adminService.getCompanyLocation(1, this.pager ? this.pager.pageSize : 6, this.companyId).subscribe(
       data => {
         if (data.success) {
           this.locations = data.locations.rows;

@@ -119,6 +119,7 @@
         </div>
 
         <div class="form__group form__group--last" [class.form__group__animate]="showPasswordForm">
+          <a *ngIf="resendActive" class="form__resendEmail" (click)="onResend()">Resend verification email</a>
           <!-- <div class="form__checkbox">
             <input type="checkbox" name="remember" id="remember" class="form__checkbox--input" />
             <label for="remember" class="form__checkbox--label">Remember me</label>
@@ -310,3 +311,7 @@
 <auth-custom-notification [show]="emailSent || messageSent" type="success"
   [text]="messageSent ? 'Message Sent. Check you phone' : 'Email Sent! Check your email to change your password'">
 </auth-custom-notification>
+
+<auth-custom-notification [show]="resendSuccess" type="success"
+  text="Verification email resent successfully"
+></auth-custom-notification>

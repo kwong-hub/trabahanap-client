@@ -51,7 +51,7 @@ export class AddCompanyProfileComponent implements OnInit {
   submitStyle = { btn: { width: '100%' } };
   formErrors = ['Please fill in all the required inputs.'];
   serverErrors = false;
-  serverErrorsMessage = '';
+  serverErrorsMessage: boolean;
   hasProfile = false;
   companyProfile: any;
   inputType: string;
@@ -180,6 +180,7 @@ export class AddCompanyProfileComponent implements OnInit {
   }
 
   imageChanged(event) {
+    let name = 'companyLogo';
     this.formData = new FormData();
     let val = event.target.files[0] ? event.target.files[0] : null;
     let reader = new FileReader();
@@ -204,6 +205,9 @@ export class AddCompanyProfileComponent implements OnInit {
       this.addCompanyProfileForm.controls['businessLicense'].setValue('');
       this.addCompanyProfileForm.controls['businessLicense'].setErrors({ maxSize: true });
       return;
+    }
+    if(this.formData.has(name)) {
+      this.formData.delete(name);
     }
     this.formData.append(name, value, value.name);
   }
@@ -327,7 +331,7 @@ export class AddCompanyProfileComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.serverErrorsMessage = '';
+    this.serverErrorsMessage = false;
     if (this.addCompanyProfileForm.invalid) {
       return;
     }
@@ -343,7 +347,6 @@ export class AddCompanyProfileComponent implements OnInit {
 
     this.employerService.addCompanyProfileWithFile(this.formData).subscribe(
       response => {
-        // console.log(response);
         this.loading = false;
         if (response.success) {
           this.success = true;
@@ -357,17 +360,14 @@ export class AddCompanyProfileComponent implements OnInit {
           });
           return (this.serverErrors = true);
         } else if (response.validationError) {
-          this.formErrors[0] = response.validationError;
+            this.formErrors[0] = response.validationError;
         } else {
-          if (response.error) {
-            this.serverErrorsMessage = response.error;
-          } else {
-            // console.log(response);
-          }
+            this.serverErrorsMessage = true;           
         }
       },
       error => {
         console.log(error);
+        this.serverErrorsMessage = true;
         this.loading = false;
       }
     );
@@ -375,7 +375,7 @@ export class AddCompanyProfileComponent implements OnInit {
 
   onEdit() {
     this.submitted = true;
-    this.serverErrorsMessage = '';
+    this.serverErrorsMessage = false;
     if (this.addCompanyProfileForm.invalid) {
       return;
     }
@@ -383,6 +383,11 @@ export class AddCompanyProfileComponent implements OnInit {
     this.success = false;
     this.loading = true;
 
+    //@ts-ignore
+    // for (var pair of this.formData.entries()) {
+    //   console.log(pair[0], pair[1])
+    // }
+    
     let val = this.addCompanyProfileForm.value;
     _.map(val, (value, key) => {
       if (key != 'companyLogo' && key != 'businessLicense') {
@@ -390,9 +395,6 @@ export class AddCompanyProfileComponent implements OnInit {
       }
     });
 
-    //@ts-ignore
-    // for (var pair of this.formData.entries()) {
-    // }
 
     this.employerService.editCompanyProfile(this.formData, this.companyProfile.id).subscribe(
       response => {
@@ -414,20 +416,15 @@ export class AddCompanyProfileComponent implements OnInit {
         } else if (response.validationError) {
           this.formErrors[0] = response.validationError;
           this.submitted = false;
-        } else if (response.message) {
-          this.formErrors[0] = 'something is wrong try again letter.';
-          this.submitted = false;
         } else {
-          if (response.error) {
-            this.serverErrorsMessage = response.error;
-          } else {
-            console.log(response);
-          }
+          this.serverErrorsMessage = true;
         }
+        
         this.loading = false;
       },
       error => {
         this.loading = false;
+        this.serverErrorsMessage = true;
         console.log(error);
       }
     );

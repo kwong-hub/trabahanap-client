@@ -7,9 +7,9 @@
   }
 }
 .fab {
-  position: absolute;
-  bottom: 3rem;
-  right: 4rem;
+  position: fixed;
+  bottom: 6rem;
+  right: 5rem;
   text-align: center;
 
   &__button {

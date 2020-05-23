@@ -43,6 +43,7 @@
     &:focus + label {
       transform: translateY(-9rem);
       opacity: 1;
+      visibility: visible;
     }
 
     &::-webkit-scrollbar {
@@ -67,6 +68,7 @@
   &__label {
     font-size: 1.2rem;
     opacity: 0;
+    visibility: hidden;
     transform: translateY(-2.5rem);
     display: block;
     transition: all 0.2s;

@@ -3,7 +3,7 @@ import { Job } from '@app/_models/Job';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { Router } from '@angular/router';
 import { JobService } from '@app/_services/jobs.service';
-import { faToolbox, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faToolbox, faClock, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-anonymous-job',
@@ -13,6 +13,7 @@ import { faToolbox, faClock } from '@fortawesome/free-solid-svg-icons';
 export class AnonymousJobComponent implements OnInit {
   faToolbox = faToolbox;
   faClock = faClock;
+  faMapMarkerAlt = faMapMarkerAlt;
   @Input() Job: Job;
   @Input() showSave: boolean = true;
   @Input() isBookMarked: boolean;

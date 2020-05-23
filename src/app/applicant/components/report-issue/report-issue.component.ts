@@ -49,7 +49,7 @@ export class ReportIssueComponent implements OnInit {
   isModalVisible: boolean = false;
   selectedIssue: any;
   detailModal: boolean = false;
-  deleteSuccess: boolean;
+  issueError: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -100,11 +100,9 @@ export class ReportIssueComponent implements OnInit {
 
   deleteIssue(id) {
     this.deleting = id;
-    this.deleteSuccess = false;
     this.applicantService.deleteIssue(id).subscribe(
       data => {
         if (data.success) {
-          this.deleteSuccess = true;
           this.deleting = '';
           this.issues = this.issues.filter(iss => {
             if (iss.id !== id) {
@@ -125,6 +123,13 @@ export class ReportIssueComponent implements OnInit {
     this.issueSuccess = true;
     setTimeout(() => {
       this.issueSuccess = false;
+    }, 4500);
+  }
+
+  addIssueError() {
+    this.issueError = true;
+    setTimeout(() => {
+      this.issueError = false;
     }, 4500);
   }
 }

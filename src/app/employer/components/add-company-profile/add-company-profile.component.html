@@ -69,9 +69,6 @@
       <h4 *ngIf="companyProfile" class="form__title">Your Company's Profile</h4>
     </div>
     <div class="add-company-profile">
-      <div *ngIf="serverErrorsMessage != ''" class="form__error">
-        <p><fa-icon class="form__error-icon" [icon]="faCheck"></fa-icon>{{ serverErrorsMessage }}</p>
-      </div>
       <div class="sub-container">
         <shared-custom-input-field
           class="input-element-type-2"
@@ -94,7 +91,7 @@
           name="contactPerson"
           [defaultValue]="companyProfile?.contactPerson"
           placeholder="Contact Person"
-          label="Company Person"
+          label="Contact Person"
           [input]="addCompanyProfileForm.controls['contactPerson']"
           type="text"
           [submitted]="submitted"
@@ -334,7 +331,6 @@
           [styleObject]="submitStyle"
           *ngIf="!hasProfile"
           [loading]="loading"
-          callback="/employer/branches/add"
           [text]="companyProfile ? 'Save Profile' : 'Add Profile'"
         >
         </app-custom-submit-button>
@@ -345,9 +341,12 @@
     [show]="success"
     type="success"
     [callback]="!hasProfile ? '/employer/branches/add' : ''"
-    [text]="hasProfile ? 'Company Profile Editted Successfully' : 'Company Profile Added Successfully'"
+    [text]="hasProfile ? 'Company Profile Editted Successfully' : 'Company profile added successfully'"
   >
   </app-custom-notification>
+
+  <app-custom-notification [show]="serverErrorsMessage" type="error"
+    text="Sorry, We could not create your profile. Please, try again"></app-custom-notification>
 </div>
 <div class="overlay" [class.active]="showLicensePreview && isImage">
   <!-- <div (click)="onLicensePreview()" class="overlay__close">

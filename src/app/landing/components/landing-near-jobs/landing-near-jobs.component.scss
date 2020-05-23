@@ -1,8 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin: 9rem 2rem;
+  justify-content: flex-start;
+  margin: 9rem 1rem;
   min-height: 45rem;
   border-radius: 5px;
   // padding: 2rem;
@@ -23,9 +23,9 @@
     // text-transform: uppercase;
   }
 
-  &__body {
-    padding: 2rem;
-  }
+  // &__body {
+    // padding: 2rem;
+  // }
 
   .form {
     display: flex;
@@ -55,14 +55,12 @@
   }
 }
 
-.map-container {
-  border-radius: 5px;
-  overflow: hidden;
-  height: 35rem;
+.jobs-container {
+  max-width: 950px;  
 }
 @media only screen and (min-width: 650px) {
   .container {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 
     & > * {
@@ -70,8 +68,9 @@
     }
 
     .form {
-      // text-align: center;
-
+      flex-direction: row;
+      align-items: initial;
+      
       &__group {
         flex-direction: row;
         justify-content: center;
@@ -86,9 +85,9 @@
         position: absolute;
         top: 50%;
         right: -5px;
-        height: 4rem;
-        border-left: 2px solid rgba(255, 99, 71, 0.8);
-        transform: translateY(-80%);
+        height: 5rem;
+        border-left: 2px solid #ce2127;
+        transform: translateY(-70%);
       }
     }
   }
