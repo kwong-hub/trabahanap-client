@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ElementRef, ViewChild } from '@angular/core';
 import { faMapMarkerAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as L from 'leaflet';
 import { tileLayer, latLng, marker, icon, Point, LatLng } from 'leaflet';
@@ -31,7 +31,15 @@ export class LandingNearJobsComponent implements OnInit {
   latitude: any;
   longitude: any;
   locationTracked: boolean;
-
+  public pager: any;
+  public page: any;
+  shouldLoad: boolean = true;
+  reachedPageEnd: boolean = false;
+  filterHidden = true;
+  filtered = false;
+  tabs: any = {};
+  @ViewChild('anchor', { static: false }) anchor: ElementRef<HTMLElement>;
+  @ViewChild('jobsListAnchor', { static: false }) jobsListAnchor: ElementRef<HTMLElement>;
   styleObject = {
     inputContainer: {},
     inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
@@ -57,13 +65,15 @@ export class LandingNearJobsComponent implements OnInit {
   markers: L.Layer[] = [];
   searchForm: FormGroup;
   loading: boolean;
+  showLoader: boolean=false;
+  belowScroll: boolean=true;
 
   constructor(
     private anonyService: AnonymousService,
     private router: Router,
     private formBuilder: FormBuilder,
     private zone: NgZone
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (navigator.geolocation) {
@@ -93,11 +103,12 @@ export class LandingNearJobsComponent implements OnInit {
           // this.options.center = latLng(latitude, longitude);
           // this.map.panTo(new L.LatLng(latitude, longitude));
 
-          this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '').subscribe(
+          this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '',0).subscribe(
             data => {
+              console.log(data)
               if (data.success) {
                 // this.pinMarkers(data.jobs);
-                this.jobs = data.jobs;
+                this.jobs = data.jobs.rows;
               }
             },
             error => {
@@ -115,11 +126,20 @@ export class LandingNearJobsComponent implements OnInit {
             longitude: 120.9822
           });
           // console.log(err);
-          this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '').subscribe(
+          this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '',0).subscribe(
             data => {
+              console.log(data)
               if (data.success) {
                 // this.pinMarkers(data.jobs);
-                this.jobs = data.jobs;
+                this.jobs = data.jobs.rows;
+                this.pager = data.jobs.pager;
+                this.page = data.jobs.pager.currentPage + 1;
+                if (this.pager.totalItems < 8) {
+                  // this.belowScroll = false;
+                  this.reachedPageEnd = true;
+                } else {
+                  this.loadJobs();
+                }
               }
             },
             error => {
@@ -141,7 +161,7 @@ export class LandingNearJobsComponent implements OnInit {
     this.map = map;
 
     const provider = new OpenStreetMapProvider();
-    
+
     const searchControl = new GeoSearchControl({
       provider: provider,
       autoCompleteDelay: 300,
@@ -172,7 +192,7 @@ export class LandingNearJobsComponent implements OnInit {
   //   this.JOBS$.subscribe(
   //     data => {
   //       if(data.success) {
-          // this.pinMarkers(data.jobs);
+  // this.pinMarkers(data.jobs);
   //       }
   //     }
   //   )
@@ -191,10 +211,10 @@ export class LandingNearJobsComponent implements OnInit {
   //       }),
   //       draggable: true
   //     });
-      // newMarker.bindPopup(`<span>${job.jobTitle}</span>`);
-      // newMarker.addEventListener('mouseover', (e) => {
-      //   newMarker.togglePopup();
-      // });
+  // newMarker.bindPopup(`<span>${job.jobTitle}</span>`);
+  // newMarker.addEventListener('mouseover', (e) => {
+  //   newMarker.togglePopup();
+  // });
   //     newMarker.addEventListener('click', () => {
   //       this.zone.run(() => this.router.navigate([`jobs/details/${job.jobId}`]));
   //     });
@@ -205,12 +225,61 @@ export class LandingNearJobsComponent implements OnInit {
   searchJobs() {
     let { key, radius } = this.searchForm.value;
     this.loading = true;
-    this.anonyService.searchJobByProximity(this.latitude, this.longitude, radius, key).subscribe(data => {
+    this.anonyService.searchJobByProximity(this.latitude, this.longitude, radius, key,0).subscribe(data => {
       this.loading = false;
       if (data.success) {
         // this.pinMarkers(data.jobs);
-        this.jobs = data.jobs;
+        this.jobs = data.jobs.rows;
+        this.pager = data.jobs.pager;
+        this.page = data.jobs.pager.currentPage + 1;
+        if (this.pager.totalItems < 8) {
+           this.belowScroll = false;
+          this.reachedPageEnd = true;
+        } else {
+          this.loadJobs();
+        }
       }
     });
+  }
+
+  loadJobs() {
+    let elementPositionForScroll = 0;
+    window.onscroll = () => {
+      var bottomPosition = window.innerHeight + window.pageYOffset;
+      var elementPosition = this.anchor ? this.anchor.nativeElement.offsetTop : 0;
+      // console.log(bottomPosition,elementPosition)
+      if (elementPosition > elementPositionForScroll) {
+        if (elementPositionForScroll > 0) {
+          window.scrollTo(0, elementPosition - elementPosition / (this.jobs.length / 8));
+        }
+        elementPositionForScroll = elementPosition;
+      }
+      if (elementPosition > bottomPosition) {
+        this.showLoader = true;
+        this.shouldLoad = true;
+      }
+      if (bottomPosition > elementPosition && this.shouldLoad && !this.reachedPageEnd) {
+        this.shouldLoad = false;
+        this.showLoader = true;
+        let { key, radius } = this.searchForm.value;
+        this.anonyService.searchJobByProximity(this.latitude, this.longitude, radius, key,this.page).subscribe(data => {
+          console.log(data)
+          if (this.jobs) {
+
+            this.shouldLoad = data.jobs.rows.length > 0 ? true : false;
+
+            if (data.jobs.rows.length > 0) {
+              this.jobs.push(...data.jobs.rows);
+              // this.shouldLoad = true;
+              this.page = data.jobs.pager.currentPage + 1;
+              this.pager = data.jobs.pager;
+              if (data.jobs.pager.totalPages == data.jobs.pager.currentPage) {
+                this.reachedPageEnd = true;
+              }
+            }
+          }
+        });
+      }
+    };
   }
 }

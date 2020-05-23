@@ -33,9 +33,9 @@ export class AnonymousService {
     return this.http.get(`${environment.apiUrl}/search/count/location`);
   }
 
-  searchJobByProximity(lat, long, distance, term): Observable<any> {
+  searchJobByProximity(lat, long, distance, term,page): Observable<any> {
     return this.http.get(
-      `${environment.apiUrl}/search/location?lat=${lat}&long=${long}&distance=${distance}&key=${term}`
+      `${environment.apiUrl}/search/location?lat=${lat}&long=${long}&distance=${distance}&key=${term}&page=${page}`
     );
   }
   searchAllJobs(key, city, companyId, page): Observable<any> {
