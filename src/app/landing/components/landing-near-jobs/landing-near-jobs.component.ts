@@ -263,7 +263,7 @@ export class LandingNearJobsComponent implements OnInit {
         this.showLoader = true;
         let { key, radius } = this.searchForm.value;
         this.anonyService.searchJobByProximity(this.latitude, this.longitude, radius, key,this.page).subscribe(data => {
-          console.log(data)
+          // console.log(data)
           if (this.jobs) {
 
             this.shouldLoad = data.jobs.rows.length > 0 ? true : false;
