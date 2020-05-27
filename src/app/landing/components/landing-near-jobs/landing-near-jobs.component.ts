@@ -67,7 +67,8 @@ export class LandingNearJobsComponent implements OnInit {
   loading: boolean;
   showLoader: boolean=false;
   belowScroll: boolean=true;
-
+  manila:boolean=false;
+  
   constructor(
     private anonyService: AnonymousService,
     private router: Router,
@@ -113,6 +114,7 @@ export class LandingNearJobsComponent implements OnInit {
             latitude: 14.6042,
             longitude: 120.9822
           });
+          this.manila=true;
           // console.log(err);
           this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '',0).subscribe(
             data => {

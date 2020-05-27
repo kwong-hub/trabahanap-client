@@ -1,6 +1,9 @@
 <div class="container">
   <div class="controller">
-    <h2 class="controller__header">Jobs Near you</h2>
+
+    <h2 *ngIf="!manila" class="controller__header">Jobs Near you</h2>
+    <h2 *ngIf="manila" class="controller__header">Jobs Near Manila</h2>
+
     <div class="controller__body">
       <form [formGroup]="searchForm" method="get" class="form" (ngSubmit)="searchJobs()" autocomplete="off">
         <div class="form__group">
