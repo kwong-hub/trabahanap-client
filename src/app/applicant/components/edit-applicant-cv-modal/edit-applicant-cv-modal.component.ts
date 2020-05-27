@@ -77,7 +77,7 @@ export class EditApplicantCvModalComponent implements OnInit {
     this.loading = true;
     this.applicantService.changeApplicantCV(this.formData).subscribe(
       data => {
-        console.log(data)
+        // console.log(data)
         this.submitted = false;
         this.loading = false;
         // console.log(data)
@@ -90,6 +90,7 @@ export class EditApplicantCvModalComponent implements OnInit {
         }
       },
       err => {
+        this.updateCVForm.controls['cv'].setErrors({failure: true})
         this.loading = false;
         console.log(err);
       }

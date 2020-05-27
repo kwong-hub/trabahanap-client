@@ -32,6 +32,9 @@
       [leafletLayers]="markers" (leafletClick)="mapClicked($event)">
       <div *ngIf="locationTracked" [leafletLayer]="ping"></div>
     </div> -->
+    <div *ngIf="(jobs && jobs.length == 0)" class="not_Found">
+      <span> Sorry, we didn't find any jobs matching your criteria and locations </span>
+    </div>
     <div id="jobsListAnchor" *ngFor="let job of jobs; index as i">
       <app-anonymous-job [showSave]="false" [Job]="job"></app-anonymous-job>
       <!-- <div *ngIf="!(i % 3)">

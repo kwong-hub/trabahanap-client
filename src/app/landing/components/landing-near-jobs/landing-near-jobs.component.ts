@@ -83,32 +83,20 @@ export class LandingNearJobsComponent implements OnInit {
 
           ({ latitude: this.latitude, longitude: this.longitude } = pos.coords);
           this.locationTracked = true;
-          // this.ping = marker([latitude, longitude], {
-          //   icon: icon({
-          //     iconSize: [25, 41],
-          //     iconAnchor: [13, 41],
-          //     iconUrl: 'assets/marker-icon.png',
-          //     shadowUrl: 'assets/marker-shadow.png'
-          //   }),
-          //   draggable: true,
-          //   autoPan: true,
-          //   autoPanPadding: new Point(70, 70)
-          // });
-
-          // this.ping.on('dragend', e => {
-          //   ({ lat: this.latitude, lng: this.longitude } = e.target._latlng);
-          // });
-
-          // this.ping.bindPopup(`<span>Your Location</span>`);
-          // this.options.center = latLng(latitude, longitude);
-          // this.map.panTo(new L.LatLng(latitude, longitude));
 
           this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '',0).subscribe(
             data => {
-              console.log(data)
+              // console.log(data)
               if (data.success) {
-                // this.pinMarkers(data.jobs);
                 this.jobs = data.jobs.rows;
+                this.pager = data.jobs.pager;
+                this.page = data.jobs.pager.currentPage + 1;
+                if (this.pager.totalItems < 8) {
+                  // this.belowScroll = false;
+                  this.reachedPageEnd = true;
+                } else {
+                  this.loadJobs();
+                }
               }
             },
             error => {
@@ -134,7 +122,7 @@ export class LandingNearJobsComponent implements OnInit {
                 this.jobs = data.jobs.rows;
                 this.pager = data.jobs.pager;
                 this.page = data.jobs.pager.currentPage + 1;
-                if (this.pager.totalItems < 8) {
+                if (this.pager.totalItems < 5) {
                   // this.belowScroll = false;
                   this.reachedPageEnd = true;
                 } else {
@@ -232,7 +220,7 @@ export class LandingNearJobsComponent implements OnInit {
         this.jobs = data.jobs.rows;
         this.pager = data.jobs.pager;
         this.page = data.jobs.pager.currentPage + 1;
-        if (this.pager.totalItems < 8) {
+        if (this.pager.totalItems < 5) {
            this.belowScroll = false;
           this.reachedPageEnd = true;
         } else {
