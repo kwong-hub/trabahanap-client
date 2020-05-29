@@ -61,7 +61,7 @@ export class JobDetailComponent implements OnInit {
   userRole: string;
   lower: boolean;
   loading: boolean;
-  applyBtn = { btn: { borderRadius: '5px', width: '100%', height: '5rem', padding: '0 6rem', marginTop: '1rem' } };
+  applyBtn = { btn: { borderRadius: '5px', width: '100%', height: '5rem', padding: '0 6rem' } };
   // imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
 
   vrAdvertisements = [];

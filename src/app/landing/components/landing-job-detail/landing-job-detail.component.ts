@@ -59,7 +59,7 @@ export class LandingJobDetailComponent implements OnInit {
   bookmarked: boolean;
   userRole: string;
   lower: boolean;
-  applyBtn = { btn: { borderRadius: '5px', width: '100%', height: '5rem', padding: '0 6rem', marginTop: '1rem' } };
+  applyBtn = { btn: { borderRadius: '5px', width: '100%', height: '5rem', padding: '0 6rem' } };
   loading: boolean;
 
   vrAdvertisements = [];
