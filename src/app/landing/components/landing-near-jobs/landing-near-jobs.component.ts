@@ -77,6 +77,10 @@ export class LandingNearJobsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+
+    navigator.permissions.query({name:'geolocation'})
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         pos => {
@@ -92,8 +96,8 @@ export class LandingNearJobsComponent implements OnInit {
                 this.jobs = data.jobs.rows;
                 this.pager = data.jobs.pager;
                 this.page = data.jobs.pager.currentPage + 1;
-                if (this.pager.totalItems < 8) {
-                  // this.belowScroll = false;
+                if (this.pager.totalItems <= 5) {
+                  this.belowScroll = false;
                   this.reachedPageEnd = true;
                 } else {
                   this.loadJobs();
@@ -118,14 +122,14 @@ export class LandingNearJobsComponent implements OnInit {
           // console.log(err);
           this.anonyService.searchJobByProximity(this.latitude, this.longitude, this.distance, '',0).subscribe(
             data => {
-              console.log(data)
+              // console.log(data)
               if (data.success) {
                 // this.pinMarkers(data.jobs);
                 this.jobs = data.jobs.rows;
                 this.pager = data.jobs.pager;
                 this.page = data.jobs.pager.currentPage + 1;
-                if (this.pager.totalItems < 5) {
-                  // this.belowScroll = false;
+                if (this.pager.totalItems <= 5) {
+                  this.belowScroll = false;
                   this.reachedPageEnd = true;
                 } else {
                   this.loadJobs();
@@ -217,15 +221,21 @@ export class LandingNearJobsComponent implements OnInit {
     this.loading = true;
     this.anonyService.searchJobByProximity(this.latitude, this.longitude, radius, key,0).subscribe(data => {
       this.loading = false;
+      console.log(data)
       if (data.success) {
         // this.pinMarkers(data.jobs);
         this.jobs = data.jobs.rows;
         this.pager = data.jobs.pager;
         this.page = data.jobs.pager.currentPage + 1;
-        if (this.pager.totalItems < 5) {
-           this.belowScroll = false;
+       
+        if (data.jobs.pager.totalItems <= 5) {
+          this.belowScroll = false;
           this.reachedPageEnd = true;
-        } else {
+        }
+        else {
+          this.belowScroll = true;
+          this.reachedPageEnd = false;
+         
           this.loadJobs();
         }
       }
@@ -263,8 +273,10 @@ export class LandingNearJobsComponent implements OnInit {
               // this.shouldLoad = true;
               this.page = data.jobs.pager.currentPage + 1;
               this.pager = data.jobs.pager;
-              if (data.jobs.pager.totalPages == data.jobs.pager.currentPage) {
+              // console.log(data.jobs.pager.totalPages,data.jobs.pager.currentPage);
+              if (data.jobs.pager.totalPages == data.jobs.pager.currentPage+1) {
                 this.reachedPageEnd = true;
+                this.belowScroll = false;
               }
             }
           }

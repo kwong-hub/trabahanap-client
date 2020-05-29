@@ -44,7 +44,7 @@
         <app-advertisement [isAds]="adsModal" (closeModalEvent)="toggleAds($event)"> </app-advertisement>
       </div> -->
     </div>
-    <div #anchor *ngIf="!reachedPageEnd && belowScroll && !(jobs && jobs.length == 0)">
+    <div #anchor *ngIf="!reachedPageEnd && !(jobs && jobs.length == 0)">
       <!-- <app-anonymous-job-skeleton></app-anonymous-job-skeleton> -->
       <app-anonymous-job-skeleton></app-anonymous-job-skeleton>
     </div>
