@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+      integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN"
+      crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700&display=swap"
+      rel="stylesheet"/>
+    <title>Trabahanap</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 62.5%;
+        font-family: "Nunito Sans", Arial;
+      }
+      .nav-container {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1500;
+        background-color: #ce2127;
+      }
+    .nav-container .img-container {
+      position: absolute;
+      background-color: #aa111d;
+      top: 0;
+      left: 50%;
+      width: 18rem;
+      height: 6.5rem;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 3;
+      border-bottom-right-radius: 12.5rem;
+      border-bottom-left-radius: 12.5rem;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    }
+    .nav-container .img-holder {
+      display: inline-block;
+      background-color: white;
+      width: 10rem;
+      border-bottom-right-radius: 14px;
+      border-bottom-left-radius: 14px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      transition: all 0.2s;
+    }
+    .nav-container .img-holder:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    .nav-container .logo {
+      width: 9rem;
+    }
+    .nav-container .navigation {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      height: 5.5rem;
+      position: relative;
+    }
+    .nav-container .navigation .menu-box {
+      position: relative;
+      top: 0;
+      left: 2rem;
+      z-index: 9000;
+      cursor: pointer;
+    }
+    .nav-container .navigation .nav-menu {
+      color: #333;
+      font-size: 4rem;
+    }
+    .nav-container .auth-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      min-width: 230px;
+      margin-right: 1rem;
+    }
+    .nav-container .auth-container .sign-in {
+      position: relative;
+      font-size: 1.6rem;
+      font-weight: 900;
+      margin-right: 1rem;
+      background-color: white;
+      border-radius: 5px;
+      padding: 0.8rem 1.2rem;
+    }
+    .nav-container .auth-container .sign-in a {
+      text-decoration: none;
+      color: #ce2127;
+    }
+    .nav-container .auth-container .home {
+      padding: 1rem 2.5rem 1rem 2rem;
+    }
+    .nav-container .auth-container .post-btn {
+      font-size: 1.5rem;
+      font-weight: 600;
+      width: auto;
+      text-transform: none;
+      padding: 0 1.8rem;
+      margin-left: 2rem;
+      width: auto;
+    }
+    .menu-icon {
+      position: relative;
+      margin-top: 2.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .menu-icon, .menu-icon::before, .menu-icon::after {
+      width: 2.5rem;
+      height: 2px;
+      background-color: white;
+      display: inline-block;
+      z-index: 9;
+    }
+    .menu-icon::before, .menu-icon::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      transition: all 0.2s;
+    }
+    .menu-icon::before {
+      top: -0.6rem;
+    }
+    .menu-icon::after {
+      top: 0.6rem;
+    }
+    @media only screen and (min-width: 600px) {
+      .nav-container .navigation .menu-box {
+        left: 2.5rem;
+      }
+      .nav-container .auth-container .sign-in {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-right: 2rem;
+      }
+    }
+        .an-home-container {
+            width: 95%;
+            margin: 11rem auto;
+        }
+        .privacy__heading {
+            color: #d21a26;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .privacy__heading-2 {
+            color: #d21a26;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+        .privacy__heading-3 {
+            color: #d21a26;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+        .privacy__paragraph {
+            font-size: 1.8rem;
+            color: #888;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+        .privacy__link {
+            color: #d21a26;
+            text-decoration: none;
+        }
+        .privacy__link:active {
+            color: #d21a26;
+        }
+        @media only screen and (min-width: 600px) {
+            .an-home-container {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+  <div class="nav-container">
+    <nav class="navigation">
+      <div class="img-container">
+        <a class="img-holder" href="/home">
+          <img src="./img/th_logo-2.png" alt="th-logo" class="logo"/>
+        </a>
+      </div>
+      <div class="auth-container">
+        <div class="sign-in text-effect">
+          <a class="" href="/auth/login">
+            <i class="fas fa-sign-in-alt"></i> Sign In</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="an-home-container">
+    <h1 class="privacy__heading">PRIVACY NOTICE</h1>
+    <p class="privacy__paragraph">
+      WELCOME TO <span class="privacy__link">TRABAHANAP.COM</span> THE ONLINE JOB POSTING SERVICE OF LIVE, INC. (“LIVE
+      INC,” “WE” OR “US”). LIVE, INC., a corporation duly organized and existingunder California laws, with business
+      address at 7702 E Doubletree Ranch Road, Suite 300, Scottsdale Arizona 85258 USA, (including its affiliates and
+      subsidiaries, "LIVE, INC.") is committed to protecting your privacy and developing technology that gives you a
+      powerful but secure and safe online experience. This Privacy Notice (the “Privacy Notice”) applies to and governs
+      data collection, recording, updating, modification or corrections, usage, sharing, storage, retention and
+      destruction or disposition (collectively, “data processing”) by LIVE, INC.in the websites owned and/or operated by
+      LIVE, INC., including the website you are currently accessing (the “Website”). You are hereby requested to accept
+      and consent to the data processing rules and practices described in this Privacy Notice so that you may continue to
+      use and enjoy the Website.
+    </p>
+    <p class="privacy__paragraph">
+      Insofar as LIVE, INC. processes your personal data for purposes of using and enjoying the Website, LIVE, INC. shall
+      comply with its obligations on data privacy, as specified in Republic ActNo. 10173, otherwise known as the “Data
+      Privacy Act of 2012”, its implementing rules and regulations, and all other relevant data privacy laws. Where
+      applicable, LIVE, INC. shall likewise comply with relevant data privacy laws of the country or territory where you
+      are a citizen, a resident or otherwise accessing the Website.
+    </p>
+    <h2 class="privacy__heading-2">GDPR Compliant Privacy Statement</h2>
+    <h3 class="privacy__heading-3">General Data Protection Regulation</h3>
+    <p class="privacy__paragraph">
+      The European Union General Data Protection Regulation (GDPR) was implemented on May 25, 2018 and is designed to
+      harmonize data privacy laws across Europe, to protect and empower all EU citizens with data privacy, and to reshape
+      the way organizations across the region approach data privacy The GDPR has become the de facto privacy standard for
+      the whole world. A GDPR overview is listed here:
+      <a href="https://www.eugdpr.org/" target="_blank" class="privacy__link">https://www.eugdpr.org/</a>
+    </p>
+    <h3 class="privacy__heading-3">Overview</h3>
+    <p class="privacy__paragraph">
+      Live, Inc., doing business as Talguu (we, us), is committed to respecting your privacy. We accept no advertising,
+      and do not share any data with any other third-party companies for their use. We do not sell our data.
+    </p>
+    <h3 class="privacy__heading-3">Scope</h3>
+    <p class="privacy__paragraph">
+      This Privacy Statement explains how we collect, use and disclose information, including Personal Data, in connection
+      with our services. For these purposes, “Personal Data” means information related to an identified natural person or
+      that could reasonably be used (by itself or in combination with other data reasonably available) to identify a
+      natural person.
+    </p>
+    <p class="privacy__paragraph">
+      This Privacy Statement describes the choices available to you regarding our use of your Personal Data and how you
+      can access and update this information. This statement also covers our treatment of any Personal Data that our
+      business partners share with us or that we share with our business partners.
+    </p>
+    <h3 class="privacy__heading-3">Information we collect</h3>
+    <p class="privacy__paragraph">
+      When you visit our websites, register for the Service, or request more information about our services, we may
+      request that you provide Personal Data about yourself, and we also collect navigational information. In some cases,
+      if you do not provide sufficient Personal Data, we may not be able to provide all our available products and
+      services.
+    </p>
+    <h3 class="privacy__heading-3">Personal Data</h3>
+    <p class="privacy__paragraph">
+      We collect Personal Data such as name, title, phone number, email address, mailing address, and IP address.
+      Additionally, when you sign up for our paid service, we collect your billing information, including your credit card
+      number, expiration date, and billing address.
+    </p>
+    <h3 class="privacy__heading-3">Navigational Information</h3>
+    <p class="privacy__paragraph">
+      We may also automatically collect navigational information such as your browser including your browser type,
+      referrer page, domain name, access time, entry page, exit page, operating system type, and search engine keywords
+      used.
+    </p>
+    <h3 class="privacy__heading-3">Cookies and other Tracking Technologies</h3>
+    <p class="privacy__paragraph">
+      As is true of most websites, we may use cookies and other tracking mechanisms (web beacons, device identifiers and
+      similar technologies) to recognize you across websites and provide certain functionality. We use cookies tied to
+      Personal Data for essential operations, such as maintaining the security of authenticated user sessions. While you
+      can disable cookies used at the browser level, it is not recommended because certain features and/or controls may
+      not function as designed or as required to effectively and securely use our services.
+    </p>
+    <h3 class="privacy__heading-3">How we use your Information</h3>
+    <p class="privacy__paragraph">
+      We use the information we collect through our websites and services to measure our business success, to identify
+      effective ways to communicate with or educate our customers and prospects, to meet requests for certain product
+      features and services, and to communicate about product updates and service incidents.
+    </p>
+    <p class="privacy__paragraph">
+      We often act as an agent (the data processor) for each of our customers, in that we process Personal Data only on
+      the instructions from our customers (the data controller). As per our customer agreements, we do not access or make
+      use of any data collected on the customer’s behalf except as necessary to provide our services to that customer. We
+      do not aggregate, transfer, or otherwise disclose it to anyone but the customer, or pursuant to the customer’s
+      instructions. We do, however, reserve a right to disclose data we collect if required by law or valid order of a
+      court or other governmental authority.
+    </p>
+    <h3 class="privacy__heading-3">Information we Share</h3>
+    <p class="privacy__paragraph">
+      We will not rent, sell, or share Personal Data about you with third parties except to provide services that you have
+      requested.
+    </p>
+    <p class="privacy__paragraph">
+      We do need to disclose Personal Data to third-party agents that work on our behalf to provide our services, but only
+      to the extent needed to enable them to provide such services. For example, we use third party agents for
+      infrastructure hosting services and payment processing. All such third parties function as our agents performing
+      services at our instruction and on our behalf pursuant to contracts which require they provide an equivalent level
+      of privacy protection as is required by this Privacy Statement and any applicable data processing agreement in
+      place.
+    </p>
+    <h3 class="privacy__heading-3">How to Access and Update your Information</h3>
+    <p class="privacy__paragraph">
+      You have the ability to access, change and delete the Personal Data you submitted when you registered for the
+      Service
+    </p>
+    <h3 class="privacy__heading-3">International Data Transfers</h3>
+    <p class="privacy__paragraph">
+      Because our services are globally dispersed, we may process information in many countries, and therefore your
+      Personal Data may be transferred to servers located in different geographical areas. We process information as both
+      a data controller and a data processor, and we take the necessary steps in these distinct capacities to ensure the
+      protection for international transfers in compliance with applicable data protections laws and regulations.
+    </p>
+    <p class="privacy__paragraph">
+      On request, and for an extra charge, we can host all data on computers based geographically inside the European
+      Union.
+    </p>
+    <h3 class="privacy__heading-3">Data Security and Integrity</h3>
+    <p class="privacy__paragraph">
+      The security of your Personal Data is important to us. We use robust security measures to protect the Personal Data
+      submitted to us, both during transmission and once it is received. All information transferred within our systems is
+      automatically served through a secure connection (HTTPS). However, no method of transmission over the Internet, or
+      method of electronic storage, is 100% secure. While we have implemented and will maintain appropriate security
+      measures to protect your Personal Data, we cannot guarantee its absolute security. We use commercially acceptable
+      means to maintain the integrity of your Personal Data and have implemented physical, technical, and administrative
+      safeguards to protect your data from unauthorized access, use, disclosure, and destruction.
+    </p>
+    <h3 class="privacy__heading-3">Data Retention</h3>
+    <p class="privacy__paragraph">
+      We retain Personal Data that you provide to us where we have an ongoing legitimate business need to do so (for
+      example, as long as is required in order to contact you about our services, or as needed to comply with our legal
+      obligations.
+    </p>
+    <p class="privacy__paragraph">
+      We regularly review collected data and set data retention policies to delete data in accordance with contractual
+      agreements, legal obligations and applicable data protection laws.
+    </p>
+    <h3 class="privacy__heading-3">Do Not Track Response</h3>
+    <p class="privacy__paragraph">
+      Certain web browsers may allow you to enable a “do not track” option that sends signals to the websites you visit
+      indicating that you do not want your online activities tracked. However, some browsers with the “do not track”
+      option selected may still accept cookies. Because there is no industry standard for how companies should respond to
+      “do not track” signal, we do not respond to “do not track” signals at this time. If we do so in the future, we will
+      modify this statement accordingly.
+    </p>
+    <h3 class="privacy__heading-3">Material Changes</h3>
+    <p class="privacy__paragraph">
+      We reserve the right to make changes to this statement at any time to reflect changes to our data practices, so
+      please review it frequently. Should we make material changes to the manner in which your Personal Data is processed,
+      we will notify customers via email (sent to the email address specified in the user profile) and also post a notice
+      on our website.
+    </p>
+  </div>
+
+  </body>
+</html>
