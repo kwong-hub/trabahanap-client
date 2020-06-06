@@ -108,13 +108,13 @@ const routes: Routes = [
         path: 'issues/applicant',
         canActivate: [AdminGuard],
         component: IssueListApplicantComponent,
-        resolve: { data: ApplicantIssueListResolverService },
+        // resolve: { data: ApplicantIssueListResolverService },
       },
       {
         path: 'issues/report',
         canActivate: [AdminGuard],
         component: ReportJobListComponent,
-        resolve: { data: AdminReportResolverService },
+        // resolve: { data: AdminReportResolverService },
       },
       {
         path: 'issues/report/detail/:id',
@@ -132,7 +132,7 @@ const routes: Routes = [
         path: 'issues/employer',
         canActivate: [AdminGuard],
         component: IssueListEmployerComponent,
-        resolve: { data: EmployerIssueListResolverService },
+        // resolve: { data: EmployerIssueListResolverService },
       },
       {
         path: 'issues/employer/details/:id',

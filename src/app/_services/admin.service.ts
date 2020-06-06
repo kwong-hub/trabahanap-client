@@ -211,12 +211,12 @@ export class AdminService {
     return this.http.get(`${environment.apiUrl}/admin/issue/counts`);
   }
 
-  getAllEmployerIssues(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/admin/issues/employer`);
+  getAllEmployerIssues(page, pageSize): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/admin/issues/employer?page=${page}&pageSize=${pageSize}`);
   }
 
-  getAllApplicantIssues(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/admin/issues/applicant`);
+  getAllApplicantIssues(page, pageSize): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/admin/issues/applicant?page=${page}&pageSize=${pageSize}`);
   }
 
   addIssueResponse(issueResponse): Observable<any> {
@@ -238,8 +238,9 @@ export class AdminService {
   getApplicantById(id): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/admin/applicant/${id}`);
   }
-  getAllReportedJob() {
-    return this.http.get<any>(`${environment.apiUrl}/admin/reports`);
+
+  getAllReportedJob(page, pageSize) {
+    return this.http.get<any>(`${environment.apiUrl}/admin/reports?page=${page}&pageSize=${pageSize}`);
   }
 
   getPaymentInfo(page,pageSize) {

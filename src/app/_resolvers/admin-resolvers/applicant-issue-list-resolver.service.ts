@@ -10,7 +10,7 @@ export class ApplicantIssueListResolverService {
 
   constructor(private adminService: AdminService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this.adminService.getAllApplicantIssues();
-  }
+  // resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  //   return this.adminService.getAllApplicantIssues();
+  // }
 }

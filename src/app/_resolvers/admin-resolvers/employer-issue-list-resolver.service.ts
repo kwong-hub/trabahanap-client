@@ -10,7 +10,7 @@ export class EmployerIssueListResolverService {
 
   constructor(private adminService: AdminService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this.adminService.getAllEmployerIssues();
-  }
+  // resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  //   return this.adminService.getAllEmployerIssues();
+  // }
 }
