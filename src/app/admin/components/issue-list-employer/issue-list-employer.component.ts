@@ -41,7 +41,6 @@ export class IssueListEmployerComponent implements OnInit {
   getServerData(page) {
     this.adminService.getAllEmployerIssues(page.pageIndex + 1, page.pageSize).subscribe(
       data => {
-        console.log(data)
         if (data.success == true) {
           this.issues = data.issues.rows;
           this.pager = data.issues.pager;
