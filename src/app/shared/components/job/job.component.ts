@@ -31,7 +31,6 @@ export class JobComponent implements OnInit {
     let desc = this.Job.jobDescription.slice(0, 130);
     this.Job.jobDescription.length > 130 ? (desc = desc.concat(' ...')) : desc;
     this.Job = { ...this.Job, jobTitle: this.Job.jobTitle.match(/.{1,40}/g)[0], jobDescription: desc };
-    console.log(this.Job)
   }
 
   bookmarkJob(event) {

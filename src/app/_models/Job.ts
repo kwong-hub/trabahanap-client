@@ -18,5 +18,6 @@ export class Job {
   companyName: any;
   jobId: any;
   pwd: any;
-  distance: any
+  distance: any;
+  cityName: any;
 }
