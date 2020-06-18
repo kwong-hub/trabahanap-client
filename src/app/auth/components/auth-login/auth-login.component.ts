@@ -6,6 +6,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Role } from '@app/_models/Role';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-auth-login',
@@ -197,6 +198,8 @@ export class AuthLoginComponent implements OnInit {
           if (data.success) {
             this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || `/${data.user.role.toLowerCase()}`;
             this.route.navigate([this.returnUrl]);
+          } else if(data.user && data.user.toLowerCase().includes('incorrect')) {
+            this.error = data.user;
           } else if(data.user && data.user.toLowerCase().includes('verify your')) {
             this.error = data.user;
           } else if(data.user && data.user.toLowerCase().includes('confirmation')) {

@@ -24,8 +24,10 @@ import { AddLocationComponent } from './components/add-location/add-location.com
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocationDetailComponent } from './components/location-detail/location-detail.component';
 import { JobsListComponent } from './components/jobs-list/jobs-list.component';
-import { MatTableModule, MatButtonModule, MatProgressBarModule } from '@angular/material';
-import { MatPaginatorModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { EditCompanyLogoModalComponent } from './components/edit-company-logo-modal/edit-company-logo-modal.component';
 import { CandidatesListComponent } from './components/candidates-list/candidates-list.component';

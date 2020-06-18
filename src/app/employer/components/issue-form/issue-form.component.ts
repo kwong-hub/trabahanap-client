@@ -12,7 +12,7 @@ import { CustomSelectComponent } from '@app/shared/components/custom-select/cust
 })
 export class IssueFormComponent implements OnInit {
 
-  @ViewChild('issueTypeSelect', {static: false}) typeSelectRef: CustomSelectComponent;
+  @ViewChild('issueTypeSelect') typeSelectRef: CustomSelectComponent;
   @HostBinding('attr.class') cssClass = 'form';
   @Output() issueAdded = new EventEmitter();
   @Output() issueFailed = new EventEmitter();

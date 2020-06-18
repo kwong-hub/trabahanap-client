@@ -9,7 +9,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService } from './_services/authentication-service.service';
 import { JwtInterceptor } from './_helpers/jwt.intercepter';
 import { CustomPreloadingService } from './_services/custom-preloading.service';
-import { MatProgressBarModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [AppComponent],

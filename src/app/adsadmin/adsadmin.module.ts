@@ -11,14 +11,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {
-  MatProgressBarModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatButtonModule,
-  MatMenuModule,
-  MatExpansionModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
 import { JwtInterceptor } from '@app/_helpers/jwt.intercepter';
 import { ErrorInterceptor } from '@app/_helpers/error.intercepter';
 import { AdsadminRoutingModule } from './adsadmin-routing.module';

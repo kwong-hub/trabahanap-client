@@ -8,7 +8,7 @@ import { AuthenticationService } from '@app/_services/authentication-service.ser
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AnonymousFooterComponent } from './components/anonymous-footer/anonymous-footer.component';
-import { MatProgressBarModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthRegisterComponent } from './components/auth-register/auth-register.component';
 import { AnonymousCustomInputFieldComponent } from './components/anonymous-custom-input-field/anonymous-custom-input-field.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
@@ -35,7 +35,7 @@ const config = new AuthServiceConfig([
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('964493183990975')
+    provider: new FacebookLoginProvider('1920981268046041')
   }
 ]);
 

@@ -16,9 +16,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditApplicantCvModalComponent } from './components/edit-applicant-cv-modal/edit-applicant-cv-modal.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { EditApplicantPictureModalComponent } from './components/edit-applicant-picture-modal/edit-applicant-picture-modal.component';
-import { MatTableModule, MatButtonModule, MatPaginatorModule,
-  MatMenuModule, MatProgressBarModule, MatDatepickerModule,
-  MatInputModule, MatNativeDateModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
 import { BookmarkDetailComponent } from './components/bookmark-detail/bookmark-detail.component';

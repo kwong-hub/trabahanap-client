@@ -9,19 +9,17 @@ import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
 import { CompanyListComponent } from './components/company-list/company-list.component';
-import {
-  MatTableModule,
-  MatPaginatorModule,
-  MatButtonModule,
-  MatMenuModule,
-  MatProgressBarModule,
-  MatDatepickerModule,
-  MatFormFieldModule,
-  MatNativeDateModule,
-  MatInputModule,
-  MatIconModule,
-  MatSortModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { IssuesComponent } from './components/issues/issues.component';
 import { AddEmployerComponent } from './components/add-employer/add-employer.component';

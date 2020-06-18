@@ -48,8 +48,8 @@ export class FeatureJobListComponent implements OnInit {
   belowScroll: boolean = true;
   imageUrl = `assets/img/pseudo/Logo${Math.floor(Math.random() * 10) + 1}.png`;
   tabs: any = {};
-  @ViewChild('anchor', { static: false }) anchor: ElementRef<HTMLElement>;
-  @ViewChild('jobsListAnchor', { static: false }) jobsListAnchor: ElementRef<HTMLElement>;
+  @ViewChild('anchor') anchor: ElementRef<HTMLElement>;
+  @ViewChild('jobsListAnchor') jobsListAnchor: ElementRef<HTMLElement>;
   pramsKey: any;
   compId: any;
 

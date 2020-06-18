@@ -157,8 +157,8 @@ export class JobsListComponent implements OnInit {
   mobileSearchInfo = '';
   //scrolled = new EventEmitter();
 
-  @ViewChild('anchor', { static: false }) anchor: ElementRef<HTMLElement>;
-  @ViewChild('jobsListAnchor', { static: false }) jobsListAnchor: ElementRef<HTMLElement>;
+  @ViewChild('anchor') anchor: ElementRef<HTMLElement>;
+  @ViewChild('jobsListAnchor') jobsListAnchor: ElementRef<HTMLElement>;
   openActions: {};
   compId: any;
   adsModal: boolean;

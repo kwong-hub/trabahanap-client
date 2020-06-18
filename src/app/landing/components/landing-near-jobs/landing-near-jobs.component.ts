@@ -38,8 +38,8 @@ export class LandingNearJobsComponent implements OnInit {
   filterHidden = true;
   filtered = false;
   tabs: any = {};
-  @ViewChild('anchor', { static: false }) anchor: ElementRef<HTMLElement>;
-  @ViewChild('jobsListAnchor', { static: false }) jobsListAnchor: ElementRef<HTMLElement>;
+  @ViewChild('anchor') anchor: ElementRef<HTMLElement>;
+  @ViewChild('jobsListAnchor') jobsListAnchor: ElementRef<HTMLElement>;
   styleObject = {
     inputContainer: {},
     inputHeader: { fontSize: '1.5rem', borderBottom: '1px solid #888' },
