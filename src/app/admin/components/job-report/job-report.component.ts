@@ -1,29 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '@app/_services/admin.service';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { Moment } from 'moment';
 import * as moment from 'moment';
-import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { Location } from '@angular/common';
+import { ngxCsv } from 'ngx-csv';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AdminService } from '@app/_services/admin.service';
 
 @Component({
-  selector: 'app-applicant-report',
-  templateUrl: './applicant-report.component.html',
-  styleUrls: ['./applicant-report.component.scss']
+  selector: 'app-job-report',
+  templateUrl: './job-report.component.html',
+  styleUrls: ['./job-report.component.scss']
 })
-export class ApplicantReportComponent implements OnInit {
-
-  displayedColumns: string[] = ['date', 'registrationPerDay', 'subTotal', 'viaGoogle', 'viaFacebook', 
-    'viaNormal', 'logins', 'activeUsers', 'returningUsers', 'applicationsPerDay', 'applicantsPerDay'];
-  columnTitle: string[] = ['Date', 'Daily Registrations', 'Total Registrations', 'Google Registration', 
-    'Facebook Registration', 'Normal Registration', 'Daily Logins', 'Active Users', 'Returning Users', 'Daily Applications', 'Daily Applicants']
-  rows;
+export class JobReportComponent implements OnInit {
+  empty = false;
+  hasValues = false;
   matPager: any = {
     pageIndex: 0,
-    pageSize: 7
+    pageSize: 8
   };
-  pager: any;
-  selected: {startDate: Moment, endDate: Moment};
+  public pager: any;
+  public page: any;
+  shouldLoad: boolean = true;
+  reachedPageEnd: boolean = false;
+  columnTitle: string[] = ['Date', 'Company', 'Job', 'Vacancies', 'No Applicant'];
+  displayedColumns: string[] = ['date', 'dailyJobs', 'subTotal', 'pwd', 'vacancies'];
+  selected: { startDate: Moment, endDate: Moment };
   ranges: any = {
     // 'Today': [moment(), moment()],
     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -35,9 +36,10 @@ export class ApplicantReportComponent implements OnInit {
   filtered: boolean;
   maxDate = moment().subtract(1, 'days');
   minDate = moment('2018-01-01');
-  page: any;
+  rows: any;
 
-  constructor(private adminService: AdminService, private route: ActivatedRoute, private location: Location) { }
+  constructor(private route: ActivatedRoute, private adminService: AdminService, 
+    private router: Router, private location: Location) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(
@@ -50,34 +52,27 @@ export class ApplicantReportComponent implements OnInit {
   }
 
   getServerData(page) {
-    this.page = page;
-      if(this.filtered) {
-      this.adminService.filterApplicantReport({startDate: this.selected.startDate.format('YYYY-MM-DD'), endDate: this.selected.endDate.format('YYYY-MM-DD')}, page.pageIndex + 1, page.pageSize).subscribe(
+    if (this.filtered) {
+      this.adminService.filterJobsReport({startDate: this.selected.startDate.format('YYYY-MM-DD'), endDate: this.selected.endDate.format('YYYY-MM-DD')}, page.pageIndex + 1, page.pageSize).subscribe(
         data => {
-          if(data.success) {
+          if (data.success) {
             this.rows = data.stats.rows;
             this.pager = data.stats.pager;
             let path = this.location.path();
-              if (path.indexOf('page') >= 0) {
-                path = path.replace(/.$/, this.pager.currentPage.toString());
-                this.location.go(path);
-              } else {
-                path = path.concat(`?page=${this.pager.currentPage}`);
-                this.location.go(path);
-              }
-              this.filtered = true;
-              
+            if (path.indexOf('page') >= 0) {
+              path = path.replace(/.$/, this.pager.currentPage.toString());
+              this.location.go(path);
+            } else {
+              path = path.concat(`?page=${this.pager.currentPage}`);
+              this.location.go(path);
+            }
+            this.filtered = true;
           }
-        },
-        err => {
-          console.log(err)
         }
       )
-    }
-    else {
-      this.adminService.fetchApplicantReport(page.pageIndex + 1, page.pageSize).subscribe(
+    } else {
+      this.adminService.getJobsReport(page.pageIndex + 1, page.pageSize).subscribe(
         data => {
-          console.log(data);
           if(data.success) {
             this.rows = data.stats.rows;
             this.pager = data.stats.pager;
@@ -91,17 +86,16 @@ export class ApplicantReportComponent implements OnInit {
               }
           }
         },
-        error => {
-          console.log(error)
-        }
+        err => console.log(err)
       );
     }
+
   }
 
   onDatesUpdated(e) {
     if(e.startDate) {
       // let diff = e.endDate.diff(e.startDate, 'days');
-      this.adminService.filterApplicantReport({startDate: e.startDate.format('YYYY-MM-DD'), endDate: e.endDate.format('YYYY-MM-DD')}, 1, 7).subscribe(
+      this.adminService.filterJobsReport({startDate: e.startDate.format('YYYY-MM-DD'), endDate: e.endDate.format('YYYY-MM-DD')}, 1, 7).subscribe(
         data => {
           if(data.success) {
             this.rows = data.stats.rows;
@@ -128,14 +122,14 @@ export class ApplicantReportComponent implements OnInit {
   exportCSV() {
     if(this.filtered) {
       let diff = this.selected.endDate.diff(this.selected.startDate, 'days') + 1;
-      this.adminService.filterApplicantReport({startDate: this.selected.startDate.format('YYYY-MM-DD'), endDate: this.selected.endDate.format('YYYY-MM-DD')}, 1, diff, 'ASC').subscribe(
+      this.adminService.filterJobsReport({startDate: this.selected.startDate.format('YYYY-MM-DD'), endDate: this.selected.endDate.format('YYYY-MM-DD')}, 1, diff, 'ASC').subscribe(
         data => {
           if(data.success) {
             let expo = data.stats.rows;
             let options = {
               headers: this.columnTitle
             }
-            new ngxCsv(expo, `Applicant User Report${moment().format('MMDDYYYY')}`, options);
+            new ngxCsv(expo, `Jobs Report${moment().format('MMDDYYYY')}`, options);
           }
         },
         err => {
@@ -144,14 +138,14 @@ export class ApplicantReportComponent implements OnInit {
       )
     }
     else {
-      this.adminService.fetchApplicantReport(1, this.page.pageSize, 'ASC').subscribe(
+      this.adminService.getJobsReport(1, this.page.pageSize, 'ASC').subscribe(
         data => {
           if(data.success) {
             let expo = data.stats.rows;
             let options = {
               headers: this.columnTitle
             }
-            new ngxCsv(expo, `Applicant User Report${moment().format('MMDDYYYY')}`, options);
+            new ngxCsv(expo, `Jobs Report${moment().format('MMDDYYYY')}`, options);
           }
         },
         error => {
@@ -160,5 +154,4 @@ export class ApplicantReportComponent implements OnInit {
       );
     }
   }
-
 }

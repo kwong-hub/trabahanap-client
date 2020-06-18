@@ -261,13 +261,22 @@ export class AdminService {
   getCompanyInfo(id){
     return this,this.http.get<any>(`${environment.apiUrl}/admin/employers/${id}`)
   }
+  
   getBalance(id){
     return this.http.get<any>(`${environment.apiUrl}/admin/subscription/balance/${id}`);
   }
+  
   getPwdJobs(page,pageSize){
     return this.http.get<any>(`${environment.apiUrl}/admin/reports/pwd?page=${page}&pageSize=${pageSize}`)
   }
  
+  getJobsReport(page,pageSize, order = 'DESC'){
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/jobs?page=${page}&pageSize=${pageSize}&order=${order}`)
+  }
+  
+  filterJobsReport(dateRange, page, pageSize, order = 'DESC') {
+    return this.http.get<any>(`${environment.apiUrl}/admin/report/filter/jobs?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&page=${page}&pageSize=${pageSize}&order=${order}`);
+  }
 
   verifyUser(dateRange){
     return this.http.post<any>(`${environment.apiUrl}/admin/send_email?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`,{});

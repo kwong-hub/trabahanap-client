@@ -86,6 +86,7 @@ import { EmployerPlanComponent } from './components/employer-plan/employer-plan.
 import { ExemptedCompanyComponent } from './components/exempted-company/exempted-company.component';
 import { PwdCompanyComponent } from './components/pwd-company/pwd-company.component';
 import { SendEmailComponent } from './components/send-email/send-email.component';
+import { JobReportComponent } from './components/job-report/job-report.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { SendEmailComponent } from './components/send-email/send-email.component
     EmployerPlanComponent,
     ExemptedCompanyComponent,
     PwdCompanyComponent,
-    SendEmailComponent
+    SendEmailComponent,
+    JobReportComponent
   ],
   imports: [
     AdminRoutingModule,

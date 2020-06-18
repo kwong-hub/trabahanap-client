@@ -70,6 +70,7 @@ import { ExemptedCompanyComponent } from './components/exempted-company/exempted
 import { ExemptResolverService } from '@app/_resolvers/admin-resolvers/exempt-resolver.service';
 import { PwdCompanyComponent } from './components/pwd-company/pwd-company.component';
 import { SendEmailComponent } from './components/send-email/send-email.component';
+import { JobReportComponent } from './components/job-report/job-report.component';
 
 const routes: Routes = [
   {
@@ -318,6 +319,12 @@ const routes: Routes = [
         path: 'report/pwd',
         canActivate: [AdminGuard],
         component: PwdCompanyComponent,
+        // resolve: { data: Add }
+      },
+      {
+        path: 'report/jobs',
+        canActivate: [AdminGuard],
+        component: JobReportComponent,
         // resolve: { data: Add }
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' },

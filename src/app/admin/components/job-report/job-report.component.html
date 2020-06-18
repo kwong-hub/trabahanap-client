@@ -1,0 +1,58 @@
+<div class="sub-module-container">
+    <h3 class="sub-module-container__heading">Jobs Report</h3>
+    <div class="sub-module-container__container">
+      <div class="top-bar">
+        <div class="filter-container">
+          <input type="text" ngxDaterangepickerMd [(ngModel)]="selected"
+          [alwaysShowCalendars]="true" [ranges]="ranges" class="date-range-input"
+          [locale]="{format: 'YYYY-MM-DD', displayFormat: 'MMM DD, YYYY'}" [minDate]="minDate"
+          [keepCalendarOpeningWithRange]="true" [showClearButton]="true" [maxDate]="maxDate" 
+          (datesUpdated)="onDatesUpdated($event)" placeholder="Select Date Range . . ." />
+        </div>
+        <div class="action-container">
+          <button mat-button (click)="exportCSV()">
+            <mat-icon>save_alt</mat-icon>
+            Export CSV
+          </button>
+        </div>
+      </div>
+
+      <table mat-table [dataSource]="rows" class="mat-elevation-z3">
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let row">{{ row.datefield }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="dailyJobs">
+            <th mat-header-cell *matHeaderCellDef>Daily Jobs</th>
+            <td mat-cell *matCellDef="let row">{{ row.dailyJobs }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="subTotal">
+            <th mat-header-cell *matHeaderCellDef>Total Jobs</th>
+            <td mat-cell *matCellDef="let row">{{ row.subTotal }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="pwd">
+            <th mat-header-cell *matHeaderCellDef>PWD Jobs</th>
+            <td mat-cell *matCellDef="let row">{{ row.pwd }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="vacancies">
+            <th mat-header-cell *matHeaderCellDef>Vacancies</th>
+            <td mat-cell *matCellDef="let row">{{ row.vacancies }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      
+          <div class="paginator">
+            <mat-paginator [length]="pager?.totalItems" [pageSize]="pager?.pageSize" [pageSizeOptions]="[5, 8, 10, 25, 100]"
+              [pageIndex]="pager?.currentPage - 1" (page)="getServerData($event)">
+            </mat-paginator>
+          </div>
+    </div>
+</div>
