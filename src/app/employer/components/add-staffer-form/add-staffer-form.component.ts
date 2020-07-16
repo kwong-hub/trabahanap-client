@@ -12,7 +12,7 @@ export class AddStafferFormComponent implements OnInit {
   addStaffer: FormGroup;
   submitted: boolean;
   loading: boolean;
-  defaultLimit = { max: '30', min: '0' };
+  defaultLimit = { max: '45', min: '0' };
   numberRange = { max: '16', min: '10' };
   constructor(private formBuilder: FormBuilder, private otherService: OtherService) {}
 

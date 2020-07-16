@@ -62,6 +62,7 @@ import { AddStafferFormComponent } from './components/add-staffer-form/add-staff
 import { PaymentService } from '@app/_services/payment.service';
 import { SubscriptionResolverService } from '@app/_resolvers/employer-resolvers/subscription-resolver.service';
 import { PaymentTypeResolverService } from '@app/_resolvers/employer-resolvers/payment-type-resolver.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { PaymentTypeResolverService } from '@app/_resolvers/employer-resolvers/p
     MatButtonModule,
     MatMenuModule,
     MatExpansionModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

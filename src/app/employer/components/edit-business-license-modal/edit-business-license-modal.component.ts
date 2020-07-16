@@ -42,7 +42,7 @@ export class EditBusinessLicenseModalComponent implements OnInit {
       this.updateBusinessLicenseForm.controls['businessLicense'].setErrors({format: true})
       return;
     }
-    if(size > 5000000){
+    if(size > 4000000){
       this.updateBusinessLicenseForm.controls['businessLicense'].setValue('');
       this.updateBusinessLicenseForm.controls['businessLicense'].setErrors({maxSize:true})
       return;

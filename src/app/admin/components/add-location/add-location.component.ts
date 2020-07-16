@@ -8,6 +8,7 @@ import { tileLayer, latLng, marker, icon, Point, LatLng } from 'leaflet';
 import { Location } from '@angular/common';
 import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch';
 import * as L from 'leaflet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-location',
@@ -64,7 +65,8 @@ export class AddLocationComponent implements OnInit {
     private adminService: AdminService,
     private Route: ActivatedRoute,
     private locationService: LocationService,
-    private _location: Location
+    private _location: Location,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -129,6 +131,10 @@ export class AddLocationComponent implements OnInit {
   }
 
   fileChanged(value, name) {
+    if(value.size > 1000000) {
+      let snackBarRef = this._snackBar.open('Maximum picture size is 1MB', 'Dismiss', { duration: 4000});
+      return;
+    }
     this.formData.append(name, value, value.name);
   }
 

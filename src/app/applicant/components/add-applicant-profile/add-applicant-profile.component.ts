@@ -3,20 +3,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocationService } from '@app/_services/location.service';
 import _ from 'lodash';
-import {
-  faCheck,
-  faUserPlus,
-  faIdCard,
-  faCloudUploadAlt,
-  faUserCheck,
-  faEyeDropper,
-  faEdit,
-  faCamera,
-  faTimes
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faUserPlus, faIdCard, faCloudUploadAlt, faUserCheck, faEyeDropper, faEdit, faCamera, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/_services/authentication-service.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-applicant-profile',
@@ -140,7 +131,7 @@ export class AddApplicantProfileComponent implements OnInit {
     private locationService: LocationService,
     private applicantService: ApplicantService,
     private router: Router,
-    private authService: AuthenticationService
+    private authService: AuthenticationService, private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -247,6 +238,12 @@ export class AddApplicantProfileComponent implements OnInit {
   }
 
   imageChanged(event: any) {
+    let val = event.target.files[0] ? event.target.files[0] : null;
+    if(val.size > 1500000) {
+      let snackBarRef = this._snackBar.open('Maximum file size is 1.5MB', 'Dismiss', { duration: 4000});
+      this.selectedImage = '';
+      return;
+    }
     this.imageChangedEvent = event;
   }
 

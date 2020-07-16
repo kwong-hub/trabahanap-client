@@ -50,10 +50,8 @@
           </div>
         </div>
       </div>
-      <button
+      <button (click)="toRegister('app')"
         class="th-btn th-btn--primary guide__btn"
-        [routerLink]="['/auth/register']"
-        [queryParams]="{ as: 'app' }"
       >
         MAG-REGISTER BILANG APLIKANTE
       </button>
@@ -103,13 +101,13 @@
           </div>
         </div>
       </div>
-      <button
+      <button (click)="toRegister('emp')"
         class="th-btn th-btn--primary guide__btn guide__btn--emp"
-        [routerLink]="['/auth/register']"
-        [queryParams]="{ as: 'emp' }"
       >
         Register as an Employer
       </button>
     </div>
   </section>
+  <landing-custom-notification [show]="showNotification" type="error"
+    text="Log out to go to registration page"></landing-custom-notification>
 </div>

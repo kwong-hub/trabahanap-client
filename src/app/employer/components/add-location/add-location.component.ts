@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch';
 import * as L from 'leaflet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-company-location',
@@ -68,7 +69,7 @@ export class AddLocationComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private locationService: LocationService,
     private Route: ActivatedRoute,
-    private _location: Location
+    private _location: Location, private _snackBar: MatSnackBar
   ) {
     this.Route.data.subscribe(res => {
       let data = res.data;
@@ -89,7 +90,7 @@ export class AddLocationComponent implements OnInit {
       locationPhoneNumber: ['', Validators.required],
       email: ['', Validators.compose([Validators.required, Validators.email])],
       address: ['', Validators.required],
-      picture: ['picture'],
+      picture: [''],
       cityId: ['', Validators.required],
       regionId: ['', Validators.required],
       countryId: ['', Validators.required],
@@ -170,6 +171,12 @@ export class AddLocationComponent implements OnInit {
   fileChanged(value, name) {
     if(this.formData.has(name)) {
       this.formData.delete(name);
+    }
+    if(value.size > 1000000) {
+      let snackBarRef = this._snackBar.open('Maximum file size is 1MB', 'Dismiss', { duration: 4000});
+      // @ts-ignore
+      document.querySelector('input[type="file"]').value = '';
+      return;
     }
     this.formData.append(name, value, value.name);
   }
@@ -280,58 +287,61 @@ export class AddLocationComponent implements OnInit {
 
     if (this.mustBeBranch && val.isHeadOffice) {
       this.toggleConfirmModal = true;
+      return;
+    }
+
+    if (!this.latitude) {
+      this.locationError = true;
+      setTimeout(() => {
+        this.locationError = false;
+      }, 4750);
+      return;
     } else {
       _.map(val, (value, key) => {
         if (key != 'picture') {
           this.formData.append(key, value);
         }
-      });
+    });
 
-      if (!this.latitude) {
-        this.locationError = true;
-        setTimeout(() => {
-          this.locationError = false;
-        }, 4750);
-        return;
-      }
-      this.formData.append('latitude', this.latitude);
-      this.formData.append('longitude', this.longitude);
-      //@ts-ignore
-      this.formData.append('companyProfileId', this.authenticationService.currentUserValue.companyProfileId);
 
-      var names = [];
-      //@ts-ignore
-      for (var pair of this.formData.entries()) {
-        names.push(pair[0]);
-      }
+    this.formData.append('latitude', this.latitude);
+    this.formData.append('longitude', this.longitude);
+    //@ts-ignore
+    this.formData.append('companyProfileId', this.authenticationService.currentUserValue.companyProfileId);
 
-      this.loading = true;
-      this.employerService.addCompanyBranch(this.formData).pipe(first()).subscribe(
-          data => {
-            console.log(data)
-            if (data.success) {
-              this.loading = false;
-              this.submitted = false;
-              // this.locationForm.reset();
-              this.locationAdded = true;
+    var names = [];
+    //@ts-ignore
+    for (var pair of this.formData.entries()) {
+      names.push(pair[0]);
+    }
 
-              const user = this.authenticationService.currentUserValue;
-              if (user.company_profile) {
-                // ts-ignore
-                user.company_profile.hasLocations = true;
-
-                this.authenticationService.updateCurrentUser(user);
-              }
-            } else {
-              this.loading = false;
-              data.validationError ? this.error = data.validationError : this.failure = true;
-            }
-          },
-          error => {
-            console.log(error);
+    this.loading = true;
+    this.employerService.addCompanyBranch(this.formData).pipe(first()).subscribe(
+        data => {
+          // console.log(data)
+          if (data.success) {
             this.loading = false;
+            this.submitted = false;
+            // this.locationForm.reset();
+            this.locationAdded = true;
+
+            const user = this.authenticationService.currentUserValue;
+            if (user.company_profile) {
+              // ts-ignore
+              user.company_profile.hasLocations = true;
+
+              this.authenticationService.updateCurrentUser(user);
+            }
+          } else {
+            this.loading = false;
+            data.validationError ? this.error = data.validationError : this.failure = true;
           }
-        );
+        },
+        error => {
+          console.log(error);
+          this.loading = false;
+        }
+      );
     }
   }
 }

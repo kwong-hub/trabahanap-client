@@ -4,6 +4,7 @@ import { LocationService } from '@app/_services/location.service';
 import _ from 'lodash';
 import { AdminService } from '@app/_services/admin.service';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-applicant',
@@ -38,6 +39,7 @@ export class AddApplicantComponent implements OnInit {
   submitted;
   formData = new FormData();
   applicantAdded: boolean;
+  applicantError: string;
   defaultLimit = { max: '35', min: '0' };
   numberRange = { max: '20', min: '10' };
   bigLimit = { max: '100', min: '6' };
@@ -45,7 +47,8 @@ export class AddApplicantComponent implements OnInit {
     private adminService: AdminService,
     private formBuilder: FormBuilder,
     private _location: Location,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -124,12 +127,24 @@ export class AddApplicantComponent implements OnInit {
   }
 
   fileChanged(value, name) {
+    if(name === "applicantPicture" && value.size > 1500000) {
+      let snackBarRef = this._snackBar.open('Maximum picture size is 1.5MB', 'Dismiss', { duration: 4000});
+      // @ts-ignore
+      document.querySelectorAll('input[type="file"]')[0].value = '';
+      return;
+    }
+    if(name === "cv" && value.size > 4000000) {
+      let snackBarRef = this._snackBar.open('Maximum cv size is 4MB', 'Dismiss', { duration: 4000});
+      // @ts-ignore
+      document.querySelectorAll('input[type="file"]')[1].value = '';
+      return;
+    }
     this.formData.append(name, value, value.name);
   }
 
   onSubmit() {
     this.submitted = true;
-
+    this.applicantError = ''
     if (this.addApplicantForm.invalid) {
       return;
     }
@@ -156,6 +171,9 @@ export class AddApplicantComponent implements OnInit {
             this.applicantAdded = false;
             this._location.back();
           }, 3500);
+        } else {
+          console.log(data);
+          this.applicantError = data.message;
         }
       },
       error => {

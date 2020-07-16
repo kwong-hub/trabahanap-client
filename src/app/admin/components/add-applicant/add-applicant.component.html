@@ -1,29 +1,10 @@
 <div class="sub-module-container">
-  <div
-    class="notification notification--success"
-    [class.active]="applicantAdded"
-  >
-    <div class="notification__body">
-      <i
-        style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-        class="far fa-check-circle"
-      ></i>
-      <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-      <span class="text">Successfully added a New Applicant</span>
-    </div>
-  </div>
   <h3 class="sub-module-container__heading">Applicants</h3>
   <div class="sub-module-container__container job">
     <div class="form-container">
       <h2 class="form__header">Add New Applicant</h2>
-      <form
-        action="#"
-        class="form"
-        [formGroup]="addApplicantForm"
-        enctype="multipart/form-data"
-        (ngSubmit)="onSubmit()"
-      >
+      <form action="#" class="form" [formGroup]="addApplicantForm"
+        enctype="multipart/form-data" (ngSubmit)="onSubmit()">
         <div class="form__group">
           <shared-custom-input-field
             defaultValue=""
@@ -34,8 +15,7 @@
             type="text"
             name="firstName"
             [formGroup]="addApplicantForm"
-            [limit] ="defaultLimit"
-          >
+            [limit] ="defaultLimit">
           </shared-custom-input-field>
 
           <shared-custom-input-field
@@ -235,14 +215,18 @@
         </div>
 
         <div class="form__group">
-          <input
+          <!-- <input
             [class.disabled]="addApplicantForm.invalid || loading"
             type="submit"
             value="Submit"
             class="form__submit th-btn th-btn--primary"
-          />
+          /> -->
+          <app-custom-submit-button text="Submit" [loading]="loading"
+            [styleObject]="{btn: {width: '100%'}}"></app-custom-submit-button>
         </div>
       </form>
     </div>
   </div>
+  <app-custom-notification [type]="applicantAdded ? 'success' : 'error'"
+    [show]="applicantAdded || applicantError" [text]="applicantAdded ? 'Applicant added successfully' : applicantError"></app-custom-notification>
 </div>

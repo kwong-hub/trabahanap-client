@@ -85,6 +85,7 @@ import { ExemptedCompanyComponent } from './components/exempted-company/exempted
 import { PwdCompanyComponent } from './components/pwd-company/pwd-company.component';
 import { SendEmailComponent } from './components/send-email/send-email.component';
 import { JobReportComponent } from './components/job-report/job-report.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -152,7 +153,8 @@ import { JobReportComponent } from './components/job-report/job-report.component
     MatInputModule,
     MatIconModule,
     MatSortModule,
-    NgxDaterangepickerMd.forRoot()
+    NgxDaterangepickerMd.forRoot(),
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

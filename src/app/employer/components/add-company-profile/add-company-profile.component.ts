@@ -20,6 +20,7 @@ import { VirtualTimeScheduler, Observable, Subject } from 'rxjs';
 import { JobService } from '@app/_services/jobs.service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { AnonymousService } from '@app/_services/anonymous.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-company-profile',
@@ -82,7 +83,7 @@ export class AddCompanyProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthenticationService,
     private locationService: LocationService,
-    private anonyService: AnonymousService
+    private anonyService: AnonymousService, private _snackBar: MatSnackBar
   ) {
     this.route.data.subscribe(res => {
       let data = res.data;
@@ -183,6 +184,10 @@ export class AddCompanyProfileComponent implements OnInit {
     let name = 'companyLogo';
     this.formData = new FormData();
     let val = event.target.files[0] ? event.target.files[0] : null;
+    if(val.size > 1500000) {
+      let snackBarRef = this._snackBar.open('Maximum file size is 1.5MB', 'Dismiss', { duration: 4000});
+      return;
+    }
     let reader = new FileReader();
     reader.onload = (e: Event) => {
       this.tempImg = reader.result;
@@ -201,9 +206,15 @@ export class AddCompanyProfileComponent implements OnInit {
 
   fileChanged(value, name) {
     let size = value.size;
-    if (size > 5000000) {
+    if (name === "businessLicense" && size > 4000000) {
       this.addCompanyProfileForm.controls['businessLicense'].setValue('');
       this.addCompanyProfileForm.controls['businessLicense'].setErrors({ maxSize: true });
+      return;
+    }
+    if (name === "companyLogo" && size > 1500000) {
+      let snackBarRef = this._snackBar.open('Maximum image size is 1.5MB', 'Dismiss', { duration: 4000});
+      // @ts-ignore
+      document.querySelector('input[type="file"]').value = '';
       return;
     }
     if(this.formData.has(name)) {

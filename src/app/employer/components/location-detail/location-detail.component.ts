@@ -9,6 +9,7 @@ import _ from 'lodash';
 import { LocationService } from '@app/_services/location.service';
 import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch';
 import * as L from 'leaflet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-location-detail',
@@ -66,7 +67,7 @@ export class LocationDetailComponent implements OnInit {
     private locationService: LocationService,
     private formBuilder: FormBuilder,
     private Route: ActivatedRoute,
-    private _location: Location
+    private _location: Location, private _snackBar: MatSnackBar
   ) {
     this.Route.data.subscribe(res => {
       let data = res.data;
@@ -228,6 +229,10 @@ export class LocationDetailComponent implements OnInit {
   imageChanged(event) {
     this.formData = new FormData();
     let val = event.target.files[0] ? event.target.files[0] : null;
+    if(val.size > 1000000) {
+      let snackBarRef = this._snackBar.open('Maximum file size is 1MB', 'Dismiss', { duration: 4000});
+      return;
+    }
     let reader = new FileReader();
     reader.onload = (e: Event) => {
       this.tempImg = reader.result;

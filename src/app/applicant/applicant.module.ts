@@ -25,6 +25,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
 import { BookmarkDetailComponent } from './components/bookmark-detail/bookmark-detail.component';
 import { ReportIssueComponent } from './components/report-issue/report-issue.component';
@@ -73,7 +74,8 @@ import { ApplicantDashboardResolverService } from '@app/_resolvers/applicant-res
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatSnackBarModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

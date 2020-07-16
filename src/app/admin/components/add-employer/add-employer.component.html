@@ -282,44 +282,20 @@
           <div (click)="cancle($event)" class="form__edit">
             Cancel <fa-icon class="form__edit-icon" [icon]="faTimes"></fa-icon>
           </div>
-          <input
+          <!-- <input
             type="submit"
             class="form__submit th-btn th-btn--primary"
             [class.form__submit--inactive]="submitted || !addEmployer.valid"
             [disabled]="submitted"
             value="Add Employer"
-          />
+          /> -->
+          <app-custom-submit-button text="Submit" [loading]="showLoader"
+            [styleObject]="{btn: {width: '100%'}}"></app-custom-submit-button>
         </div>
       </div>
     </form>
   </div>
 </div>
+<app-custom-notification [type]="employerAdded ? 'success' : 'employerAddFailed'" [show]="employerAdded || employerAddFailed"
+  [text]="employerAdded ? 'Employer added successfully' : 'Failed to add employer'"></app-custom-notification>
 
-<div class="notification notification--added" [class.active]="employerAdded">
-  <div class="notification__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
-    <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-    <span class="text">You have successfully added employer</span>
-  </div>
-</div>
-
-<div
-  class="notification notification--error"
-  [class.active]="employerAddFailed"
->
-  <div class="notification__body">
-    <i
-      style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline"
-      class="far fa-check-circle"
-    ></i>
-    <!-- <fa-icon style="color: #E1A223; margin-right: 10px; font-size: 2rem; display: inline" [icon]="faCheckCircle"></fa-icon> -->
-
-    <span class="text">Failed to add employer. Try again.</span>
-  </div>
-</div>
-
-<shared-loader *ngIf="showLoader"></shared-loader>

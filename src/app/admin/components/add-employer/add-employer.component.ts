@@ -15,6 +15,7 @@ import {
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import _ from 'lodash';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-employer',
@@ -78,7 +79,8 @@ export class AddEmployerComponent implements OnInit {
     private route: ActivatedRoute,
     private locationService: LocationService,
     private adminService: AdminService,
-    private _location: Location
+    private _location: Location,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -126,11 +128,24 @@ export class AddEmployerComponent implements OnInit {
   }
 
   fileChanged(value, name) {
+    if(name === "companyLogo" && value.size > 2000000) {
+      let snackBarRef = this._snackBar.open('Maximum picture size is 2MB', 'Dismiss', { duration: 4000});
+      // @ts-ignore
+      document.querySelectorAll('input[type="file"]')[0].value = '';
+      return;
+    }
+    if(name === "businessLicense" && value.size > 4000000) {
+      let snackBarRef = this._snackBar.open('Maximum picture size is 4MB', 'Dismiss', { duration: 4000});
+      // @ts-ignore
+      document.querySelectorAll('input[type="file"]')[1].value = '';
+      return;
+    }
     this.formData.append(name, value, value.name);
   }
 
   onSubmit() {
     this.submitted = true;
+    this.employerAddFailed = false;
     if (this.addEmployer.invalid) {
       return;
     }

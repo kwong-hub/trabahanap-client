@@ -77,10 +77,7 @@ export class LandingNearJobsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-
     navigator.permissions.query({name:'geolocation'})
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         pos => {
@@ -221,7 +218,7 @@ export class LandingNearJobsComponent implements OnInit {
     this.loading = true;
     this.anonyService.searchJobByProximity(this.latitude, this.longitude, radius, key,0).subscribe(data => {
       this.loading = false;
-      console.log(data)
+      // console.log(data)
       if (data.success) {
         // this.pinMarkers(data.jobs);
         this.jobs = data.jobs.rows;
