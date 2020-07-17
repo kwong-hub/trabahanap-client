@@ -71,6 +71,7 @@ export class CompanyListComponent implements OnInit {
       companyName: ['', Validators.nullValidator],
       industry: ['', Validators.nullValidator],
       verify: [''],
+      suspend: [''],
       registrationDate: ['', Validators.nullValidator]
     });
 
@@ -124,7 +125,7 @@ export class CompanyListComponent implements OnInit {
     if (this.filtered) {
       var val = this.searchForm.value;
       this.adminService
-        .getFilterEmployers(val.companyName, val.industry, val.verify, val.registrationDate, parseInt(page.pageIndex) + 1, page.pageSize)
+        .getFilterEmployers(val.companyName, val.industry, val.verify, val.suspend, val.registrationDate, parseInt(page.pageIndex) + 1, page.pageSize)
         .subscribe(data => {
           if (data) {
             this.companies = data.companies.rows;
@@ -177,7 +178,7 @@ export class CompanyListComponent implements OnInit {
   filterEmployers() {
     var val = this.searchForm.value;
     this.filterHidden = true;
-    this.adminService.getFilterEmployers(val.companyName, val.industry, val.verify, val.registrationDate, this.page || 1, 8).subscribe(data => {
+    this.adminService.getFilterEmployers(val.companyName, val.industry, val.verify, val.suspend, val.registrationDate, this.page || 1, 8).subscribe(data => {
       if (data) {
         this.companies = data.companies.rows;
         this.pager = data.companies.pager;

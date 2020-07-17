@@ -273,42 +273,6 @@ const routes: Routes = [
         canActivate: [SuperAdminGuard],
         component: SendEmailComponent,
       },
-      // {
-      //   path: 'payment',
-      //   canActivate: [AdminGuard],
-      //   component: PaymentListComponent,
-      //   resolve: { data: AdminPaymentListResolverService },
-      // },
-      // {
-      //   path: 'payment/detail/:id',
-      //   canActivate: [AdminGuard],
-      //   component: EmployerPaymentInformationComponent,
-      //   resolve: { data: AdminEmployerPaymentResolverService }
-      // },
-      // {
-      //   path: 'plan_types',
-      //   canActivate: [AdminGuard],
-      //   component: PlanTypesComponent,
-      //   resolve: { data: PaymentTypeResolverService },
-      // },
-      // {
-      //   path: 'exempt',
-      //   canActivate: [AdminGuard],
-      //   component: ExemptedCompanyComponent,
-      //   resolve: { data: ExemptResolverService },
-      // },
-      // {
-      //   path: 'plan_types/add',
-      //   canActivate: [AdminGuard],
-      //   component: AddPlanTypeComponent
-      //   // resolve: { data: Add }
-      // },
-      // {
-      //   path: 'plan_types/edit/:id',
-      //   canActivate: [AdminGuard],
-      //   component: EditPlanTypeComponent,
-      //   resolve: { data: EditPaymentTypeResolverService }
-      // },
       {
         path: 'employers/add_plan/:id',
         canActivate: [AdminGuard],

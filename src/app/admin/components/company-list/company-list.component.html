@@ -10,7 +10,7 @@
         <form action="#" (ngSubmit)="filterEmployers()" class="form" [formGroup]="searchForm" autocomplete="off">
           <div class="sub-container">
             <shared-custom-input-field
-              class="input-element-type-2"
+              class="input-element-type-1"
               [formGroup]="searchForm"
               name="companyName"
               defaultValue=""
@@ -26,7 +26,7 @@
           </div>
           <div class="sub-container">
             <shared-custom-input-field
-              class="input-element-type-2"
+              class="input-element-type-1"
               [formGroup]="searchForm"
               name="industry"
               defaultValue=""
@@ -55,16 +55,16 @@
             ></shared-custom-datepicker>
           </div>
 
-          <div class="form__group--btn">
+          <div class="sub-container sub-container--checks">
             <div class="checkbox">
               <input
                 type="checkbox"
                 formControlName="verify"
-                name="suspended"
-                id="pwd-checkbox"
+                name="verify"
+                id="verify-checkbox"
                 class="checkbox__input"
               />
-              <label for="pwd-checkbox" class="checkbox__label">
+              <label for="verify-checkbox" class="checkbox__label">
                 <div class="checkbox__button"></div>
                 <span class="checkbox__text"
                   >Un-Verified
@@ -72,9 +72,25 @@
                 </span>
               </label>
             </div>
+            <div class="checkbox">
+              <input
+                type="checkbox"
+                formControlName="suspend"
+                name="suspend"
+                id="suspend-checkbox"
+                class="checkbox__input"
+              />
+              <label for="suspend-checkbox" class="checkbox__label">
+                <div class="checkbox__button"></div>
+                <span class="checkbox__text"
+                  >Suspended
+                  <!-- <i style="margin: .5rem .5rem 0; color: #42597B" class="fab fa-accessible-icon"></i> -->
+                </span>
+              </label>
+            </div>
           </div>
 
-          <div class="form__group--btn">
+          <div class="sub-container">
             <input type="submit" value="Search" class="form__submit th-btn th-btn--primary" />
           </div>
         </form>
@@ -154,7 +170,7 @@
               <span class="company-list__icon"></span>Details
             </button>
             <button (click)="verifyCompany(company.id)" class="company-list__action company-list__action--hover">
-              <span class="company-list__icon"> <fa-icon [icon]="company?.verified ? faTimes : ''"></fa-icon> </span
+              <span class="company-list__icon"> <fa-icon *ngIf="company?.verified" [icon]="faTimes"></fa-icon> </span
               >{{ company.verified ? 'Reject' : 'Verify' }}
             </button>
             <button

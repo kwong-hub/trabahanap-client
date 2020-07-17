@@ -104,9 +104,9 @@ export class AdminService {
     return this.http.get<any>(`${environment.apiUrl}/admin/filter/applications?applicant=${applicantName}&job=${jobtitle}&company=${companyName}&hired=${hired}&page=${page}&pageSize=${pageSize}`);
   }
 
-  getFilterEmployers(companyName, industry, verify, registrationDate, page, pageSize) {
+  getFilterEmployers(companyName, industry, verify, suspend, registrationDate, page, pageSize) {
     return this.http.get<any>(
-      `${environment.apiUrl}/admin/filter/employers?companyName=${companyName}&industry=${industry}&verify=${verify}&registrationDate=${registrationDate}&page=${page}&pageSize=${pageSize}`
+      `${environment.apiUrl}/admin/filter/employers?companyName=${companyName}&industry=${industry}&verify=${verify}&suspend=${suspend}&registrationDate=${registrationDate}&page=${page}&pageSize=${pageSize}`
     );
   }
 
